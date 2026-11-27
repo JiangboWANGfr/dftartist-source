@@ -1,0 +1,346 @@
+levels:
+  level1:
+    replacements:
+      # ijtag
+      - pattern: 'set_input_delay \$local_controls_input_delay -clock \$tessent_clock_mapping\(ts_tck_ijtag_tck\) \[tessent_get_ports \{ijtag_reset\}\]'
+        replacement: 'set_input_delay 9 -clock $tessent_clock_mapping(ts_tck_ijtag_tck) [tessent_get_ports {ijtag_reset}]'
+
+      - pattern: 'set_input_delay \$local_controls_input_delay -clock \$tessent_clock_mapping\(ts_tck_ijtag_tck\) \[tessent_get_ports \{ijtag_ce\}\]  -clock_fall'
+        replacement: 'set_input_delay 9 -clock $tessent_clock_mapping(ts_tck_ijtag_tck) [tessent_get_ports {ijtag_ce}]  -clock_fall'
+
+      - pattern: 'set_input_delay \$local_controls_input_delay -clock \$tessent_clock_mapping\(ts_tck_ijtag_tck\) \[tessent_get_ports \{ijtag_se\}\]  -clock_fall'
+        replacement: 'set_input_delay 9 -clock $tessent_clock_mapping(ts_tck_ijtag_tck) [tessent_get_ports {ijtag_se}]  -clock_fall'
+
+      - pattern: 'set_input_delay \$local_controls_input_delay -clock \$tessent_clock_mapping\(ts_tck_ijtag_tck\) \[tessent_get_ports \{ijtag_ue\}\]'
+        replacement: 'set_input_delay 9 -clock $tessent_clock_mapping(ts_tck_ijtag_tck) [tessent_get_ports {ijtag_ue}]'
+
+      - pattern: 'set_input_delay \$local_controls_input_delay -clock \$tessent_clock_mapping\(ts_tck_ijtag_tck\) \[tessent_get_ports \{ijtag_sel\}\]  -clock_fall'
+        replacement: 'set_input_delay 9 -clock $tessent_clock_mapping(ts_tck_ijtag_tck) [tessent_get_ports {ijtag_sel}]  -clock_fall'
+
+      - pattern: 'set_input_delay \$local_input_delay -clock \$tessent_clock_mapping\(ts_tck_ijtag_tck\) \[tessent_get_ports \{ijtag_si\}\]  -clock_fall'
+        replacement: 'set_input_delay 9 -clock $tessent_clock_mapping(ts_tck_ijtag_tck) [tessent_get_ports {ijtag_si}]  -clock_fall'
+
+      # bscan
+      - pattern: 'set_input_delay \$tessent_input_delay -clock \$tessent_clock_mapping\(ts_tck_bscan_clock\) \[tessent_get_ports \{bscan_capture_en\}\] -clock_fall'
+        replacement: 'set_input_delay 9 -clock $tessent_clock_mapping(ts_tck_bscan_clock) [tessent_get_ports {bscan_capture_en}] -clock_fall'
+
+      - pattern: 'set_input_delay \$tessent_input_delay -clock \$tessent_clock_mapping\(ts_tck_bscan_clock\) \[tessent_get_ports \{bscan_shift_en\}\] -clock_fall'
+        replacement: 'set_input_delay 9 -clock $tessent_clock_mapping(ts_tck_bscan_clock) [tessent_get_ports {bscan_shift_en}] -clock_fall'
+
+      - pattern: 'set_input_delay \$tessent_input_delay -clock \$tessent_clock_mapping\(ts_tck_bscan_clock\) \[tessent_get_ports \{bscan_update_en\}\]'
+        replacement: 'set_input_delay 9 -clock $tessent_clock_mapping(ts_tck_bscan_clock) [tessent_get_ports {bscan_update_en}]'
+
+      - pattern: 'set_input_delay \$tessent_input_delay -clock \$tessent_clock_mapping\(ts_tck_bscan_clock\) \[tessent_get_ports \{bscan_select\}\] -clock_fall'
+        replacement: 'set_input_delay 9 -clock $tessent_clock_mapping(ts_tck_bscan_clock) [tessent_get_ports {bscan_select}] -clock_fall'
+
+      - pattern: 'set_input_delay \$tessent_input_delay -clock \$tessent_clock_mapping\(ts_tck_bscan_clock\) \[tessent_get_ports \{bscan_force_disable\}\] -clock_fall'
+        replacement: 'set_input_delay 9 -clock $tessent_clock_mapping(ts_tck_bscan_clock) [tessent_get_ports {bscan_force_disable}] -clock_fall'
+
+      - pattern: 'set_input_delay \$tessent_input_delay -clock \$tessent_clock_mapping\(ts_tck_bscan_clock\) \[tessent_get_ports \{bscan_select_jtag_input\}\] -clock_fall'
+        replacement: 'set_input_delay 9 -clock $tessent_clock_mapping(ts_tck_bscan_clock) [tessent_get_ports {bscan_select_jtag_input}] -clock_fall'
+
+      - pattern: 'set_input_delay \$tessent_input_delay -clock \$tessent_clock_mapping\(ts_tck_bscan_clock\) \[tessent_get_ports \{bscan_select_jtag_output\}\] -clock_fall'
+        replacement: 'set_input_delay 9 -clock $tessent_clock_mapping(ts_tck_bscan_clock) [tessent_get_ports {bscan_select_jtag_output}] -clock_fall'
+
+      - pattern: 'set_input_delay \$tessent_input_delay -clock \$tessent_clock_mapping\(ts_tck_bscan_clock\) \[tessent_get_ports \{bscan_scan_in\}\] -clock_fall'
+        replacement: 'set_input_delay 9 -clock $tessent_clock_mapping(ts_tck_bscan_clock) [tessent_get_ports {bscan_scan_in}] -clock_fall'
+
+      # level-specific BISR
+      - pattern: 'set bisr_si_delay_percentage 0\.25'
+        replacement: 'set bisr_si_delay_percentage 0.4'
+
+      - pattern: 'set bisr_so_delay_percentage 0\.25'
+        replacement: 'set bisr_so_delay_percentage 0.9'
+
+      - pattern: 'set bisr_se_input_delay_percentage 0\.25'
+        replacement: 'set bisr_se_input_delay_percentage 0.4'
+
+      - pattern: 'set bisr_control_input_delay_percentage 0\.25'
+        replacement: 'set bisr_control_input_delay_percentage 0.45'
+
+  level2:
+    replacements:
+      # ijtag
+      - pattern: 'set_input_delay \$local_controls_input_delay -clock \$tessent_clock_mapping\(ts_tck_ijtag_tck\) \[tessent_get_ports \{ijtag_reset\}\]'
+        replacement: 'set_input_delay 8 -clock $tessent_clock_mapping(ts_tck_ijtag_tck) [tessent_get_ports {ijtag_reset}]'
+
+      - pattern: 'set_input_delay \$local_controls_input_delay -clock \$tessent_clock_mapping\(ts_tck_ijtag_tck\) \[tessent_get_ports \{ijtag_ce\}\]  -clock_fall'
+        replacement: 'set_input_delay 8 -clock $tessent_clock_mapping(ts_tck_ijtag_tck) [tessent_get_ports {ijtag_ce}]  -clock_fall'
+
+      - pattern: 'set_input_delay \$local_controls_input_delay -clock \$tessent_clock_mapping\(ts_tck_ijtag_tck\) \[tessent_get_ports \{ijtag_se\}\]  -clock_fall'
+        replacement: 'set_input_delay 8 -clock $tessent_clock_mapping(ts_tck_ijtag_tck) [tessent_get_ports {ijtag_se}]  -clock_fall'
+
+      - pattern: 'set_input_delay \$local_controls_input_delay -clock \$tessent_clock_mapping\(ts_tck_ijtag_tck\) \[tessent_get_ports \{ijtag_ue\}\]'
+        replacement: 'set_input_delay 8 -clock $tessent_clock_mapping(ts_tck_ijtag_tck) [tessent_get_ports {ijtag_ue}]'
+
+      - pattern: 'set_input_delay \$local_controls_input_delay -clock \$tessent_clock_mapping\(ts_tck_ijtag_tck\) \[tessent_get_ports \{ijtag_sel\}\]  -clock_fall'
+        replacement: 'set_input_delay 8 -clock $tessent_clock_mapping(ts_tck_ijtag_tck) [tessent_get_ports {ijtag_sel}]  -clock_fall'
+
+      - pattern: 'set_input_delay \$local_input_delay -clock \$tessent_clock_mapping\(ts_tck_ijtag_tck\) \[tessent_get_ports \{ijtag_si\}\]  -clock_fall'
+        replacement: 'set_input_delay 8 -clock $tessent_clock_mapping(ts_tck_ijtag_tck) [tessent_get_ports {ijtag_si}]  -clock_fall'
+
+      # bscan
+      - pattern: 'set_input_delay \$tessent_input_delay -clock \$tessent_clock_mapping\(ts_tck_bscan_clock\) \[tessent_get_ports \{bscan_capture_en\}\] -clock_fall'
+        replacement: 'set_input_delay 8 -clock $tessent_clock_mapping(ts_tck_bscan_clock) [tessent_get_ports {bscan_capture_en}] -clock_fall'
+
+      - pattern: 'set_input_delay \$tessent_input_delay -clock \$tessent_clock_mapping\(ts_tck_bscan_clock\) \[tessent_get_ports \{bscan_shift_en\}\] -clock_fall'
+        replacement: 'set_input_delay 8 -clock $tessent_clock_mapping(ts_tck_bscan_clock) [tessent_get_ports {bscan_shift_en}] -clock_fall'
+
+      - pattern: 'set_input_delay \$tessent_input_delay -clock \$tessent_clock_mapping\(ts_tck_bscan_clock\) \[tessent_get_ports \{bscan_update_en\}\]'
+        replacement: 'set_input_delay 8 -clock $tessent_clock_mapping(ts_tck_bscan_clock) [tessent_get_ports {bscan_update_en}]'
+
+      - pattern: 'set_input_delay \$tessent_input_delay -clock \$tessent_clock_mapping\(ts_tck_bscan_clock\) \[tessent_get_ports \{bscan_select\}\] -clock_fall'
+        replacement: 'set_input_delay 8 -clock $tessent_clock_mapping(ts_tck_bscan_clock) [tessent_get_ports {bscan_select}] -clock_fall'
+
+      - pattern: 'set_input_delay \$tessent_input_delay -clock \$tessent_clock_mapping\(ts_tck_bscan_clock\) \[tessent_get_ports \{bscan_force_disable\}\] -clock_fall'
+        replacement: 'set_input_delay 8 -clock $tessent_clock_mapping(ts_tck_bscan_clock) [tessent_get_ports {bscan_force_disable}] -clock_fall'
+
+      - pattern: 'set_input_delay \$tessent_input_delay -clock \$tessent_clock_mapping\(ts_tck_bscan_clock\) \[tessent_get_ports \{bscan_select_jtag_input\}\] -clock_fall'
+        replacement: 'set_input_delay 8 -clock $tessent_clock_mapping(ts_tck_bscan_clock) [tessent_get_ports {bscan_select_jtag_input}] -clock_fall'
+
+      - pattern: 'set_input_delay \$tessent_input_delay -clock \$tessent_clock_mapping\(ts_tck_bscan_clock\) \[tessent_get_ports \{bscan_select_jtag_output\}\] -clock_fall'
+        replacement: 'set_input_delay 8 -clock $tessent_clock_mapping(ts_tck_bscan_clock) [tessent_get_ports {bscan_select_jtag_output}] -clock_fall'
+
+      - pattern: 'set_input_delay \$tessent_input_delay -clock \$tessent_clock_mapping\(ts_tck_bscan_clock\) \[tessent_get_ports \{bscan_scan_in\}\] -clock_fall'
+        replacement: 'set_input_delay 8 -clock $tessent_clock_mapping(ts_tck_bscan_clock) [tessent_get_ports {bscan_scan_in}] -clock_fall'
+
+      # level-specific BISR
+      - pattern: 'set bisr_si_delay_percentage 0\.25'
+        replacement: 'set bisr_si_delay_percentage 0.4'
+
+      - pattern: 'set bisr_so_delay_percentage 0\.25'
+        replacement: 'set bisr_so_delay_percentage 0.9'
+
+      - pattern: 'set bisr_se_input_delay_percentage 0\.25'
+        replacement: 'set bisr_se_input_delay_percentage 0.3'
+
+      - pattern: 'set bisr_control_input_delay_percentage 0\.25'
+        replacement: 'set bisr_control_input_delay_percentage 0.4'
+
+  level3:
+    replacements:
+      # ijtag
+      - pattern: 'set_input_delay \$local_controls_input_delay -clock \$tessent_clock_mapping\(ts_tck_ijtag_tck\) \[tessent_get_ports \{ijtag_reset\}\]'
+        replacement: 'set_input_delay 7 -clock $tessent_clock_mapping(ts_tck_ijtag_tck) [tessent_get_ports {ijtag_reset}]'
+
+      - pattern: 'set_input_delay \$local_controls_input_delay -clock \$tessent_clock_mapping\(ts_tck_ijtag_tck\) \[tessent_get_ports \{ijtag_ce\}\]  -clock_fall'
+        replacement: 'set_input_delay 7 -clock $tessent_clock_mapping(ts_tck_ijtag_tck) [tessent_get_ports {ijtag_ce}]  -clock_fall'
+
+      - pattern: 'set_input_delay \$local_controls_input_delay -clock \$tessent_clock_mapping\(ts_tck_ijtag_tck\) \[tessent_get_ports \{ijtag_se\}\]  -clock_fall'
+        replacement: 'set_input_delay 7 -clock $tessent_clock_mapping(ts_tck_ijtag_tck) [tessent_get_ports {ijtag_se}]  -clock_fall'
+
+      - pattern: 'set_input_delay \$local_controls_input_delay -clock \$tessent_clock_mapping\(ts_tck_ijtag_tck\) \[tessent_get_ports \{ijtag_ue\}\]'
+        replacement: 'set_input_delay 7 -clock $tessent_clock_mapping(ts_tck_ijtag_tck) [tessent_get_ports {ijtag_ue}]'
+
+      - pattern: 'set_input_delay \$local_controls_input_delay -clock \$tessent_clock_mapping\(ts_tck_ijtag_tck\) \[tessent_get_ports \{ijtag_sel\}\]  -clock_fall'
+        replacement: 'set_input_delay 7 -clock $tessent_clock_mapping(ts_tck_ijtag_tck) [tessent_get_ports {ijtag_sel}]  -clock_fall'
+
+      - pattern: 'set_input_delay \$local_input_delay -clock \$tessent_clock_mapping\(ts_tck_ijtag_tck\) \[tessent_get_ports \{ijtag_si\}\]  -clock_fall'
+        replacement: 'set_input_delay 7 -clock $tessent_clock_mapping(ts_tck_ijtag_tck) [tessent_get_ports {ijtag_si}]  -clock_fall'
+
+      # bscan
+      - pattern: 'set_input_delay \$tessent_input_delay -clock \$tessent_clock_mapping\(ts_tck_bscan_clock\) \[tessent_get_ports \{bscan_capture_en\}\] -clock_fall'
+        replacement: 'set_input_delay 7 -clock $tessent_clock_mapping(ts_tck_bscan_clock) [tessent_get_ports {bscan_capture_en}] -clock_fall'
+
+      - pattern: 'set_input_delay \$tessent_input_delay -clock \$tessent_clock_mapping\(ts_tck_bscan_clock\) \[tessent_get_ports \{bscan_shift_en\}\] -clock_fall'
+        replacement: 'set_input_delay 7 -clock $tessent_clock_mapping(ts_tck_bscan_clock) [tessent_get_ports {bscan_shift_en}] -clock_fall'
+
+      - pattern: 'set_input_delay \$tessent_input_delay -clock \$tessent_clock_mapping\(ts_tck_bscan_clock\) \[tessent_get_ports \{bscan_update_en\}\]'
+        replacement: 'set_input_delay 7 -clock $tessent_clock_mapping(ts_tck_bscan_clock) [tessent_get_ports {bscan_update_en}]'
+
+      - pattern: 'set_input_delay \$tessent_input_delay -clock \$tessent_clock_mapping\(ts_tck_bscan_clock\) \[tessent_get_ports \{bscan_select\}\] -clock_fall'
+        replacement: 'set_input_delay 7 -clock $tessent_clock_mapping(ts_tck_bscan_clock) [tessent_get_ports {bscan_select}] -clock_fall'
+
+      - pattern: 'set_input_delay \$tessent_input_delay -clock \$tessent_clock_mapping\(ts_tck_bscan_clock\) \[tessent_get_ports \{bscan_force_disable\}\] -clock_fall'
+        replacement: 'set_input_delay 7 -clock $tessent_clock_mapping(ts_tck_bscan_clock) [tessent_get_ports {bscan_force_disable}] -clock_fall'
+
+      - pattern: 'set_input_delay \$tessent_input_delay -clock \$tessent_clock_mapping\(ts_tck_bscan_clock\) \[tessent_get_ports \{bscan_select_jtag_input\}\] -clock_fall'
+        replacement: 'set_input_delay 7 -clock $tessent_clock_mapping(ts_tck_bscan_clock) [tessent_get_ports {bscan_select_jtag_input}] -clock_fall'
+
+      - pattern: 'set_input_delay \$tessent_input_delay -clock \$tessent_clock_mapping\(ts_tck_bscan_clock\) \[tessent_get_ports \{bscan_select_jtag_output\}\] -clock_fall'
+        replacement: 'set_input_delay 7 -clock $tessent_clock_mapping(ts_tck_bscan_clock) [tessent_get_ports {bscan_select_jtag_output}] -clock_fall'
+
+      - pattern: 'set_input_delay \$tessent_input_delay -clock \$tessent_clock_mapping\(ts_tck_bscan_clock\) \[tessent_get_ports \{bscan_scan_in\}\] -clock_fall'
+        replacement: 'set_input_delay 7 -clock $tessent_clock_mapping(ts_tck_bscan_clock) [tessent_get_ports {bscan_scan_in}] -clock_fall'
+
+      # level-specific BISR
+      - pattern: 'set bisr_si_delay_percentage 0\.25'
+        replacement: 'set bisr_si_delay_percentage 0.4'
+
+      - pattern: 'set bisr_so_delay_percentage 0\.25'
+        replacement: 'set bisr_so_delay_percentage 0.9'
+
+      - pattern: 'set bisr_se_input_delay_percentage 0\.25'
+        replacement: 'set bisr_se_input_delay_percentage 0.2'
+
+      - pattern: 'set bisr_control_input_delay_percentage 0\.25'
+        replacement: 'set bisr_control_input_delay_percentage 0.35'
+
+common_replacements:
+  - pattern: 'set tessent_tck_period 100\.0'
+    replacement: 'set tessent_tck_period 20.0'
+
+  - pattern: 'set tessent_input_delay_percentage 0\.25'
+    replacement: 'set tessent_input_delay_percentage 0.45'
+
+  - pattern: 'set tessent_output_delay_percentage 0\.25'
+    replacement: 'set tessent_output_delay_percentage 0.4'
+
+  - pattern: 'set tessent_ssn_bus_input_delay_percentage  25\.'
+    replacement: 'set tessent_ssn_bus_input_delay_percentage  35.'
+
+  - pattern: 'set tessent_ssn_bus_output_delay_percentage 25\.'
+    replacement: 'set tessent_ssn_bus_output_delay_percentage 60.'
+
+  - pattern: 'shaper/clk_out'
+    replacement: 'shaper/tessent_persistent_cell_mux/Y'
+
+  - pattern: 'set_clock_gating_check -high \$mux'
+    replacement: '#set_clock_gating_check -high $mux'
+
+  - pattern: 'if \{\$mode eq "shift"\} \{'
+    replacement: 'if {$mode eq "non_modal"} { } elseif {$mode eq "shift"} {'
+
+  - pattern: 'set_false_path -from \[tessent_get_ports \[list \{ijtag_reset\}\]\]'
+    replacement: 'set_input_delay $local_controls_input_delay -clock $tessent_clock_mapping(ts_tck_ijtag_tck) [tessent_get_ports {ijtag_reset}]'
+
+append:
+  marker: '# dft user add'
+  prefix: |
+    #=======================================================================================
+    # dft user add
+    #=======================================================================================
+
+  part1: |
+    ##################################################################################
+    #default variable setting
+    ##################################################################################
+    tessent_set_default_variables
+    set tessent_tck_period                        20.0
+    set BisrCKPeriod                              10.0
+    set tessent_ssn_bus_clock_network_period      5
+
+    # Please adjust these numbers according to your own settings.
+    set time_unit_multiplier                 1
+    if { ! [info exists tessent_timing_tool] } {
+        set tessent_timing_tool             genus
+    }
+    ##################################################################################
+    #tessent sdc proc
+    ##################################################################################  
+
+  part2: |
+    ##################################################################################
+    #user case
+    ##################################################################################
+    #scan enable which drive scan flipflop need to case to 0 during function mode
+    if {[array exists tessent_ssh_mapping]} {
+        set tessent_ssh_mapping_key_list [array names tessent_ssh_mapping]
+        foreach tessent_ssh_mapping_key $tessent_ssh_mapping_key_list {
+            set_case_analysis 0 [tessent_get_pins "$tessent_ssh_mapping($tessent_ssh_mapping_key)/tessent_persistent_cell_scan_en_buf/Y"]
+        }
+    }
+    #edt clock relate path need to cover during function mode too
+    set edt_clk_en [get_pins -quiet -hierarchical tessent_persistent_cell_edt_clock/E]
+    if {[sizeof_collection $edt_clk_en] != "0"} {
+        set_case_analysis 1 [get_pins $edt_clk_en]
+    }
+
+    #during function mode only fast clock is allow through occ
+    set occ_mux_sel_pins [get_pins tessent_persistent_cell_clock_out_mux/S -quiet -hierarchical -filter "full_name =~ *tessent_occ*"]
+    if {[sizeof_collection $occ_mux_sel_pins] != "0"} {
+        set_case_analysis 0 [get_pins $occ_mux_sel_pins]
+    }
+
+    ##################################################################################
+    #pin input/output delay
+    ##################################################################################
+    if {[sizeof_collection [get_ports dfx_ema* -quiet -filter "direction =~ in"]] != "0"} {
+        set_input_delay 12 -add -clock $tessent_clock_mapping(ts_tck_ijtag_tck) [get_ports dfx_ema* -quiet -filter "direction =~ in"]
+    }
+    if {[sizeof_collection [get_ports dfx_ema* -quiet -filter "direction =~ out"]] != "0"} {
+        set_output_delay 12 -add -clock $tessent_clock_mapping(ts_tck_ijtag_tck) [get_ports dfx_ema* -quiet -filter "direction =~ out"]
+    }
+
+    ##################################################################################
+    #false path setting
+    ##################################################################################
+    #lockup_latch does not work in func or capture mode
+    set dft_lockup_latch [get_cells *nio_b_dft_ts_*_lockup* -quiet -hierarchical -filter {is_sequential==true && is_hierarchical==false}]
+    if {[sizeof_collection $dft_lockup_latch] != "0"} {
+        set_false_path -to [get_cells $dft_lockup_latch]
+        set_false_path -from [get_cells $dft_lockup_latch]
+    }
+
+    set ts_cp_cell  [get_cells -quiet -hier -filter "full_name =~ *nio_b_dft_ts_*_cp_*sffp1_i*"]
+    if {[sizeof_collection [get_cells -quiet -hier -filter "full_name =~ *nio_b_dft_ts_*_cp_*sffp1_i*"]] != "0"} {
+        set_multicycle_path -setup 20 -from $ts_cp_cell
+        set_multicycle_path -hold  19 -from $ts_cp_cell
+    }
+
+    ##################################################################################
+    # hold scan no transition can be set false path
+    ##################################################################################
+    set_false_path -from [get_cells -hierarchical tessent_persistent_cell_control_test_point_en_hold_scan_cell] -through [get_pins -hierarchical control_test_point_en_ltest_and/Y]
+
+    ##################################################################################
+    #mcp for static signal setting
+    ##################################################################################
+    set dfx_static_tdr [get_pins u_dontouch_cell/Y -quiet -hierarchical -filter "full_name =~ *u_dfx_static_signal_gen*/dfx_*"]
+    if  {[sizeof_collection $dfx_static_tdr] != "0"} {
+        set_multicycle_path -setup 2 -through [get_pins $dfx_static_tdr]
+        set_multicycle_path -hold  1 -through [get_pins $dfx_static_tdr]
+    }
+
+    set sri_ctrl_tdr [get_pins tessent_persistent_*/Y -quiet -hierarchical -filter "full_name =~ *logic_test_tessent_tdr_sri_ctrl_inst*"]
+    if  {[sizeof_collection $sri_ctrl_tdr] != "0"} {
+        set_multicycle_path -setup 2 -through [get_pins $sri_ctrl_tdr]
+        set_multicycle_path -hold  1 -through [get_pins $sri_ctrl_tdr]
+    }
+
+    set sri_ctrl_reg [get_cells *latch_reg  -hierarchical -quiet -filter "full_name =~ *logic_test_tessent_tdr_sri_ctrl_inst*"]
+    if  {[sizeof_collection $sri_ctrl_reg] != "0"} {
+        set_multicycle_path -setup 2 -from [get_cells $sri_ctrl_reg]
+        set_multicycle_path -hold  1 -from [get_cells $sri_ctrl_reg]
+    }
+
+    set mbist_sri_reg [get_cells *latch_reg -quiet -hierarchical -filter "full_name =~ *mbist_tessent_tdr_sri_*_tdr*_inst*"]
+    if  {[sizeof_collection $mbist_sri_reg] != "0"} {
+        set_multicycle_path -setup 3 -from [get_cells $mbist_sri_reg]
+        set_multicycle_path -hold 2  -from [get_cells $mbist_sri_reg]
+    }
+
+    set pwr_reset_ctrl_tdr [get_pins u_dontouch_cell/Y -quiet -hierarchical -filter "full_name =~ *u_dfx_dwc_pwr_reset_ctl_tdr*/dfx*"]
+    if  {[sizeof_collection $pwr_reset_ctrl_tdr] != "0"} {
+        set_multicycle_path -setup 2 -through [get_pins $pwr_reset_ctrl_tdr]
+        set_multicycle_path -hold  1 -through [get_pins $pwr_reset_ctrl_tdr]
+    }
+
+    set dfx_ctl_tdr [get_pins u_dontouch_cell/Y -quiet -hierarchical -filter "full_name =~ *u_dfx_ctl_tdr*/dfx*"]
+    if  {[sizeof_collection $dfx_ctl_tdr] != "0"} {
+        set_multicycle_path -setup 2 -through [get_pins $dfx_ctl_tdr]
+        set_multicycle_path -hold  1 -through [get_pins $dfx_ctl_tdr]
+    }
+
+    set dfx_user_tdr [get_pins u_dontouch_cell/Y -quiet -hierarchical -filter "full_name =~ *u_dfx_user_tdr*/dfx*"]
+    if  {[sizeof_collection $dfx_user_tdr] != "0"} {
+        set_multicycle_path -setup 2 -through [get_pins $dfx_user_tdr]
+        set_multicycle_path -hold  1 -through [get_pins $dfx_user_tdr]
+    }
+
+    set pad_signal_tdr [get_pins u_dontouch_cell/Y -quiet -hierarchical -filter "full_name =~ *u_dfx_pad_signal_ctl*/dfx*"]
+    if  {[sizeof_collection $pad_signal_tdr] != "0"} {
+        set_multicycle_path -setup 2 -through [get_pins $pad_signal_tdr]
+        set_multicycle_path -hold  1 -through [get_pins $pad_signal_tdr]
+    }
+
+    ##################################################################################
+    #mcp
+    ##################################################################################
+    set_multicycle_path -setup  2 -from [get_ports ijtag_reset]
+    set_multicycle_path -hold  1 -from [get_ports ijtag_reset]
+
+    if {[sizeof_collection [get_ports -quiet bisr_reset_*]] != "0"} {
+        set_multicycle_path -setup  2 -from [get_ports bisr_reset_*]
+        set_multicycle_path -hold  1 -from [get_ports bisr_reset_*]
+    }

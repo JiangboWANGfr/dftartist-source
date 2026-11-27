@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:memory-test-rules:1",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-memory-test-rules-v1"
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096,
+                  "pattern": "^[^\\u0000]*$"
+                },
+                "minItems": 1,
+                "maxItems": 256
+              },
+              "recursive": {
+                "type": "boolean"
+              },
+              "clockDomain": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096,
+                "pattern": "^[^\\u0000]*$"
+              },
+              "partition": {
+                "type": "string",
+                "minLength": 0,
+                "maxLength": 4096,
+                "pattern": "^[^\\u0000]*$"
+              }
+            },
+            "required": [
+              "path",
+              "recursive",
+              "clockDomain",
+              "partition"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 1024
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "memory": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "rule": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "assignment": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "memory"
+            ],
+            "dependentRequired": {
+              "rule": [
+                "assignment"
+              ],
+              "assignment": [
+                "rule"
+              ]
+            },
+            "additionalProperties": false
+          }
+        },
+        "unusedRules": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "visitedSegments": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "report": {
+          "$ref": "urn:dft-studio:analysis:memory-test-plan:1#/oneOf/0"
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "rules",
+        "choices",
+        "unusedRules",
+        "visitedSegments",
+        "report"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:memory-map:1#/oneOf/1"
+    }
+  ]
+}

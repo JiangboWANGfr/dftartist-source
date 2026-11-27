@@ -1,0 +1,169 @@
+regexp_verbosity = verbose; // Helps debug regexp mismatch issues in cell_attributes
+
+cell_attributes {
+
+// *****************************************************
+// Clock Path Cells
+// *****************************************************
+        cell ("clock_buf02"){
+                cell_type = clock_buffer;
+        }             
+        cell ("clock_inv01"){
+                cell_type = clock_inverter;
+        }             
+        cell ("clock_mux21"){
+                cell_type = clock_mux;
+        }             
+        cell ("clock_and02"){
+                cell_type = clock_and;
+        }             
+        cell ("clock_or02"){
+                cell_type = clock_or;
+        }             
+        cell ("clk_dff(|s|r|sr)"){
+                cell_type = clock_dff;
+        }
+        cell ("nck_clk_dff(|s|r|sr)"){
+                cell_type = clock_dff;
+        }
+        cell (clock_shaper) {
+                cell_type = clock_shaper;
+        }
+        cell (clock_shaper_en0_inv) {
+                cell_type = clock_shaper;
+        }
+        cell (clock_shaper_en1_inv) {
+                cell_type = clock_shaper;
+        }
+        cell (clock_shaper_en0_inv_en1_inv) {
+                cell_type = clock_shaper;
+        }
+
+
+// ****************************************************
+// Simple Scan_cell
+// *****************************************************
+
+        cell ("sff(|s|r|sr)"){
+                cell_type = scan_cell;
+                input ("SE") (scan_enable;)
+                input ("SI") (scan_in;)
+                input ("D") (data_in;)
+                output ("Q") (scan_out;)
+                output ("QB") (scan_out_inv;)
+        }
+        cell ("nck_sff(|s|r|sr)"){
+                cell_type = scan_cell;
+                input ("SE") (scan_enable;)
+                input ("SI") (scan_in;)
+                input ("D") (data_in;)
+                output ("Q") (scan_out;)
+                output ("QB") (scan_out_inv;)
+        }
+
+// *****************************************************
+// Sync_cell -- Scan and Nonscan
+// *****************************************************
+
+//      Posedge Sync_cells -- Nonscan then Scanned
+
+        cell (sync_cell){
+                scan_equivalents = scan_sync_cell;
+                cell_type = synchronizer_cell;
+        }
+        cell (scan_sync_cell){
+                nonscan_equivalents = sync_cell;
+                cell_type = synchronizer_cell;
+                input ("SE") (scan_enable;)
+                input ("SI") (scan_in;)
+                output ("O") (scan_out;)
+        }
+
+        cell (sync_cell_set){
+                scan_equivalents = scan_sync_cell_set;
+                cell_type = synchronizer_cell;
+        }
+        cell (scan_sync_cell_set){
+                nonscan_equivalents = sync_cell_set;
+                cell_type = synchronizer_cell;
+                input ("SE") (scan_enable;)
+                input ("SI") (scan_in;)
+                output ("O") (scan_out;)
+        }
+
+        cell (sync_cell_rst){
+                scan_equivalents = scan_sync_cell_rst;
+                cell_type = synchronizer_cell;
+        }
+        cell (scan_sync_cell_rst){
+                nonscan_equivalents = sync_cell_rst;
+                cell_type = synchronizer_cell;
+                input ("SE") (scan_enable;)
+                input ("SI") (scan_in;)
+                output ("O") (scan_out;)
+        }
+
+        cell (sync_cell_set_rst){
+                scan_equivalents = scan_sync_cell_set_rst;
+                cell_type = synchronizer_cell;
+        }
+        cell (scan_sync_cell_set_rst){
+                nonscan_equivalents = sync_cell_set_rst;
+                cell_type = synchronizer_cell;
+                input ("SE") (scan_enable;)
+                input ("SI") (scan_in;)
+                output ("O") (scan_out;)
+        }
+
+
+//      Negedge Sync_cells -- Nonscan then Scanned
+
+        cell (nck_sync_cell){
+                scan_equivalents = nck_scan_sync_cell;
+                cell_type = synchronizer_cell;
+        }
+        cell (nck_scan_sync_cell){
+                nonscan_equivalents = nck_sync_cell;
+                cell_type = synchronizer_cell;
+                input ("SE") (scan_enable;)
+                input ("SI") (scan_in;)
+                output ("O") (scan_out;)
+        }
+
+        cell (nck_sync_cell_set){
+                scan_equivalents = nck_scan_sync_cell_set;
+                cell_type = synchronizer_cell;
+        }
+        cell (nck_scan_sync_cell_set){
+                nonscan_equivalents = nck_sync_cell_set;
+                cell_type = synchronizer_cell;
+                input ("SE") (scan_enable;)
+                input ("SI") (scan_in;)
+                output ("O") (scan_out;)
+        }
+
+        cell (nck_sync_cell_rst){
+                scan_equivalents = nck_scan_sync_cell_rst;
+                cell_type = synchronizer_cell;
+        }
+        cell (nck_scan_sync_cell_rst){
+                nonscan_equivalents = nck_sync_cell_rst;
+                cell_type = synchronizer_cell;
+                input ("SE") (scan_enable;)
+                input ("SI") (scan_in;)
+                output ("O") (scan_out;)
+        }
+
+        cell (nck_sync_cell_set_rst){
+                scan_equivalents = nck_scan_sync_cell_set_rst;
+                cell_type = synchronizer_cell;
+        }
+        cell (nck_scan_sync_cell_set_rst){
+                nonscan_equivalents = nck_sync_cell_set_rst;
+                cell_type = synchronizer_cell;
+                input ("SE") (scan_enable;)
+                input ("SI") (scan_in;)
+                output ("O") (scan_out;)
+        }
+
+}

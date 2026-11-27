@@ -1,0 +1,71 @@
+/* Shell viewport overrides — makes the app fill the Electron window instead of the fixed mockup size */
+html, body, #root { height: 100%; margin: 0; }
+.app { width: 100vw; height: 100vh; }
+.body { flex: 1; min-height: 0; overflow: hidden; }
+
+/* 通用空态引导卡 GuideCard（src/shell/GuideCard.tsx）—— 全局样式，供各工作区复用 */
+.guide-card {
+  display: flex; flex-direction: column; align-items: center; gap: var(--sp-3);
+  max-width: 380px; padding: var(--sp-6); text-align: center;
+  background: var(--panel-2); border: 1px solid var(--border);
+  border-radius: var(--r-lg); box-shadow: var(--sh-2);
+}
+.guide-icon { font-size: 30px; color: var(--accent); }
+.guide-title { font-size: var(--fs-lg); font-weight: 600; color: var(--text-strong); }
+.guide-steps { display: flex; gap: var(--sp-4); margin: var(--sp-2) 0; }
+.guide-step { display: flex; flex-direction: column; align-items: center; gap: var(--sp-2);
+  width: 96px; font-size: var(--fs-xs); color: var(--text-dim); line-height: 1.5; }
+.guide-step-n {
+  width: 22px; height: 22px; border-radius: 50%;
+  display: grid; place-items: center; font-size: var(--fs-sm);
+  color: var(--text-strong); background: var(--chip-bg); border: 1px solid var(--border);
+}
+.guide-action {
+  padding: var(--sp-2) var(--sp-4); border-radius: var(--r-md);
+  background: var(--accent); color: #fff; border: none; cursor: pointer;
+  font-size: var(--fs-sm); box-shadow: var(--sh-1);
+}
+.guide-action:hover { filter: brightness(1.08); }
+
+/* 顶栏「工程 ▾」下拉 */
+.proj-menu-wrap { position: relative; display: inline-block; }
+.proj-menu { position: absolute; top: 100%; right: 0; z-index: 40; min-width: 200px; background: var(--menu-bg); border: 1px solid var(--border); border-radius: var(--r-md); box-shadow: var(--sh-2); padding: var(--sp-1); }
+.proj-menu-item { padding: var(--sp-2) var(--sp-3); border-radius: var(--r-sm); cursor: pointer; font-size: var(--fs-sm); color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.proj-menu-item:hover { background: var(--row-hover); }
+.proj-menu-item.recent { color: var(--text-dim); font-family: var(--mono); font-size: var(--fs-xs); }
+.proj-menu-sep { height: 1px; background: var(--border); margin: var(--sp-1) var(--sp-2); }
+
+/* 启动欢迎页 */
+.welcome { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; padding: var(--sp-6); overflow: auto; }
+.wl-inner { display: flex; gap: var(--sp-6); width: 100%; max-width: 720px; }
+.wl-left { flex: 0 0 300px; display: flex; flex-direction: column; gap: var(--sp-4); padding-right: var(--sp-6); border-right: 1px solid var(--border); }
+.wl-brand { display: flex; align-items: center; gap: var(--sp-3); }
+.wl-logo { width: 34px; height: 34px; border-radius: 9px; background: conic-gradient(from 200deg,#4f8cff,#2dd4bf,#a371f7,#4f8cff); box-shadow: 0 0 0 1px #0006 inset; flex: none; }
+.wl-title { font-size: 20px; font-weight: 700; color: var(--text-strong); }
+.wl-sub { font-size: var(--fs-sm); color: var(--text-dim); }
+.wl-actions { display: flex; flex-direction: column; gap: var(--sp-3); }
+.wl-action { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-3) var(--sp-4); border: 1px solid var(--border); border-radius: var(--r-md); background: var(--btn-bg); color: var(--text); cursor: pointer; text-align: left; box-shadow: var(--sh-1); }
+.wl-action:hover { border-color: var(--accent); }
+.wl-action.primary { border-color: var(--accent); background: var(--accent-soft); }
+.wl-ico { width: 32px; height: 32px; border-radius: 8px; display: grid; place-items: center; font-size: 15px; background: var(--iconbtn-bg); flex: none; }
+.wl-action.primary .wl-ico { background: var(--accent); color: #fff; }
+.wl-atext { display: flex; flex-direction: column; }
+.wl-atext b { font-size: var(--fs-md); color: var(--text-strong); font-weight: 600; }
+.wl-atext small { font-size: var(--fs-xs); color: var(--text-dim); }
+.wl-launch-dir { margin-top: var(--sp-3); font-size: var(--fs-xs); color: var(--text-dim); font-family: var(--mono); word-break: break-all; }
+.wl-right { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--sp-2); }
+.wl-recent-head { font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: .08em; color: var(--text-faint); }
+.wl-empty { color: var(--text-dim); font-size: var(--fs-sm); padding: var(--sp-3) 0; }
+.wl-recent { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.wl-rec { display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-2); border-radius: var(--r-sm); cursor: pointer; min-width: 0; }
+.wl-rec:hover { background: var(--row-hover); }
+.wl-rn { font-family: var(--mono); font-size: var(--fs-sm); color: var(--text); flex: 0 0 auto; }
+.wl-rp { font-family: var(--mono); font-size: var(--fs-xs); color: var(--text-faint); margin-left: auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+@media (max-width: 640px) {
+  .wl-inner { flex-direction: column; }
+  .wl-left { flex: none; border-right: none; border-bottom: 1px solid var(--border); padding-right: 0; padding-bottom: var(--sp-4); }
+}
+
+/* ---- in-app notifications (window.alert replacement; see src/common/notify.ts) ---- */
+#notify-host { position: fixed; top: 48px; right: 16px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; max-width: 380px; }
+.notify-item { background: var(--panel-bg, var(--bg)); color: var(--text); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: var(--r-md); box-shadow: var(--sh-2, var(--sh-1)); padding: 10px 14px; font-size: var(--fs-sm); line-height: 1.5; cursor: pointer; word-break: break-word; }

@@ -1,0 +1,8 @@
+# dfx_dft_plan.tcl - planned DFX IPs / ctrl muxes / pin constraints (replayable)
+read_dfx_ip /Users/jiangbowang/MOI/2025/dftartist/2026.9/nx9000/user_material/dfx_ip/dfx_dynamic_hyper_ctl.v
+add_dft_ip dfx_dynamic_hyper_ctl -instance u_dfx_dynamic_hyper_ctl
+add_dft_ip dfx_static_hyper_ctl_tdr -instance u_dfx_static_hyper_ctl_tdr
+add_dft_ctrl_mux PROCESSOR_1/clock_module_0/sync_cell_puc/data_out -override_source u_dfx_dynamic_hyper_ctl/dfx_rst_scan_n -select u_dfx_static_hyper_ctl_tdr/dfx_scan_mode
+add_dft_ctrl_mux PROCESSOR_1/clock_module_0/sync_reset_por/rst_s -override_source u_dfx_dynamic_hyper_ctl/dfx_rst_scan_p -select u_dfx_static_hyper_ctl_tdr/dfx_scan_mode
+add_dft_ctrl_mux reset_n -override_source u_dfx_dynamic_hyper_ctl/dfx_set_scan_n -select u_dfx_static_hyper_ctl_tdr/dfx_scan_mode
+add_dft_ctrl_mux PROCESSOR_1/clock_module_0/puc_a -override_source u_dfx_dynamic_hyper_ctl/dfx_rst_scan_p -select u_dfx_static_hyper_ctl_tdr/dfx_scan_mode

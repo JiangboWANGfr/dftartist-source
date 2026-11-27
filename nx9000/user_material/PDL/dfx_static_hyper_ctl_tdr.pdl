@@ -1,0 +1,139 @@
+iProcsForModule dfx_static_hyper_ctl_tdr
+iProc dfx_sa_hyper_cfg {} {
+   iWrite dfx_mode_tdr 0b1
+   iWrite dfx_hyper_reserve_ctl_tdr 0b00000000000000000000000000011010
+   iWrite dfx_scan_mode_tdr 0b1
+   iWrite dfx_sa_mode_tdr 0b1
+   iWrite dfx_rst_tdr_n_tdr 0b1
+   iWrite dfx_hyper_ctl_ff_init_tdr 0b0
+   iApply
+   iRunLoop 10 -tck
+   iWrite dfx_hyper_ctl_ff_init_tdr 0b1
+   iApply
+}
+
+iProc dfx_sa_mem_hyper_cfg {} {
+   iWrite dfx_mode_tdr 0b1
+   iWrite dfx_hyper_reserve_ctl_tdr 0b00000000000000000000000000001010
+   iWrite dfx_scan_mode_tdr 0b1
+   iWrite dfx_sa_mode_tdr 0b1
+   iWrite dfx_rst_tdr_n_tdr 0b1
+   iWrite dfx_hyper_ctl_ff_init_tdr 0b0
+   iWrite dfx_int_edt_mode_tdr 0b1
+   iWrite dfx_cpu_sharebus_membypass_tdr 0b0
+   iApply
+   iRunLoop 10 -tck
+   iWrite dfx_hyper_ctl_ff_init_tdr 0b1
+   iApply
+}
+
+iProc dfx_ext_sa_hyper_cfg {} {
+   iWrite dfx_mode_tdr 0b1
+   iWrite dfx_hyper_reserve_ctl_tdr 0b00000000000000000000000000011010
+   iWrite dfx_scan_mode_tdr 0b1
+   iWrite dfx_sa_mode_tdr 0b1
+   iWrite dfx_rst_tdr_n_tdr 0b1
+   iWrite dfx_hyper_ctl_ff_init_tdr 0b0
+   iApply
+   iRunLoop 10 -tck
+   iWrite dfx_hyper_ctl_ff_init_tdr 0b1
+   iApply
+}
+
+iProc dfx_sa_retarget_hyper_cfg {} {
+   iWrite dfx_mode_tdr 0b1
+   iWrite dfx_scan_mode_tdr 0b1
+   iWrite dfx_sa_mode_tdr 0b1
+   iWrite dfx_rst_tdr_n_tdr 0b1
+   iWrite dfx_hyper_ctl_ff_init_tdr 0b0
+   iApply
+   iRunLoop 10 -tck
+   iWrite dfx_hyper_ctl_ff_init_tdr 0b1
+   iApply
+}
+iProc dfx_as_hyper_cfg {} {
+   iWrite dfx_mode_tdr 0b1
+   iApply
+   iRunLoop 10 -tck
+   iWrite dfx_hyper_reserve_ctl_tdr 0b00000000000000000000000001011010
+   iWrite dfx_scan_mode_tdr 0b1
+   iWrite dfx_rst_scan_n_init_tdr 0b1
+   iApply
+   iRunLoop 10 -tck
+   iWrite dfx_as_mode_tdr 0b1
+   iWrite dfx_rst_tdr_n_tdr 0b1
+   iWrite dfx_hyper_ctl_ff_init_tdr 0b0
+   iWrite dfx_int_edt_mode_tdr 0b1
+   iWrite dfx_cpu_sharebus_membypass_tdr 0b1
+   iApply
+   iRunLoop 10 -tck
+   iWrite dfx_hyper_ctl_ff_init_tdr 0b1
+   iApply
+}
+iProc dfx_ext_as_hyper_cfg {} {
+   iWrite dfx_mode_tdr 0b1
+   iWrite dfx_hyper_reserve_ctl_tdr 0b00000000000000000000000000011010
+   iWrite dfx_scan_mode_tdr 0b1
+   iWrite dfx_as_mode_tdr 0b1
+   iWrite dfx_rst_tdr_n_tdr 0b1
+   iWrite dfx_rst_scan_n_init_tdr 0b1
+   iWrite dfx_hyper_ctl_ff_init_tdr 0b0
+   iWrite dfx_ext_edt_mode_tdr 0b1
+   iApply
+   iRunLoop 10 -tck
+   iWrite dfx_hyper_ctl_ff_init_tdr 0b1
+   iApply
+}
+
+iProc dfx_as_retarget_hyper_cfg {} {
+   iWrite dfx_mode_tdr 0b1
+   iWrite dfx_scan_mode_tdr 0b1
+   iWrite dfx_as_mode_tdr 0b1
+   iWrite dfx_rst_tdr_n_tdr 0b1
+   iWrite dfx_hyper_ctl_ff_init_tdr 0b0
+   iApply
+   iRunLoop 10 -tck
+   iWrite dfx_hyper_ctl_ff_init_tdr 0b1
+   iApply
+}
+iProc dfx_mbist_hyper_cfg {} {
+   iWrite dfx_mode_tdr 0b1
+   iWrite dfx_mbist_mode_tdr 0b1
+   iApply
+   iRunLoop 10 -tck
+   iWrite dfx_mem_clk_sel_tdr 0b1
+   iApply
+
+}
+iProc dfx_cpu_mbist_hyper_cfg {} {
+   iWrite dfx_hyper_reserve_ctl_tdr 0b00000000000000000000000000001001
+   iApply
+   iRunLoop 2 -tck
+}
+
+iProc dfx_opt_rst_cfg {} {
+   iWrite dfx_hyper_reserve_ctl_tdr 0b00000000000000000000000000010000
+   iApply
+   iRunLoop 2 -tck
+}
+iProc dfx_mode_hyper_cfg {} {
+   iWrite dfx_mode_tdr 0b1
+   iApply
+   iRunLoop 10 -tck
+}
+iProc dfx_scan_mode_hyper_cfg {} {
+   iWrite dfx_scan_mode_tdr 0b1
+   iApply
+   iRunLoop 10 -tck
+}
+iProc dfx_leaf_mode_hyper_cfg {} {
+   iWrite dfx_leaf_scan_tdr 0b1
+   iApply
+   iRunLoop 10 -tck
+}
+iProc dfx_mem_power_ctrl_hyper_cfg {} {
+   iWrite  dfx_hyper_reserve_ctl_tdr 0b10000000
+   iApply
+   iRunLoop 10 -tck
+}
+

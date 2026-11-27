@@ -1,0 +1,3631 @@
+{
+ "datapathProps": [
+  {
+   "name": "ijtag_host_interface",
+   "default": "Sib(ssn)",
+   "spec": "host_node_leaf_name",
+   "type": "text",
+   "placeholder": "host_node_leaf_name"
+  },
+  {
+   "name": "bus_clock_period",
+   "default": "Inherited",
+   "spec": "time",
+   "type": "text",
+   "placeholder": "time"
+  },
+  {
+   "name": "bus_register_reset",
+   "default": "",
+   "spec": "on | off",
+   "type": "enum",
+   "values": [
+    "on",
+    "off"
+   ]
+  },
+  {
+   "name": "output_bus_width",
+   "default": "",
+   "spec": "int",
+   "type": "text",
+   "placeholder": "int"
+  },
+  {
+   "name": "output_data_rate",
+   "default": "",
+   "spec": "auto | int | int/int",
+   "type": "text",
+   "placeholder": "auto | int | int/int"
+  }
+ ],
+ "components": {
+  "Pipeline": {
+   "props": [
+    {
+     "name": "ijtag_host_interface",
+     "default": "Sib(ssn)",
+     "spec": "host_node_leaf_name",
+     "type": "text",
+     "placeholder": "host_node_leaf_name"
+    },
+    {
+     "name": "ijtag_connection_order",
+     "default": "",
+     "spec": "int | \"\"",
+     "type": "text",
+     "placeholder": "int | \"\""
+    },
+    {
+     "name": "bus_clock_period",
+     "default": "inherited",
+     "spec": "time",
+     "type": "text",
+     "placeholder": "time"
+    },
+    {
+     "name": "frequency_ratio",
+     "default": "",
+     "spec": "int | auto",
+     "type": "text",
+     "placeholder": "int | auto"
+    },
+    {
+     "name": "update_phase",
+     "default": "",
+     "spec": "receiver | transmitter | auto",
+     "type": "enum",
+     "values": [
+      "receiver",
+      "transmitter",
+      "auto"
+     ]
+    },
+    {
+     "name": "parent_instance",
+     "default": "",
+     "spec": "instance_name",
+     "type": "text",
+     "placeholder": "instance_name"
+    },
+    {
+     "name": "leaf_instance_name",
+     "default": "",
+     "spec": "leaf_instance_name",
+     "type": "text",
+     "placeholder": "leaf_instance_name"
+    }
+   ],
+   "blocks": [
+    {
+     "props": [
+      {
+       "name": "bus_clock_in",
+       "default": "",
+       "spec": "port_pin_name",
+       "type": "text",
+       "placeholder": "port_pin_name"
+      }
+     ],
+     "blocks": [],
+     "name": "Connections",
+     "id": null
+    },
+    {
+     "props": [],
+     "blocks": [],
+     "name": "ExtraOutputPath",
+     "id": null
+    },
+    {
+     "props": [
+      {
+       "name": "bus_clock",
+       "default": "inherited",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "bus_data_in",
+       "default": "inherited",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "bus_data_out",
+       "default": "inherited",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      }
+     ],
+     "blocks": [
+      {
+       "props": [
+        {
+         "name": "reset",
+         "default": "inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "tck",
+         "default": "inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "select",
+         "default": "inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "capture_en",
+         "default": "inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "shift_en",
+         "default": "inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "update_en",
+         "default": "inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "scan_in",
+         "default": "inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "scan_out",
+         "default": "inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        }
+       ],
+       "blocks": [],
+       "name": "IjtagScanInterface",
+       "id": null
+      }
+     ],
+     "name": "Interface",
+     "id": null
+    }
+   ],
+   "name": "Pipeline",
+   "id": null
+  },
+  "ScanHost": {
+   "props": [
+    {
+     "name": "ijtag_host_interface",
+     "default": "Sib(ssn)",
+     "spec": "host_node_leaf_name",
+     "type": "text",
+     "placeholder": "host_node_leaf_name"
+    },
+    {
+     "name": "ijtag_connection_order",
+     "default": "",
+     "spec": "int | \"\"",
+     "type": "text",
+     "placeholder": "int | \"\""
+    },
+    {
+     "name": "bus_clock_period",
+     "default": "Inherited",
+     "spec": "time",
+     "type": "text",
+     "placeholder": "time"
+    },
+    {
+     "name": "max_capture_clock_pulses",
+     "default": "Inherited",
+     "spec": "int",
+     "type": "text",
+     "placeholder": "int"
+    },
+    {
+     "name": "max_capture_to_shift_clock_period_ratio",
+     "default": "Inherited",
+     "spec": "int",
+     "type": "text",
+     "placeholder": "int"
+    },
+    {
+     "name": "parent_instance",
+     "default": "",
+     "spec": "instance_name",
+     "type": "text",
+     "placeholder": "instance_name"
+    },
+    {
+     "name": "leaf_instance_name",
+     "default": "",
+     "spec": "leaf_instance_name",
+     "type": "text",
+     "placeholder": "leaf_instance_name"
+    },
+    {
+     "name": "max_scan_chain_length",
+     "default": "Inherited",
+     "spec": "int | auto",
+     "type": "text",
+     "placeholder": "int | auto"
+    },
+    {
+     "name": "max_scan_en_mcp",
+     "default": "Inherited",
+     "spec": "2 | 4 | 8 | 16 | 32 | 64",
+     "type": "enum",
+     "values": [
+      "2",
+      "4",
+      "8",
+      "16",
+      "32",
+      "64"
+     ]
+    },
+    {
+     "name": "max_edt_update_mcp",
+     "default": "Inherited",
+     "spec": "2 | 4 | 8 | 16 | 32 | 64",
+     "type": "enum",
+     "values": [
+      "2",
+      "4",
+      "8",
+      "16",
+      "32",
+      "64"
+     ]
+    },
+    {
+     "name": "input_chain_count",
+     "default": "",
+     "spec": "int | from_edt_controller",
+     "type": "text",
+     "placeholder": "int | from_edt_controller"
+    },
+    {
+     "name": "output_chain_count",
+     "default": "",
+     "spec": "int | from_edt_controller | same_as_input_chain_count",
+     "type": "text",
+     "placeholder": "int | from_edt_controller | same_as_input_chain_count"
+    },
+    {
+     "name": "output_chain_count_in_on_chip_compare_mode",
+     "default": "",
+     "spec": "int | from_edt_controller | from_edt_controller_high_compression_configuration",
+     "type": "text",
+     "placeholder": "int | from_edt_controller | from_edt_controller_high_compression_configuration"
+    },
+    {
+     "name": "high_compression_input_channel_count",
+     "default": "",
+     "spec": "int | auto",
+     "type": "text",
+     "placeholder": "int | auto"
+    },
+    {
+     "name": "high_compression_output_channel_count",
+     "default": "",
+     "spec": "int | auto",
+     "type": "text",
+     "placeholder": "int | auto"
+    },
+    {
+     "name": "use_high_compression_channel_count_in_bypass_mode",
+     "default": "",
+     "spec": "on | off",
+     "type": "enum",
+     "values": [
+      "on",
+      "off"
+     ]
+    },
+    {
+     "name": "support_from_scan_out_le_strobing",
+     "default": "",
+     "spec": "on | off",
+     "type": "enum",
+     "values": [
+      "on",
+      "off"
+     ]
+    },
+    {
+     "name": "scan_signals_bypass",
+     "default": "",
+     "spec": "on | off | controls_only | auto",
+     "type": "enum",
+     "values": [
+      "on",
+      "off",
+      "controls_only",
+      "auto"
+     ]
+    },
+    {
+     "name": "use_clock_dff_cell",
+     "default": "",
+     "spec": "on | off",
+     "type": "enum",
+     "values": [
+      "on",
+      "off"
+     ]
+    },
+    {
+     "name": "use_clock_or_cell",
+     "default": "",
+     "spec": "on | off",
+     "type": "enum",
+     "values": [
+      "on",
+      "off"
+     ]
+    },
+    {
+     "name": "use_clock_shaper_cell",
+     "default": "",
+     "spec": "on | off",
+     "type": "enum",
+     "values": [
+      "on",
+      "off"
+     ]
+    },
+    {
+     "name": "support_output_clock_activation_when_ssh_is_off",
+     "default": "",
+     "spec": "on | off",
+     "type": "enum",
+     "values": [
+      "on",
+      "off"
+     ]
+    },
+    {
+     "name": "size_resolution",
+     "default": "",
+     "spec": "2 | 4 | 8",
+     "type": "enum",
+     "values": [
+      "2",
+      "4",
+      "8"
+     ]
+    },
+    {
+     "name": "use_ssn_bus_clock_as_test_clock_bypass",
+     "default": "",
+     "spec": "on | off",
+     "type": "enum",
+     "values": [
+      "on",
+      "off"
+     ]
+    },
+    {
+     "name": "dft_signals_not_mapped_on_ssh_outputs",
+     "default": "",
+     "spec": "dynamic_dft_signal_name, …",
+     "type": "text",
+     "placeholder": "dynamic_dft_signal_name, …"
+    }
+   ],
+   "blocks": [
+    {
+     "props": [
+      {
+       "name": "bus_clock_in",
+       "default": "",
+       "spec": "port_pin_name",
+       "type": "text",
+       "placeholder": "port_pin_name"
+      },
+      {
+       "name": "test_clock",
+       "default": "",
+       "spec": "port_pin_name",
+       "type": "text",
+       "placeholder": "port_pin_name"
+      },
+      {
+       "name": "test_clock_bypass_in",
+       "default": "DftSignal(test_clock)",
+       "spec": "port_pin_constant_name",
+       "type": "text",
+       "placeholder": "port_pin_constant_name"
+      },
+      {
+       "name": "edt_clock",
+       "default": "",
+       "spec": "port_pin_name, ...",
+       "type": "text",
+       "placeholder": "port_pin_name, ..."
+      },
+      {
+       "name": "edt_clock_bypass_in",
+       "default": "DftSignal(edt_clock)",
+       "spec": "port_pin_constant_name",
+       "type": "text",
+       "placeholder": "port_pin_constant_name"
+      },
+      {
+       "name": "edt_update",
+       "default": "",
+       "spec": "port_pin_name, ...",
+       "type": "text",
+       "placeholder": "port_pin_name, ..."
+      },
+      {
+       "name": "edt_update_bypass_in",
+       "default": "DftSignal(edt_update)",
+       "spec": "port_pin_constant_name",
+       "type": "text",
+       "placeholder": "port_pin_constant_name"
+      },
+      {
+       "name": "scan_en",
+       "default": "",
+       "spec": "port_pin_name, ...",
+       "type": "text",
+       "placeholder": "port_pin_name, ..."
+      },
+      {
+       "name": "scan_en_bypass_in",
+       "default": "DftSignal(scan_en)",
+       "spec": "port_pin_constant_name",
+       "type": "text",
+       "placeholder": "port_pin_constant_name"
+      },
+      {
+       "name": "shift_capture_clock",
+       "default": "",
+       "spec": "port_pin_name, ...",
+       "type": "text",
+       "placeholder": "port_pin_name, ..."
+      },
+      {
+       "name": "shift_capture_clock_bypass_in",
+       "default": "DftSignal(shift_capture_clock)",
+       "spec": "port_pin_constant_name",
+       "type": "text",
+       "placeholder": "port_pin_constant_name"
+      },
+      {
+       "name": "shift_clock",
+       "default": "",
+       "spec": "port_pin_name, ...",
+       "type": "text",
+       "placeholder": "port_pin_name, ..."
+      },
+      {
+       "name": "shift_clock_bypass_in",
+       "default": "DftSignal(shift_clock)",
+       "spec": "port_pin_constant_name",
+       "type": "text",
+       "placeholder": "port_pin_constant_name"
+      },
+      {
+       "name": "capture_clock",
+       "default": "",
+       "spec": "port_pin_name, ...",
+       "type": "text",
+       "placeholder": "port_pin_name, ..."
+      },
+      {
+       "name": "capture_clock_bypass_in",
+       "default": "DftSignal(capture_clock)",
+       "spec": "port_pin_constant_name",
+       "type": "text",
+       "placeholder": "port_pin_constant_name"
+      },
+      {
+       "name": "ssh_is_active",
+       "default": "",
+       "spec": "port_pin_name, ...",
+       "type": "text",
+       "placeholder": "port_pin_name, ..."
+      },
+      {
+       "name": "to_scan_in",
+       "default": "",
+       "spec": "port_pin_name, ...",
+       "type": "text",
+       "placeholder": "port_pin_name, ..."
+      },
+      {
+       "name": "to_scan_in_bypass_in",
+       "default": "edt_channels_in[%d]",
+       "spec": "port_pin_name, ...",
+       "type": "text",
+       "placeholder": "port_pin_name, ..."
+      },
+      {
+       "name": "from_scan_out",
+       "default": "",
+       "spec": "port_pin_name, ...",
+       "type": "text",
+       "placeholder": "port_pin_name, ..."
+      },
+      {
+       "name": "from_scan_out_bypass_out",
+       "default": "edt_channels_out[%d]",
+       "spec": "port_pin_name, ...",
+       "type": "text",
+       "placeholder": "port_pin_name, ..."
+      },
+      {
+       "name": "delete_pre_existing_functional_source",
+       "default": "",
+       "spec": "on | off",
+       "type": "enum",
+       "values": [
+        "on",
+        "off"
+       ]
+      }
+     ],
+     "blocks": [
+      {
+       "props": [
+        {
+         "name": "to_scan_in",
+         "default": "",
+         "spec": "port_pin_name, ...",
+         "type": "text",
+         "placeholder": "port_pin_name, ..."
+        },
+        {
+         "name": "to_scan_in_bypass_in",
+         "default": "edt_channels_in_%s[%d]",
+         "spec": "port_pin_name, ...",
+         "type": "text",
+         "placeholder": "port_pin_name, ..."
+        },
+        {
+         "name": "from_scan_out",
+         "default": "",
+         "spec": "port_pin_name, ...",
+         "type": "text",
+         "placeholder": "port_pin_name, ..."
+        },
+        {
+         "name": "from_scan_out_bypass_out",
+         "default": "edt_channels_out_%s[%d]",
+         "spec": "port_pin_name, ...",
+         "type": "text",
+         "placeholder": "port_pin_name, ..."
+        }
+       ],
+       "blocks": [],
+       "name": "ChainGroup",
+       "id": {
+        "kind": "id"
+       }
+      }
+     ],
+     "name": "Connections",
+     "id": null
+    },
+    {
+     "props": [
+      {
+       "name": "bus_clock",
+       "default": "Inherited",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "bus_data_in",
+       "default": "Inherited",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "bus_data_out",
+       "default": "Inherited",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "ssh_is_active",
+       "default": "Inherited",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "ssh_is_active_present",
+       "default": "",
+       "spec": "on | off | auto",
+       "type": "enum",
+       "values": [
+        "on",
+        "off",
+        "auto"
+       ]
+      }
+     ],
+     "blocks": [
+      {
+       "props": [
+        {
+         "name": "reset",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "tck",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "select",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "capture_en",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "shift_en",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "update_en",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "scan_in",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "scan_out",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        }
+       ],
+       "blocks": [],
+       "name": "IjtagScanInterface",
+       "id": null
+      },
+      {
+       "props": [
+        {
+         "name": "scan_en",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "scan_en_bypass_in",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "edt_update",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "edt_update_bypass_in",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "test_clock_present",
+         "default": "",
+         "spec": "on | off | auto",
+         "type": "enum",
+         "values": [
+          "on",
+          "off",
+          "auto"
+         ]
+        },
+        {
+         "name": "test_clock",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "test_clock_bypass_in",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "edt_clock_present",
+         "default": "",
+         "spec": "on | off | auto",
+         "type": "enum",
+         "values": [
+          "on",
+          "off",
+          "auto"
+         ]
+        },
+        {
+         "name": "edt_clock",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "edt_clock_bypass_in",
+         "default": "",
+         "spec": "port_name; / default: Inherited",
+         "type": "text",
+         "placeholder": "port_name; / default: Inherited"
+        },
+        {
+         "name": "shift_capture_clock_present",
+         "default": "",
+         "spec": "on | off | auto",
+         "type": "enum",
+         "values": [
+          "on",
+          "off",
+          "auto"
+         ]
+        },
+        {
+         "name": "shift_capture_clock",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "shift_capture_clock_bypass_in",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "shift_clock_present",
+         "default": "",
+         "spec": "on | off | auto",
+         "type": "enum",
+         "values": [
+          "on",
+          "off",
+          "auto"
+         ]
+        },
+        {
+         "name": "shift_clock",
+         "default": "shift_clock",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "shift_clock_bypass_in",
+         "default": "shift_clock_bypass_in",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "capture_clock_present",
+         "default": "",
+         "spec": "on | off | auto",
+         "type": "enum",
+         "values": [
+          "on",
+          "off",
+          "auto"
+         ]
+        },
+        {
+         "name": "capture_clock",
+         "default": "capture_clock",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "capture_clock_bypass_in",
+         "default": "capture_clock_bypass_in",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "to_scan_in",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "to_scan_in_bypass_in",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "from_scan_out",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "from_scan_out_bypass_out",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        }
+       ],
+       "blocks": [],
+       "name": "ChainGroup",
+       "id": null
+      },
+      {
+       "props": [
+        {
+         "name": "define_clock_on_boundary",
+         "default": "",
+         "spec": "on | off | auto",
+         "type": "enum",
+         "values": [
+          "on",
+          "off",
+          "auto"
+         ]
+        },
+        {
+         "name": "module_name",
+         "default": "",
+         "spec": "module_name",
+         "type": "text",
+         "placeholder": "module_name"
+        },
+        {
+         "name": "write_out_module_definition",
+         "default": "",
+         "spec": "on | in_separate_file | off | auto",
+         "type": "enum",
+         "values": [
+          "on",
+          "in_separate_file",
+          "off",
+          "auto"
+         ]
+        },
+        {
+         "name": "clock",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "enable",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "enable_sync",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "ijtag_clock_cg_en",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "ijtag_clock",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "next_edt_clock_div",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "edt_clock_cg_en",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "edt_clock_bypass_in",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "edt_clock",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "next_shift_capture_clock_div",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "shift_capture_clock_cg_en",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "shift_capture_clock_bypass_in",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "shift_capture_clock",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "next_shift_clock_div",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "shift_clock_cg_en",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "shift_clock_bypass_in",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "shift_clock",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "next_capture_clock_div",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "capture_clock_cg_en",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "capture_clock_bypass_in",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "capture_clock",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "next_test_clock_div",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "test_clock_cg_en",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "test_clock_bypass_in",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "test_clock",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        }
+       ],
+       "blocks": [],
+       "name": "ClockSignalModule",
+       "id": null
+      }
+     ],
+     "name": "Interface",
+     "id": null
+    },
+    {
+     "props": [
+      {
+       "name": "present",
+       "default": "",
+       "spec": "on | off | auto",
+       "type": "enum",
+       "values": [
+        "on",
+        "off",
+        "auto"
+       ]
+      },
+      {
+       "name": "sticky_status_resolution",
+       "default": "",
+       "spec": "ssh | output_chain",
+       "type": "enum",
+       "values": [
+        "ssh",
+        "output_chain"
+       ]
+      },
+      {
+       "name": "status_groups",
+       "default": "128",
+       "spec": "int",
+       "type": "text",
+       "placeholder": "int"
+      }
+     ],
+     "blocks": [],
+     "name": "OnChipCompareMode",
+     "id": null
+    },
+    {
+     "props": [],
+     "blocks": [],
+     "name": "ExtraOutputPath",
+     "id": null
+    },
+    {
+     "props": [
+      {
+       "name": "input_chain_count",
+       "default": "",
+       "spec": "int | from_edt_controller",
+       "type": "text",
+       "placeholder": "int | from_edt_controller"
+      },
+      {
+       "name": "output_chain_count",
+       "default": "",
+       "spec": "int | from_edt_controller | same_as_input_chain_count",
+       "type": "text",
+       "placeholder": "int | from_edt_controller | same_as_input_chain_count"
+      },
+      {
+       "name": "output_chain_count_in_on_chip_compare_mode",
+       "default": "",
+       "spec": "int | from_edt_controller | from_edt_controller_high_compression_configuration",
+       "type": "text",
+       "placeholder": "int | from_edt_controller | from_edt_controller_high_compression_configuration"
+      },
+      {
+       "name": "high_compression_input_channel_count",
+       "default": "",
+       "spec": "int | auto",
+       "type": "text",
+       "placeholder": "int | auto"
+      },
+      {
+       "name": "high_compression_output_channel_count",
+       "default": "",
+       "spec": "int | auto",
+       "type": "text",
+       "placeholder": "int | auto"
+      },
+      {
+       "name": "use_high_compression_channel_count_in_bypass_mode",
+       "default": "",
+       "spec": "on | off",
+       "type": "enum",
+       "values": [
+        "on",
+        "off"
+       ]
+      },
+      {
+       "name": "support_from_scan_out_le_strobing",
+       "default": "",
+       "spec": "on | off",
+       "type": "enum",
+       "values": [
+        "on",
+        "off"
+       ]
+      }
+     ],
+     "blocks": [],
+     "name": "ChainGroup",
+     "id": {
+      "kind": "id"
+     }
+    }
+   ],
+   "name": "ScanHost",
+   "id": null
+  },
+  "OutputPipeline": {
+   "props": [
+    {
+     "name": "ijtag_host_interface",
+     "default": "Sib(ssn)",
+     "spec": "host_node_leaf_name",
+     "type": "text",
+     "placeholder": "host_node_leaf_name"
+    },
+    {
+     "name": "ijtag_connection_order",
+     "default": "",
+     "spec": "int | \"\"",
+     "type": "text",
+     "placeholder": "int | \"\""
+    },
+    {
+     "name": "bus_clock_period",
+     "default": "2.5ns",
+     "spec": "time",
+     "type": "text",
+     "placeholder": "time"
+    },
+    {
+     "name": "frequency_ratio",
+     "default": "",
+     "spec": "int | auto",
+     "type": "text",
+     "placeholder": "int | auto"
+    },
+    {
+     "name": "parent_instance",
+     "default": "",
+     "spec": "instance_name",
+     "type": "text",
+     "placeholder": "instance_name"
+    },
+    {
+     "name": "leaf_instance_name",
+     "default": "",
+     "spec": "leaf_instance_name",
+     "type": "text",
+     "placeholder": "leaf_instance_name"
+    }
+   ],
+   "blocks": [
+    {
+     "props": [
+      {
+       "name": "bus_clock",
+       "default": "bus_clock",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "bus_data_in",
+       "default": "bus_data_in",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "bus_data_out",
+       "default": "bus_data_out",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      }
+     ],
+     "blocks": [
+      {
+       "props": [
+        {
+         "name": "reset",
+         "default": "ijtag_reset",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "tck",
+         "default": "ijtag_tck",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "select",
+         "default": "ijtag_sel",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "capture_en",
+         "default": "ijtag_ce",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "shift_en",
+         "default": "ijtag_se",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "update_en",
+         "default": "ijtag_ue",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "scan_in",
+         "default": "ijtag_si",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "scan_out",
+         "default": "ijtag_so",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        }
+       ],
+       "blocks": [],
+       "name": "IjtagScanInterface",
+       "id": null
+      }
+     ],
+     "name": "Interface",
+     "id": null
+    },
+    {
+     "props": [
+      {
+       "name": "bus_clock_in",
+       "default": "",
+       "spec": "port_pin_name",
+       "type": "text",
+       "placeholder": "port_pin_name"
+      }
+     ],
+     "blocks": [],
+     "name": "Connections",
+     "id": null
+    }
+   ],
+   "name": "OutputPipeline",
+   "id": null
+  },
+  "ExtraOutputPath": {
+   "props": [
+    {
+     "name": "ijtag_host_interface",
+     "default": "Sib(ssn)",
+     "spec": "host_node_leaf_name",
+     "type": "text",
+     "placeholder": "host_node_leaf_name"
+    },
+    {
+     "name": "output_bus_width",
+     "default": "",
+     "spec": "int | inferred_from_source | auto",
+     "type": "text",
+     "placeholder": "int | inferred_from_source | auto"
+    }
+   ],
+   "blocks": [
+    {
+     "props": [],
+     "blocks": [],
+     "name": "Pipeline",
+     "id": null
+    },
+    {
+     "props": [],
+     "blocks": [],
+     "name": "OutputPipeline",
+     "id": null
+    },
+    {
+     "props": [],
+     "blocks": [],
+     "name": "BusFrequencyMultiplier",
+     "id": null
+    },
+    {
+     "props": [],
+     "blocks": [],
+     "name": "ExtraOutputPath",
+     "id": null
+    },
+    {
+     "props": [],
+     "blocks": [],
+     "name": "Multiplexer",
+     "id": null
+    },
+    {
+     "props": [],
+     "blocks": [],
+     "name": "Fifo",
+     "id": null
+    },
+    {
+     "props": [
+      {
+       "name": "bus_clock_in",
+       "default": "inferred",
+       "spec": "port_pin_name",
+       "type": "text",
+       "placeholder": "port_pin_name"
+      },
+      {
+       "name": "bus_clock_out",
+       "default": "",
+       "spec": "port_pin_name",
+       "type": "text",
+       "placeholder": "port_pin_name"
+      },
+      {
+       "name": "output_datapath_id",
+       "default": "out<#>",
+       "spec": "id",
+       "type": "enum",
+       "values": [
+        "id"
+       ]
+      },
+      {
+       "name": "bus_data_out",
+       "default": "",
+       "spec": "{- | port_pin_name, ... }",
+       "type": "text",
+       "placeholder": "{- | port_pin_name, ... }"
+      }
+     ],
+     "blocks": [
+      {
+       "props": [],
+       "blocks": [],
+       "name": "InSystemTestController",
+       "id": {
+        "kind": "id"
+       }
+      }
+     ],
+     "name": "Connections",
+     "id": null
+    },
+    {
+     "props": [],
+     "blocks": [],
+     "name": "Receiver1xPipeline",
+     "id": null
+    },
+    {
+     "props": [],
+     "blocks": [],
+     "name": "DesignInstance",
+     "id": null
+    },
+    {
+     "props": [],
+     "blocks": [],
+     "name": "BusFrequencyDivider",
+     "id": null
+    }
+   ],
+   "name": "ExtraOutputPath",
+   "id": null
+  },
+  "DesignInstance": {
+   "props": [
+    {
+     "name": "datapath",
+     "default": "",
+     "spec": "id",
+     "type": "enum",
+     "values": [
+      "id"
+     ]
+    }
+   ],
+   "blocks": [
+    {
+     "props": [],
+     "blocks": [],
+     "name": "ExtraOutputPath",
+     "id": null
+    },
+    {
+     "props": [
+      {
+       "name": "ignore_bus_clock_out",
+       "default": "",
+       "spec": "on | off",
+       "type": "enum",
+       "values": [
+        "on",
+        "off"
+       ]
+      },
+      {
+       "name": "bus_clock_in",
+       "default": "",
+       "spec": "port_pin_name, ...",
+       "type": "text",
+       "placeholder": "port_pin_name, ..."
+      }
+     ],
+     "blocks": [],
+     "name": "Connections",
+     "id": null
+    }
+   ],
+   "name": "DesignInstance",
+   "id": null
+  },
+  "Receiver1xPipeline": {
+   "props": [
+    {
+     "name": "ijtag_host_interface",
+     "default": "Sib(ssn)",
+     "spec": "host_node_leaf_name",
+     "type": "text",
+     "placeholder": "host_node_leaf_name"
+    },
+    {
+     "name": "ijtag_connection_order",
+     "default": "",
+     "spec": "order",
+     "type": "enum",
+     "values": [
+      "order"
+     ]
+    },
+    {
+     "name": "bus_clock_period",
+     "default": "2.5ns",
+     "spec": "time",
+     "type": "text",
+     "placeholder": "time"
+    },
+    {
+     "name": "parent_instance",
+     "default": "",
+     "spec": "instance_name",
+     "type": "text",
+     "placeholder": "instance_name"
+    },
+    {
+     "name": "leaf_instance_name",
+     "default": "",
+     "spec": "leaf_instance_name",
+     "type": "text",
+     "placeholder": "leaf_instance_name"
+    },
+    {
+     "name": "input_retiming_cell_type",
+     "default": "Inherited",
+     "spec": "dff | latch",
+     "type": "enum",
+     "values": [
+      "dff",
+      "latch"
+     ]
+    }
+   ],
+   "blocks": [
+    {
+     "props": [
+      {
+       "name": "bus_clock_in",
+       "default": "",
+       "spec": "port_pin_name",
+       "type": "text",
+       "placeholder": "port_pin_name"
+      }
+     ],
+     "blocks": [],
+     "name": "Connections",
+     "id": null
+    },
+    {
+     "props": [
+      {
+       "name": "bus_clock",
+       "default": "Inherited",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "bus_data_in",
+       "default": "Inherited",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "bus_data_out",
+       "default": "Inherited",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      }
+     ],
+     "blocks": [
+      {
+       "props": [
+        {
+         "name": "reset",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        }
+       ],
+       "blocks": [],
+       "name": "IjtagScanInterface",
+       "id": null
+      }
+     ],
+     "name": "Interface",
+     "id": null
+    },
+    {
+     "props": [],
+     "blocks": [],
+     "name": "ExtraOutputPath",
+     "id": null
+    }
+   ],
+   "name": "Receiver1xPipeline",
+   "id": null
+  },
+  "BusFrequencyMultiplier": {
+   "props": [
+    {
+     "name": "use_clock_shaper_cell",
+     "default": "",
+     "spec": "on | off",
+     "type": "enum",
+     "values": [
+      "on",
+      "off"
+     ]
+    },
+    {
+     "name": "frequency_ratio",
+     "default": "",
+     "spec": "int",
+     "type": "text",
+     "placeholder": "int"
+    },
+    {
+     "name": "update_phase",
+     "default": "",
+     "spec": "transmitter | receiver",
+     "type": "enum",
+     "values": [
+      "transmitter",
+      "receiver"
+     ]
+    },
+    {
+     "name": "output_divided_clock",
+     "default": "",
+     "spec": "on | off",
+     "type": "enum",
+     "values": [
+      "on",
+      "off"
+     ]
+    },
+    {
+     "name": "ijtag_host_interface",
+     "default": "Sib(ssn)",
+     "spec": "host_node_leaf_name",
+     "type": "text",
+     "placeholder": "host_node_leaf_name"
+    },
+    {
+     "name": "ijtag_connection_order",
+     "default": "",
+     "spec": "int | \"\"",
+     "type": "text",
+     "placeholder": "int | \"\""
+    },
+    {
+     "name": "bus_clock_period",
+     "default": "Inherited",
+     "spec": "time",
+     "type": "text",
+     "placeholder": "time"
+    },
+    {
+     "name": "parent_instance",
+     "default": "",
+     "spec": "instance_name",
+     "type": "text",
+     "placeholder": "instance_name"
+    },
+    {
+     "name": "leaf_instance_name",
+     "default": "",
+     "spec": "leaf_instance_name",
+     "type": "text",
+     "placeholder": "leaf_instance_name"
+    }
+   ],
+   "blocks": [
+    {
+     "props": [],
+     "blocks": [],
+     "name": "ExtraOutputPath",
+     "id": null
+    },
+    {
+     "props": [
+      {
+       "name": "bus_clock_in",
+       "default": "",
+       "spec": "port_pin_name",
+       "type": "text",
+       "placeholder": "port_pin_name"
+      }
+     ],
+     "blocks": [],
+     "name": "Connections",
+     "id": null
+    },
+    {
+     "props": [
+      {
+       "name": "bus_clock",
+       "default": "Inherited",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "bus_clock_out",
+       "default": "Inherited",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "bus_data_in",
+       "default": "Inherited",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "bus_data_out",
+       "default": "Inherited",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      }
+     ],
+     "blocks": [
+      {
+       "props": [
+        {
+         "name": "reset",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "tck",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "select",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "capture_en",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "shift_en",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "update_en",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "scan_in",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "scan_out",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        }
+       ],
+       "blocks": [],
+       "name": "IjtagScanInterface",
+       "id": null
+      }
+     ],
+     "name": "Interface",
+     "id": null
+    }
+   ],
+   "name": "BusFrequencyMultiplier",
+   "id": null
+  },
+  "Multiplexer": {
+   "props": [
+    {
+     "name": "ijtag_host_interface",
+     "default": "Sib(ssn)",
+     "spec": "host_node_leaf_name",
+     "type": "text",
+     "placeholder": "host_node_leaf_name"
+    },
+    {
+     "name": "ijtag_connection_order",
+     "default": "",
+     "spec": "int | \"\"",
+     "type": "text",
+     "placeholder": "int | \"\""
+    },
+    {
+     "name": "bus_clock_period",
+     "default": "",
+     "spec": "time",
+     "type": "text",
+     "placeholder": "time"
+    },
+    {
+     "name": "secondary_input_bus_width",
+     "default": "",
+     "spec": "width | same_as_output_bus_width | auto",
+     "type": "enum",
+     "values": [
+      "width",
+      "same_as_output_bus_width",
+      "auto"
+     ]
+    },
+    {
+     "name": "include_clock_mux",
+     "default": "",
+     "spec": "on | off | auto",
+     "type": "enum",
+     "values": [
+      "on",
+      "off",
+      "auto"
+     ]
+    },
+    {
+     "name": "include_pipeline_stage",
+     "default": "",
+     "spec": "on | off",
+     "type": "enum",
+     "values": [
+      "on",
+      "off"
+     ]
+    },
+    {
+     "name": "mux_select",
+     "default": "",
+     "spec": "internal | external | auto",
+     "type": "text",
+     "placeholder": "internal | external | auto"
+    },
+    {
+     "name": "internal_mux_select_reset_value",
+     "default": "",
+     "spec": "0 | 1",
+     "type": "enum",
+     "values": [
+      "0",
+      "1"
+     ]
+    },
+    {
+     "name": "parent_instance",
+     "default": "",
+     "spec": "instance_name",
+     "type": "text",
+     "placeholder": "instance_name"
+    },
+    {
+     "name": "leaf_instance_name",
+     "default": "",
+     "spec": "leaf_instance_name",
+     "type": "text",
+     "placeholder": "leaf_instance_name"
+    }
+   ],
+   "blocks": [
+    {
+     "props": [
+      {
+       "name": "bus_clock_in",
+       "default": "",
+       "spec": "port_pin_name",
+       "type": "text",
+       "placeholder": "port_pin_name"
+      },
+      {
+       "name": "input_datapath_id",
+       "default": "",
+       "spec": "id",
+       "type": "enum",
+       "values": [
+        "id"
+       ]
+      },
+      {
+       "name": "secondary_bus_data_in",
+       "default": "",
+       "spec": "(- | port_pin_name, ...)",
+       "type": "text",
+       "placeholder": "(- | port_pin_name, ...)"
+      },
+      {
+       "name": "select_in",
+       "default": "",
+       "spec": "(- | port_pin_name )",
+       "type": "text",
+       "placeholder": "(- | port_pin_name )"
+      },
+      {
+       "name": "secondary_bus_clock_in",
+       "default": "",
+       "spec": "port_pin_name",
+       "type": "text",
+       "placeholder": "port_pin_name"
+      }
+     ],
+     "blocks": [
+      {
+       "props": [],
+       "blocks": [],
+       "name": "InSystemTestController",
+       "id": {
+        "kind": "id"
+       }
+      }
+     ],
+     "name": "Connections",
+     "id": null
+    },
+    {
+     "props": [],
+     "blocks": [],
+     "name": "Pipeline",
+     "id": {
+      "kind": "id"
+     }
+    },
+    {
+     "props": [],
+     "blocks": [],
+     "name": "BusFrequencyDivider",
+     "id": {
+      "kind": "id"
+     }
+    },
+    {
+     "props": [],
+     "blocks": [],
+     "name": "DefaultChildConfiguration",
+     "id": null
+    },
+    {
+     "props": [],
+     "blocks": [],
+     "name": "Multiplexer",
+     "id": null
+    },
+    {
+     "props": [],
+     "blocks": [],
+     "name": "DesignInstance",
+     "id": {
+      "kind": "id"
+     }
+    },
+    {
+     "props": [],
+     "blocks": [],
+     "name": "Receiver1xPipeline",
+     "id": {
+      "kind": "id"
+     }
+    },
+    {
+     "props": [],
+     "blocks": [],
+     "name": "ScanHost",
+     "id": {
+      "kind": "id"
+     }
+    },
+    {
+     "props": [],
+     "blocks": [],
+     "name": "BusFrequencyMultiplier",
+     "id": {
+      "kind": "id"
+     }
+    },
+    {
+     "props": [
+      {
+       "name": "bus_clock",
+       "default": "",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "bus_clock_out",
+       "default": "",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "bus_data_in",
+       "default": "",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "secondary_bus_data_in",
+       "default": "",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "secondary_bus_clock",
+       "default": "",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "bus_data_out",
+       "default": "",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "select_in",
+       "default": "",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "select_out",
+       "default": "",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      }
+     ],
+     "blocks": [
+      {
+       "props": [
+        {
+         "name": "reset",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "tck",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "select",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "capture_en",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "shift_en",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "update_en",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "scan_in",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "scan_out",
+         "default": "",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        }
+       ],
+       "blocks": [],
+       "name": "IjtagScanInterface",
+       "id": null
+      }
+     ],
+     "name": "Interface",
+     "id": null
+    },
+    {
+     "props": [],
+     "blocks": [],
+     "name": "ExtraOutputPath",
+     "id": null
+    }
+   ],
+   "name": "Multiplexer",
+   "id": null
+  },
+  "Fifo": {
+   "props": [
+    {
+     "name": "ijtag_host_interface",
+     "default": "Sib(ssn)",
+     "spec": "host_node_leaf_name",
+     "type": "text",
+     "placeholder": "host_node_leaf_name"
+    },
+    {
+     "name": "ijtag_connection_order",
+     "default": "",
+     "spec": "int | \"\"",
+     "type": "text",
+     "placeholder": "int | \"\""
+    },
+    {
+     "name": "bus_clock_period",
+     "default": "Inherited",
+     "spec": "time",
+     "type": "text",
+     "placeholder": "time"
+    },
+    {
+     "name": "frequency_ratio",
+     "default": "",
+     "spec": "int",
+     "type": "text",
+     "placeholder": "int"
+    },
+    {
+     "name": "input_retimed",
+     "default": "",
+     "spec": "on | off",
+     "type": "enum",
+     "values": [
+      "on",
+      "off"
+     ]
+    },
+    {
+     "name": "input_retiming_cell_type",
+     "default": "Inherited",
+     "spec": "dff | latch",
+     "type": "enum",
+     "values": [
+      "dff",
+      "latch"
+     ]
+    },
+    {
+     "name": "in_clock_to_out_clock_skew",
+     "default": "",
+     "spec": "early_or_delayed | delayed_only",
+     "type": "enum",
+     "values": [
+      "early_or_delayed",
+      "delayed_only"
+     ]
+    },
+    {
+     "name": "in_clock_to_out_clock_skew_programmable",
+     "default": "",
+     "spec": "on | off",
+     "type": "enum",
+     "values": [
+      "on",
+      "off"
+     ]
+    },
+    {
+     "name": "parent_instance",
+     "default": "",
+     "spec": "instance_name",
+     "type": "text",
+     "placeholder": "instance_name"
+    },
+    {
+     "name": "leaf_instance_name",
+     "default": "",
+     "spec": "leaf_instance_name",
+     "type": "text",
+     "placeholder": "leaf_instance_name"
+    }
+   ],
+   "blocks": [
+    {
+     "props": [],
+     "blocks": [],
+     "name": "ExtraOutputPath",
+     "id": null
+    },
+    {
+     "props": [
+      {
+       "name": "bus_in_clock_in",
+       "default": "",
+       "spec": "port_pin_name",
+       "type": "text",
+       "placeholder": "port_pin_name"
+      },
+      {
+       "name": "bus_out_clock_in",
+       "default": "",
+       "spec": "port_pin_name",
+       "type": "text",
+       "placeholder": "port_pin_name"
+      }
+     ],
+     "blocks": [],
+     "name": "Connections",
+     "id": null
+    },
+    {
+     "props": [
+      {
+       "name": "bus_in_clock",
+       "default": "Inherited",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "bus_out_clock",
+       "default": "Inherited",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "bus_data_in",
+       "default": "Inherited",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "bus_data_out",
+       "default": "Inherited",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      }
+     ],
+     "blocks": [
+      {
+       "props": [
+        {
+         "name": "reset",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "tck",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "select",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "capture_en",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "capture_shift_en",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "shift_en",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "update_en",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "update_clock",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "scan_in",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "scan_out",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        }
+       ],
+       "blocks": [],
+       "name": "IjtagScanInterface",
+       "id": null
+      }
+     ],
+     "name": "Interface",
+     "id": null
+    }
+   ],
+   "name": "Fifo",
+   "id": null
+  },
+  "BusFrequencyDivider": {
+   "props": [
+    {
+     "name": "input_retimed",
+     "default": "",
+     "spec": "on | off",
+     "type": "enum",
+     "values": [
+      "on",
+      "off"
+     ]
+    },
+    {
+     "name": "input_retiming_cell_type",
+     "default": "Inherited",
+     "spec": "dff | latch",
+     "type": "enum",
+     "values": [
+      "dff",
+      "latch"
+     ]
+    },
+    {
+     "name": "use_clock_shaper_cell",
+     "default": "",
+     "spec": "on | off",
+     "type": "enum",
+     "values": [
+      "on",
+      "off"
+     ]
+    },
+    {
+     "name": "frequency_ratio",
+     "default": "",
+     "spec": "int",
+     "type": "text",
+     "placeholder": "int"
+    },
+    {
+     "name": "output_divided_clock",
+     "default": "",
+     "spec": "on | off",
+     "type": "enum",
+     "values": [
+      "on",
+      "off"
+     ]
+    },
+    {
+     "name": "ijtag_host_interface",
+     "default": "Sib(ssn)",
+     "spec": "host_node_leaf_name",
+     "type": "text",
+     "placeholder": "host_node_leaf_name"
+    },
+    {
+     "name": "ijtag_connection_order",
+     "default": "",
+     "spec": "int | \"\"",
+     "type": "text",
+     "placeholder": "int | \"\""
+    },
+    {
+     "name": "bus_clock_period",
+     "default": "Inherited",
+     "spec": "time",
+     "type": "text",
+     "placeholder": "time"
+    },
+    {
+     "name": "parent_instance",
+     "default": "",
+     "spec": "instance_name",
+     "type": "text",
+     "placeholder": "instance_name"
+    },
+    {
+     "name": "leaf_instance_name",
+     "default": "",
+     "spec": "leaf_instance_name",
+     "type": "text",
+     "placeholder": "leaf_instance_name"
+    }
+   ],
+   "blocks": [
+    {
+     "props": [],
+     "blocks": [],
+     "name": "ExtraOutputPath",
+     "id": null
+    },
+    {
+     "props": [
+      {
+       "name": "bus_clock_in",
+       "default": "",
+       "spec": "port_pin_name",
+       "type": "text",
+       "placeholder": "port_pin_name"
+      }
+     ],
+     "blocks": [],
+     "name": "Connections",
+     "id": null
+    },
+    {
+     "props": [
+      {
+       "name": "bus_clock",
+       "default": "Inherited",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "bus_clock_out",
+       "default": "Inherited",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "bus_clock_out_local",
+       "default": "Inherited",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "bus_data_in",
+       "default": "Inherited",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "bus_data_out",
+       "default": "Inherited",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      }
+     ],
+     "blocks": [
+      {
+       "props": [
+        {
+         "name": "reset",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "tck",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "select",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "capture_en",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "shift_en",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "update_en",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "scan_in",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "scan_out",
+         "default": "Inherited",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        }
+       ],
+       "blocks": [],
+       "name": "IjtagScanInterface",
+       "id": null
+      }
+     ],
+     "name": "Interface",
+     "id": null
+    }
+   ],
+   "name": "BusFrequencyDivider",
+   "id": null
+  },
+  "Edt": {
+   "props": [
+    {
+     "name": "ijtag_host_interface",
+     "default": "",
+     "spec": "ijtag_leaf_node_name | none",
+     "type": "text",
+     "placeholder": "ijtag_leaf_node_name | none"
+    },
+    {
+     "name": "longest_chain_range",
+     "default": "",
+     "spec": "min, max",
+     "type": "text",
+     "placeholder": "min, max"
+    },
+    {
+     "name": "scan_chain_count",
+     "default": "",
+     "spec": "int",
+     "type": "text",
+     "placeholder": "int"
+    },
+    {
+     "name": "input_channel_count",
+     "default": "",
+     "spec": "int",
+     "type": "text",
+     "placeholder": "int"
+    },
+    {
+     "name": "output_channel_count",
+     "default": "",
+     "spec": "int",
+     "type": "text",
+     "placeholder": "int"
+    },
+    {
+     "name": "separate_control_data_channels",
+     "default": "",
+     "spec": "on | off",
+     "type": "enum",
+     "values": [
+      "on",
+      "off"
+     ]
+    },
+    {
+     "name": "parent_instance",
+     "default": "",
+     "spec": "name",
+     "type": "text",
+     "placeholder": "name"
+    },
+    {
+     "name": "leaf_instance_name",
+     "default": "",
+     "spec": "name",
+     "type": "text",
+     "placeholder": "name"
+    },
+    {
+     "name": "connect_bscan_segments_to_lsb_chains",
+     "default": "",
+     "spec": "on | off | auto",
+     "type": "enum",
+     "values": [
+      "on",
+      "off",
+      "auto"
+     ]
+    },
+    {
+     "name": "edt_bypass_change_edge_clock",
+     "default": "",
+     "spec": "prefer_edt_clock | scan_clock",
+     "type": "enum",
+     "values": [
+      "prefer_edt_clock",
+      "scan_clock"
+     ]
+    },
+    {
+     "name": "chain_output_masking_disable",
+     "default": "",
+     "spec": "on | off",
+     "type": "enum",
+     "values": [
+      "on",
+      "off"
+     ]
+    }
+   ],
+   "blocks": [
+    {
+     "props": [
+      {
+       "name": "present",
+       "default": "",
+       "spec": "on | off | auto",
+       "type": "enum",
+       "values": [
+        "on",
+        "off",
+        "auto"
+       ]
+      },
+      {
+       "name": "misr_input_ratio",
+       "default": "",
+       "spec": "integer | auto",
+       "type": "text",
+       "placeholder": "integer | auto"
+      },
+      {
+       "name": "chain_mask_register_ratio",
+       "default": "1",
+       "spec": "integer",
+       "type": "text",
+       "placeholder": "integer"
+      },
+      {
+       "name": "prpg_seed",
+       "default": "1",
+       "spec": "hex_value",
+       "type": "text",
+       "placeholder": "hex_value"
+      }
+     ],
+     "blocks": [
+      {
+       "props": [
+        {
+         "name": "present",
+         "default": "",
+         "spec": "off | on | auto",
+         "type": "enum",
+         "values": [
+          "off",
+          "on",
+          "auto"
+         ]
+        },
+        {
+         "name": "default_operation",
+         "default": "",
+         "spec": "enabled | disabled",
+         "type": "enum",
+         "values": [
+          "enabled",
+          "disabled"
+         ]
+        }
+       ],
+       "blocks": [
+        {
+         "props": [
+          {
+           "name": "hardware_default",
+           "default": "15",
+           "spec": "integer",
+           "type": "text",
+           "placeholder": "integer"
+          }
+         ],
+         "blocks": [],
+         "name": "SwitchingThresholdPercentage",
+         "id": null
+        }
+       ],
+       "name": "ShiftPowerOptions",
+       "id": null
+      }
+     ],
+     "name": "LogicBistOptions",
+     "id": null
+    },
+    {
+     "props": [
+      {
+       "name": "type",
+       "default": "",
+       "spec": "edge | level",
+       "type": "enum",
+       "values": [
+        "edge",
+        "level"
+       ]
+      },
+      {
+       "name": "lockup_cells",
+       "default": "",
+       "spec": "on | off",
+       "type": "enum",
+       "values": [
+        "on",
+        "off"
+       ]
+      },
+      {
+       "name": "reset_signal",
+       "default": "",
+       "spec": "auto | asynchronous | off | ijtag_reset",
+       "type": "enum",
+       "values": [
+        "auto",
+        "asynchronous",
+        "off",
+        "ijtag_reset"
+       ]
+      },
+      {
+       "name": "reset_polarity",
+       "default": "",
+       "spec": "auto | active_low | active_high",
+       "type": "text",
+       "placeholder": "auto | active_low | active_high"
+      }
+     ],
+     "blocks": [],
+     "name": "Clocking",
+     "id": null
+    },
+    {
+     "props": [
+      {
+       "name": "present",
+       "default": "",
+       "spec": "on | off",
+       "type": "enum",
+       "values": [
+        "on",
+        "off"
+       ]
+      },
+      {
+       "name": "bypass_chain_count",
+       "default": "",
+       "spec": "int | auto",
+       "type": "text",
+       "placeholder": "int | auto"
+      },
+      {
+       "name": "single_bypass_chain",
+       "default": "",
+       "spec": "on | off | auto",
+       "type": "enum",
+       "values": [
+        "on",
+        "off",
+        "auto"
+       ]
+      }
+     ],
+     "blocks": [
+      {
+       "props": [
+        {
+         "name": "scan_chain_range_list",
+         "default": "",
+         "spec": "scan_chain_range, ...",
+         "type": "text",
+         "placeholder": "scan_chain_range, ..."
+        }
+       ],
+       "blocks": [],
+       "name": "BypassChain",
+       "id": {
+        "kind": "id"
+       }
+      }
+     ],
+     "name": "BypassChains",
+     "id": null
+    },
+    {
+     "props": [
+      {
+       "name": "edt_clock",
+       "default": "edt_clock",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "edt_slave_clock",
+       "default": "edt_slave_clock",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "edt_update",
+       "default": "edt_update",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "edt_reset",
+       "default": "edt_reset",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      },
+      {
+       "name": "edt_channels_in_bus",
+       "default": "edt_channels_in",
+       "spec": "bus_name",
+       "type": "text",
+       "placeholder": "bus_name"
+      },
+      {
+       "name": "edt_channels_out_bus",
+       "default": "edt_channels_out",
+       "spec": "bus_name",
+       "type": "text",
+       "placeholder": "bus_name"
+      },
+      {
+       "name": "edt_bypass_change_edge_clock",
+       "default": "edt_bypass_change_edge_clock",
+       "spec": "port_name",
+       "type": "text",
+       "placeholder": "port_name"
+      }
+     ],
+     "blocks": [
+      {
+       "props": [
+        {
+         "name": "static_signals_driven",
+         "default": "as_needed",
+         "spec": "always | as_needed",
+         "type": "enum",
+         "values": [
+          "always",
+          "as_needed"
+         ]
+        },
+        {
+         "name": "tck",
+         "default": "ijtag_tck",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "reset",
+         "default": "ijtag_reset",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "select",
+         "default": "ijtag_sel",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "capture_en",
+         "default": "ijtag_ce",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "shift_en",
+         "default": "ijtag_se",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "update_en",
+         "default": "ijtag_ue",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "scan_in",
+         "default": "ijtag_si",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "scan_out",
+         "default": "ijtag_so",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        }
+       ],
+       "blocks": [],
+       "name": "IjtagScanInterface",
+       "id": null
+      },
+      {
+       "props": [
+        {
+         "name": "edt_bypass",
+         "default": "edt_bypass",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "edt_single_bypass_chain",
+         "default": "edt_single_bypass_chain",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "edt_configuration",
+         "default": "edt_configuration",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "edt_low_power_shift_enable",
+         "default": "edt_low_power_shift_en",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        }
+       ],
+       "blocks": [],
+       "name": "StaticExternalControls",
+       "id": null
+      },
+      {
+       "props": [
+        {
+         "name": "reset",
+         "default": "lbist_reset",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "enable",
+         "default": "lbist_en",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "prpg_en",
+         "default": "lbist_prpg_en",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "misr_en",
+         "default": "misr_accumulate_en",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "low_power_shift_en",
+         "default": "lbist_low_power_shift_en",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "self_test_en",
+         "default": "self_test_en",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        },
+        {
+         "name": "misr",
+         "default": "- (not created)",
+         "spec": "port_name",
+         "type": "text",
+         "placeholder": "port_name"
+        }
+       ],
+       "blocks": [],
+       "name": "LogicBist",
+       "id": null
+      }
+     ],
+     "name": "Interface",
+     "id": null
+    },
+    {
+     "props": [
+      {
+       "name": "present",
+       "default": "",
+       "spec": "on | off",
+       "type": "enum",
+       "values": [
+        "on",
+        "off"
+       ]
+      },
+      {
+       "name": "full_control",
+       "default": "",
+       "spec": "on | off",
+       "type": "enum",
+       "values": [
+        "on",
+        "off"
+       ]
+      },
+      {
+       "name": "min_switching_threshold_percentage",
+       "default": "15",
+       "spec": "int",
+       "type": "text",
+       "placeholder": "int"
+      }
+     ],
+     "blocks": [],
+     "name": "ShiftPowerOptions",
+     "id": null
+    },
+    {
+     "props": [
+      {
+       "name": "segments",
+       "default": "auto",
+       "spec": "int",
+       "type": "text",
+       "placeholder": "int"
+      },
+      {
+       "name": "max_chains_per_segment",
+       "default": "150",
+       "spec": "int",
+       "type": "text",
+       "placeholder": "int"
+      }
+     ],
+     "blocks": [],
+     "name": "Decompressor",
+     "id": null
+    },
+    {
+     "props": [
+      {
+       "name": "edt_clock",
+       "default": "",
+       "spec": "port_pin_name | DftSignal(edt_clock) | OptionalDftSignal(edt_clock)",
+       "type": "text",
+       "placeholder": "port_pin_name | DftSignal(edt_clock) | OptionalDftSignal(edt_clock)"
+      },
+      {
+       "name": "edt_slave_clock",
+       "default": "edt_slave_clock",
+       "spec": "port_pin_name",
+       "type": "text",
+       "placeholder": "port_pin_name"
+      },
+      {
+       "name": "edt_update",
+       "default": "",
+       "spec": "port_pin_name | DftSignal(edt_update) | OptionalDftSignal(edt_update)",
+       "type": "text",
+       "placeholder": "port_pin_name | DftSignal(edt_update) | OptionalDftSignal(edt_update)"
+      },
+      {
+       "name": "edt_reset",
+       "default": "",
+       "spec": "port_pin_name",
+       "type": "text",
+       "placeholder": "port_pin_name"
+      },
+      {
+       "name": "ssh_chain_group",
+       "default": "",
+       "spec": "chain_group_id",
+       "type": "text",
+       "placeholder": "chain_group_id"
+      },
+      {
+       "name": "mode_enables",
+       "default": "",
+       "spec": "port_pin_name | DftSignal(scan_mode_dft_signal), ...",
+       "type": "text",
+       "placeholder": "port_pin_name | DftSignal(scan_mode_dft_signal), ..."
+      },
+      {
+       "name": "scan_en",
+       "default": "",
+       "spec": "port_pin_name | DftSignal(dft_signal) | OptionalDftSignal(dft_signal)",
+       "type": "text",
+       "placeholder": "OptionalDftSignal(scan_en)"
+      },
+      {
+       "name": "edt_bypass_change_edge_clock",
+       "default": "",
+       "spec": "occ_spec",
+       "type": "text",
+       "placeholder": "occ_spec"
+      }
+     ],
+     "blocks": [
+      {
+       "props": [
+        {
+         "name": "port_pin_name",
+         "default": "",
+         "spec": "port_pin_name",
+         "type": "text",
+         "placeholder": "port_pin_name"
+        },
+        {
+         "name": "pipeline_clock",
+         "default": "Inherited from Connections",
+         "spec": "port_pin_name | DftSignal(edt_clock) | DftSignal(shift_capture_clock)",
+         "type": "text",
+         "placeholder": "port_pin_name | DftSignal(edt_clock) | DftSignal(shift_capture_clock)"
+        },
+        {
+         "name": "insert_lockup_cell",
+         "default": "",
+         "spec": "auto | off",
+         "type": "enum",
+         "values": [
+          "auto",
+          "off"
+         ]
+        },
+        {
+         "name": "lockup_cell_type",
+         "default": "",
+         "spec": "latch | dff",
+         "type": "enum",
+         "values": [
+          "latch",
+          "dff"
+         ]
+        }
+       ],
+       "blocks": [
+        {
+         "props": [
+          {
+           "name": "parent_instance",
+           "default": "",
+           "spec": "instance_name",
+           "type": "text",
+           "placeholder": "instance_name"
+          },
+          {
+           "name": "leaf_instance_name",
+           "default": "",
+           "spec": "instance_name",
+           "type": "text",
+           "placeholder": "instance_name"
+          },
+          {
+           "name": "pipeline_clock",
+           "default": "Inherited from EdtChannelsIn value",
+           "spec": "port_pin_name",
+           "type": "text",
+           "placeholder": "port_pin_name"
+          },
+          {
+           "name": "insert_lockup_cell",
+           "default": "Inherited from EdtChannelsIn value",
+           "spec": "auto | off",
+           "type": "enum",
+           "values": [
+            "auto",
+            "off"
+           ]
+          },
+          {
+           "name": "lockup_cell_type",
+           "default": "Inherited from EdtChannelsIn value",
+           "spec": "latch | dff",
+           "type": "enum",
+           "values": [
+            "latch",
+            "dff"
+           ]
+          }
+         ],
+         "blocks": [],
+         "name": "PipelineStage",
+         "id": null
+        }
+       ],
+       "name": "EdtChannelsIn",
+       "id": {
+        "kind": "range"
+       }
+      },
+      {
+       "props": [
+        {
+         "name": "edt_bypass",
+         "default": "",
+         "spec": "port_pin_name | 0 | 1",
+         "type": "text",
+         "placeholder": "port_pin_name | 0 | 1"
+        },
+        {
+         "name": "edt_single_bypass_chain",
+         "default": "",
+         "spec": "port_pin_name | 0 | 1",
+         "type": "text",
+         "placeholder": "port_pin_name | 0 | 1"
+        },
+        {
+         "name": "edt_configuration",
+         "default": "",
+         "spec": "port_pin_name | 0 | 1",
+         "type": "text",
+         "placeholder": "port_pin_name | 0 | 1"
+        },
+        {
+         "name": "edt_low_power_shift_enable",
+         "default": "",
+         "spec": "port_pin_name | 0 | 1",
+         "type": "text",
+         "placeholder": "port_pin_name | 0 | 1"
+        }
+       ],
+       "blocks": [],
+       "name": "StaticExternalControls",
+       "id": null
+      },
+      {
+       "props": [
+        {
+         "name": "port_pin_name",
+         "default": "",
+         "spec": "port_pin_name",
+         "type": "text",
+         "placeholder": "port_pin_name"
+        },
+        {
+         "name": "pipeline_clock",
+         "default": "edt_clock",
+         "spec": "port_pin_name",
+         "type": "text",
+         "placeholder": "port_pin_name"
+        },
+        {
+         "name": "insert_lockup_cell",
+         "default": "",
+         "spec": "auto | off",
+         "type": "enum",
+         "values": [
+          "auto",
+          "off"
+         ]
+        },
+        {
+         "name": "lockup_cell_type",
+         "default": "",
+         "spec": "latch | dff",
+         "type": "enum",
+         "values": [
+          "latch",
+          "dff"
+         ]
+        }
+       ],
+       "blocks": [
+        {
+         "props": [
+          {
+           "name": "parent_instance",
+           "default": "",
+           "spec": "instance_name",
+           "type": "text",
+           "placeholder": "instance_name"
+          },
+          {
+           "name": "leaf_instance_name",
+           "default": "",
+           "spec": "instance_name",
+           "type": "text",
+           "placeholder": "instance_name"
+          },
+          {
+           "name": "pipeline_clock",
+           "default": "Inherited from EdtChannelsOut value",
+           "spec": "port_pin_name",
+           "type": "text",
+           "placeholder": "port_pin_name"
+          },
+          {
+           "name": "insert_lockup_cell",
+           "default": "Inherited from EdtChannelsOut value",
+           "spec": "auto | off",
+           "type": "enum",
+           "values": [
+            "auto",
+            "off"
+           ]
+          },
+          {
+           "name": "lockup_cell_type",
+           "default": "Inherited from EdtChannelsOut value",
+           "spec": "latch | dff",
+           "type": "enum",
+           "values": [
+            "latch",
+            "dff"
+           ]
+          }
+         ],
+         "blocks": [],
+         "name": "PipelineStage",
+         "id": null
+        }
+       ],
+       "name": "EdtChannelsOut",
+       "id": {
+        "kind": "range"
+       }
+      }
+     ],
+     "name": "Connections",
+     "id": null
+    },
+    {
+     "props": [
+      {
+       "name": "type",
+       "default": "",
+       "spec": "xpress | basic",
+       "type": "enum",
+       "values": [
+        "xpress",
+        "basic"
+       ]
+      },
+      {
+       "name": "pipeline_logic_levels_in_compactor",
+       "default": "",
+       "spec": "int | off",
+       "type": "text",
+       "placeholder": "int | off"
+      },
+      {
+       "name": "change_edge_at_compactor_output",
+       "default": "",
+       "spec": "any | leading_edge_of_edt_clock | trailing_edge_of_edt_clock",
+       "type": "enum",
+       "values": [
+        "any",
+        "leading_edge_of_edt_clock",
+        "trailing_edge_of_edt_clock"
+       ]
+      }
+     ],
+     "blocks": [
+      {
+       "props": [
+        {
+         "name": "scan_chain_range_list",
+         "default": "",
+         "spec": "scan_chain_range, ...",
+         "type": "text",
+         "placeholder": "scan_chain_range, ..."
+        }
+       ],
+       "blocks": [],
+       "name": "CompactorConnection",
+       "id": {
+        "kind": "id"
+       }
+      }
+     ],
+     "name": "Compactor",
+     "id": null
+    },
+    {
+     "props": [
+      {
+       "name": "present",
+       "default": "",
+       "spec": "on | off",
+       "type": "enum",
+       "values": [
+        "on",
+        "off"
+       ]
+      },
+      {
+       "name": "input_channel_count",
+       "default": "",
+       "spec": "int",
+       "type": "text",
+       "placeholder": "int"
+      },
+      {
+       "name": "output_channel_count",
+       "default": "",
+       "spec": "int",
+       "type": "text",
+       "placeholder": "int"
+      }
+     ],
+     "blocks": [],
+     "name": "HighCompressionConfiguration",
+     "id": null
+    },
+    {
+     "props": [
+      {
+       "name": "present",
+       "default": "",
+       "spec": "on | off | auto",
+       "type": "enum",
+       "values": [
+        "on",
+        "off",
+        "auto"
+       ]
+      },
+      {
+       "name": "enable_one_chain",
+       "default": "",
+       "spec": "on | off",
+       "type": "enum",
+       "values": [
+        "on",
+        "off"
+       ]
+      }
+     ],
+     "blocks": [],
+     "name": "LVxMode",
+     "id": null
+    }
+   ],
+   "name": "Controller",
+   "id": {
+    "kind": "id"
+   }
+  }
+ }
+}

@@ -1,0 +1,14 @@
+set design_name processor_core
+set prj_dir $env(prj_dir)
+set prj_path $env(prj_dir)
+set design_filelist "/home/wongw/nx9000/design/processor_core/processor_core.f"
+set release_dir_sdc /home/wongw/dft_release/processor_core/sdc
+set level level1
+set design_level "physical_block"
+set design_id "mbist"
+set sharebus "no"
+set blackbox ""
+set script_leaf_dir "1.mbist_insertion"
+set deliver "/home/wongw/nx9000/dft_path/processor_core/v2/7.deliver/rtl"
+set version "v2"
+set rel_prefix "../../../../"

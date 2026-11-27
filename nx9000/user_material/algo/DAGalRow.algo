@@ -1,0 +1,300 @@
+//  DFT ARTIST  2024.1    2025-01-09 12:24:08
+//                   Copyright 2024 E2UNINOVA
+
+//  This material contains trade secrets or otherwise confidential
+//  information owned by E2UNINOVA Industry Software Inc. or its affiliates
+//  (collectively, "ZHAOQIANG"), or its licensors. Access to and use of this
+//  applicable agreements with E2UNINOVA,Email:316444605@qq.com.
+//  E2UNINOVA software executing under login03.jiawei.pcmLinux on 2025-01-09 12:24:08.
+
+          Algorithm ( DAGALROW ) { // ALGO 14 {{{
+            AllowMultiSizeMemParallelTest                   : ON;
+            TargetMemory                                    : ALLCOMPATIBLE;
+            TreatBankAsRowMSB                               : OFF;
+            TestRegisterSetup { // {{{
+                AddressGenerator {
+                    LoadBankAddressMax                      : 1'b1; // Configurable per Step
+                    LoadBankAddressMin                      : 1'b0; // Configurable per Step
+                    LoadRowAddressMax                       : 6'b111111; // Configurable per Step
+                    LoadRowAddressMin                       : 6'b000000; // Configurable per Step
+                    LoadColumnAddressMax                    : 1'b1; // Configurable per Step 2'b11
+                    LoadColumnAddressMin                    : 1'b0; // Configurable per Step 2'b00
+                    AddressRegister ( A ) {
+                        LoadBankAddress                 : 1'b0;
+                        LoadRowAddress             : 6'b000000;
+                        LoadColumnAddress              : 1'b0;
+                        NumberX0Bits                        : 0; // No row address
+                        NumberY0Bits                        : 0; // No column address
+                        ZCarryIn                            : NONE;
+                        X1CarryIn                           : NONE;
+                        X0CarryIn                           : None; // No X0 segment
+                        Y1CarryIn                           : X1CARRYOUT;
+                        Y0CarryIn                           : None; // No Y0 segment
+                    } 
+                    AddressRegister ( B ) {
+                        LoadBankAddress                 : 1'b0;
+                        LoadRowAddress             : 6'b000000;
+                        LoadColumnAddress              : 1'b0;
+                        NumberX0Bits                        : 0; // No row address
+                        NumberY0Bits                        : 0; // No column address
+                        ZCarryIn                            : NONE;
+                        X1CarryIn                           : NONE;
+                        X0CarryIn                           : None; // No X0 segment
+                        Y1CarryIn                           : NONE;
+                        Y0CarryIn                           : None; // No Y0 segment
+                    } 
+                } 
+                DataGenerator {
+                    LoadWriteData                           : 23'b00000000000000000000000;
+                    LoadExpectData                          : 23'b00000000000000000000000;
+                    InvertDataWithRowBit                    : None;
+                    InvertDataWithColumnBit                 : None;
+                } 
+                LoadCounterA_EndCount                       : 0;
+                LoadDelayCounter_EndCount                   : 0; // No delay counter
+                OperationSetSelect                          : SYNC; // Configurable per Step
+            } // TestRegisterSetup }}}
+            MicroProgram { // 7 instructions {{{
+                Instruction ( WRITE_BACKGROUND ) { // LVGALROW INST_POINTER 0 {{{
+                    ApplyToBitSlice                         : Off;
+                    DisableMemoriesWithoutWriteEnable       : Off;
+                    DisableMemoriesWithoutGroupWriteEnable  : Off;
+                    DisableMemoriesWithoutReadEnable        : Off;
+                    DisableMemoriesWithoutOutputEnable      : Off;
+                    DisableMemoriesWithoutSelect            : Off;
+                    Add_Reg_A_Equals_B                      : Off;
+                    AddressSelectCmd                        : Select_A;
+                    BranchToInstruction                     : WRITE_BACKGROUND;
+                    CounterACmd                             : Hold;
+                    DelayCounterCmd                         : Hold; // No delay counter
+                    ExpectDataCmd                           : Zero;
+                    InhibitDataCompare                      : Off;
+                    InhibitLastAddressCount                 : Off;
+                    InhibitRefresh                          : Off; // No refresh counter
+                    OperationSelect                         : WRITE;
+                    WriteDataCmd                            : DataReg;
+                    ZAddressCmd                             : Hold;
+                    X1AddressCmd                            : Increment;
+                    X0AddressCmd                            : Hold; // No X0 segment
+                    Y1AddressCmd                            : Increment;
+                    Y0AddressCmd                            : Hold; // No Y0 segment
+                    NextConditions {
+                        Z_EndCount                          : Off;
+                        X1_EndCount                         : On;
+                        X0_EndCount                         : Off; // No X0 segment
+                        Y1_EndCount                         : On;
+                        Y0_EndCount                         : Off; // No Y0 segment
+                        CounterAEndCount                    : Off;
+                        DelayCounterEndCount                : Off; // No delay counter
+                    } 
+                } // LVGALROW INST_POINTER 0 }}}
+                Instruction ( WRITE_HOME_CELL ) { // LVGALROW INST_POINTER 1 {{{
+                    ApplyToBitSlice                         : Off;
+                    DisableMemoriesWithoutWriteEnable       : Off;
+                    DisableMemoriesWithoutGroupWriteEnable  : Off;
+                    DisableMemoriesWithoutReadEnable        : Off;
+                    DisableMemoriesWithoutOutputEnable      : Off;
+                    DisableMemoriesWithoutSelect            : Off;
+                    Add_Reg_A_Equals_B                      : Off;
+                    AddressSelectCmd                        : Select_A;
+                    BranchToInstruction                     : WRITE_HOME_CELL;
+                    CounterACmd                             : Hold;
+                    DelayCounterCmd                         : Hold; // No delay counter
+                    ExpectDataCmd                           : Zero;
+                    InhibitDataCompare                      : Off;
+                    InhibitLastAddressCount                 : Off;
+                    InhibitRefresh                          : Off; // No refresh counter
+                    OperationSelect                         : WRITE;
+                    WriteDataCmd                            : InverseDataReg;
+                    ZAddressCmd                             : Hold;
+                    X1AddressCmd                            : Hold;
+                    X0AddressCmd                            : Hold; // No X0 segment
+                    Y1AddressCmd                            : Hold;
+                    Y0AddressCmd                            : Hold; // No Y0 segment
+                    NextConditions {
+                        Z_EndCount                          : Off;
+                        X1_EndCount                         : Off;
+                        X0_EndCount                         : Off; // No X0 segment
+                        Y1_EndCount                         : Off;
+                        Y0_EndCount                         : Off; // No Y0 segment
+                        CounterAEndCount                    : Off;
+                        DelayCounterEndCount                : Off; // No delay counter
+                    } 
+                } // LVGALROW INST_POINTER 1 }}}
+                Instruction ( READ_HOME_CELL ) { // LVGALROW INST_POINTER 2 {{{
+                    ApplyToBitSlice                         : Off;
+                    DisableMemoriesWithoutWriteEnable       : Off;
+                    DisableMemoriesWithoutGroupWriteEnable  : Off;
+                    DisableMemoriesWithoutReadEnable        : Off;
+                    DisableMemoriesWithoutOutputEnable      : Off;
+                    DisableMemoriesWithoutSelect            : Off;
+                    Add_Reg_A_Equals_B                      : Off;
+                    AddressSelectCmd                        : Select_A;
+                    BranchToInstruction                     : READ_HOME_CELL;
+                    CounterACmd                             : Hold;
+                    DelayCounterCmd                         : Hold; // No delay counter
+                    ExpectDataCmd                           : InverseDataReg;
+                    InhibitDataCompare                      : Off;
+                    InhibitLastAddressCount                 : Off;
+                    InhibitRefresh                          : Off; // No refresh counter
+                    OperationSelect                         : READ;
+                    WriteDataCmd                            : Zero;
+                    ZAddressCmd                             : Hold;
+                    X1AddressCmd                            : Hold;
+                    X0AddressCmd                            : Hold; // No X0 segment
+                    Y1AddressCmd                            : Hold;
+                    Y0AddressCmd                            : Hold; // No Y0 segment
+                    NextConditions {
+                        Z_EndCount                          : Off;
+                        X1_EndCount                         : Off;
+                        X0_EndCount                         : Off; // No X0 segment
+                        Y1_EndCount                         : Off;
+                        Y0_EndCount                         : Off; // No Y0 segment
+                        CounterAEndCount                    : Off;
+                        DelayCounterEndCount                : Off; // No delay counter
+                    } 
+                } // LVGALROW INST_POINTER 2 }}}
+                Instruction ( READ_AWAY_ROW ) { // LVGALROW INST_POINTER 3 {{{
+                    ApplyToBitSlice                         : Off;
+                    DisableMemoriesWithoutWriteEnable       : Off;
+                    DisableMemoriesWithoutGroupWriteEnable  : Off;
+                    DisableMemoriesWithoutReadEnable        : Off;
+                    DisableMemoriesWithoutOutputEnable      : Off;
+                    DisableMemoriesWithoutSelect            : Off;
+                    Add_Reg_A_Equals_B                      : Invert_ExpectData;
+                    AddressSelectCmd                        : Select_B;
+                    BranchToInstruction                     : READ_HOME_CELL;
+                    CounterACmd                             : Hold;
+                    DelayCounterCmd                         : Hold; // No delay counter
+                    ExpectDataCmd                           : DataReg;
+                    InhibitDataCompare                      : Off;
+                    InhibitLastAddressCount                 : Off;
+                    InhibitRefresh                          : Off; // No refresh counter
+                    OperationSelect                         : READ;
+                    WriteDataCmd                            : Zero;
+                    ZAddressCmd                             : Hold;
+                    X1AddressCmd                            : Hold;
+                    X0AddressCmd                            : Hold; // No X0 segment
+                    Y1AddressCmd                            : Increment;
+                    Y0AddressCmd                            : Hold; // No Y0 segment
+                    NextConditions {
+                        Z_EndCount                          : Off;
+                        X1_EndCount                         : Off;
+                        X0_EndCount                         : Off; // No X0 segment
+                        Y1_EndCount                         : On;
+                        Y0_EndCount                         : Off; // No Y0 segment
+                        CounterAEndCount                    : Off;
+                        DelayCounterEndCount                : Off; // No delay counter
+                    } 
+                } // LVGALROW INST_POINTER 3 }}}
+                Instruction ( ADVANCE_AWAY_ROW_POINTER ) { // LVGALROW INST_POINTER 4 {{{
+                    ApplyToBitSlice                         : Off;
+                    DisableMemoriesWithoutWriteEnable       : Off;
+                    DisableMemoriesWithoutGroupWriteEnable  : Off;
+                    DisableMemoriesWithoutReadEnable        : Off;
+                    DisableMemoriesWithoutOutputEnable      : Off;
+                    DisableMemoriesWithoutSelect            : Off;
+                    Add_Reg_A_Equals_B                      : Off;
+                    AddressSelectCmd                        : Select_B;
+                    BranchToInstruction                     : ADVANCE_AWAY_ROW_POINTER;
+                    CounterACmd                             : Hold;
+                    DelayCounterCmd                         : Hold; // No delay counter
+                    ExpectDataCmd                           : Zero;
+                    InhibitDataCompare                      : Off;
+                    InhibitLastAddressCount                 : Off;
+                    InhibitRefresh                          : Off; // No refresh counter
+                    OperationSelect                         : NOOPERATION;
+                    WriteDataCmd                            : Zero;
+                    ZAddressCmd                             : Hold;
+                    X1AddressCmd                            : Increment;
+                    X0AddressCmd                            : Hold; // No X0 segment
+                    Y1AddressCmd                            : Hold;
+                    Y0AddressCmd                            : Hold; // No Y0 segment
+                    NextConditions {
+                        Z_EndCount                          : Off;
+                        X1_EndCount                         : Off;
+                        X0_EndCount                         : Off; // No X0 segment
+                        Y1_EndCount                         : Off;
+                        Y0_EndCount                         : Off; // No Y0 segment
+                        CounterAEndCount                    : Off;
+                        DelayCounterEndCount                : Off; // No delay counter
+                    } 
+                } // LVGALROW INST_POINTER 4 }}}
+                Instruction ( REWRITE_HOME_CELL_AND_ADVANCE ) { // LVGALROW INST_POINTER 5 {{{
+                    ApplyToBitSlice                         : Off;
+                    DisableMemoriesWithoutWriteEnable       : Off;
+                    DisableMemoriesWithoutGroupWriteEnable  : Off;
+                    DisableMemoriesWithoutReadEnable        : Off;
+                    DisableMemoriesWithoutOutputEnable      : Off;
+                    DisableMemoriesWithoutSelect            : Off;
+                    Add_Reg_A_Equals_B                      : Off;
+                    AddressSelectCmd                        : Select_A;
+                    BranchToInstruction                     : WRITE_HOME_CELL;
+                    CounterACmd                             : Hold;
+                    DelayCounterCmd                         : Hold; // No delay counter
+                    ExpectDataCmd                           : InverseDataReg;
+                    InhibitDataCompare                      : Off;
+                    InhibitLastAddressCount                 : Off;
+                    InhibitRefresh                          : Off; // No refresh counter
+                    OperationSelect                         : READMODIFYWRITE;
+                    WriteDataCmd                            : DataReg;
+                    ZAddressCmd                             : Hold;
+                    X1AddressCmd                            : Increment;
+                    X0AddressCmd                            : Hold; // No X0 segment
+                    Y1AddressCmd                            : Increment;
+                    Y0AddressCmd                            : Hold; // No Y0 segment
+                    NextConditions {
+                        Z_EndCount                          : Off;
+                        X1_EndCount                         : On;
+                        X0_EndCount                         : Off; // No X0 segment
+                        Y1_EndCount                         : On;
+                        Y0_EndCount                         : Off; // No Y0 segment
+                        CounterAEndCount                    : Off;
+                        DelayCounterEndCount                : Off; // No delay counter
+                    } 
+                } // LVGALROW INST_POINTER 5 }}}
+                Instruction ( GOTO_NEXT_BANKADDRESS ) { // LVGALROW INST_POINTER 6 {{{
+                    ApplyToBitSlice                         : Off;
+                    DisableMemoriesWithoutWriteEnable       : Off;
+                    DisableMemoriesWithoutGroupWriteEnable  : Off;
+                    DisableMemoriesWithoutReadEnable        : Off;
+                    DisableMemoriesWithoutOutputEnable      : Off;
+                    DisableMemoriesWithoutSelect            : Off;
+                    Add_Reg_A_Equals_B                      : Off;
+                    AddressSelectCmd                        : Select_A_Copy_To_B;
+                    BranchToInstruction                     : WRITE_BACKGROUND;
+                    CounterACmd                             : Hold;
+                    DelayCounterCmd                         : Hold; // No delay counter
+                    ExpectDataCmd                           : Zero;
+                    InhibitDataCompare                      : Off;
+                    InhibitLastAddressCount                 : Off;
+                    InhibitRefresh                          : Off; // No refresh counter
+                    OperationSelect                         : NOOPERATION;
+                    WriteDataCmd                            : Zero;
+                    ZAddressCmd                             : Increment;
+                    X1AddressCmd                            : Hold;
+                    X0AddressCmd                            : Hold; // No X0 segment
+                    Y1AddressCmd                            : Hold;
+                    Y0AddressCmd                            : Hold; // No Y0 segment
+                    NextConditions {
+                        Z_EndCount                          : On;
+                        X1_EndCount                         : Off;
+                        X0_EndCount                         : Off; // No X0 segment
+                        Y1_EndCount                         : Off;
+                        Y0_EndCount                         : Off; // No Y0 segment
+                        CounterAEndCount                    : Off;
+                        DelayCounterEndCount                : Off; // No delay counter
+                        RepeatLoop ( B ) {
+                            BranchToInstruction             : WRITE_BACKGROUND;
+                            Repeat {
+                                AddressSequence             : NoChange;
+                                WriteDataSequence           : Inverse;
+                                ExpectDataSequence          : Inverse;
+                                InhibitLastAddressCount     : Off;
+                                InhibitDataCompare          : Off;
+                            }
+                        }
+                    } 
+                } // LVGALROW INST_POINTER 6 }}}
+            } // MicroProgram }}}
+        } // LVGALROW }}}

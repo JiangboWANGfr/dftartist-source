@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "library": {
+    "defs": [
+      {
+        "id": "d",
+        "designName": "d",
+        "designLevel": "physical_block",
+        "designType": "hierarchical",
+        "interfaces": [
+          {
+            "id": "cl",
+            "busType": "BSCAN",
+            "role": "client"
+          },
+          {
+            "id": "r1",
+            "busType": "BSCAN",
+            "role": "secondary",
+            "interfaceName": "r1"
+          },
+          {
+            "id": "sx",
+            "busType": "SSN",
+            "role": "client",
+            "busWidth": 4
+          }
+        ],
+        "childInstances": [],
+        "connections": [],
+        "dftIps": [
+          {
+            "id": "pf",
+            "ipType": "EBScanPipeline",
+            "instanceName": "from_r1",
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          {
+            "id": "pt",
+            "ipType": "EBScanPipeline",
+            "instanceName": "to_r1",
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          },
+          {
+            "id": "sh",
+            "ipType": "ScanHost",
+            "instanceName": "ssh_1",
+            "position": {
+              "x": 0,
+              "y": 0
+            }
+          }
+        ],
+        "dftWires": [
+          {
+            "id": "w1",
+            "from": {
+              "kind": "iface",
+              "instanceId": "d",
+              "interfaceId": "cl",
+              "pin": "out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "pf",
+              "port": "scan_in"
+            }
+          },
+          {
+            "id": "w2",
+            "from": {
+              "kind": "ip",
+              "ipId": "pf",
+              "port": "scan_out"
+            },
+            "to": {
+              "kind": "iface",
+              "instanceId": "d",
+              "interfaceId": "r1",
+              "pin": "in"
+            }
+          },
+          {
+            "id": "w3",
+            "from": {
+              "kind": "iface",
+              "instanceId": "d",
+              "interfaceId": "r1",
+              "pin": "out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "pt",
+              "port": "scan_in"
+            }
+          },
+          {
+            "id": "w4",
+            "from": {
+              "kind": "ip",
+              "ipId": "pt",
+              "port": "scan_out"
+            },
+            "to": {
+              "kind": "iface",
+              "instanceId": "d",
+              "interfaceId": "cl",
+              "pin": "in"
+            }
+          },
+          {
+            "id": "s1",
+            "from": {
+              "kind": "iface",
+              "instanceId": "d",
+              "interfaceId": "sx",
+              "pin": "out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "sh",
+              "port": "bus_data_in"
+            }
+          },
+          {
+            "id": "s2",
+            "from": {
+              "kind": "ip",
+              "ipId": "sh",
+              "port": "bus_data_out"
+            },
+            "to": {
+              "kind": "iface",
+              "instanceId": "d",
+              "interfaceId": "sx",
+              "pin": "in"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ui": {
+    "openDefId": "d",
+    "rootDefId": "d"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "formatVersion": 1,
+  "kind": "wrapper-config",
+  "mode": "chains",
+  "boundary": {
+    "scope": "chain_top",
+    "ports": [
+      "q",
+      "alias_q"
+    ]
+  },
+  "planning": {
+    "policy": {
+      "maxOutputCandidates": 1
+    }
+  },
+  "chaining": {
+    "chains": [
+      {
+        "name": "scan",
+        "capacity": 4
+      }
+    ],
+    "defaultChain": "scan"
+  }
+}

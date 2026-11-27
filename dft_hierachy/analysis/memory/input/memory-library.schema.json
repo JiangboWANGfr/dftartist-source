@@ -1,0 +1,295 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:memory-library-input:1",
+  "type": "object",
+  "properties": {
+    "formatVersion": {
+      "const": 1
+    },
+    "kind": {
+      "const": "memory-library"
+    },
+    "models": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "definitionName": {
+            "type": "string",
+            "minLength": 1
+          },
+          "words": {
+            "type": "integer",
+            "minimum": 2,
+            "maximum": 4294967296
+          },
+          "dataBits": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 65536
+          },
+          "maskLaneBits": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 65536,
+            "default": 1
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "role": {
+                  "enum": [
+                    "address",
+                    "data_in",
+                    "data_out",
+                    "clock",
+                    "chip_enable",
+                    "write_enable",
+                    "output_enable",
+                    "write_mask"
+                  ]
+                },
+                "pin": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "sense": {
+                  "enum": [
+                    "none",
+                    "high",
+                    "low",
+                    "posedge",
+                    "negedge"
+                  ]
+                }
+              },
+              "required": [
+                "role",
+                "pin",
+                "sense"
+              ],
+              "additionalProperties": false,
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "role": {
+                        "const": "clock"
+                      }
+                    }
+                  },
+                  "then": {
+                    "properties": {
+                      "sense": {
+                        "enum": [
+                          "posedge",
+                          "negedge"
+                        ]
+                      }
+                    }
+                  },
+                  "else": {
+                    "if": {
+                      "properties": {
+                        "role": {
+                          "enum": [
+                            "address",
+                            "data_in",
+                            "data_out"
+                          ]
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "sense": {
+                          "const": "none"
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "sense": {
+                          "enum": [
+                            "high",
+                            "low"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "minItems": 4,
+            "maxItems": 8
+          }
+        },
+        "required": [
+          "definitionName",
+          "words",
+          "dataBits",
+          "roles"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 256
+    },
+    "library": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096,
+          "pattern": "^[^\\u0000]*$"
+        },
+        "cells": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 256,
+          "items": {
+            "type": "object",
+            "properties": {
+              "definitionName": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096,
+                "pattern": "^[^\\u0000]*$"
+              },
+              "cell": {
+                "type": "object",
+                "properties": {
+                  "pins": {
+                    "type": "array",
+                    "minItems": 1,
+                    "maxItems": 256,
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 4096,
+                          "pattern": "^[^\\u0000]*$"
+                        },
+                        "direction": {
+                          "enum": [
+                            "in",
+                            "out",
+                            "inout",
+                            "ref",
+                            "unknown"
+                          ]
+                        },
+                        "width": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 65536
+                        },
+                        "attrs": {
+                          "type": "object",
+                          "maxProperties": 32,
+                          "propertyNames": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 256,
+                            "pattern": "^[^\\u0000]*$"
+                          },
+                          "additionalProperties": {
+                            "type": "string",
+                            "maxLength": 4096,
+                            "pattern": "^[^\\u0000]*$"
+                          }
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "direction",
+                        "width"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "attrs": {
+                    "type": "object",
+                    "maxProperties": 32,
+                    "propertyNames": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 256,
+                      "pattern": "^[^\\u0000]*$",
+                      "not": {
+                        "const": "dft.library.source"
+                      }
+                    },
+                    "additionalProperties": {
+                      "type": "string",
+                      "maxLength": 4096,
+                      "pattern": "^[^\\u0000]*$"
+                    }
+                  }
+                },
+                "required": [
+                  "pins"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "definitionName",
+              "cell"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "source",
+        "cells"
+      ],
+      "additionalProperties": false
+    },
+    "testProfiles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "definitionName": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096,
+            "pattern": "^[^\\u0000]*$"
+          },
+          "operationsPerWord": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1024
+          },
+          "powerMicrowatts": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000000000000
+          }
+        },
+        "required": [
+          "definitionName",
+          "operationsPerWord",
+          "powerMicrowatts"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 256
+    }
+  },
+  "required": [
+    "formatVersion",
+    "kind",
+    "models"
+  ],
+  "additionalProperties": false
+}

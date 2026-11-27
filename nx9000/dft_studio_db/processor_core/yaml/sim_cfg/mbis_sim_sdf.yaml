@@ -1,0 +1,74 @@
+SIM_PRE:
+     SDF_WCL:
+        SDF_TOP: 
+           HIER: /a/b/c/d
+           SDF: /data/projects/30JW082/impl/rtl100/users/liuqi/DFT_DATABASE_TO_SHANGHAI_0428/81_PRJ_0422/dft_path/soc_top/11.post_simulation/soc_top.SDF_func_ssg0p81vm40c_cworst_m40c_setup.sdf.gz
+        SDF_PROCESSSOR: 
+           HIER: /a/e/f/g
+           SDF: /data/projects/30JW082/impl/rtl100/users/liuqi/DFT_DATABASE_TO_SHANGHAI_0428/81_PRJ_0422/dft_path/soc_top/11.post_simulation/soc_top.SDF_func_ssg0p81vm40c_cworst_m40c_setup.sdf.gz
+     SDF_ML:
+        SDF_TOP: 
+           HIER: /a/b/c/d
+           SDF: /data/projects/30JW082/impl/rtl100/users/liuqi/DFT_DATABASE_TO_SHANGHAI_0428/81_PRJ_0422/dft_path/soc_top/11.post_simulation/soc_top.SDF_func_ssg0p81vm40c_cworst_m40c_setup.sdf.gz
+        SDF_PROCESSSOR: 
+           HIER: /a/e/f/g
+           SDF: /data/projects/30JW082/impl/rtl100/users/liuqi/DFT_DATABASE_TO_SHANGHAI_0428/81_PRJ_0422/dft_path/soc_top/11.post_simulation/soc_top.SDF_func_ssg0p81vm40c_cworst_m40c_setup.sdf.gz
+
+     COMMON_SCRIPT: /data/projects/30JW082/impl/rtl100/users/liuqi/dfx_simulation_script/dfx_sim_env_auto_gen
+     SIM_DIR: 11.post_simulation
+     DESIGN_NAME: soc_top 
+     PATTERN_DIR: /data/projects/30JW082/impl/rtl100/users/liuqi/DFT_DATABASE_TO_SHANGHAI_0428/81_PRJ_0422/dft_path/soc_top/soc_top_tsdb_outdir/patterns/soc_top_rtl.patterns_signoff
+     SIM_TOOL:
+         NAME: vcs
+         COMPILE_OPTIONS:
+             LIST0: "+error+1000 -full64 -sverilog -timescale=1ns/1fs +libext+.v_.sv -debug_acc"
+             LIST1: "+define+TSMC_NO_TESTPINS_DEFAULT_VALUE_CHECK +define+SNOPSYS_SV +define+TSMC_DISABLE_WARNING_MESSAGE +define+TSMC_DISABLE_INFO_MESSAGE +define+TSMC_NO_XADDR_WARNING +define+MEM_CHECK_OFF +define+INT_SIM +define+int_sim +define+NO_SDTC"
+             LIST2: "-lca  -full64 -work dut_work +librescan +v2k -kdb"
+         SIM_OPTIONS:
+             LIST0: "-full64 -licqueue -R -debug_all -ucli -do ../vcs.ucli +nowarnTFMPC -debug_region=cell+lib +lint=TFIPC-L -diag=sdf +sdfverbose -negdelay +neg_tchk -sdfretain -sdfretain=warning"
+     TEST_LIST:
+         ICLNetwork_wcl:
+             TYPE: IJTAG
+             STATUS: new
+             DUT: DUT
+             SIM_NAME: ICLNetwork
+             SIM_TOP: TB
+             TEST_BENCH: ICLNetwork
+             SDF: SDF_WCL
+             EXTRA_COMPILE_OPTION:
+                LIST0: "+define+SDF_WCL"                
+             EXTRA_SIM_OPTION:
+                LIST0: "+maxdelays"
+             FILELIST:
+                 LIST0: "-f  ../../soc_top_sim.f"
+             TESTBENCH: "ICLNetwork.v"
+         JtagBscanPatterns_wcl:
+             TYPE: IJTAG
+             STATUS: new
+             DUT: DUT
+             SIM_NAME: JtagBscanPatterns
+             SIM_TOP: TB
+             TEST_BENCH: JtagBscanPatterns
+             SDF: SDF_WCL
+             EXTRA_COMPILE_OPTION:
+                LIST0: "+define+SDF_WCL"                
+             EXTRA_SIM_OPTION:
+                LIST0: "+maxdelays"
+             FILELIST:
+                 LIST0: "-f  ../../soc_top_sim.f"
+             TESTBENCH: "JtagBscanPatterns.v"
+         MemoryBist_hw_default_wcl:
+             TYPE: MBIST
+             STATUS: new
+             DUT: DUT
+             SIM_NAME: MemoryBist_hw_default
+             SIM_TOP: TB
+             TEST_BENCH: MemoryBist_hw_default
+             SDF: SDF_WCL
+             EXTRA_COMPILE_OPTION:
+                LIST0: "+define+SDF_WCL"                
+             EXTRA_SIM_OPTION:
+                LIST0: "+maxdelays"
+             FILELIST:
+                 LIST0: "-f  ../../soc_top_sim.f"
+             TESTBENCH: "MemoryBist_hw_default.v"

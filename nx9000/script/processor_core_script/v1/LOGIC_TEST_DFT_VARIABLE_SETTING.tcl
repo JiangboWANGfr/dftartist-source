@@ -1,0 +1,15 @@
+set design_name processor_core
+set prj_dir $env(prj_dir)
+set prj_path $env(prj_dir)
+set design_filelist "/home/wongw/nx9000/design/processor_core/processor_core.vc"
+set release_dir /home/wongw/dft_release/processor_core
+set release_dir_sdc /home/wongw/dft_release/processor_core/sdc
+set level level1
+set design_level "physical_block"
+set design_id "logic_test"
+set sharebus "no"
+set blackbox ""
+set script_leaf_dir "2.logic_test_insertion"
+set deliver "/home/wongw/nx9000/dft_path/processor_core/v1/7.deliver/rtl"
+set version "v1"
+set rel_prefix "../../../../"

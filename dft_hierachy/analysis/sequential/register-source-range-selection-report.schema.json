@@ -1,0 +1,193 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:register-source-range-selection:1",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/Report"
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:sequential:2#/$defs/Error"
+    }
+  ],
+  "$defs": {
+    "Report": {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-register-source-range-selection-v1"
+        },
+        "analysis": {
+          "$ref": "urn:dft-studio:analysis:register-source-hierarchy-ranges:1#/$defs/Report"
+        },
+        "query": {
+          "type": "object",
+          "properties": {
+            "scenario": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 7
+            },
+            "source": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "signal": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "node": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096
+            },
+            "role": {
+              "enum": [
+                "added",
+                "removed",
+                "retained"
+              ]
+            },
+            "bits": {
+              "type": "object",
+              "properties": {
+                "lsb": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 18446744073709551615
+                },
+                "width": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 18446744073709551615
+                }
+              },
+              "required": [
+                "lsb",
+                "width"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "scenario"
+          ],
+          "additionalProperties": false
+        },
+        "limits": {
+          "type": "object",
+          "properties": {
+            "maxRows": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100000
+            },
+            "maxRanges": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000000
+            },
+            "maxMembers": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000000
+            },
+            "maxWork": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000000
+            },
+            "maxMillis": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 60000
+            }
+          },
+          "required": [
+            "maxRows",
+            "maxRanges",
+            "maxMembers",
+            "maxWork",
+            "maxMillis"
+          ],
+          "additionalProperties": false
+        },
+        "quality": {
+          "$ref": "urn:dft-studio:analysis:register-control-sources:1#/$defs/Report/properties/quality"
+        },
+        "inputComplete": {
+          "type": "boolean"
+        },
+        "sourcesComplete": {
+          "type": "boolean"
+        },
+        "inputRows": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "visitedRows": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "work": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ranges": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "members": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "rangeRow": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "rangeSignal": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "value": {
+                "$ref": "urn:dft-studio:analysis:register-source-hierarchy-ranges:1#/$defs/Signal"
+              }
+            },
+            "required": [
+              "rangeRow",
+              "rangeSignal",
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "analysis",
+        "query",
+        "limits",
+        "quality",
+        "inputComplete",
+        "sourcesComplete",
+        "inputRows",
+        "visitedRows",
+        "work",
+        "ranges",
+        "members",
+        "rows"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

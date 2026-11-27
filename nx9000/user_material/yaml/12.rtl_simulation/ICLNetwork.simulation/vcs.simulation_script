@@ -1,0 +1,58 @@
+#!/bin/sh
+unset noclobber
+xitval=0
+
+if [ -f ./vcs.setup_script ] ; then
+  . ./vcs.setup_script
+fi
+
+echo "Number of expected miscompares = 0"
+set -v
+
+if [ ! -d dut_work ] ; then mkdir dut_work; fi
+if [ "${VCS_ARCH_OVERRIDE-?}" = "?" -a "`/bin/uname`" = "Linux" ] ; then export VCS_ARCH_OVERRIDE=linux; fi
+export VCS_LICENSE_WAIT=${VCS_LICENSE_WAIT=1}
+
+if [ -f ../../../synopsys_sim.setup ] ; then
+  cp -f ../../../synopsys_sim.setup ./
+else
+  cat <<EOF > ./synopsys_sim.setup
+  XLRM_TIME = TRUE
+  TIMEBASE = ns
+  TIME_RESOLUTION = 1ps
+EOF
+fi
+cat <<EOF >> ./synopsys_sim.setup
+dut_work : dut_work
+EOF
+if [ -f ../../../synopsys_sim.setup.simulation ] ; then
+  cat ../../../synopsys_sim.setup.simulation >> ./synopsys_sim.setup
+fi
+
+# Entry 1
+vlogan +define+TSMC_NO_TESTPINS_DEFAULT_VALUE_CHECK +define+SNOPSYS_SV +define+TSMC_DISABLE_WARNING_MESSAGE +define+TSMC_DISABLE_INFO_MESSAGE +define+TSMC_NO_XADDR_WARNING +define+MEM_CHECK_OFF -lca +notimingcheck +nospecify -full64 -work dut_work +librescan +v2k -kdb +error+1000 -full64 -sverilog -timescale=1ns/1fs +libext+.v_.sv -debug_acc \
+    -f  /prj/PnR910/workareas/nanocad/liuqi/LSW_DFT_1221/dft_path/asic_top/asic_top.vc_et_complete
+###
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 1"; fi
+# Entry 2
+vlogan +define+TSMC_NO_TESTPINS_DEFAULT_VALUE_CHECK +define+SNOPSYS_SV +define+TSMC_DISABLE_WARNING_MESSAGE +define+TSMC_DISABLE_INFO_MESSAGE +define+TSMC_NO_XADDR_WARNING +define+MEM_CHECK_OFF -lca +notimingcheck +nospecify -full64 -work dut_work +librescan +v2k -kdb +error+1000 -full64 -sverilog -timescale=1ns/1fs +libext+.v_.sv -debug_acc \
+       "./patterns/ICLNetwork.sv"
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 2"; fi
+# Entry 3
+vlogan +define+TSMC_NO_TESTPINS_DEFAULT_VALUE_CHECK +define+SNOPSYS_SV +define+TSMC_DISABLE_WARNING_MESSAGE +define+TSMC_DISABLE_INFO_MESSAGE +define+TSMC_NO_XADDR_WARNING +define+MEM_CHECK_OFF -lca +notimingcheck +nospecify -full64 -work dut_work +librescan +v2k -kdb +error+1000 -full64 -sverilog -timescale=1ns/1fs +libext+.v_.sv -debug_acc \
+      "./patterns.configuration"
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 3"; fi
+if [ $xitval -ne 0 ]; then
+  echo "Compile failed"
+fi
+vcs -full64 -licqueue -R -debug_all -ucli -do ../vcs.ucli +nowarnTFMPC -debug_region=cell+lib +notimingcheck +nospecify \
+     -l run.log \
+      +NEWPATH=./patterns \
+      -top ICLNetwork_configuration
+if [ $? != 0 ] ; then xitval=-1; fi
+
+if [ $xitval -ne 0 ]; then
+  echo "Simulation failed"
+fi
+
+exit $xitval

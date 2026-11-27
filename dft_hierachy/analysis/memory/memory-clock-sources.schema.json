@@ -1,0 +1,253 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:memory-clock-sources:1",
+  "title": "RTL memory clock source analysis",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-memory-clock-sources-v1"
+        },
+        "source": {
+          "$ref": "urn:dft-studio:analysis:memory-map:1#/oneOf/0"
+        },
+        "limits": {
+          "type": "object",
+          "properties": {
+            "maxWork": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "maxDepth": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 256
+            },
+            "maxMillis": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 60000
+            }
+          },
+          "required": [
+            "maxWork",
+            "maxDepth",
+            "maxMillis"
+          ],
+          "additionalProperties": false
+        },
+        "clocks": {
+          "type": "object",
+          "properties": {
+            "complete": {
+              "type": "boolean"
+            },
+            "reasons": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "source_partial",
+                  "interface_unmatched",
+                  "source_unusable",
+                  "source_unresolved",
+                  "budget_work",
+                  "budget_time"
+                ]
+              }
+            },
+            "work": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "resolvedInstances": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "rows": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/Row"
+              }
+            },
+            "groups": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "point": {
+                    "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/TracePoint"
+                  },
+                  "path": {
+                    "type": "string"
+                  },
+                  "edge": {
+                    "enum": [
+                      "posedge",
+                      "negedge"
+                    ]
+                  },
+                  "members": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "minItems": 1,
+                    "uniqueItems": true
+                  }
+                },
+                "required": [
+                  "point",
+                  "path",
+                  "edge",
+                  "members"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "complete",
+            "reasons",
+            "work",
+            "resolvedInstances",
+            "rows",
+            "groups"
+          ],
+          "additionalProperties": false
+        },
+        "library": {
+          "$ref": "urn:dft-studio:analysis:library-memory:1#/oneOf/0/properties/library"
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "source",
+        "limits",
+        "clocks"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:memory-map:1#/oneOf/1"
+    }
+  ],
+  "$defs": {
+    "Row": {
+      "type": "object",
+      "properties": {
+        "memory": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "macro": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "status": {
+          "enum": [
+            "resolved",
+            "unresolved",
+            "unusable",
+            "unmatched"
+          ]
+        },
+        "reason": {
+          "type": "string"
+        },
+        "pin": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "group": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "proof": {
+          "$ref": "urn:dft-studio:analysis:sequential:2#/$defs/Report/properties/checks/items/properties/logic"
+        }
+      },
+      "required": [
+        "memory",
+        "macro",
+        "status"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "resolved"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "pin",
+              "group",
+              "proof"
+            ],
+            "not": {
+              "required": [
+                "reason"
+              ]
+            }
+          },
+          "else": {
+            "required": [
+              "reason"
+            ],
+            "not": {
+              "required": [
+                "group"
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "unmatched"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reason": {
+                "const": "interface_unmatched"
+              }
+            },
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "pin"
+                  ]
+                },
+                {
+                  "required": [
+                    "proof"
+                  ]
+                }
+              ]
+            }
+          },
+          "else": {
+            "required": [
+              "pin",
+              "proof"
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

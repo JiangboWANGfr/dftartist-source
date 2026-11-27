@@ -1,0 +1,84 @@
+{
+  "formatVersion": 1,
+  "kind": "memory-test-config",
+  "rules": [
+    {
+      "path": [
+        "schedule_top"
+      ],
+      "recursive": true,
+      "clockDomain": "a",
+      "partition": ""
+    },
+    {
+      "path": [
+        "schedule_top",
+        "b0"
+      ],
+      "recursive": false,
+      "clockDomain": "b",
+      "partition": ""
+    },
+    {
+      "path": [
+        "schedule_top",
+        "b1"
+      ],
+      "recursive": false,
+      "clockDomain": "b",
+      "partition": ""
+    },
+    {
+      "path": [
+        "schedule_top",
+        "c0"
+      ],
+      "recursive": false,
+      "clockDomain": "c",
+      "partition": ""
+    },
+    {
+      "path": [
+        "schedule_top",
+        "d0"
+      ],
+      "recursive": false,
+      "clockDomain": "d",
+      "partition": ""
+    }
+  ],
+  "planning": {
+    "policy": {
+      "maxParallelMemories": 4
+    }
+  },
+  "scheduling": {
+    "policy": {
+      "maxParallelControllers": 4,
+      "maxPowerMicrowatts": 800000
+    }
+  },
+  "timing": {
+    "clocks": [
+      {
+        "clockDomain": "a",
+        "periodPicoseconds": 1000
+      },
+      {
+        "clockDomain": "b",
+        "periodPicoseconds": 2000
+      },
+      {
+        "clockDomain": "c",
+        "periodPicoseconds": 3000
+      },
+      {
+        "clockDomain": "d",
+        "periodPicoseconds": 4000
+      }
+    ],
+    "policy": {
+      "waveOverheadPicoseconds": 7
+    }
+  }
+}

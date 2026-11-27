@@ -1,0 +1,72 @@
+{
+  "formatVersion": 1,
+  "kind": "memory-library",
+  "models": [
+    {
+      "definitionName": "plan_ram",
+      "words": 8,
+      "dataBits": 8,
+      "roles": [
+        {
+          "role": "clock",
+          "pin": "CLK",
+          "sense": "posedge"
+        },
+        {
+          "role": "address",
+          "pin": "A",
+          "sense": "none"
+        },
+        {
+          "role": "data_in",
+          "pin": "D",
+          "sense": "none"
+        },
+        {
+          "role": "data_out",
+          "pin": "Q",
+          "sense": "none"
+        }
+      ]
+    },
+    {
+      "definitionName": "plan_alt",
+      "words": 8,
+      "dataBits": 8,
+      "roles": [
+        {
+          "role": "clock",
+          "pin": "CLK",
+          "sense": "posedge"
+        },
+        {
+          "role": "address",
+          "pin": "A",
+          "sense": "none"
+        },
+        {
+          "role": "data_in",
+          "pin": "D",
+          "sense": "none"
+        },
+        {
+          "role": "data_out",
+          "pin": "Q",
+          "sense": "none"
+        }
+      ]
+    }
+  ],
+  "testProfiles": [
+    {
+      "definitionName": "plan_ram",
+      "operationsPerWord": 2,
+      "powerMicrowatts": 120000
+    },
+    {
+      "definitionName": "plan_alt",
+      "operationsPerWord": 3,
+      "powerMicrowatts": 80000
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "components": {
+    "STap": {
+      "name": "STap",
+      "id": { "kind": "id" },
+      "props": [
+        { "name": "parent_instance",    "type": "text", "placeholder": "instance_name",      "spec": "instance_name",      "default": "" },
+        { "name": "leaf_instance_name", "type": "text", "placeholder": "leaf_instance_name", "spec": "leaf_instance_name", "default": "" },
+        { "name": "so_retiming",        "type": "enum", "values": ["on", "off"],              "spec": "on | off",           "default": "" },
+        { "name": "3dcr_bypass_value",  "type": "enum", "values": ["0", "1"],                 "spec": "0 | 1",              "default": "" }
+      ],
+      "blocks": [
+        {
+          "name": "Interface", "id": null, "props": [],
+          "blocks": [
+            {
+              "name": "Client", "id": null,
+              "props": [
+                { "name": "scan_in",    "type": "text", "placeholder": "port_name", "spec": "port_name", "default": "" },
+                { "name": "scan_out",   "type": "text", "placeholder": "port_name", "spec": "port_name", "default": "" },
+                { "name": "tms",        "type": "text", "placeholder": "port_name", "spec": "port_name", "default": "" },
+                { "name": "tck",        "type": "text", "placeholder": "port_name", "spec": "port_name", "default": "" },
+                { "name": "trst",       "type": "text", "placeholder": "port_name", "spec": "port_name", "default": "" },
+                { "name": "reset",      "type": "text", "placeholder": "port_name", "spec": "port_name", "default": "" },
+                { "name": "capture_en", "type": "text", "placeholder": "port_name", "spec": "port_name", "default": "" },
+                { "name": "shift_en",   "type": "text", "placeholder": "port_name", "spec": "port_name", "default": "" },
+                { "name": "update_en",  "type": "text", "placeholder": "port_name", "spec": "port_name", "default": "" }
+              ],
+              "blocks": []
+            },
+            {
+              "name": "Host", "id": null,
+              "props": [
+                { "name": "scan_out", "type": "text", "placeholder": "port_name", "spec": "port_name", "default": "" },
+                { "name": "scan_in",  "type": "text", "placeholder": "port_name", "spec": "port_name", "default": "" },
+                { "name": "tms",      "type": "text", "placeholder": "port_name", "spec": "port_name", "default": "" }
+              ],
+              "blocks": []
+            }
+          ]
+        },
+        {
+          "name": "SecondaryHostScanInterface", "id": { "kind": "id" },
+          "props": [
+            { "name": "to_tck",   "type": "text", "placeholder": "port_pin_name", "spec": "port_pin_name", "default": "" },
+            { "name": "to_trst",  "type": "text", "placeholder": "port_pin_name", "spec": "port_pin_name", "default": "" },
+            { "name": "to_tms",   "type": "text", "placeholder": "port_pin_name", "spec": "port_pin_name", "default": "" },
+            { "name": "from_tdo", "type": "text", "placeholder": "port_pin_name", "spec": "port_pin_name", "default": "" },
+            { "name": "to_tdi",   "type": "text", "placeholder": "port_pin_name", "spec": "port_pin_name", "default": "" }
+          ],
+          "blocks": []
+        }
+      ]
+    },
+    "STapPipeline": {
+      "name": "STapPipeline",
+      "id": { "kind": "id" },
+      "props": [
+        { "name": "parent_instance",    "type": "text", "placeholder": "instance_name",      "spec": "instance_name",      "default": "" },
+        { "name": "leaf_instance_name", "type": "text", "placeholder": "leaf_instance_name", "spec": "leaf_instance_name", "default": "" },
+        { "name": "capture_value",      "type": "enum", "values": ["0", "1", "self"],         "spec": "0 | 1 | self",       "default": "" },
+        { "name": "so_retiming",        "type": "enum", "values": ["on", "off"],              "spec": "on | off",           "default": "" }
+      ],
+      "blocks": [
+        {
+          "name": "Interface", "id": null,
+          "props": [
+            { "name": "scan_in",    "type": "text", "placeholder": "port_name", "spec": "port_name", "default": "" },
+            { "name": "scan_out",   "type": "text", "placeholder": "port_name", "spec": "port_name", "default": "" },
+            { "name": "tck",        "type": "text", "placeholder": "port_name", "spec": "port_name", "default": "" },
+            { "name": "shift_en",   "type": "text", "placeholder": "port_name", "spec": "port_name", "default": "" },
+            { "name": "capture_en", "type": "text", "placeholder": "port_name", "spec": "port_name", "default": "" }
+          ],
+          "blocks": []
+        }
+      ]
+    },
+    "SecondaryHostScanInterface": {
+      "name": "SecondaryHostScanInterface",
+      "id": { "kind": "id" },
+      "props": [
+        { "name": "to_tck",   "type": "text", "placeholder": "port_pin_name", "spec": "port_pin_name", "default": "" },
+        { "name": "to_trst",  "type": "text", "placeholder": "port_pin_name", "spec": "port_pin_name", "default": "" },
+        { "name": "to_tms",   "type": "text", "placeholder": "port_pin_name", "spec": "port_pin_name", "default": "" },
+        { "name": "from_tdo", "type": "text", "placeholder": "port_pin_name", "spec": "port_pin_name", "default": "" },
+        { "name": "to_tdi",   "type": "text", "placeholder": "port_pin_name", "spec": "port_pin_name", "default": "" }
+      ],
+      "blocks": []
+    }
+  }
+}

@@ -1,0 +1,6 @@
+$TESSENT_TREE/bin/libcomp ../verilog/adk.v -verilog -dofile  -log libcomp.log -rep 
+# Remove instance names inside some cells for backward compatibility.
+perl -pi.bak -i -e 's/ ff / /g' libcomp.atpglib
+perl -pi.bak -i -e 's/ lat / /g' libcomp.atpglib
+perl -pi.bak -i -e 's/mux2  mux /mux2 /g' libcomp.atpglib
+perl -pi.bak -i -e 's/dff_p_s  dff /dff_p_s /g' libcomp.atpglib

@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "filelist": "/Users/jiangbowang/MOI/2025/dftartist/2026.9/nx9000/design/processor_core/processor_core.vc",
+  "top": "",
+  "outputDir": "/Users/jiangbowang/MOI/2025/dftartist/2026.9/nx9000/processor_core",
+  "genconnDoc": "Arch/processor_core.arch",
+  "specgenWorkspace": null,
+  "padCfg": null,
+  "scanPlan": "Spec/scan/processor_core.scanplan.json"
+}

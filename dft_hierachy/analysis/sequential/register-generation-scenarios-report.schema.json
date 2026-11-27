@@ -1,0 +1,458 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:register-generation-scenarios:1",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/Report"
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:sequential:2#/$defs/Error"
+    }
+  ],
+  "$defs": {
+    "GenerationView": {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "$ref": "urn:dft-studio:analysis:register-control-generation:1#/$defs/Report/properties/formatVersion"
+        },
+        "algorithm": {
+          "$ref": "urn:dft-studio:analysis:register-control-generation:1#/$defs/Report/properties/algorithm"
+        },
+        "limits": {
+          "$ref": "urn:dft-studio:analysis:register-control-generation:1#/$defs/Report/properties/limits"
+        },
+        "quality": {
+          "$ref": "urn:dft-studio:analysis:register-control-generation:1#/$defs/Report/properties/quality"
+        },
+        "graph": {
+          "$ref": "urn:dft-studio:analysis:register-control-generation:1#/$defs/Report/properties/graph"
+        },
+        "mappingComplete": {
+          "$ref": "urn:dft-studio:analysis:register-control-generation:1#/$defs/Report/properties/mappingComplete"
+        },
+        "inputEvents": {
+          "$ref": "urn:dft-studio:analysis:register-control-generation:1#/$defs/Report/properties/inputEvents"
+        },
+        "work": {
+          "$ref": "urn:dft-studio:analysis:register-control-generation:1#/$defs/Report/properties/work"
+        },
+        "events": {
+          "$ref": "urn:dft-studio:analysis:register-control-generation:1#/$defs/Report/properties/events"
+        },
+        "summary": {
+          "$ref": "urn:dft-studio:analysis:register-control-generation:1#/$defs/Report/properties/summary"
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "limits",
+        "quality",
+        "graph",
+        "mappingComplete",
+        "inputEvents",
+        "work",
+        "events",
+        "summary"
+      ],
+      "additionalProperties": false
+    },
+    "ComparisonView": {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "$ref": "urn:dft-studio:analysis:generation-comparison:1#/$defs/Report/properties/formatVersion"
+        },
+        "algorithm": {
+          "$ref": "urn:dft-studio:analysis:generation-comparison:1#/$defs/Report/properties/algorithm"
+        },
+        "snapshotId": {
+          "$ref": "urn:dft-studio:analysis:generation-comparison:1#/$defs/Report/properties/snapshotId"
+        },
+        "scope": {
+          "$ref": "urn:dft-studio:analysis:generation-comparison:1#/$defs/Report/properties/scope"
+        },
+        "limits": {
+          "$ref": "urn:dft-studio:analysis:generation-comparison:1#/$defs/Report/properties/limits"
+        },
+        "quality": {
+          "$ref": "urn:dft-studio:analysis:generation-comparison:1#/$defs/Report/properties/quality"
+        },
+        "inputCones": {
+          "$ref": "urn:dft-studio:analysis:generation-comparison:1#/$defs/Report/properties/inputCones"
+        },
+        "processedCones": {
+          "$ref": "urn:dft-studio:analysis:generation-comparison:1#/$defs/Report/properties/processedCones"
+        },
+        "memberEntries": {
+          "$ref": "urn:dft-studio:analysis:generation-comparison:1#/$defs/Report/properties/memberEntries"
+        },
+        "work": {
+          "$ref": "urn:dft-studio:analysis:generation-comparison:1#/$defs/Report/properties/work"
+        },
+        "contexts": {
+          "$ref": "urn:dft-studio:analysis:generation-comparison:1#/$defs/Report/properties/contexts"
+        },
+        "comparisons": {
+          "$ref": "urn:dft-studio:analysis:generation-comparison:1#/$defs/Report/properties/comparisons"
+        },
+        "summary": {
+          "$ref": "urn:dft-studio:analysis:generation-comparison:1#/$defs/Report/properties/summary"
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "snapshotId",
+        "scope",
+        "limits",
+        "quality",
+        "inputCones",
+        "processedCones",
+        "memberEntries",
+        "work",
+        "contexts",
+        "comparisons",
+        "summary"
+      ],
+      "additionalProperties": false
+    },
+    "Report": {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-register-generation-scenarios-v1"
+        },
+        "limits": {
+          "type": "object",
+          "properties": {
+            "generation": {
+              "$ref": "urn:dft-studio:analysis:register-control-generation:1#/$defs/Report/properties/limits"
+            },
+            "comparison": {
+              "$ref": "urn:dft-studio:analysis:generation-comparison:1#/$defs/Report/properties/limits"
+            },
+            "maxMillis": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 60000
+            },
+            "maxRows": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100000
+            },
+            "maxEvents": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "maxWork": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000000
+            },
+            "maxMembers": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "maxSegments": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000000
+            }
+          },
+          "required": [
+            "generation",
+            "comparison",
+            "maxMillis",
+            "maxRows",
+            "maxEvents",
+            "maxWork",
+            "maxMembers",
+            "maxSegments"
+          ],
+          "additionalProperties": false
+        },
+        "quality": {
+          "type": "object",
+          "properties": {
+            "completeness": {
+              "enum": [
+                "complete",
+                "partial"
+              ]
+            },
+            "reasons": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "completeness",
+            "reasons"
+          ],
+          "additionalProperties": false
+        },
+        "analysis": {
+          "$ref": "urn:dft-studio:analysis:register-scenarios:1#/$defs/Report"
+        },
+        "scenarios": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "scenario": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "name": {
+                "type": "string"
+              },
+              "status": {
+                "enum": [
+                  "not_run",
+                  "complete",
+                  "partial"
+                ]
+              },
+              "reasons": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "generation": {
+                "$ref": "#/$defs/GenerationView"
+              }
+            },
+            "required": [
+              "scenario",
+              "name",
+              "status",
+              "reasons"
+            ],
+            "additionalProperties": false,
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "status": {
+                      "const": "not_run"
+                    }
+                  }
+                },
+                "then": {
+                  "not": {
+                    "required": [
+                      "generation"
+                    ]
+                  }
+                },
+                "else": {
+                  "required": [
+                    "generation"
+                  ]
+                }
+              }
+            ]
+          },
+          "minItems": 2,
+          "maxItems": 8
+        },
+        "structure": {
+          "$ref": "#/$defs/ComparisonView"
+        },
+        "rows": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "eventEntries": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "work": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "memberFacts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "segmentCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "impacts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "baseline": {
+                "const": 0
+              },
+              "scenario": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "inputGroups": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "quality": {
+                "type": "object",
+                "properties": {
+                  "completeness": {
+                    "enum": [
+                      "complete",
+                      "partial"
+                    ]
+                  },
+                  "reasons": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "uniqueItems": true
+                  }
+                },
+                "required": [
+                  "completeness",
+                  "reasons"
+                ],
+                "additionalProperties": false
+              },
+              "rows": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "rawGroup": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "status": {
+                      "enum": [
+                        "changed",
+                        "unchanged",
+                        "unresolved"
+                      ]
+                    },
+                    "events": {
+                      "type": "array",
+                      "items": {
+                        "type": [
+                          "integer",
+                          "null"
+                        ],
+                        "minimum": 0
+                      },
+                      "minItems": 1
+                    },
+                    "reasons": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "required": [
+                    "rawGroup",
+                    "status",
+                    "events",
+                    "reasons"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "changedSignals": {
+                "$ref": "urn:dft-studio:analysis:register-scenarios:1#/$defs/Report/properties/comparisons/items/properties/changedSignals"
+              },
+              "changedTotals": {
+                "$ref": "urn:dft-studio:analysis:register-scenarios:1#/$defs/Report/properties/comparisons/items/properties/changedTotals"
+              }
+            },
+            "required": [
+              "baseline",
+              "scenario",
+              "inputGroups",
+              "quality",
+              "rows",
+              "changedSignals",
+              "changedTotals"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "summary": {
+          "type": "object",
+          "properties": {
+            "scenarios": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "notRun": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "comparisons": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "rows": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "changed": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "unchanged": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "unresolved": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "scenarios",
+            "notRun",
+            "comparisons",
+            "rows",
+            "changed",
+            "unchanged",
+            "unresolved"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "limits",
+        "quality",
+        "analysis",
+        "scenarios",
+        "structure",
+        "rows",
+        "eventEntries",
+        "work",
+        "memberFacts",
+        "segmentCount",
+        "impacts",
+        "summary"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,276 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:memory-test-domains:1",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-memory-test-domains-v1"
+        },
+        "source": {
+          "oneOf": [
+            {
+              "$ref": "urn:dft-studio:analysis:memory-test-plan:1#/oneOf/0"
+            },
+            {
+              "$ref": "urn:dft-studio:analysis:memory-test-rules:1#/oneOf/0"
+            }
+          ]
+        },
+        "limits": {
+          "$ref": "urn:dft-studio:analysis:memory-clock-sources:1#/oneOf/0/properties/limits"
+        },
+        "clocks": {
+          "$ref": "urn:dft-studio:analysis:memory-clock-sources:1#/oneOf/0/properties/clocks"
+        },
+        "domains": {
+          "type": "object",
+          "properties": {
+            "complete": {
+              "type": "boolean"
+            },
+            "reasons": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "plan_partial",
+                  "clocks_partial",
+                  "domain_missing"
+                ]
+              },
+              "uniqueItems": true
+            },
+            "assignedInstances": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "resolvedInstances": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "unassignedMemories": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "uniqueItems": true
+            },
+            "rows": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "memory": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "assignment": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "domain": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "clock": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                },
+                "required": [
+                  "memory"
+                ],
+                "additionalProperties": false,
+                "dependentRequired": {
+                  "assignment": [
+                    "domain"
+                  ],
+                  "domain": [
+                    "assignment"
+                  ]
+                }
+              }
+            },
+            "groups": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "clockDomain": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "status": {
+                    "enum": [
+                      "uniform",
+                      "mixed",
+                      "unresolved"
+                    ]
+                  },
+                  "sourcesComplete": {
+                    "type": "boolean"
+                  },
+                  "resolvedInstances": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "members": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "minItems": 1,
+                    "uniqueItems": true
+                  },
+                  "clockGroups": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "uniqueItems": true
+                  },
+                  "controllers": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "uniqueItems": true
+                  }
+                },
+                "required": [
+                  "clockDomain",
+                  "status",
+                  "sourcesComplete",
+                  "resolvedInstances",
+                  "members",
+                  "clockGroups",
+                  "controllers"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "mixed"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "clockGroups": {
+                          "minItems": 2
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "clockGroups": {
+                          "maxItems": 1
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "uniform"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "sourcesComplete": {
+                          "const": true
+                        },
+                        "clockGroups": {
+                          "minItems": 1,
+                          "maxItems": 1
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unresolved"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "sourcesComplete": {
+                          "const": false
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "required": [
+            "complete",
+            "reasons",
+            "assignedInstances",
+            "resolvedInstances",
+            "unassignedMemories",
+            "rows",
+            "groups"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "complete": {
+                    "const": true
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "reasons": {
+                    "maxItems": 0
+                  },
+                  "unassignedMemories": {
+                    "maxItems": 0
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "reasons": {
+                    "minItems": 1
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "source",
+        "limits",
+        "clocks",
+        "domains"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:memory-map:1#/oneOf/1"
+    }
+  ]
+}

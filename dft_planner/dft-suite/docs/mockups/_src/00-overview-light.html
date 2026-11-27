@@ -1,0 +1,92 @@
+<!doctype html><html lang="zh" class="light"><head><meta charset="utf-8">
+<link rel="stylesheet" href="theme.css"></head>
+<body><div class="app">
+
+  <div class="topbar">
+    <div class="brand"><span class="logo"></span>dft-suite <small>DFT&nbsp;Studio</small></div>
+    <div class="tabs">
+      <div class="tab active">概览</div>
+      <div class="tab">层次浏览</div><div class="tab">连接生成</div>
+    </div>
+    <div class="spacer"></div>
+    <div class="tbtn primary">openc910 <span class="chev">▾</span></div>
+    <div class="iconbtn">⚙</div>
+  </div>
+
+  <div class="body" style="display:block;overflow:hidden;padding:38px 56px">
+    <div style="display:flex;align-items:flex-end;gap:18px">
+      <div>
+        <div style="font-size:30px;font-weight:800;color:var(--text-strong);letter-spacing:-.3px">dft-suite</div>
+        <div style="font-size:14px;color:var(--text-dim);margin-top:6px">统一 DFT 桌面套件 · 合并 Hierarchyshower + GenConnection · 后端 dft-core (C++) · 打包 Linux AppImage</div>
+      </div>
+      <div style="margin-left:auto;display:flex;gap:10px">
+        <div class="chip"><span class="sw" style="background:var(--accent)"></span>Electron 42 · React 18.3 · Konva 10</div>
+        <div class="chip"><span class="sw" style="background:var(--teal)"></span>同栈逐版本一致 → 低风险合并</div>
+      </div>
+    </div>
+
+    <svg width="100%" height="600" viewBox="0 0 1320 600" font-family="-apple-system,Segoe UI,sans-serif" style="margin-top:24px">
+      <!-- renderer container -->
+      <rect x="20" y="8" width="1280" height="244" rx="14" style="fill:var(--panel-2);stroke:var(--border)" stroke-width="1.4"/>
+      <text class="tx-ijtag" x="44" y="40" font-size="14" font-weight="700">渲染层 (React / Vite)  ·  单窗口 · 顶部 Tab 切换 · 共享一份「已打开的设计」</text>
+
+      <!-- workspace cards -->
+      <g>
+        <rect class="b-cpu" x="60" y="62" width="580" height="172" rx="12" stroke-width="1.4"/>
+        <text class="s-t" x="86" y="96" font-size="17" font-weight="700">① 层次浏览</text>
+        <text x="86" y="120" font-size="12.5" style="fill:var(--b-cpu-s)">= Hierarchyshower</text>
+        <text class="s-td" x="86" y="150" font-size="12.5">层次树 (lazy) · 点击实例 → 中间区看端口</text>
+        <text class="s-td" x="86" y="174" font-size="12.5">原理图 (ELK + Konva) · fanin/fanout trace</text>
+        <text class="s-td" x="86" y="198" font-size="12.5">HDL 源码定位</text>
+        <text class="s-tf" x="86" y="222" font-size="11">★ 加入连接生成 → 进程内实时联动(不落 blocks.json)</text>
+      </g>
+      <g>
+        <rect class="b-l2" x="680" y="62" width="580" height="172" rx="12" stroke-width="1.4"/>
+        <text class="s-t" x="706" y="96" font-size="17" font-weight="700">② 连接生成</text>
+        <text x="706" y="120" font-size="12.5" style="fill:var(--b-l2-s)">= newProject / GenConnection</text>
+        <text class="s-td" x="706" y="150" font-size="12.5">画布摆 harden · 总线接口 · 自动几何配对</text>
+        <text class="s-td" x="706" y="174" font-size="12.5">右侧实例 + 接口明细 · 端口提升 · 库</text>
+        <text class="s-td" x="706" y="198" font-size="12.5">逐层生成 Tcl · 注入 .v · 撤销/重做</text>
+        <text class="s-tf" x="706" y="222" font-size="11">右键: 旋转 / 镜像 / 端口提升</text>
+      </g>
+
+      <!-- bridge -->
+      <line x1="660" y1="252" x2="660" y2="292" class="s-wire" stroke-width="1.6"/>
+      <rect x="430" y="292" width="460" height="44" rx="22" style="fill:var(--accent-soft);stroke:var(--accent)" stroke-width="1.4"/>
+      <text class="tx-ijtag" x="660" y="320" text-anchor="middle" font-size="14" font-weight="700" font-family="var(--mono)">window.dft  ·  preload IPC</text>
+
+      <!-- main process -->
+      <rect x="20" y="374" width="1280" height="216" rx="14" style="fill:var(--panel-2);stroke:var(--border)" stroke-width="1.4"/>
+      <text x="44" y="406" font-size="14" font-weight="700" style="fill:var(--teal)">主进程 (electron/main.cjs)  ·  统一管理 dft-core 后端</text>
+      <line x1="660" y1="336" x2="660" y2="374" class="s-wire" stroke-width="1.6"/>
+
+      <g>
+        <rect class="s-box" x="60" y="426" width="380" height="138" rx="12" stroke-width="1.3"/>
+        <text class="s-t" x="84" y="456" font-size="14" font-weight="700">1× hdl daemon (常驻)</text>
+        <text class="s-td" x="84" y="482" font-size="12.5" font-family="var(--mono)">hdl serve &lt;filelist&gt;</text>
+        <text class="s-td" x="84" y="506" font-size="12">NDJSON over stdio · 两工作区共用</text>
+        <text x="84" y="534" font-size="11.5" style="fill:var(--green)">25× 快于旧 Python daemon</text>
+      </g>
+      <g>
+        <rect class="s-box" x="460" y="426" width="380" height="138" rx="12" stroke-width="1.3"/>
+        <text class="s-t" x="484" y="456" font-size="14" font-weight="700">一次性 CLI (electron/cli.cjs)</text>
+        <text class="s-td" x="484" y="482" font-size="12.5" font-family="var(--mono)">genconn generate-all / inject</text>
+        <text class="s-td" x="484" y="506" font-size="12">出 JSON / Tcl / 注入网表</text>
+        <text x="484" y="534" font-size="11.5" style="fill:var(--green)">byte-identical 于现有 TS 版</text>
+      </g>
+      <g>
+        <rect class="s-box" x="860" y="426" width="400" height="138" rx="12" stroke-width="1.3"/>
+        <text x="884" y="456" font-size="14" font-weight="700" style="fill:var(--teal)">resources/bin/ — 内置二进制</text>
+        <text class="s-td" x="884" y="484" font-size="12.5" font-family="var(--mono)">hdl · genconn  (Linux x64)</text>
+        <text class="s-td" x="884" y="510" font-size="12">slang 已 vendored → 自包含</text>
+        <text x="884" y="536" font-size="11.5" style="fill:var(--amber)">⚠ 须在 Linux 编译 dft-core</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="status">
+    <div class="seg"><span class="dot ok"></span>设计稿 · 待落地</div>
+    <div class="sp"></div>
+    <div class="seg muted">docs/specs/2026-06-29-dft-suite-design.md</div>
+  </div>
+</div></body></html>

@@ -1,0 +1,8 @@
+{
+  "formatVersion": 1,
+  "kind": "memory-test-config",
+  "rules": [{"path": ["memory_example"], "recursive": true, "clockDomain": "functional", "partition": ""}],
+  "planning": {"policy": {"maxParallelMemories": 2}},
+  "scheduling": {"policy": {"maxParallelControllers": 1}},
+  "timing": {"clocks": [{"clockDomain": "functional", "periodPicoseconds": 1000}]}
+}

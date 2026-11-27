@@ -1,0 +1,20 @@
+{
+  "ipType": "ScanHost",
+  "instanceName": "u_scan_host",
+  "config": {
+    "bus_clock_period": "10",
+    "max_scan_en_mcp": "8",
+    "use_clock_shaper_cell": "on",
+    "Connections": {
+      "bus_clock_in": "clk_bus",
+      "scan_en": "scan_enable",
+      "ChainGroup": [
+        { "id": "cg_a", "to_scan_in": "si_a", "from_scan_out": "so_a" }
+      ]
+    },
+    "ChainGroup": [
+      { "id": "grp0", "input_chain_count": "4", "output_chain_count": "4" },
+      { "id": "grp1", "input_chain_count": "2" }
+    ]
+  }
+}

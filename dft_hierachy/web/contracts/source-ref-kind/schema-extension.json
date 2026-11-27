@@ -1,0 +1,8 @@
+{
+  "$defs": {
+    "SourceRefKind": { "type": "string", "enum": ["definition", "object"] }
+  },
+  "sourceHitProperties": {
+    "refKind": { "$ref": "#/$defs/SourceRefKind" }
+  }
+}

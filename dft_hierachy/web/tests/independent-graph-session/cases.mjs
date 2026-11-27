@@ -1,0 +1,150 @@
+// Finite frozen input/expected/basis; runtime bodies never define expectations from A output.
+const rows = [
+  [
+    "G01",
+    "ready/unready SDK; new graph",
+    "original not-ready error; initial frozen empty revision0; no queries/events or borrowed SDK close",
+    "6.28.1",
+  ],
+  [
+    "G02",
+    "same label twice; invalid registration; release/re-register",
+    "independent opaque graph/source identities; registration unpublished; exact options",
+    "6.28.1/.3",
+  ],
+  [
+    "G03",
+    "A{x,y}->A{x,z}, U/B share x",
+    "y removed; other owners retain x until last withdrawal; only A ownership replaced",
+    "D-03;6.28.2",
+  ],
+  [
+    "G04",
+    "two self-closed design fragments share nodes/edge",
+    "ordered owners; whole atomic union, no dangling edge after either clear",
+    "6.28.2/.4",
+  ],
+  [
+    "G05",
+    "two sources external node1/e; label edit; remove/re-add",
+    "source namespace distinct; stable local identity, new source never reuses old",
+    "6.28.2",
+  ],
+  [
+    "G06",
+    "same ref different bits/side; same endpoints different fact edges",
+    "all original Core identities/DTO/map retained, no visual endpoint dedup",
+    "6.28.2;5.5.4",
+  ],
+  [
+    "G07",
+    "partial/frontier/extensions; mutate input; empty success then clear",
+    "deep owned frozen history; exact metadata/content revision; empty result differs from null",
+    "6.28.2/.3",
+  ],
+  [
+    "G08",
+    "duplicate/unknown/undefined/bad port and endpoint/forbidden origin/invalid JSON",
+    "invalid_argument, original state and task remain; no partial publication",
+    "6.28.2/.3",
+  ],
+  [
+    "G09",
+    "foreign snapshot and same-ID DTO conflicts/order variants",
+    "snapshot_mismatch/conflicting_fact atomic rejection; object key order ignored, arrays/optional presence matter",
+    "6.28.2/.3",
+  ],
+  [
+    "G10",
+    "same content repeatedly; clear empty; no-pending cancel; dispose twice",
+    "each valid intent publishes exactly once; no-op cancel/dispose do not; immutable source state",
+    "6.28.1/.3",
+  ],
+  [
+    "G11",
+    "refresh provider returns synchronously",
+    "pending visible before invocation; exact context/signal; source revision fixed through terminal; two graph publications",
+    "6.28.3",
+  ],
+  [
+    "G12",
+    "refresh1 pending then refresh2; old late rejection",
+    "old waiter cancelled/signal aborted; new result wins; old failure consumed without state change",
+    "6.28.3",
+  ],
+  [
+    "G13",
+    "refresh pending then replace; old late success",
+    "old waiter cancelled, new replacement commits; no old resurrection/publication",
+    "6.28.3",
+  ],
+  [
+    "G14",
+    "refresh pending then clear/dispose; old late success",
+    "waiter cancelled/source_disposed without waiting provider; old result cannot recreate members/source",
+    "6.28.3",
+  ],
+  [
+    "G15",
+    "A/B both pending, cancel A with old partial content",
+    "only A signal aborted; A waiter settles with old content revision; B succeeds independently",
+    "6.28.2/.3",
+  ],
+  [
+    "G16",
+    "sync throw/reject/then getter throw/invalid return/HierError",
+    "source_failure with cause or original HierError; frozen diagnostic; retained previous content",
+    "6.28.3;6.22.3",
+  ],
+  [
+    "G17",
+    "getters once, throwing getter, reentrant source operation while input read",
+    "single Get; invalid_argument with original cause; reentrant_change; pending unaffected until valid commit",
+    "6.28.3",
+  ],
+  [
+    "G18",
+    "graph.dispose inside external read; commands after release",
+    "disposed priority; synchronous empty closed state without notification; all source handles invalid/no-op dispose",
+    "6.28.3/.4",
+  ],
+  [
+    "G19",
+    "listener duplicate registration/add/remove/throw during publication",
+    "snapshot notification order, independent unsubscribe, AggregateError without rollback",
+    "6.28.4",
+  ],
+  [
+    "G20",
+    "listener reenters source/register; listener disposes graph",
+    "reentrant_change for mutations; graph.dispose allowed, disposed settlement and frozen history",
+    "6.28.4",
+  ],
+  [
+    "G21",
+    "old abort listener reenters/settles old loader; graph.dispose takeover",
+    "old eligibility lost before abort; reentry rejected; no late publication; disposal wins",
+    "6.28.3/.4",
+  ],
+  [
+    "G22",
+    "pending and failed terminal listeners throw",
+    "loader still runs; errors aggregated at refresh settlement, original terminal error cause, content retained",
+    "6.28.3/.4",
+  ],
+  [
+    "G23",
+    "selected design object/history, then all graph sources withdrawn",
+    "shared SelectionModel/history unchanged, no automatic select/clear/back",
+    "6.28.4",
+  ],
+  [
+    "G24",
+    "real ready SDK/Core DTO complete then budget partial",
+    "actual source/union preserves original DTO/metadata; success remains partial, SDK retained until owned cleanup",
+    "6.28.5",
+  ],
+];
+export const cases = rows.map(([id, input, expected, basis]) =>
+  Object.freeze({ id, input, expected, basis }),
+);

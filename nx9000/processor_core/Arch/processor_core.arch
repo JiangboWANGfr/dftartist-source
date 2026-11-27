@@ -1,0 +1,1123 @@
+{
+  "schemaVersion": 3,
+  "library": {
+    "defs": [
+      {
+        "id": "chip",
+        "designName": "chip",
+        "designLevel": "chip",
+        "designType": "hierarchical",
+        "interfaces": [],
+        "childInstances": [
+          {
+            "id": "inst_4ff9a6c0",
+            "instanceName": "GPIO_2",
+            "hardenId": "def_5d88234c",
+            "position": {
+              "x": -140,
+              "y": -20
+            },
+            "hierPath": "processor_core.GPIO_2",
+            "rotation": 0,
+            "mirror": false
+          },
+          {
+            "id": "inst_a55ac6b4",
+            "instanceName": "GPIO_1",
+            "hardenId": "def_5d88234c",
+            "position": {
+              "x": 260,
+              "y": -20
+            },
+            "hierPath": "processor_core.GPIO_1",
+            "rotation": 0,
+            "mirror": false
+          },
+          {
+            "id": "inst_d865853c",
+            "instanceName": "PROCESSOR_1",
+            "hardenId": "def_49b0f5ae",
+            "position": {
+              "x": -140,
+              "y": -360
+            },
+            "hierPath": "processor_core.PROCESSOR_1",
+            "rotation": 0,
+            "mirror": false
+          }
+        ],
+        "connections": [
+          {
+            "id": "k_28e9be8f",
+            "secondaryInstanceId": "inst_d865853c",
+            "secondaryInterfaceId": "if_0d5c3724",
+            "clientInstanceId": "inst_4ff9a6c0",
+            "clientInterfaceId": "if_1a55a297",
+            "manual": true
+          },
+          {
+            "id": "k_5639a4e5",
+            "secondaryInstanceId": "inst_d865853c",
+            "secondaryInterfaceId": "if_17508226",
+            "clientInstanceId": "inst_a55ac6b4",
+            "clientInterfaceId": "if_1a55a297",
+            "manual": true
+          },
+          {
+            "id": "k_1b2f6059",
+            "secondaryInstanceId": "inst_d865853c",
+            "secondaryInterfaceId": "if_df3230e1",
+            "clientInstanceId": "inst_4ff9a6c0",
+            "clientInterfaceId": "if_3f81b654",
+            "manual": true
+          },
+          {
+            "id": "k_28ca6a85",
+            "secondaryInstanceId": "inst_d865853c",
+            "secondaryInterfaceId": "if_8ecec8b6",
+            "clientInstanceId": "inst_a55ac6b4",
+            "clientInterfaceId": "if_3f81b654",
+            "manual": true
+          },
+          {
+            "id": "k_cd0032b4",
+            "secondaryInstanceId": "inst_d865853c",
+            "secondaryInterfaceId": "if_a67fad15",
+            "clientInstanceId": "inst_a55ac6b4",
+            "clientInterfaceId": "if_e6c5b01a",
+            "manual": true
+          },
+          {
+            "id": "k_8d44d6a8",
+            "secondaryInstanceId": "inst_d865853c",
+            "secondaryInterfaceId": "if_d1cdef74",
+            "clientInstanceId": "inst_4ff9a6c0",
+            "clientInterfaceId": "if_e6c5b01a",
+            "manual": true
+          }
+        ],
+        "wires": [
+          {
+            "id": "w_351407b0",
+            "busType": "IJTAG",
+            "sourceInstanceId": "inst_d865853c",
+            "sourceInterfaceId": "if_9c16149f",
+            "points": [
+              {
+                "x": 260.45030357615894,
+                "y": -360
+              },
+              {
+                "x": 260.45030357615894,
+                "y": -200
+              },
+              {
+                "x": 80,
+                "y": -200
+              },
+              {
+                "x": 80,
+                "y": 60
+              },
+              {
+                "x": 200,
+                "y": 60
+              },
+              {
+                "x": 200,
+                "y": -100
+              },
+              {
+                "x": 380,
+                "y": -100
+              },
+              {
+                "x": 380,
+                "y": 60
+              },
+              {
+                "x": 480,
+                "y": 60
+              },
+              {
+                "x": 480,
+                "y": -220
+              },
+              {
+                "x": 300,
+                "y": -220
+              },
+              {
+                "x": 300,
+                "y": -360
+              }
+            ],
+            "connectionIds": [
+              "k_28e9be8f",
+              "k_5639a4e5"
+            ]
+          },
+          {
+            "id": "w_8b64892a",
+            "busType": "JTAG1838",
+            "sourceInstanceId": "inst_d865853c",
+            "sourceInterfaceId": "if_0fff4dfd",
+            "points": [
+              {
+                "x": 349,
+                "y": -360
+              },
+              {
+                "x": 349,
+                "y": -200
+              },
+              {
+                "x": 140,
+                "y": -200
+              },
+              {
+                "x": 140,
+                "y": 20
+              },
+              {
+                "x": 200,
+                "y": 20
+              },
+              {
+                "x": 200,
+                "y": -80
+              },
+              {
+                "x": 380,
+                "y": -80
+              },
+              {
+                "x": 380,
+                "y": 20
+              },
+              {
+                "x": 460,
+                "y": 20
+              },
+              {
+                "x": 460,
+                "y": -200
+              },
+              {
+                "x": 360,
+                "y": -200
+              },
+              {
+                "x": 360,
+                "y": -360
+              }
+            ],
+            "connectionIds": [
+              "k_1b2f6059",
+              "k_28ca6a85"
+            ]
+          },
+          {
+            "id": "w_02d6ac01",
+            "busType": "SSN",
+            "busWidth": 4,
+            "sourceInstanceId": "inst_d865853c",
+            "sourceInterfaceId": "if_be72ef5b",
+            "points": [
+              {
+                "x": 232.2286386214542,
+                "y": -360
+              },
+              {
+                "x": 232.2286386214542,
+                "y": -200
+              },
+              {
+                "x": 400,
+                "y": -200
+              },
+              {
+                "x": 400,
+                "y": 60
+              },
+              {
+                "x": 320,
+                "y": 60
+              },
+              {
+                "x": 320,
+                "y": -80
+              },
+              {
+                "x": 180,
+                "y": -80
+              },
+              {
+                "x": 180,
+                "y": 60
+              },
+              {
+                "x": 120,
+                "y": 60
+              },
+              {
+                "x": 120,
+                "y": -260
+              },
+              {
+                "x": 220,
+                "y": -260
+              },
+              {
+                "x": 220,
+                "y": -360
+              }
+            ],
+            "connectionIds": [
+              "k_cd0032b4",
+              "k_8d44d6a8"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "def_d373e721",
+        "designName": "omsp_dbg_i2c",
+        "designLevel": "sub_block",
+        "designType": "tiling",
+        "size": {
+          "w": 320,
+          "h": 280
+        },
+        "interfaces": [
+          {
+            "busType": "SSN",
+            "role": "client",
+            "busWidth": 32,
+            "edge": {
+              "side": "right",
+              "offset": 0.6428571428571429
+            },
+            "id": "if_7fbce929"
+          },
+          {
+            "busType": "IJTAG",
+            "role": "client",
+            "edge": {
+              "side": "right",
+              "offset": 0.5714285714285714
+            },
+            "id": "if_f5c7a6c5"
+          }
+        ],
+        "childInstances": [],
+        "connections": [],
+        "inLibrary": false,
+        "fileName": "/home/wongw/nx9000/design/processor_core/omsp_dbg_i2c.v",
+        "color": "#fb2dd5"
+      },
+      {
+        "id": "def_190a5ff9",
+        "designName": "processor_core",
+        "designLevel": "physical_block",
+        "designType": "tiling",
+        "size": {
+          "w": 440,
+          "h": 280
+        },
+        "interfaces": [
+          {
+            "busType": "SSN",
+            "role": "client",
+            "busWidth": 32,
+            "isDataSource": true,
+            "id": "if_2ab0bf03",
+            "edge": {
+              "side": "bottom",
+              "offset": 0.6802081954920384
+            },
+            "dsFlip": false
+          },
+          {
+            "busType": "SSN",
+            "role": "secondary",
+            "interfaceName": "left1",
+            "busWidth": 32,
+            "edge": {
+              "side": "left",
+              "offset": 0.6428571428571429
+            },
+            "id": "if_bc057575",
+            "dsFlip": false
+          },
+          {
+            "busType": "IJTAG",
+            "role": "client",
+            "id": "if_78505887",
+            "isDataSource": true,
+            "edge": {
+              "side": "bottom",
+              "offset": 0.21685433602024604
+            }
+          },
+          {
+            "busType": "IJTAG",
+            "role": "secondary",
+            "interfaceName": "left1",
+            "edge": {
+              "side": "left",
+              "offset": 0.5714285714285714
+            },
+            "id": "if_169212e8"
+          }
+        ],
+        "childInstances": [],
+        "connections": [],
+        "inLibrary": false,
+        "fileName": "/home/wongw/nx9000/design/processor_core/processor_core.v",
+        "inSpecgen": true,
+        "dftIps": [
+          {
+            "id": "dft_bdafdde0",
+            "ipType": "Receiver1xPipeline",
+            "instanceName": "rpp_1",
+            "position": {
+              "x": 520,
+              "y": 420
+            },
+            "mirror": false
+          },
+          {
+            "id": "dft_7583c74f",
+            "ipType": "OutputPipeline",
+            "instanceName": "opp_1",
+            "position": {
+              "x": 900,
+              "y": 380
+            },
+            "mirror": false
+          },
+          {
+            "id": "dft_eb8f225b",
+            "ipType": "ScanHost",
+            "instanceName": "ssh_1",
+            "position": {
+              "x": 900,
+              "y": 280
+            },
+            "mirror": false
+          },
+          {
+            "id": "dft_7999f978",
+            "ipType": "Multiplexer",
+            "instanceName": "mux_1",
+            "position": {
+              "x": 520,
+              "y": 220
+            },
+            "rotation": 180,
+            "mirror": true
+          },
+          {
+            "id": "dft_fdf817bf",
+            "ipType": "Pipeline",
+            "instanceName": "pp_1",
+            "position": {
+              "x": 260,
+              "y": 220
+            },
+            "mirror": false
+          },
+          {
+            "id": "dft_d89a8ced",
+            "ipType": "Edt",
+            "instanceName": "int_edt",
+            "position": {
+              "x": 940,
+              "y": 80
+            },
+            "config": {
+              "scan_chain_count": "4",
+              "longest_chain_range": "360, 440",
+              "input_channel_count": "1",
+              "output_channel_count": "1",
+              "Connections": {
+                "ssh_chain_group": "int_edt"
+              }
+            },
+            "mirror": false
+          },
+          {
+            "id": "dft_c33b00be",
+            "ipType": "Edt",
+            "instanceName": "ext_edt",
+            "position": {
+              "x": 780,
+              "y": 80
+            },
+            "config": {
+              "Connections": {
+                "ssh_chain_group": "ext_edt"
+              }
+            },
+            "mirror": false
+          }
+        ],
+        "dftWires": [
+          {
+            "id": "dw_0b99ef78",
+            "from": {
+              "kind": "iface",
+              "instanceId": "def_190a5ff9",
+              "interfaceId": "if_2ab0bf03",
+              "pin": "out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_bdafdde0",
+              "port": "bus_data_in"
+            }
+          },
+          {
+            "id": "dw_66ee5aa6",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_7583c74f",
+              "port": "bus_data_out"
+            },
+            "to": {
+              "kind": "iface",
+              "instanceId": "def_190a5ff9",
+              "interfaceId": "if_2ab0bf03",
+              "pin": "in"
+            }
+          },
+          {
+            "id": "dw_838c0d84",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_eb8f225b",
+              "port": "bus_data_out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_7583c74f",
+              "port": "bus_data_in"
+            }
+          },
+          {
+            "id": "dw_be4ac2f7",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_bdafdde0",
+              "port": "bus_data_out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_7999f978",
+              "port": "master_bus_data_in"
+            }
+          },
+          {
+            "id": "dw_5153f3a3",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_7999f978",
+              "port": "bus_data_out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_eb8f225b",
+              "port": "bus_data_in"
+            }
+          },
+          {
+            "id": "dw_f2c83660",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_bdafdde0",
+              "port": "bus_data_out"
+            },
+            "to": {
+              "kind": "iface",
+              "instanceId": "def_190a5ff9",
+              "interfaceId": "if_bc057575",
+              "pin": "in"
+            }
+          },
+          {
+            "id": "dw_5eb9eaa0",
+            "from": {
+              "kind": "iface",
+              "instanceId": "def_190a5ff9",
+              "interfaceId": "if_bc057575",
+              "pin": "out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_fdf817bf",
+              "port": "bus_data_in"
+            }
+          },
+          {
+            "id": "dw_90cd752e",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_fdf817bf",
+              "port": "bus_data_out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_7999f978",
+              "port": "secondary_bus_data_in"
+            }
+          },
+          {
+            "id": "dw_7e1e406e",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_eb8f225b",
+              "port": "chain_group_out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_d89a8ced",
+              "port": "ssh_chain_group_in"
+            }
+          },
+          {
+            "id": "dw_a9869ff2",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_eb8f225b",
+              "port": "chain_group_out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_c33b00be",
+              "port": "ssh_chain_group_in"
+            }
+          }
+        ],
+        "color": "#cb1010"
+      },
+      {
+        "id": "def_3d7d1174",
+        "designName": "omsp_sync_cell",
+        "designLevel": "sub_block",
+        "designType": "tiling",
+        "size": {
+          "w": 160,
+          "h": 100
+        },
+        "interfaces": [],
+        "childInstances": [],
+        "connections": [],
+        "inLibrary": false,
+        "fileName": "/home/wongw/nx9000/design/processor_core/omsp_sync_cell.v"
+      },
+      {
+        "id": "def_46a341d4",
+        "designName": "harden1",
+        "designLevel": "sub_block",
+        "designType": "tiling",
+        "interfaces": [],
+        "childInstances": [],
+        "connections": [],
+        "inLibrary": false,
+        "vertices": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 100,
+            "y": 0
+          },
+          {
+            "x": 100,
+            "y": 40
+          },
+          {
+            "x": 100,
+            "y": 100
+          },
+          {
+            "x": 0,
+            "y": 100
+          }
+        ]
+      },
+      {
+        "id": "def_e053a9f9",
+        "designName": "SYNC_1RW_8Kx16",
+        "designLevel": "sub_block",
+        "designType": "tiling",
+        "size": {
+          "w": 240,
+          "h": 240
+        },
+        "interfaces": [],
+        "childInstances": [],
+        "connections": [],
+        "inLibrary": false
+      },
+      {
+        "id": "def_5d88234c",
+        "designName": "omsp_gpio",
+        "designLevel": "physical_block",
+        "designType": "tiling",
+        "size": {
+          "w": 400,
+          "h": 340
+        },
+        "interfaces": [
+          {
+            "busType": "IJTAG",
+            "role": "client",
+            "edge": {
+              "side": "top",
+              "offset": 0.5
+            },
+            "id": "if_1a55a297"
+          },
+          {
+            "busType": "JTAG1838",
+            "role": "client",
+            "edge": {
+              "side": "top",
+              "offset": 0.5
+            },
+            "id": "if_3f81b654"
+          },
+          {
+            "busType": "SSN",
+            "role": "client",
+            "busWidth": 4,
+            "edge": {
+              "side": "top",
+              "offset": 0.5
+            },
+            "id": "if_e6c5b01a"
+          }
+        ],
+        "childInstances": [],
+        "connections": [],
+        "inLibrary": false,
+        "fileName": "/home/wongw/nx9000/design/processor_core/omsp_gpio.v"
+      },
+      {
+        "id": "def_49b0f5ae",
+        "designName": "openMSP430",
+        "designLevel": "physical_block",
+        "designType": "tiling",
+        "size": {
+          "w": 800,
+          "h": 340
+        },
+        "interfaces": [
+          {
+            "busType": "SSN",
+            "role": "client",
+            "busWidth": 4,
+            "id": "if_be72ef5b",
+            "edge": {
+              "side": "top",
+              "offset": 0.46375
+            },
+            "isDataSource": true,
+            "dsFlip": false,
+            "placement": "pin",
+            "innerPos": {
+              "x": 433,
+              "y": 0
+            }
+          },
+          {
+            "busType": "IJTAG",
+            "role": "client",
+            "id": "if_9c16149f",
+            "edge": {
+              "side": "top",
+              "offset": 0.52875
+            },
+            "isDataSource": true,
+            "placement": "pin",
+            "innerPos": {
+              "x": 40,
+              "y": 40
+            }
+          },
+          {
+            "busType": "IJTAG",
+            "role": "secondary",
+            "interfaceName": "bottom1",
+            "edge": {
+              "side": "bottom",
+              "offset": 0.25
+            },
+            "id": "if_0d5c3724"
+          },
+          {
+            "busType": "IJTAG",
+            "role": "secondary",
+            "interfaceName": "bottom2",
+            "edge": {
+              "side": "bottom",
+              "offset": 0.75
+            },
+            "id": "if_17508226"
+          },
+          {
+            "busType": "BISR",
+            "role": "client",
+            "id": "if_7e5a97ac",
+            "edge": {
+              "side": "top",
+              "offset": 0.5237213245033113
+            },
+            "isDataSource": true
+          },
+          {
+            "busType": "JTAG1838",
+            "role": "client",
+            "id": "if_0fff4dfd",
+            "edge": {
+              "side": "top",
+              "offset": 0.625
+            },
+            "isDataSource": true
+          },
+          {
+            "busType": "JTAG1838",
+            "role": "secondary",
+            "interfaceName": "bottom1",
+            "edge": {
+              "side": "bottom",
+              "offset": 0.25
+            },
+            "id": "if_df3230e1"
+          },
+          {
+            "busType": "JTAG1838",
+            "role": "secondary",
+            "interfaceName": "bottom2",
+            "edge": {
+              "side": "bottom",
+              "offset": 0.75
+            },
+            "id": "if_8ecec8b6"
+          },
+          {
+            "busType": "SSN",
+            "role": "secondary",
+            "interfaceName": "bottom1",
+            "busWidth": 4,
+            "edge": {
+              "side": "bottom",
+              "offset": 0.75
+            },
+            "id": "if_a67fad15"
+          },
+          {
+            "busType": "SSN",
+            "role": "secondary",
+            "interfaceName": "bottom2",
+            "busWidth": 4,
+            "edge": {
+              "side": "bottom",
+              "offset": 0.25
+            },
+            "id": "if_d1cdef74"
+          }
+        ],
+        "childInstances": [
+          {
+            "id": "inst_57158853",
+            "instanceName": "processor_core",
+            "hardenId": "def_190a5ff9",
+            "position": {
+              "x": 240,
+              "y": -20
+            },
+            "hierPath": "processor_core",
+            "rotation": 0,
+            "mirror": false
+          },
+          {
+            "id": "inst_953d8b02",
+            "instanceName": "omsp_dbg_i2c",
+            "hardenId": "def_d373e721",
+            "position": {
+              "x": -80,
+              "y": -20
+            },
+            "hierPath": "omsp_dbg_i2c",
+            "rotation": 0,
+            "mirror": false
+          }
+        ],
+        "connections": [
+          {
+            "id": "k_d34612b0",
+            "secondaryInstanceId": "inst_57158853",
+            "secondaryInterfaceId": "if_bc057575",
+            "clientInstanceId": "inst_953d8b02",
+            "clientInterfaceId": "if_7fbce929",
+            "manual": true
+          },
+          {
+            "id": "k_812fa481",
+            "secondaryInstanceId": "inst_57158853",
+            "secondaryInterfaceId": "if_169212e8",
+            "clientInstanceId": "inst_953d8b02",
+            "clientInterfaceId": "if_f5c7a6c5",
+            "manual": true
+          }
+        ],
+        "inLibrary": false,
+        "fileName": "/home/wongw/nx9000/design/processor_core/openMSP430.v",
+        "wires": [
+          {
+            "id": "w_7dbbe340",
+            "busType": "SSN",
+            "busWidth": 32,
+            "sourceInstanceId": "inst_57158853",
+            "sourceInterfaceId": "if_2ab0bf03",
+            "points": [
+              {
+                "x": 523.3121462073427,
+                "y": 244
+              },
+              {
+                "x": 523.3121462073427,
+                "y": 200
+              },
+              {
+                "x": 180,
+                "y": 200
+              },
+              {
+                "x": 180,
+                "y": 120
+              },
+              {
+                "x": 537.3121462073427,
+                "y": 120
+              },
+              {
+                "x": 537.3121462073427,
+                "y": 244
+              }
+            ],
+            "connectionIds": [
+              "k_d34612b0"
+            ],
+            "createdIfs": [
+              {
+                "defId": "def_190a5ff9",
+                "ifId": "if_bc057575"
+              },
+              {
+                "defId": "def_d373e721",
+                "ifId": "if_7fbce929"
+              }
+            ],
+            "inInstanceId": "inst_57158853",
+            "inInterfaceId": "if_2ab0bf03"
+          },
+          {
+            "id": "w_ec07bd5f",
+            "busType": "IJTAG",
+            "sourceInstanceId": "inst_57158853",
+            "sourceInterfaceId": "if_78505887",
+            "points": [
+              {
+                "x": 438.8370658989357,
+                "y": 244
+              },
+              {
+                "x": 438.8370658989357,
+                "y": 180
+              },
+              {
+                "x": 140,
+                "y": 180
+              },
+              {
+                "x": 140,
+                "y": 100
+              },
+              {
+                "x": 452.8370658989357,
+                "y": 100
+              },
+              {
+                "x": 452.8370658989357,
+                "y": 244
+              }
+            ],
+            "connectionIds": [
+              "k_812fa481"
+            ],
+            "createdIfs": [
+              {
+                "defId": "def_190a5ff9",
+                "ifId": "if_169212e8"
+              },
+              {
+                "defId": "def_d373e721",
+                "ifId": "if_f5c7a6c5"
+              }
+            ],
+            "inInstanceId": "inst_57158853",
+            "inInterfaceId": "if_78505887"
+          }
+        ]
+      },
+      {
+        "id": "def_0d01d45b",
+        "designName": "harden2",
+        "designLevel": "sub_block",
+        "designType": "tiling",
+        "interfaces": [],
+        "childInstances": [],
+        "connections": [],
+        "inLibrary": false,
+        "vertices": [
+          {
+            "x": 0,
+            "y": 60
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 240,
+            "y": 0
+          },
+          {
+            "x": 240,
+            "y": 100
+          },
+          {
+            "x": 80,
+            "y": 100
+          },
+          {
+            "x": 80,
+            "y": 60
+          }
+        ]
+      },
+      {
+        "id": "def_eb5083f8",
+        "designName": "harden3",
+        "designLevel": "sub_block",
+        "designType": "tiling",
+        "interfaces": [],
+        "childInstances": [],
+        "connections": [],
+        "inLibrary": false,
+        "vertices": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 240
+          },
+          {
+            "x": 120,
+            "y": 240
+          },
+          {
+            "x": 120,
+            "y": 380
+          },
+          {
+            "x": 220,
+            "y": 380
+          },
+          {
+            "x": 220,
+            "y": 0
+          }
+        ]
+      },
+      {
+        "id": "def_4b121c36",
+        "designName": "harden4",
+        "designLevel": "sub_block",
+        "designType": "tiling",
+        "interfaces": [],
+        "childInstances": [],
+        "connections": [],
+        "inLibrary": false,
+        "vertices": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 220
+          },
+          {
+            "x": 160,
+            "y": 220
+          },
+          {
+            "x": 160,
+            "y": 380
+          },
+          {
+            "x": 360,
+            "y": 380
+          },
+          {
+            "x": 360,
+            "y": 0
+          }
+        ]
+      }
+    ]
+  },
+  "ui": {
+    "openDefId": "def_49b0f5ae",
+    "rootDefId": "chip"
+  },
+  "ctrlIps": [
+    {
+      "spec": {
+        "schemaVersion": 2,
+        "moduleBase": "sync_cell_p5in_0_ctrl",
+        "dsIndex": 1,
+        "pins": [
+          {
+            "portName": "data_out",
+            "mode": "observe",
+            "width": 1,
+            "target": "GPIO_1/sync_cell_p5in_0/data_out"
+          },
+          {
+            "portName": "clk",
+            "mode": "control",
+            "width": 1,
+            "target": "GPIO_1/sync_cell_p5in_0/clk",
+            "stitch": "mux",
+            "muxName": "u_dfx_sync_cell_p5in_0_clk_persistent_mux_inst_ds1"
+          }
+        ]
+      }
+    }
+  ],
+  "dfxInstances": [
+    "processor_core.GPIO_1.sync_cell_p5in_0",
+    "processor_core.PROCESSOR_1.clock_module_0"
+  ],
+  "moduleDsNext": 2,
+  "muxDsNext": 2
+}

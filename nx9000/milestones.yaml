@@ -1,0 +1,146 @@
+version: 1
+milestones:
+  - id: dft_dec35114a7424862abb5962b3848eb0e
+    name: DFT SPEC
+    description: "定义测试覆盖率目标、ATPG策略、Scan链结构及所有DFT约束规范。\nDeliverable: DFT Goal & Arch Freeze"
+    start_date: 2026-07-19
+    end_date: 2026-08-09
+    progress: 100
+    status: completed
+    tag: P1-Arch
+    linked_yaml: /home/wongw/nx9000/tasks/DFT_SPEC.yaml
+  - id: dft_5a4a2449643844428d63515a60439912
+    name: DFT ARCH
+    description: "确定扫描链数量、IEEE1500/JTAG接口、压缩率及BIST架构。\nDeliverable: DFT Goal & Arch Freeze"
+    start_date: 2026-07-26
+    end_date: 2026-08-16
+    progress: 100
+    status: completed
+    tag: P1-Arch
+    linked_yaml: ""
+  - id: dft_714d87c902714d9c9afa2ed60b9a0cc3
+    name: DFT RTL INSERTION
+    description: "在RTL中插入Scan FF替换、BIST逻辑及测试控制器。\nDeliverable: RTL RELEASE"
+    start_date: 2026-08-09
+    end_date: 2026-09-06
+    progress: 80
+    status: in_progress
+    tag: P2-RTL
+    linked_yaml: /home/wongw/nx9000/tasks/DFT_RTL_INSERTION.yaml
+  - id: dft_d160d3315d844cee80de54e560a27f8d
+    name: RTL PRE SIM
+    description: "对插入DFT逻辑后的RTL进行功能仿真验证，确保无功能破坏。\nDeliverable: RTL RELEASE"
+    start_date: 2026-08-23
+    end_date: 2026-09-13
+    progress: 50
+    status: in_progress
+    tag: P2-RTL
+    linked_yaml: ""
+  - id: dft_3e95cbf6ddd842fc8ac4886574bce48f
+    name: DFT SCAN INSERTION
+    description: "综合后网表执行扫描链缝合(Scan Stitching)，输出最终扫描网表。\nDeliverable: SCAN NETLIST RELEASE"
+    start_date: 2026-09-06
+    end_date: 2026-10-04
+    progress: 0
+    status: planned
+    tag: P3-Scan
+    linked_yaml: ""
+  - id: dft_c73d4b580299431eae06c4063bde57b5
+    name: "ATPG & TC"
+    description: "使用Tessent/TetraMAX生成ATPG测试向量，达成stuck-at/transition覆盖率目标。\nDeliverable: SCAN NETLIST RELEASE"
+    start_date: 2026-09-13
+    end_date: 2026-10-18
+    progress: 0
+    status: planned
+    tag: P3-Scan
+    linked_yaml: ""
+  - id: dft_0731e1b3bbf3464b971182d6b62c8c3a
+    name: NETLIST PRE SIM
+    description: "对SCAN NETLIST进行Pre-SDF全向量仿真，验证测试向量正确性。\nDeliverable: FULL PATTERN NETLIST Pre-Simulation"
+    start_date: 2026-10-04
+    end_date: 2026-11-01
+    progress: 0
+    status: planned
+    tag: P4-NetSim
+    linked_yaml: ""
+  - id: dft_89bf03220a24478b8bbbc89338e5f5f5
+    name: Pattern Size
+    description: "评估并优化ATE测试向量体积，压缩Pattern以满足ATE内存限制。\nDeliverable: Pattern Size Report"
+    start_date: 2026-10-04
+    end_date: 2026-10-25
+    progress: 0
+    status: planned
+    tag: P4-NetSim
+    linked_yaml: ""
+  - id: dft_47c41ec4a30044649c385b8bcc1981e9
+    name: MBIST / ATPG POWER
+    description: "分析ATPG测试期间的动态功耗，配置测试时钟频率及功耗约束。\nDeliverable: Deliver Pattern for Power"
+    start_date: 2026-10-11
+    end_date: 2026-11-08
+    progress: 0
+    status: planned
+    tag: P4-NetSim
+    linked_yaml: ""
+  - id: dft_788ffd822f8f46cca57c37371372f369
+    name: NETLIST POST SIM
+    description: "基于PR后网表+SDF延迟数据进行全向量后仿，修复时序相关测试失效。\nDeliverable: Full Pattern Post Sim With SDF"
+    start_date: 2026-11-01
+    end_date: 2026-12-06
+    progress: 0
+    status: planned
+    tag: P4-NetSim
+    linked_yaml: ""
+  - id: dft_150caa912ce54c74a1926e075ab53c86
+    name: TC Base On PR NETLIST
+    description: "基于PR网表更新Test Chip测试条件，输出DRC & TC signoff报告。\nDeliverable: DRC & TC base on PR NETLIST"
+    start_date: 2026-10-25
+    end_date: 2026-12-06
+    progress: 0
+    status: planned
+    tag: P5-PR
+    linked_yaml: ""
+  - id: dft_d22b91cdd45c4bb3b6fc611044df4735
+    name: DFT ATE TEST PLAN AND FLOW
+    description: "编写ATE测试计划：Stage1覆盖wafer测试，Stage2覆盖封装后测试。\nDeliverable: Test Plan Stage1 → Test Plan Stage2"
+    start_date: 2026-10-25
+    end_date: 2027-01-17
+    progress: 0
+    status: planned
+    tag: P5-PR
+    linked_yaml: ""
+  - id: dft_3732aa7951674124ae061fc5fa8f9eae
+    name: Partial Good Test Plan And Flow
+    description: "为Partial Good器件定制测试流程，含Fuse编程与功能子集验证。\nDeliverable: Full Pattern Post Sim With SDF"
+    start_date: 2026-10-25
+    end_date: 2026-11-29
+    progress: 0
+    status: planned
+    tag: P5-PR
+    linked_yaml: ""
+  - id: dft_9245b42cfc1f4c5aba1c43611c7ced26
+    name: ROM MISR ECO
+    description: "ROM Code冻结后执行MISR签名更新ECO，重新生成BIST golden signature。\nDeliverable: MISR ECO Once ROM Code Freeze"
+    start_date: 2026-12-06
+    end_date: 2027-01-03
+    progress: 0
+    status: planned
+    tag: P6-ATE
+    linked_yaml: ""
+  - id: dft_9d7ec5cb3c654cee82f6565fa3684ae5
+    name: ATE PATTERN DEL — Flow
+    description: "向ATE平台交付用于量产测试流程的Pattern（STIL/WGL格式）。\nDeliverable: ATE PATTERN FOR FLOW"
+    start_date: 2026-12-27
+    end_date: 2027-01-24
+    progress: 0
+    status: planned
+    tag: P6-ATE
+    linked_yaml: ""
+  - id: dft_418abd6433694bc9b76b8af54a4e80d7
+    name: ATE PATTERN DEL — Bring Up
+    description: "交付用于芯片Bring Up调试的Pattern，含JTAG/Boundary Scan向量。\nDeliverable: ATE PATTERN FOR Bring Up"
+    start_date: 2027-01-17
+    end_date: 2027-02-21
+    progress: 0
+    status: planned
+    tag: P6-ATE
+    linked_yaml: ""

@@ -1,0 +1,51 @@
+{
+  "formatVersion": 1,
+  "kind": "memory-test-rules",
+  "rules": [
+    {
+      "path": [
+        "rule_top"
+      ],
+      "recursive": true,
+      "clockDomain": "default",
+      "partition": ""
+    },
+    {
+      "path": [
+        "rule_top",
+        "left"
+      ],
+      "recursive": true,
+      "clockDomain": "left",
+      "partition": "P"
+    },
+    {
+      "path": [
+        "rule_top",
+        "left",
+        "ram"
+      ],
+      "recursive": false,
+      "clockDomain": "exact",
+      "partition": ""
+    },
+    {
+      "path": [
+        "rule_top",
+        "left.dot"
+      ],
+      "recursive": true,
+      "clockDomain": "escaped",
+      "partition": ""
+    },
+    {
+      "path": [
+        "rule_top",
+        "bank[1]"
+      ],
+      "recursive": true,
+      "clockDomain": "array",
+      "partition": ""
+    }
+  ]
+}

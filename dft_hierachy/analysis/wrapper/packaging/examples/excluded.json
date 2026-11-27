@@ -1,0 +1,8 @@
+{
+  "formatVersion": 1,
+  "kind": "wrapper-config",
+  "mode": "chains",
+  "boundary": {"scope": "wrapper_example", "ports": ["a", "b"]},
+  "planning": {"rules": [{"port": "b", "direction": "output", "action": "exclude"}]},
+  "chaining": {"chains": [{"name": "scan", "capacity": 8}], "defaultChain": "scan"}
+}

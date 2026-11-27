@@ -1,0 +1,56 @@
+db_gen:
+   gen_db_pt_tcl: |
+       if {[file exists ../syn/dc_setting.tcl]} {
+           source [glob ../syn/dc_setting.tcl]
+       } else {
+           echo "CL-Error:no dc_seting.tcl, please check"
+           return 0
+       }
+       #set top [lindex $argv 0]
+       set search_path "$search_path."
+       set link_all_db [lsort -u "$link_db $target_db*"]
+       set link_library "* $link_all_db*"
+       
+       set extract_model_synthesis_compatible true
+       set_timing_input_port_default_clock true
+       read_verilog   $syn_netlist
+       link_design $design_name
+       source -echo -verbose $syn_sdc
+       redirect check_timing.tcl {
+           check_timing -verbose
+       }
+       update_timing
+       extract_model -format lib -library_cell -output $design_name
+       exit
+   
+   
+   gen_db_lc_tcl: |
+       read_lib ${design_name}.lib
+       write_lib -format db ${design_name} -output "${design_name}.db"
+       exit
+   
+   
+   run_db_gen_sh: |
+       # --------------------------
+       # Step 1: run pt_shell job1
+       # --------------------------
+       echo "[INFO] Running pt_shell #1 ..."
+       pt_shell -x "set top $TOP" -f ./gen_db.pt.tcl | tee pt.log
+       if [ $? -ne 0 ]; then
+           echo "[ERROR] pt_shell #1 failed!"
+           exit 1
+       fi
+       
+       # --------------------------
+       # Step 2: run lc_shell to generate db
+       # --------------------------
+       echo "[INFO] Running lc_shell ..."
+       lc_shell -x "set top $TOP" -f ./gen_db.lc.tcl | tee lc.log
+       if [ $? -ne 0 ]; then
+           echo "[ERROR] lc_shell failed!"
+           exit 1
+       fi
+       
+       echo "[INFO] ALL DONE SUCCESSFULLY!"
+       exit 0
+   

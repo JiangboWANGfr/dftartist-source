@@ -1,0 +1,23 @@
+Core(genericFuseBox) {
+  FuseBoxInterface {
+    write_duration         : 5us; // Use '12us' for 28nm; Use '5us' for 16nm,7nm,5nm
+    read_duration          : 244ns;
+    extra_read_cycles      : 5;
+    init_duration          : 1155ns;
+    read_word_size         : 16;
+    double_bit_programming : on;
+    Interface {
+      address              : Address[<MSB>:0];
+      clock                : clock;
+      select               : selectFB;
+      reset                : FBreset;
+      access_en            : FBAccess;
+      write_en             : writeFB;
+      programming_voltage  : vddq;
+      write_duration_count : strobeCntVal[31:0] ;
+      logictest_en         : TM;
+      done                 : doneFB;
+      read_data            : fuseValue;
+      }
+    }
+  }

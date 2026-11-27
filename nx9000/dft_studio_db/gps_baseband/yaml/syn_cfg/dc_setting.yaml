@@ -1,0 +1,62 @@
+dc_setting:
+  design:
+    #top_design: processor_core
+    #cl_top_rtl_list: ../../8.deliver/netlist/processor_core.after_dft_ip.to_syn.f
+    #cl_dft_sdc: ../sdc_dft/tt_ascalon_cluster_func.sdc
+    cl_func_sdc: "/home/wongw/nx9000/dft_studio_db/gps_baseband/yaml/chip_top.func.sdc"
+    cl_upf_file: ""
+  
+  library:
+    search_path: ""
+    synthetic:
+      standard.sldb
+      dw_foundation.sldb
+    link_db: ""
+    target_db: ""
+    cl_dont_use:
+      "*D0BWP* *D0P*BWP* DEL* CK* *D18BWP* *D20BWP* *D24BWP* AO22D1BWP*
+      AOAI211D1* AOI211*BD1* AOI221D1BWP* AOI222* AOI22*BD1BWP*
+      AOI31*D1BWP* AOI32D* AOI33D* IINR4D1BWP* IAO22D1BWP* IIND4D1BWP*
+      INR4D1BWP* IOA22D1BWP* ND4D1BWP* NR4D1BWP* AOI211D1BWP*
+      OA22D1BWP* OAI211*D1BWP* OAI221* OAI222* OAI22*D1BWP*
+      OAI31D1BWP* OAI32* OAI33D* OAOI211D1BWP* OR4D1BWP* MAOI*
+      BUFT* DCCK* CMPE* *CSN* *DFK* PT* G* ANT* BHD* SEDF* EDF*"
+    cl_driving_cell: BUFFD4BWP16P90CPD
+    cl_tie_cell_pattern: TIE*
+  
+  compile:
+    cl_compile_design: "*gps_baseband*"
+    cl_read_rtl_user_scripts: ""
+    cl_pre_compile_user_scripts: ""
+    cl_compile_user_scripts: ""
+    cl_verification_priority: ""
+    cl_multibit_mode: "0"
+    cl_minimum_bitwidth: "4"
+    cl_insert_output_buf: "1"
+    cl_chip_level: "0"
+  
+  clock_gating:
+    cl_icg_group: "0"
+    cl_icg_fanout: "32"
+    cl_icg_setup: "0.10"
+    cl_icg_exclude_cell: ""
+    cl_icg_ref_name: CKLNQD12BWP16P90CPDLVT
+    cl_icgn_ref_name: CKLHQD12BWP16P90CPDLVT
+  
+  timing:
+    cl_set_clock_latency: ""
+    cl_set_clock_latecncy: ""
+    cl_set_ideal_network: ""
+    cl_wire_load_model: ""
+    cl_wire_load_mode: ""
+    cl_max_fanout: "32"
+    cl_uncertainty_clocks: ""
+    cl_max_uncertainty: "0.08"
+    cl_max_transition: "0.3"
+  
+  corner:
+    cl_min_operating_conditions: ssgnp0p72vm40c
+    cl_max_operating_conditions: ssgnp0p72vm40c
+  
+  misc:
+    cl_size_only_cells_file: ""

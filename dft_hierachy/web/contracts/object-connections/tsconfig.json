@@ -1,0 +1,5 @@
+{
+  "extends": "../tsconfig.json",
+  "files": ["object-connections.d.ts", "consumer.ts"],
+  "include": []
+}

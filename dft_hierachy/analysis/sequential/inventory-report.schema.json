@@ -1,0 +1,357 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:source-inventory:1",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/Report"
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:sequential:2#/$defs/Error"
+    }
+  ],
+  "$defs": {
+    "Inventory": {
+      "type": "object",
+      "properties": {
+        "scenario": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 7
+        },
+        "snapshotId": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "quality": {
+          "type": "object",
+          "properties": {
+            "completeness": {
+              "enum": [
+                "complete",
+                "partial"
+              ]
+            },
+            "reasons": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "completeness",
+            "reasons"
+          ],
+          "additionalProperties": false
+        },
+        "work": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000000
+        },
+        "inputChecks": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "inputFacts": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "inputEvents": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "processedChecks": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000
+        },
+        "visitedEvents": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "source": {
+                "$ref": "urn:dft-studio:analysis:scenarios:1#/$defs/Source"
+              },
+              "checks": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9999
+                },
+                "uniqueItems": true,
+                "minItems": 1
+              },
+              "members": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "record": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 99999
+                    },
+                    "check": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9999
+                    },
+                    "role": {
+                      "enum": [
+                        "clock",
+                        "async"
+                      ]
+                    },
+                    "asyncIndex": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ],
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "record",
+                    "check",
+                    "role",
+                    "asyncIndex"
+                  ],
+                  "additionalProperties": false,
+                  "allOf": [
+                    {
+                      "if": {
+                        "properties": {
+                          "role": {
+                            "const": "clock"
+                          }
+                        }
+                      },
+                      "then": {
+                        "properties": {
+                          "asyncIndex": {
+                            "type": "null"
+                          }
+                        }
+                      },
+                      "else": {
+                        "properties": {
+                          "asyncIndex": {
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                "maxItems": 1000000
+              }
+            },
+            "required": [
+              "source",
+              "checks",
+              "members"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 10000
+        },
+        "unresolved": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "check": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9999
+              },
+              "reasons": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 1,
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "check",
+              "reasons"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 10000
+        }
+      },
+      "required": [
+        "scenario",
+        "snapshotId",
+        "scope",
+        "quality",
+        "work",
+        "inputChecks",
+        "inputFacts",
+        "inputEvents",
+        "processedChecks",
+        "visitedEvents",
+        "groups",
+        "unresolved"
+      ],
+      "additionalProperties": false
+    },
+    "Report": {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-control-inventory-v1"
+        },
+        "limits": {
+          "type": "object",
+          "properties": {
+            "maxGroups": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000
+            },
+            "maxMembers": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "maxWork": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000000
+            },
+            "maxMillis": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 60000
+            }
+          },
+          "required": [
+            "maxGroups",
+            "maxMembers",
+            "maxWork",
+            "maxMillis"
+          ],
+          "additionalProperties": false
+        },
+        "quality": {
+          "type": "object",
+          "properties": {
+            "completeness": {
+              "enum": [
+                "complete",
+                "partial"
+              ]
+            },
+            "reasons": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "completeness",
+            "reasons"
+          ],
+          "additionalProperties": false
+        },
+        "analysis": {
+          "oneOf": [
+            {
+              "$ref": "urn:dft-studio:analysis:sequential:1#/$defs/Report"
+            },
+            {
+              "$ref": "urn:dft-studio:analysis:sequential:2#/$defs/Report"
+            },
+            {
+              "$ref": "urn:dft-studio:analysis:sequential:3#/$defs/Report"
+            },
+            {
+              "$ref": "urn:dft-studio:analysis:sequential:4#/$defs/Report"
+            },
+            {
+              "$ref": "urn:dft-studio:analysis:sequential:5#/$defs/Report"
+            },
+            {
+              "$ref": "urn:dft-studio:analysis:scenarios:1#/$defs/Report"
+            }
+          ]
+        },
+        "inventories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Inventory"
+          },
+          "maxItems": 8
+        },
+        "summary": {
+          "type": "object",
+          "properties": {
+            "inventories": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 8
+            },
+            "groupEntries": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 80000
+            },
+            "memberEntries": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 8000000
+            },
+            "unresolvedChecks": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 80000
+            }
+          },
+          "required": [
+            "inventories",
+            "groupEntries",
+            "memberEntries",
+            "unresolvedChecks"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "limits",
+        "quality",
+        "analysis",
+        "inventories",
+        "summary"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

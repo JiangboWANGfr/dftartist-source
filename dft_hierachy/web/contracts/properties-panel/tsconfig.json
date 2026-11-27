@@ -1,0 +1,5 @@
+{
+  "extends": "../tsconfig.json",
+  "files": ["properties-panel.d.ts", "consumer.ts"],
+  "include": []
+}

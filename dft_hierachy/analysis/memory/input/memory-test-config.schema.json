@@ -1,0 +1,249 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:memory-test-config-input:1",
+  "type": "object",
+  "properties": {
+    "formatVersion": {
+      "const": 1
+    },
+    "kind": {
+      "const": "memory-test-config"
+    },
+    "assignments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "instancePath": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096,
+            "pattern": "^[^\\u0000]*$"
+          },
+          "clockDomain": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096,
+            "pattern": "^[^\\u0000]*$"
+          },
+          "partition": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 4096,
+            "pattern": "^[^\\u0000]*$"
+          }
+        },
+        "required": [
+          "instancePath",
+          "clockDomain",
+          "partition"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 10000
+    },
+    "rules": {
+      "$ref": "urn:dft-studio:analysis:memory-test-rules-input:1#/properties/rules"
+    },
+    "planning": {
+      "type": "object",
+      "properties": {
+        "policy": {
+          "type": "object",
+          "properties": {
+            "maxMemoriesPerController": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1024
+            },
+            "maxParallelMemories": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1024
+            },
+            "maxPowerMicrowatts": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000000000
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "limits": {
+          "type": "object",
+          "properties": {
+            "maxControllers": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000
+            },
+            "maxWork": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000000
+            },
+            "maxMillis": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 60000
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "scheduling": {
+      "type": "object",
+      "properties": {
+        "policy": {
+          "type": "object",
+          "properties": {
+            "maxParallelControllers": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1024
+            },
+            "maxPowerMicrowatts": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000000000
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "limits": {
+          "type": "object",
+          "properties": {
+            "maxWaves": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000
+            },
+            "maxWork": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000000
+            },
+            "maxMillis": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 60000
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "resources": {
+          "$ref": "urn:dft-studio:analysis:memory-test-schedule:1#/$defs/resources"
+        },
+        "dependencies": {
+          "$ref": "urn:dft-studio:analysis:memory-test-schedule:1#/$defs/dependencies"
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "timing": {
+      "type": "object",
+      "properties": {
+        "clocks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "clockDomain": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096,
+                "pattern": "^[^\\u0000]*$"
+              },
+              "periodPicoseconds": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 1000000000000
+              }
+            },
+            "required": [
+              "clockDomain",
+              "periodPicoseconds"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "maxItems": 10000
+        },
+        "policy": {
+          "type": "object",
+          "properties": {
+            "waveOverheadPicoseconds": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000000000
+            },
+            "maxDurationPicoseconds": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        },
+        "limits": {
+          "type": "object",
+          "properties": {
+            "maxWork": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000000
+            },
+            "maxMillis": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 60000
+            }
+          },
+          "required": [],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "clocks"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "formatVersion",
+    "kind"
+  ],
+  "additionalProperties": false,
+  "oneOf": [
+    {
+      "required": [
+        "assignments"
+      ],
+      "not": {
+        "required": [
+          "rules"
+        ]
+      }
+    },
+    {
+      "required": [
+        "rules"
+      ],
+      "not": {
+        "required": [
+          "assignments"
+        ]
+      }
+    }
+  ]
+}

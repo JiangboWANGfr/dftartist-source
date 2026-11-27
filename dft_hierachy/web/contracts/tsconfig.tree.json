@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.json",
+  "files": ["m5-tree.d.ts", "m5-tree.consumer.ts"],
+  "include": []
+}

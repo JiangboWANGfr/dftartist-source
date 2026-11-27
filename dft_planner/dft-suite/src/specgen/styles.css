@@ -1,0 +1,75 @@
+/* SpecGen workspace styles — 移植自 newProject/src/ui/styles.css 的 .specgen / .dft-* / 配参弹窗规则。
+   EVERYTHING scoped under #ws-specgen（镜像 genconn/styles.css 的 #ws-genconn 作用域）。 */
+
+#ws-specgen * { box-sizing: border-box; }
+
+/* 配参弹窗遮罩（DftConfigDialog 用 .prompt-overlay） */
+#ws-specgen .prompt-overlay { position: fixed; inset: 0; background: rgba(16, 24, 40, 0.32); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+
+/* SpecGen 工作区（DFT IP 目录 / scope 下拉 / 画布） */
+#ws-specgen .specgen { display: flex; flex: 1; min-height: 0; min-width: 0; }
+#ws-specgen .specgen .dft-palette { width: 200px; flex: 0 0 auto; border-right: 1px solid var(--border); overflow: auto; padding: 6px; }
+#ws-specgen .specgen .dft-palette .dft-head { font-weight: 600; color: var(--text-strong); padding: 4px 2px; }
+#ws-specgen .specgen .dft-palette .dft-item { padding: 6px 8px; color: var(--text); border: 1px solid var(--border); border-radius: 6px; margin: 4px 0; cursor: pointer; font-size: 13px; }
+#ws-specgen .specgen .dft-palette .dft-item:hover { background: var(--row-hover); border-color: var(--accent); }
+#ws-specgen .specgen .dft-main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+/* scopebar：与 genconn .toolbar 一致（主题变量 + 同款按钮/下拉），不再用原生控件 */
+#ws-specgen .specgen .dft-scopebar { padding: 8px 12px; border-bottom: 1px solid var(--border); background: var(--panel-3); display: flex; gap: 12px; align-items: center; }
+#ws-specgen .dft-scopebar > span { color: var(--text-dim); }
+#ws-specgen .dft-scopebar button { padding: 4px 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--btn-bg); color: var(--text); cursor: pointer; }
+#ws-specgen .dft-scopebar button:hover { background: var(--row-hover); }
+#ws-specgen .dft-scopebar button.active { background: var(--accent-soft); border-color: var(--accent); color: var(--text-strong); }
+#ws-specgen .dft-scopebar select { padding: 4px 8px; border: 1px solid var(--border); border-radius: 6px; background: var(--btn-bg); color: var(--text); cursor: pointer; }
+#ws-specgen .dft-scopebar .gen-dftspec { margin-left: auto; }
+#ws-specgen .specgen .dft-workarea { flex: 1; display: flex; min-height: 0; min-width: 0; position: relative; }
+#ws-specgen .specgen .dft-canvas { flex: 1; min-width: 0; min-height: 0; position: relative; }
+#ws-specgen .specgen .dft-specresizer { flex: 0 0 auto; width: 5px; cursor: col-resize; background: var(--border); }
+#ws-specgen .specgen .dft-specresizer:hover { background: var(--text-dim); }
+#ws-specgen .specgen .dft-specpanel { flex: 0 0 auto; display: flex; flex-direction: column; min-height: 0; }
+#ws-specgen .specgen .dft-specpanel-head { display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; border-bottom: 1px solid var(--border); background: var(--panel-3); color: var(--text-strong); font-weight: 600; font-size: 13px; }
+#ws-specgen .specgen .dft-specpanel-btns { display: flex; gap: 6px; }
+#ws-specgen .specgen .dft-specpanel-head button { font-size: 12px; border: 1px solid var(--border); border-radius: 5px; background: var(--btn-bg); color: var(--text); padding: 2px 12px; cursor: pointer; }
+#ws-specgen .specgen .dft-specpanel-head button:hover { background: var(--row-hover); }
+#ws-specgen .specgen .dft-specpanel .dft-preview { flex: 1; width: auto; border-left: none; padding: 24px 28px; line-height: 1.6; }
+
+/* DFT IP 配参弹窗：递归树表单 + .spec 预览（全主题变量，明/暗一致可读） */
+#ws-specgen .dft-dialog { position: fixed; inset: 5% 8%; background: var(--panel); color: var(--text); border: 1px solid var(--border); border-radius: 8px; box-shadow: var(--sh-3); display: flex; flex-direction: column; z-index: 1001; }
+#ws-specgen .dft-dialog-head { padding: 10px 14px; font-weight: 600; color: var(--text-strong); border-bottom: 1px solid var(--border); }
+#ws-specgen .dft-dialog-body { flex: 1; display: flex; min-height: 0; }
+#ws-specgen .dft-form { flex: 1; overflow: auto; padding: 10px 14px; font-family: ui-monospace, monospace; font-size: 12px; color: var(--text); }
+#ws-specgen .dft-preview { width: 42%; overflow: auto; margin: 0; padding: 10px 14px; background: var(--code-bg); color: var(--text); font-family: ui-monospace, monospace; font-size: 12px; border-left: 1px solid var(--border); white-space: pre; }
+#ws-specgen .dft-dialog-foot { padding: 8px 14px; border-top: 1px solid var(--border); display: flex; gap: 8px; justify-content: flex-end; }
+#ws-specgen .dft-dialog-foot button { border: 1px solid var(--border); border-radius: 6px; background: var(--btn-bg); color: var(--text); padding: 5px 16px; cursor: pointer; }
+#ws-specgen .dft-dialog-foot button:hover { background: var(--row-hover); }
+#ws-specgen .dft-dialog-foot .primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+#ws-specgen .dft-dialog-foot .primary:hover { filter: brightness(1.1); }
+#ws-specgen .tchildren { padding-left: 16px; border-left: 1px dashed var(--border); }
+#ws-specgen .tline { white-space: nowrap; line-height: 1.7; }
+#ws-specgen .ttoggle { cursor: pointer; display: inline-block; width: 14px; color: var(--text-dim); user-select: none; }
+#ws-specgen .tname { color: var(--purple); font-weight: 600; }
+#ws-specgen .tprop { color: var(--text); display: inline-block; }
+#ws-specgen .tpunc { color: var(--text-faint); }
+#ws-specgen .tinput, #ws-specgen .tselect { font-family: inherit; font-size: 12px; color: var(--text); background: var(--input-bg); border: 1px solid var(--border); border-radius: 3px; padding: 0 4px; }
+#ws-specgen .tinput:focus, #ws-specgen .tselect:focus { outline: none; border-color: var(--accent); }
+#ws-specgen .tinput.tid { width: 90px; }
+#ws-specgen .tadd { margin: 2px 0 6px 16px; font-size: 11px; color: var(--text); border: 1px dashed var(--accent); background: var(--accent-soft); border-radius: 5px; cursor: pointer; }
+#ws-specgen .tdel { margin-left: 6px; border: none; background: none; color: var(--red); cursor: pointer; }
+
+/* 画布缩放控件 */
+#ws-specgen .dft-zoomctl { position: absolute; right: 12px; bottom: 12px; display: flex; gap: 2px; background: var(--menu-bg); border: 1px solid var(--border); border-radius: 6px; padding: 3px; box-shadow: var(--sh-1); z-index: 5; }
+#ws-specgen .dft-zoomctl button { border: 0; background: none; font-size: 12px; padding: 2px 8px; cursor: pointer; border-radius: 4px; color: var(--text); }
+#ws-specgen .dft-zoomctl button:hover { background: var(--row-hover); }
+#ws-specgen .dft-zoomctl .pct { min-width: 44px; text-align: center; }
+
+/* SpecGen 画布右键菜单（IP：旋转/翻转/删除；线：重置走线/删除） */
+#ws-specgen .dft-ctxmenu { position: absolute; z-index: 50; min-width: 120px; background: var(--menu-bg); border: 1px solid var(--border); border-radius: 6px; box-shadow: var(--sh-2); padding: 4px; font-size: 13px; }
+#ws-specgen .dft-ctxmenu button { display: block; width: 100%; text-align: left; border: 0; background: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; color: var(--text); }
+#ws-specgen .dft-ctxmenu button:hover { background: var(--row-hover); }
+#ws-specgen .dft-ctxmenu button.danger { color: var(--red); }
+
+/* 空态：调色板置灰禁点 */
+#ws-specgen .specgen .dft-palette--disabled .dft-item {
+  opacity: .4; cursor: not-allowed; pointer-events: none;
+}
+#ws-specgen .specgen .dft-main--empty { align-items: center; justify-content: center; }
+/* 通用引导卡 GuideCard 的样式在 shell.css（组件在 src/shell/，供各工作区复用） */

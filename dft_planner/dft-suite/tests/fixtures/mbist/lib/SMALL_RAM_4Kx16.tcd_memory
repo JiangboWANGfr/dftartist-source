@@ -1,0 +1,25 @@
+MemoryTemplate (SMALL_RAM_4Kx16) {
+
+   MemoryType      : SRAM;
+   CellName        : SMALL_RAM_4Kx16;
+   Algorithm       : SMarchCHKBCil;
+   logicalPorts    : 1rw;
+   NumberOfWords   : 4096;
+   MilliWattsPerMegaHertz : 0.8;
+   DataOutStage    : StrobingFlop;
+   OperationSet    : sync;
+      Port (CLK) { Function : Clock; Polarity : ActiveHigh; }
+      Port (WEN) { Function : WriteEnable; Polarity : ActiveLow; }
+      Port (D[15:0]) { Function : Data; Direction : Input; }
+      Port (Q[15:0]) { Function : Data; Direction : Output; }
+      port (A[11:0]) { function : Address; }
+      port (CEN) { function : Select; Polarity : ActiveLow; }
+      AddressCounter {
+           Function (Address) {
+               LogicalAddressMap {
+                   RowAddress[7:0]    : Address [11:4];
+                   ColumnAddress[3:0] : Address [3:0];
+               }
+           }
+      }
+}

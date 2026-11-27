@@ -1,0 +1,585 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:register-control-profile:1",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/Report"
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:sequential:2#/$defs/Error"
+    }
+  ],
+  "$defs": {
+    "Report": {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-register-control-profile-v1"
+        },
+        "snapshotId": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "options": {
+          "type": "object",
+          "properties": {
+            "resolveLogic": {
+              "type": "boolean"
+            },
+            "maxChecks": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000
+            },
+            "maxTraceNodes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "maxTraceEdges": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4000000
+            },
+            "maxDepth": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000
+            },
+            "maxLogicWork": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "maxMillis": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 60000
+            },
+            "maxWork": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000000
+            },
+            "maxMembers": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "maxSegments": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000000
+            },
+            "clockRootsRequested": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string"
+                  },
+                  "bit": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                },
+                "required": [
+                  "path",
+                  "bit"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 64
+            },
+            "inputValuesRequested": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string"
+                  },
+                  "bit": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "high": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "path",
+                  "bit",
+                  "high"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 64
+            }
+          },
+          "required": [
+            "resolveLogic",
+            "maxChecks",
+            "maxTraceNodes",
+            "maxTraceEdges",
+            "maxDepth",
+            "maxLogicWork",
+            "maxMillis",
+            "maxWork",
+            "maxMembers",
+            "maxSegments",
+            "clockRootsRequested",
+            "inputValuesRequested"
+          ],
+          "additionalProperties": false
+        },
+        "clockRoots": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "point": {
+                "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/TracePoint"
+              },
+              "path": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "point",
+              "path"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 64
+        },
+        "inputValues": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "point": {
+                "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/TracePoint"
+              },
+              "path": {
+                "type": "string"
+              },
+              "high": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "point",
+              "path",
+              "high"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 64
+        },
+        "quality": {
+          "type": "object",
+          "properties": {
+            "completeness": {
+              "enum": [
+                "complete",
+                "partial"
+              ]
+            },
+            "reasons": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 1000000,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "completeness",
+            "reasons"
+          ],
+          "additionalProperties": false
+        },
+        "analysis": {
+          "$ref": "urn:dft-studio:analysis:register-event-groups:1#/$defs/Report"
+        },
+        "processedGroups": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "visitedEvents": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "attributedFacts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "traceNodes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "traceEdges": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "logicWork": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "work": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "segmentCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "control": {
+                "anyOf": [
+                  {
+                    "$ref": "urn:dft-studio:analysis:sequential:2#/$defs/Report/properties/checks/items"
+                  },
+                  {
+                    "$ref": "urn:dft-studio:analysis:sequential:4#/$defs/Report/properties/checks/items"
+                  },
+                  {
+                    "$ref": "urn:dft-studio:analysis:sequential:5#/$defs/Report/properties/checks/items"
+                  }
+                ]
+              },
+              "source": {
+                "$ref": "urn:dft-studio:analysis:scenarios:1#/$defs/Source"
+              }
+            },
+            "required": [
+              "control"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 10000
+        },
+        "groupControls": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "group": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "clockCheck": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "asyncChecks": {
+                "type": "array",
+                "items": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "minimum": 0
+                },
+                "maxItems": 4000000
+              },
+              "eventsComplete": {
+                "type": "boolean"
+              },
+              "cohort": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "minimum": 0
+              }
+            },
+            "required": [
+              "group",
+              "clockCheck",
+              "asyncChecks",
+              "eventsComplete",
+              "cohort"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 100000
+        },
+        "cohorts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "source": {
+                "$ref": "urn:dft-studio:analysis:scenarios:1#/$defs/Source"
+              },
+              "edge": {
+                "enum": [
+                  "posedge",
+                  "negedge"
+                ]
+              },
+              "groups": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "maxItems": 100000,
+                "uniqueItems": true
+              },
+              "signals": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "maxItems": 1000000,
+                "uniqueItems": true
+              },
+              "totals": {
+                "type": "object",
+                "properties": {
+                  "facts": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 18446744073709551615
+                  },
+                  "signals": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 18446744073709551615
+                  },
+                  "factBits": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 18446744073709551615
+                  },
+                  "summarizedFacts": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 18446744073709551615
+                  },
+                  "summarizedSignals": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 18446744073709551615
+                  },
+                  "coveredBits": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 18446744073709551615
+                  },
+                  "overlapBits": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 18446744073709551615
+                  },
+                  "maxMultiplicity": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 18446744073709551615
+                  }
+                },
+                "required": [
+                  "facts",
+                  "signals",
+                  "factBits",
+                  "summarizedFacts",
+                  "summarizedSignals",
+                  "coveredBits",
+                  "overlapBits",
+                  "maxMultiplicity"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "source",
+              "edge",
+              "groups",
+              "signals",
+              "totals"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 100000
+        },
+        "signals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "cohort": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "signal": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "facts": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "maxItems": 1000000,
+                "uniqueItems": true
+              },
+              "coverage": {
+                "type": "object",
+                "properties": {
+                  "coveredBits": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 18446744073709551615
+                  },
+                  "overlapBits": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 18446744073709551615
+                  },
+                  "maxMultiplicity": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1000000
+                  },
+                  "segments": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "bits": {
+                          "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/BitRange"
+                        },
+                        "factCount": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 1000000
+                        }
+                      },
+                      "required": [
+                        "bits",
+                        "factCount"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "maxItems": 2000000
+                  }
+                },
+                "required": [
+                  "coveredBits",
+                  "overlapBits",
+                  "maxMultiplicity",
+                  "segments"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "cohort",
+              "signal",
+              "facts"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 1000000
+        },
+        "summary": {
+          "type": "object",
+          "properties": {
+            "inputGroups": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "processedGroups": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "checks": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "unresolvedChecks": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "cohorts": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "attributedFacts": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "cohortSignals": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "summarizedCohortSignals": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "cohortCoveredBits": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "inputGroups",
+            "processedGroups",
+            "checks",
+            "unresolvedChecks",
+            "cohorts",
+            "attributedFacts",
+            "cohortSignals",
+            "summarizedCohortSignals",
+            "cohortCoveredBits"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "snapshotId",
+        "scope",
+        "options",
+        "clockRoots",
+        "inputValues",
+        "quality",
+        "analysis",
+        "processedGroups",
+        "visitedEvents",
+        "attributedFacts",
+        "traceNodes",
+        "traceEdges",
+        "logicWork",
+        "work",
+        "segmentCount",
+        "checks",
+        "groupControls",
+        "cohorts",
+        "signals",
+        "summary"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

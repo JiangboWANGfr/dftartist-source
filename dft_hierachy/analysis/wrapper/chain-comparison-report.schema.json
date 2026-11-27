@@ -1,0 +1,401 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:wrapper-chain-comparison:1",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-wrapper-chain-comparison-v1"
+        },
+        "source": {
+          "$ref": "urn:dft-studio:analysis:wrapper-boundary:1#/oneOf/0"
+        },
+        "configurations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              "plan": {
+                "$ref": "urn:dft-studio:analysis:wrapper-cell-plan:1#/oneOf/0/properties/plan"
+              },
+              "layout": {
+                "$ref": "urn:dft-studio:analysis:wrapper-chain-plan:1#/oneOf/0/properties/layout"
+              }
+            },
+            "required": [
+              "name",
+              "plan",
+              "layout"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 2,
+          "maxItems": 8
+        },
+        "reference": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 7
+        },
+        "limits": {
+          "type": "object",
+          "properties": {
+            "maxChains": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100000
+            },
+            "maxWork": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000000
+            },
+            "maxMillis": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 60000
+            }
+          },
+          "required": [
+            "maxChains",
+            "maxWork",
+            "maxMillis"
+          ],
+          "additionalProperties": false
+        },
+        "complete": {
+          "type": "boolean"
+        },
+        "work": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000000
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "source_partial",
+              "configuration_partial",
+              "budget_chains",
+              "budget_work",
+              "budget_time"
+            ]
+          },
+          "minItems": 0
+        },
+        "summaries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "configuration": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 7
+              },
+              "comparable": {
+                "type": "boolean"
+              },
+              "delta": {
+                "type": "object",
+                "properties": {
+                  "rows": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "placed": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "excluded": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "blocked": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "dedicatedBits": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "sharedBits": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "reusedBits": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "totalBits": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "rows",
+                  "placed",
+                  "excluded",
+                  "blocked",
+                  "dedicatedBits",
+                  "sharedBits",
+                  "reusedBits",
+                  "totalBits"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "configuration",
+              "comparable"
+            ],
+            "additionalProperties": false,
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "comparable": {
+                      "const": true
+                    }
+                  }
+                },
+                "then": {
+                  "required": [
+                    "delta"
+                  ]
+                },
+                "else": {
+                  "not": {
+                    "required": [
+                      "delta"
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "minItems": 2,
+          "maxItems": 8
+        },
+        "chains": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              "referenceChain": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 1023
+              },
+              "entries": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "configuration": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 7
+                    },
+                    "chain": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 1023
+                    },
+                    "presence": {
+                      "enum": [
+                        "both",
+                        "added",
+                        "removed",
+                        "absent"
+                      ]
+                    },
+                    "comparable": {
+                      "type": "boolean"
+                    },
+                    "delta": {
+                      "type": "object",
+                      "properties": {
+                        "capacity": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "length": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "capacity",
+                        "length"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "configuration",
+                    "presence",
+                    "comparable"
+                  ],
+                  "additionalProperties": false,
+                  "allOf": [
+                    {
+                      "if": {
+                        "properties": {
+                          "comparable": {
+                            "const": true
+                          }
+                        }
+                      },
+                      "then": {
+                        "required": [
+                          "delta"
+                        ]
+                      },
+                      "else": {
+                        "not": {
+                          "required": [
+                            "delta"
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "presence": {
+                            "enum": [
+                              "both",
+                              "added"
+                            ]
+                          }
+                        }
+                      },
+                      "then": {
+                        "required": [
+                          "chain"
+                        ]
+                      },
+                      "else": {
+                        "not": {
+                          "required": [
+                            "chain"
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                },
+                "minItems": 2,
+                "maxItems": 8
+              }
+            },
+            "required": [
+              "name",
+              "entries"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "maxItems": 8192
+        },
+        "stop": {
+          "type": "object",
+          "properties": {
+            "reason": {
+              "enum": [
+                "budget_chains",
+                "budget_work",
+                "budget_time"
+              ]
+            },
+            "chain": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 8192
+            }
+          },
+          "required": [
+            "reason",
+            "chain"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "source",
+        "configurations",
+        "reference",
+        "limits",
+        "complete",
+        "work",
+        "reasons",
+        "summaries",
+        "chains"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "complete": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "not": {
+              "required": [
+                "stop"
+              ]
+            },
+            "properties": {
+              "reasons": {
+                "maxItems": 0
+              },
+              "summaries": {
+                "items": {
+                  "properties": {
+                    "comparable": {
+                      "const": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:wrapper-boundary:1#/oneOf/1"
+    }
+  ]
+}

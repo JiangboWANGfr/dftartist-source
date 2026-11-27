@@ -1,0 +1,29 @@
+# build output
+/build/
+/out/
+/cmake-build-*/
+
+# slang FetchContent / deps cache
+/_deps/
+
+# editor / OS
+.DS_Store
+*.swp
+.vscode/
+.idea/
+
+# compiled artifacts
+*.o
+*.a
+*.dylib
+*.so
+/hdl-engine
+/hdl
+
+# vendored slang (prebuilt) is committed despite the *.a/*.o rules above
+!/third_party/
+!/third_party/**
+/compile_commands.json
+
+# python cache
+__pycache__/

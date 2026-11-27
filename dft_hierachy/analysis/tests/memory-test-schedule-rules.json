@@ -1,0 +1,50 @@
+{
+  "formatVersion": 1,
+  "kind": "memory-test-rules",
+  "rules": [
+    {
+      "path": [
+        "schedule_top"
+      ],
+      "recursive": true,
+      "clockDomain": "a",
+      "partition": ""
+    },
+    {
+      "path": [
+        "schedule_top",
+        "b0"
+      ],
+      "recursive": false,
+      "clockDomain": "b",
+      "partition": ""
+    },
+    {
+      "path": [
+        "schedule_top",
+        "b1"
+      ],
+      "recursive": false,
+      "clockDomain": "b",
+      "partition": ""
+    },
+    {
+      "path": [
+        "schedule_top",
+        "c0"
+      ],
+      "recursive": false,
+      "clockDomain": "c",
+      "partition": ""
+    },
+    {
+      "path": [
+        "schedule_top",
+        "d0"
+      ],
+      "recursive": false,
+      "clockDomain": "d",
+      "partition": ""
+    }
+  ]
+}

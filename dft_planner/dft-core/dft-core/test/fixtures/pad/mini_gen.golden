@@ -1,0 +1,10 @@
+read_config_data -in_wrapper $dftspec/EmbeddedBoundaryScan -rep -from_string {
+   AuxiliaryInputOutputPorts {
+     external_auxiliary_input_ports : GPIO_0;
+     external_auxiliary_output_ports : GPIO_1;
+   }
+ }
+
+set_boundary_scan_port_options -pad_io_ports { \
+   CLK_IN DATA_OUT GPIO_0 GPIO_1 GPIO_2}
+set_boundary_scan_port_options [get_ports [list GPIO_0 GPIO_1]] -cell_options dont_touch

@@ -1,0 +1,15 @@
+module_name:
+- ucie_mos_pll_ctrl_tdr
+
+input_pin_name:
+
+
+output_pin_name:
+  - bypass_pll_en
+  - pll_monitor_ovrd	[3:0]
+  - pll_tdr_ovrd	[127:0]
+  - pll_tdr_ovrd_en	
+
+
+
+

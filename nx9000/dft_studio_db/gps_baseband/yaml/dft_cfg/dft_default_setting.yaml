@@ -1,0 +1,756 @@
+tool_setting:
+   syn_tool: dc
+   formal_tool: lec
+   dft_tool: tessent
+syn_setting:
+   type: flatten_incr_syn
+impl_script_manager:
+        mbist_insertion:  #mbist mbisr* bscan ist
+          ins: 1.run_mbist_insertion
+          pat: 2.run_pattern_gen
+        logic_test_insertion: #edt occ lbist ssn
+          ins: 1.run_logic_test_insertion
+          pat: 2.run_pattern_gen  
+        syn_lec:
+          1.syn:
+             syn: 1.run_synthesis
+          2.lec:
+            r2r: 1.run_r2r_formal
+            r2g: 2.run_r2g_formal
+            g2g: 3.run_g2g_formal
+        scan_insertion:
+            ins: 1.run_scan_insertion 
+        verification:
+            dir1: 1.rtl_simulation
+            dir2: 2.gate_udly_simulation
+            dir3: 3.gate_sdf_simulation  
+        deliver:
+          dir1: rtl
+          dir2: netlist
+
+
+################33
+quick_synthesis_setting: |
+        set_quick_synthesis_options -blackbox_design_ware_modules on
+        set_quick_synthesis_options -skip_synthesis_of_two_dimensional_arrays_larger_than unlimited  
+
+bscan_setting:
+     before_drc:
+        dft_signal: |
+          add_dft_signal  bscan_clamp_enable
+          add_dft_signal  bscan_input_isolation_enable
+          add_dft_signal  output_pad_disable
+        insertion_uniquify: |
+           set_insertion_options -auto_uniquify_edited_modules on -edited_module_prefix "${design_name}_"
+     before_create_dft_spec: |
+        others: |
+            #add later
+        report: |
+           report_config_data -show_default  > $prj_dir/dft_path/$design_name/$version/$script_leaf_dir/report/insertion_log/${design_name}_dft_spec_w_all_default.rpt\n";
+           report_dft_signals  > $prj_dir/dft_path/$design_name/$version/$script_leaf_dir/report/insertion_log/${design_name}_dft_signals.rpt\n";
+           report_dft_control_points  > $prj_dir/dft_path/$design_name/$version/$script_leaf_dir/report/insertion_log/${design_name}_dft_control_points.rpt\n";
+           report_dft_clock_enables -post_drc  > $prj_dir/dft_path/$design_name/$version/$script_leaf_dir/report/insertion_log/${design_name}_dft_clock_enables.rpt\n";
+           report_black_boxes > $prj_dir/dft_path/$design_name/$version/$script_leaf_dir/report/insertion_log/${design_name}_black_boxes.rpt\n";
+     before_process_dft_spec: |     #better for bscan timing
+          if {$design_level != "chip"} {
+              set_config_value $dftspec/EmbeddedBoundaryScan/max_segment_length_for_logictest  80
+              set_config_value $dftspec/EmbeddedBoundaryScan/ImplementationOptions/update_stage flop
+              set_config_value $dftspec/EmbeddedBoundaryScan/ImplementationOptions/scan_path_retiming flop
+              set_config_value $dftspec/EmbeddedBoundaryScan/ACModeOptions/test_receiver_init_clock_value falling_edge
+          } else {
+              set_config_value $dftspec/BoundaryScan/max_segment_length_for_logictest  80
+              set_config_value $dftspec/BoundaryScan/ImplementationOptions/update_stage flop
+              set_config_value $dftspec/BoundaryScan/ImplementationOptions/scan_path_retiming flop
+              set_config_value $dftspec/BoundaryScan/ACModeOptions/test_receiver_init_clock_value falling_edge
+          }
+ijtag_setting:
+  before_create_dft_spec: |   #better for ijtag timing
+     set_defaults_value DftSpecification/IjtagNetwork/ImplementationOptions/scan_path_retiming flop
+     set_defaults_value DftSpecification/IjtagNetwork/to_scan_in_feedthrough_on_pb_sibs pipeline
+     #latch to flop
+     set sibs [get_config_elements Sib(*) -hier]
+     set_config_value [get_config_elements to_scan_in_feedthrough -in_wrappers $sibs] pipeline
+     set_config_value $dftspec/IjtagNetwork/ImplementationOptions/scan_path_retiming flop
+mbist_setting: 
+   before_drc:
+       dft_signal: |
+           #add your mbist dft signal here
+       clock_gating_handle: |
+           set_attribute_value [get_instance -of_modules [get_modules -filter "cell_type == clock_gating_and || cell_type==clock_gating_or"] -silent] -name dont_touch_enables_of_clock_gater -value on 
+       insertion_uniquify: |
+           set_insertion_options -auto_uniquify_edited_modules on -edited_module_prefix "${design_name}_"
+   before_create_dft_spec:
+       mbist_controller_default_setting: |
+           ####for workaround,as no PosedgeSynchronizer or PosedgeSynchronizerReset 
+           set_config_value /DefaultsSpecification(user)/DftSpecification/use_rtl_cells off
+           set_config_value /DefaultsSpecification(user)/DftSpecification/use_rtl_synchronizer_cell on
+           set_config_value /DefaultsSpecification(user)/DftSpecification/use_synchronizer_cell_with_reset off
+           set_defaults_value DftSpecification/MemoryBist/MemoryClusterOptions/memory_access_level physical
+           set_defaults_value DftSpecification/MemoryBist/max_steps_per_controller 2
+           set_defaults_value DftSpecification/MemoryBist/max_memories_per_step 30
+           set_defaults_value DftSpecification/MemoryBist/max_test_time_per_controller 3353988.0ns
+           set_defaults_value DftSpecification/MemoryBist/max_power_per_step  500
+           #set_defaults_value DftSpecification/MemoryBist/memory_interface_reuse_method never
+           set_defaults_value DftSpecification/MemoryBist/ControllerOptions/use_multicycle_paths auto
+           set_defaults_value DftSpecification/MemoryBist/ControllerOptions/use_multicycle_paths_period_threshold 1ns
+           ######################################
+           #memory observation and bypass logic
+           ######################################
+           set_defaults_value DftSpecification/MemoryBist/MemoryInterfaceOptions/data_bits_per_bypass_signal 4
+           set_defaults_value DftSpecification/MemoryBist/MemoryInterfaceOptions/observation_xor_size 6
+           #set_defaults_value DftSpecification/MemoryBist/MemoryInterfaceOptions/scan_bypass_logic none
+           ###############################################################################################
+           #better for timing for high speed controller.
+           #set_defaults_value DftSpecification/MemoryBist/ControllerOptions/pipeline_controller_inputs on
+           ###############################################################################################
+           set_defaults_value DftSpecification/MemoryBist/ControllerOptions/pipeline_controller_outputs on
+           #################################################
+           #better for diagnosis to check which memory fail.
+           #################################################
+           set_defaults_value DftSpecification/MemoryBist/DiagnosisOptions/go_status per_memory
+           set_defaults_value DftSpecification/MemoryBist/AlgorithmResourceOptions/data_register_bits  4 
+           #################################################
+           #standardlize for flow
+           #################################################
+           #set_defaults_value DftSpecification/IjtagNetwork/HostScanInterface/Ijtag/tck mgc_ijtag_tck
+           #set_defaults_value DftSpecification/IjtagNetwork/HostScanInterface/Ijtag/reset mgc_ijtag_reset
+           #set_defaults_value DftSpecification/IjtagNetwork/HostScanInterface/Ijtag/select mgc_ijtag_sel
+           #set_defaults_value DftSpecification/IjtagNetwork/HostScanInterface/Ijtag/capture_en mgc_ijtag_ce
+           #set_defaults_value DftSpecification/IjtagNetwork/HostScanInterface/Ijtag/shift_en mgc_ijtag_se
+           #set_defaults_value DftSpecification/IjtagNetwork/HostScanInterface/Ijtag/update_en mgc_ijtag_ue
+           #set_defaults_value DftSpecification/IjtagNetwork/HostScanInterface/Ijtag/scan_in mgc_ijtag_si
+           #set_defaults_value DftSpecification/IjtagNetwork/HostScanInterface/Ijtag/scan_out mgc_ijtag_so       
+       report: |
+            report_config_data -show_default  > $prj_dir/dft_path/$design_name/$version/$script_leaf_dir/report/insertion_log/${design_name}_dft_spec_w_all_default.rpt\n";
+            report_dft_signals  > $prj_dir/dft_path/$design_name/$version/$script_leaf_dir/report/insertion_log/${design_name}_dft_signals.rpt\n";
+            report_dft_control_points  > $prj_dir/dft_path/$design_name/$version/$script_leaf_dir/report/insertion_log/${design_name}_dft_control_points.rpt\n";
+            report_dft_clock_enables -post_drc  > $prj_dir/dft_path/$design_name/$version/$script_leaf_dir/report/insertion_log/${design_name}_dft_clock_enables.rpt\n";
+            report_black_boxes > $prj_dir/dft_path/$design_name/$version/$script_leaf_dir/report/insertion_log/${design_name}_black_boxes.rpt\n";
+       others: |
+          #add later
+   before_process_dft_spec:
+      bisr_setting: |
+          #set_config_value $spec/MemoryBist/Controller(c1)/AdvancedOptions/gate_bist_clock_in_functional_mode with_clock_gating_cell
+          set bisr_exist [get_name_list [get_config_elements MemoryBisr -in_wrappers $dftspec -silent]]
+          if {$bisr_exist ne "" && [regexp  MemoryBisr $bisr_exist]} {
+              set_config_value $dftspec/MemoryBisr/Interface/scan_in                %s_bisr_si
+              set_config_value $dftspec/MemoryBisr/Interface/scan_out               %s_bisr_so
+              set_config_value $dftspec/MemoryBisr/Interface/capture_shift_clock    %s_bisr_clk
+              set_config_value $dftspec/MemoryBisr/Interface/shift_en               %s_bisr_shift_en
+              set_config_value $dftspec/MemoryBisr/Interface/reset                  %s_bisr_reset
+              set_config_value $dftspec/MemoryBisr/Interface/memory_chain_select    %s_bisr_mem_chain_select
+              read_config -in_wrapper $dftspec/MemoryBisr/ -rep -from_string {
+                 BisrElement("SegmentEnd(*)") {
+                     Pipeline(after) {
+                       so_retiming : off;
+                      leaf_instance_name: %s_bisr_to_client_pipeline_inst;
+                     }
+                 }
+                 BisrElement("SegmentStart(*)") {
+                     Pipeline(before) {
+                      leaf_instance_name: %s_bisr_from_client_pipeline_inst;
+                     }
+                 }
+              }
+          }
+           ## Memory Controller ROM setting
+           #set romdict {instance} {"rom_contention_file"}
+           ##dofile $prj_dir/script/common_script/rom_code_setting.tcl     
+      mem_scan_friendly: |
+          #set_config_value [get_config_element scan_bypass_logic -in $dftspec -hier] sync_mux
+          #set_config_value [get_config_element data_bits_per_bypass_signal -in $dftspec -hier] 5
+          #set_config_value [get_config_element observation_xor_size -in $dftspec -hier] 5
+      algorithm_opset: |
+          #Memory opset setting
+          set opset_list [list SyncWRvcd_HR6 SyncWRvcd_HR8 SyncWRvcd_DRDF_RTE]
+          dofile $prj_dir/script/common_script/mbist_controller_opset.tcl
+          #Memory algo setting
+          set extra_algo_list [list Smarch TessentHammerReadFastX TessentHammerReadFastY TessentHammerWriteFastX TessentHammerWriteFastY DAGalRow DAGalPat DAGalColumn]
+          set default_algo SmarchCHKBvcd 
+          dofile $prj_dir/script/common_script/mbist_controller_algo.tcl
+      controller_check: |
+           #Memory Controller type check
+           dofile $prj_dir/script/common_script/controller_type_check.tcl          
+      report: |
+           report_config_data    $dftspec   >  $prj_dir/dft_path/$design_name/$version/$script_leaf_dir/report/insertion_log/${design_name}_dft_spec.rpt\n";
+   before_extract_icl: |
+      #add if need
+   after_extract_icl:
+      mbist_check: |
+           ## mbist cover check
+           set design_memory_instance [lsort -unique [get_name_list [get_instances -of_module [get_module $mem_prefix_list] -silent]]]
+           source $prj_dir/dft_path/${design_name}/$version/${design_name}_tsdb_outdir/dft_inserted_designs/${design_name}_mbist.dft_inserted_design/${design_name}.sdc
+           tessent_set_default_variables
+           if {$sharebus eq "YES" || $sharebus eq "yes"} {
+           dofile ../../../../script/common_script/sharebus_mbist_cover_check.tcl
+           } else {
+           dofile ../../../../script/common_script/mbist_cover_check.tcl
+           }
+           ## get buffer size
+           set repairmemory [get_name_list [get_memory_instance -repairable  -silent]]
+           set repairmemoryNum [llength $repairmemory]
+           if {$repairmemoryNum >0} {
+              get_buffer_size_info
+           }
+      mbist_report: |
+           report_dft_signal_names > $prj_dir/dft_path/$design_name/$version/$script_leaf_dir/report/insertion_log/${design_name}_dft_signal_names.rpt
+           report_dft_control_points  > $prj_dir/dft_path/$design_name/$version/$script_leaf_dir/report/insertion_log/${design_name}_dft_control_points.rpt
+           report_dft_clock_enables -post_drc  > $prj_dir/dft_path/$design_name/$version/$script_leaf_dir/report/insertion_log/${design_name}_dft_clock_enables.rpt
+           report_black_boxes > $prj_dir/dft_path/$design_name/$version/$script_leaf_dir/report/insertion_log/${design_name}_black_boxes.rpt
+           report_memory_dft_summary > $prj_dir/dft_path/$design_name/$version/$script_leaf_dir/report/insertion_log/${design_name}_memory_controller_power_test_time_info.rpt
+           gen_non_scan_instance_list  $prj_dir/dft_path/$design_name/$version/$script_leaf_dir/report/${design_name}_nonscan_instance.tcl
+           if {$repair_memory_list ne ""} {
+               set_context patterns -ijtag
+               write_memory_repair_dictionary -rep
+               foreach repair_memory  $repair_memory_list {
+                   echo  $repair_memory  >> $prj_dir/dft_path/$design_name/$version/$script_leaf_dir/report/insertion_log/${design_name}_repair_memory_list.rpt
+               }
+           }
+           if {[file exists ./report/insertion_log/${design_name}_memory_controller_power_test_time_info.rpt]} {
+               exec cp -rf ./report/insertion_log/${design_name}_memory_controller_power_test_time_info.rpt "${release_dir_sdc}/../${design_name}.mem_group.rpt"
+           }
+
+logic_test_setting:
+   sdc_gen: on  #default value
+   before_drc:
+      insertion_uniquify: |
+           set_insertion_options -auto_uniquify_edited_modules on -edited_module_prefix "${design_name}_"
+      dft_signals: |
+            add_dft_signal async_set_reset_static_disable
+            add_dft_signal ltest_en
+            add_dft_signal lbist_en -create_with_tdr
+            add_dft_signal edt_clock shift_capture_clock -create_from_other_signals
+            add_dft_signal async_set_reset_dynamic_disable -create_from_other_signals -add_hold_scan_cell on
+            add_dft_signal observe_test_point_en control_test_point_en -add_hold_scan_cell on
+            add_dft_signal lbist_async_set_reset_dynamic_enable
+            add_dft_signal tck_occ_en memory_bypass_en int_edt_mode ext_edt_mode int_mode ext_mode
+            add_dft_signal x_bounding_en mcp_bounding_en
+            add_dft_signal controller_chain_mode         
+            set_drc_handling DFT_C9 -auto_fix off
+      static_dft_signal_value: |
+        #set_static_dft_signal_value -all ltest_en 1
+   before_create_dft_spec:
+      default_setting: |
+           set_defaults_value DftSpecification/IjtagNetwork/ImplementationOptions/scan_path_retiming flop
+           set_defaults_value DftSpecification/IjtagNetwork/to_scan_in_feedthrough_on_pb_sibs pipeline
+      report: |
+           report_config_data -show_default  > $prj_dir/dft_path/$design_name/$version/$script_leaf_dir/report/insertion_log/${design_name}_dft_spec_w_all_default.rpt\n";
+           report_dft_signals  > $prj_dir/dft_path/$design_name/$version/$script_leaf_dir/report/insertion_log/${design_name}_dft_signals.rpt\n";
+           report_dft_control_points  > $prj_dir/dft_path/$design_name/$version/$script_leaf_dir/report/insertion_log/${design_name}_dft_control_points.rpt\n";
+           report_dft_clock_enables -post_drc  > $prj_dir/dft_path/$design_name/$version/$script_leaf_dir/report/insertion_log/${design_name}_dft_clock_enables.rpt\n";
+   before_process_dft_spec: |
+         #latch to flop\n";
+         set sibs [get_config_elements Sib(*) -hier]
+         set_config_value [get_config_elements to_scan_in_feedthrough -in_wrappers $sibs] pipeline
+         set_config_value $dftspec/IjtagNetwork/ImplementationOptions/scan_path_retiming flop
+
+         proc reset_post_process {root_wrapper args} {
+           #set dft_ctrl_async_set_reset_dynamic_disable_or2_pin [get_name_list [get_pins -of_instance [get_instance *dft_ctrl_async_set_reset_dynamic_disable_or2* -hier] -direction output -silent] -silent]
+           #if {$dft_ctrl_async_set_reset_dynamic_disable_or2_pin ne ""} {
+           #   foreach pins $dft_ctrl_async_set_reset_dynamic_disable_or2_pin {
+           #       add_output_pin_dft_mux_override $pins "u_dfx_dynamic_hyper_ctl/dfx_rst_scan_n" "u_dfx_static_hyper_ctl_tdr/dfx_scan_mode"
+           #   }
+           #}
+           set dynamic_hyper_ctl_se [get_name_list [get_pins *u_dfx_dynamic_hyper_ctl/scan_enable -hier -silent] -silent]
+           if {$dynamic_hyper_ctl_se ne ""} {
+               delete_connection [get_pins *u_dfx_dynamic_hyper_ctl/scan_enable -hier]
+               create_connection [get_pins *u_dfx_dynamic_hyper_ctl/scan_enable -hier] [get_pins [get_name_list [get_dft_signal scan_en]]]
+           }
+           set dynamic_hyper_ctl_async_set_reset_static_disable [get_name_list [get_pins *u_dfx_dynamic_hyper_ctl/async_set_reset_static_disable -hier -silent] -silent]
+           if {$dynamic_hyper_ctl_async_set_reset_static_disable ne ""} {
+               delete_connection [get_pins *u_dfx_dynamic_hyper_ctl/async_set_reset_static_disable -hier]
+               create_connection [get_pins *u_dfx_dynamic_hyper_ctl/async_set_reset_static_disable -hier] [get_pins [get_name_list [get_dft_signal async_set_reset_static_disable]]]
+           }           
+         }
+         register_callback process_dft_specification.post_insertion reset_post_process
+   before_extract_icl: |
+         #add later
+
+   after_extract_icl: |
+         #add later
+   logic_test_report: |
+       if {$release_dir ne ""} {
+           #=======================================================
+           report_config_data  $dftspec > ./report/insertion_log/${design_name}.dft_spec.rpt
+           set occ_dict [dict create]
+           set target_tsdb_dir "../${design_name}_tsdb_outdir"
+           set spec_files "./report/insertion_log/${design_name}.dft_spec.rpt"
+           
+           if {[llength $spec_files] > 0} {
+               set spec_file [lindex $spec_files 0]
+               set in_occ 0; set in_ctrl 0; set current_occ_name ""
+           
+               set fid [open $spec_file r]
+               while {[gets $fid line] >= 0} {
+                   set line [string trim $line]
+                   if {[regexp {^OCC\s*\{} $line]} {
+                       set in_occ 1; continue
+                   }
+                   if {$in_occ} {
+                       if {[regexp {^Controller\(([^)]+)\)\s*\{} $line match ctrl_name]} {
+                           set in_ctrl 1; set current_occ_name $ctrl_name; continue
+                       }
+                   }
+                   if {$in_ctrl} {
+                       if {[regexp {clock_intercept_nodes\s*:\s*(\[.+\]);} $line match nodes]} {
+                           dict set occ_dict $current_occ_name [string trim $nodes]
+                       }
+                       if {[regexp {^\}} $line]} {
+                           set in_ctrl 0; set current_occ_name ""; continue
+                       }
+                   } else {
+                       if {[regexp {^\}} $line]} {
+                           set in_occ 0; continue
+                       }
+                   }
+               }
+               close $fid
+           } else {
+               puts "-> Warning: No *.dft_spec file found. Skipping OCC parse."
+           }
+           
+           set occ_out_file "$release_dir_sdc/../${design_name}.occ.rpt"
+           set fid_occ [open $occ_out_file w]
+           
+           if {[dict size $occ_dict] == 0} {
+               puts $fid_occ " (No OCC specification data found)\n"
+           } else {
+               dict for {occ_name intercept_node} $occ_dict {
+                   puts $fid_occ " $occ_name : $intercept_node"
+               }
+           }
+           close $fid_occ
+           #=======================================================
+           extract_sdc -output_file $prj_dir/dft_path/$design_name/${version}/$script_leaf_dir/report/sdc/${design_name}.sdc
+           generate_release_file $deliver $prj_dir $design_name $version $script_leaf_dir 
+           list_all  "$deliver/design" "$deliver/${design_name}.after_dft_ip.to_syn.f"        
+           #=======================================================
+           set DFT_ARTIST_HOME $env(DFT_ARTIST_HOME)
+           puts "DFT_ARTIST_HOME=$DFT_ARTIST_HOME"
+           set cmd [list \
+               $DFT_ARTIST_HOME/lnx-x86/gen_dft_sdc \
+               --target "$prj_dir/dft_path/$design_name/${version}/$script_leaf_dir/report/sdc/${design_name}.sdc" \
+               --mode func \
+               --level $level \
+               --yaml "$prj_dir/dft_studio_db/$design_name/yaml/sdc_cfg/dft_add_func_sdc.yaml" \
+               --clock-mapping "$prj_dir/dft_studio_db/$design_name/compiled/dft_clock_mapping.tcl" \
+               --output "$prj_dir/dft_path/$design_name/${version}/$script_leaf_dir/report/sdc/${design_name}.dft_add_func.sdc" \
+               ]
+           set rc [catch {exec {*}$cmd 2>@1} result options]
+           
+           puts $result
+           
+           if {$rc != 0} {
+               puts "ERROR: gen_dft_sdc failed"
+               puts "errorcode = [dict get $options -errorcode]"
+           } else {
+               puts "INFO: gen_dft_sdc executed successfully"
+           }
+           #=====================================================
+           set cmd [list \
+               $DFT_ARTIST_HOME/lnx-x86/gen_dft_sdc \
+               --target "$prj_dir/dft_path/$design_name/${version}/$script_leaf_dir/report/sdc/${design_name}.sdc" \
+               --mode func \
+               --level $level \
+               --yaml "$prj_dir/dft_studio_db/$design_name/yaml/sdc_cfg/dft_add_func_sdc.yaml" \
+               --clock-mapping "$prj_dir/dft_studio_db/$design_name/compiled/dft_clock_mapping.tcl" \
+               --output "$deliver/sdc/${design_name}.dft_add_func.sdc"  \
+               ]
+           set rc [catch {exec {*}$cmd 2>@1} result options]
+           
+           puts $result
+           
+           if {$rc != 0} {
+               puts "ERROR: gen_dft_sdc failed"
+               puts "errorcode = [dict get $options -errorcode]"
+           } else {
+               puts "INFO: gen_dft_sdc executed successfully"
+           }
+           
+           #=====================================================
+           set cmd [list \
+                   $DFT_ARTIST_HOME/lnx-x86/gen_dft_sdc \
+           	--target $prj_dir/dft_path/$design_name/${version}/$script_leaf_dir/report/sdc/${design_name}.sdc \
+           	--mode shift \
+           	--yaml $prj_dir/dft_studio_db/$design_name/yaml/sdc_cfg/shift_capture_sdc.yaml  \
+           	--output "$deliver/sdc/${design_name}.shift.sdc"  \
+               ]
+           set rc [catch {exec {*}$cmd 2>@1} result options]
+           
+           puts $result
+           
+           if {$rc != 0} {
+               puts "ERROR: gen_dft_sdc failed"
+               puts "errorcode = [dict get $options -errorcode]"
+           } else {
+               puts "INFO: gen_dft_sdc executed successfully"
+           }
+           #=====================================================
+           set cmd [list \
+                   $DFT_ARTIST_HOME/lnx-x86/gen_dft_sdc \
+           	--target $prj_dir/dft_path/$design_name/${version}/$script_leaf_dir/report/sdc/${design_name}.sdc \
+           	--mode stuck_at_capture \
+           	--yaml $prj_dir/dft_studio_db/$design_name/yaml/sdc_cfg/shift_capture_sdc.yaml  \
+           	--output "$deliver/sdc/${design_name}.stuck_at_capture.sdc"  \
+               ]
+           set rc [catch {exec {*}$cmd 2>@1} result options]
+           
+           puts $result
+           
+           if {$rc != 0} {
+               puts "ERROR: gen_dft_sdc failed"
+               puts "errorcode = [dict get $options -errorcode]"
+           } else {
+               puts "INFO: gen_dft_sdc executed successfully"
+           }
+           
+           if {$release_dir_sdc ne ""} {
+              exec cp -rf "$deliver/sdc/${design_name}.shift.sdc" $release_dir_sdc
+              exec cp -rf "$deliver/sdc/${design_name}.stuck_at_capture.sdc" $release_dir_sdc
+              exec cp -rf "$prj_dir/dft_path/$design_name/${version}/$script_leaf_dir/report/sdc/${design_name}.dft_add_func.sdc" $release_dir_sdc
+           }
+           set const_dir "$release_dir/impl_constraint"
+           if {![file isdirectory $const_dir]} {
+               exec mkdir $const_dir
+               #exec cp -rf $prj_path/user_material/
+               set filename "$release_dir/impl_constraint/dft.keep_boundary.list"
+               set fp [open $filename "w"]
+               puts $fp "*tessent*"
+               close $fp
+               set filename "$release_dir/impl_constraint/dft.size_only_cell.list"
+               set fp [open $filename "w"]
+               puts $fp "*persistent*"
+               puts $fp "*dfx_*_edt_channels_*"
+               puts $fp "*tessent_edt_*_EDT_chan_*_lockup_*_inst*"
+               puts $fp "*u_dfx*"
+               close $fp
+               set filename "$release_dir/impl_constraint/dft.dont_mbit.list"
+               set fp [open $filename "w"]
+               puts $fp "*tessent*"
+               puts $fp "*dfx_*_edt_channels_*_pipe*"
+               puts $fp "*tdr*"
+               puts $fp "*u_dfx*"
+               puts $fp "*bisr_pipeline*"
+               close $fp
+           }
+
+          set fpr2r [open "$release_dir/fv.g2g.predft_vs_postdft.constraint.do" w]
+          
+          set ijtag_relase_input_port [get_name_list [get_ports *ijtag* -direction input -silent]]
+          if {$ijtag_relase_input_port ne ""} {
+              puts $fpr2r "add_ignored_inputs *ijtag* -both"
+          }
+          set ijtag_relase_output_port [get_name_list [get_ports *ijtag* -direction output -silent]]
+          if {$ijtag_relase_output_port ne ""} {
+              puts $fpr2r "add_ignored_outputs *ijtag* -both"
+          } 
+
+          set bisr_relase_input_port [get_name_list [get_ports *bisr* -direction input -silent]]
+          if {$bisr_relase_input_port ne ""} {
+              puts $fpr2r "add_ignored_inputs *bisr* -both"
+          }
+          set bisr_relase_output_port [get_name_list [get_ports *bisr* -direction output -silent]]
+          if {$bisr_relase_output_port ne ""} {
+              puts $fpr2r "add_ignored_outputs *bisr* -both"
+          } 
+
+          set bscan_relase_input_port [get_name_list [get_ports *bscan* -direction input -silent]]
+          if {$bscan_relase_input_port ne ""} {
+              puts $fpr2r "add_ignored_inputs *bscan* -both"
+          }
+          set bisr_relase_output_port [get_name_list [get_ports *bscan* -direction output -silent]]
+          if {$bisr_relase_output_port ne ""} {
+              puts $fpr2r "add_ignored_outputs *bscan* -both"
+          }         
+
+          set ssn_relase_input_port [get_name_list [get_ports *ssn*bus* -direction input -silent]]
+          if {$ssn_relase_input_port ne ""} {
+              puts $fpr2r "add_ignored_inputs *ssn*bus* -both"
+          }
+          set ssn_relase_output_port [get_name_list [get_ports *ssn*bus* -direction output -silent]]
+          if {$ssn_relase_output_port ne ""} {
+              puts $fpr2r "add_ignored_outputs *ssn*bus* -both"
+          }
+          
+          set ijtag_reset_relase_input_port [get_name_list [get_ports ijtag_reset -direction input -silent]]
+          if {$ijtag_reset_relase_input_port ne ""} {
+              puts $fpr2r "add_pin_constraints 0 ijtag_reset -both"
+          }
+          set dfx_icg_mode_relase_input_port [get_name_list [get_ports dfx_icg_mode -direction input -silent]]
+          if {$dfx_icg_mode_relase_input_port ne ""} {
+              puts $fpr2r "add_pin_constraints 0 dfx_icg_mode -both"
+          }
+          set dfx_scan_mode_relase_input_port [get_name_list [get_ports dfx_scan_mode -direction input -silent]]
+          if {$dfx_scan_mode_relase_input_port ne ""} {
+              puts $fpr2r "add_pin_constraints 0 dfx_scan_mode -both"
+          }
+          set dfx_mode_relase_input_port [get_name_list [get_ports dfx_mode -direction input -silent]]
+          if {$dfx_mode_relase_input_port ne ""} {
+              puts $fpr2r "add_pin_constraints 0 dfx_mode -both"
+          }
+          set dfx_mbist_mode_relase_input_port [get_name_list [get_ports dfx_mbist_mode -direction input -silent]]
+          if {$dfx_mbist_mode_relase_input_port ne ""} {
+              puts $fpr2r "add_pin_constraints 0 dfx_mbist_mode -both"
+          }
+          set bisr_mem_disable_relase_input_port [get_name_list [get_ports bisr_mem_disable -direction input -silent]]
+          if {$dfx_mbist_mode_relase_input_port ne ""} {
+              puts $fpr2r "add_pin_constraints 0 bisr_mem_disable -both"
+          }
+
+          set bscanm_relase_input_port [get_name_list [get_ports *bscan* -direction input -silent]]
+          if {$bscanm_relase_input_port ne ""} {
+              puts $fpr2r "add_pin_constraints 0 *bscan* -both"
+          }
+
+          set fp [open "$release_dir/fv.g2g.before_scan_vs_after_scan.constraint.do" w]
+          
+          set scan_en [get_name_list [get_dft_signal scan_en]]
+          puts $fp "add_primary_input $scan_en -both"
+          puts $fp "add_pin_constraints 0 $scan_en -both"
+          
+          set ltest_en [get_name_list [get_pins -direction output -of_instances [get_instances *tessent_persistent_cell_ltest_en -h -silent] -silent]]
+          set ext_ltest_en [get_name_list [get_pins -direction output -of_instances [get_instances *tessent_persistent_cell_ext_ltest_en -h -silent] -silent]]
+          set int_ltest_en [get_name_list [get_pins -direction output -of_instances [get_instances *tessent_persistent_cell_int_ltest_en -h -silent] -silent]]
+
+          set dfx_icg_mode [get_name_list [get_pins dfx_icg_mode -of_instances [get_instances *u_dfx_dynamic_hyper_ctl -h -silent] -silent]]
+          set dfx_apc_cp_hyper_ctl [get_name_list [get_pins dfx_apc_cp_hyper_ctl -of_instances [get_instances *u_dfx_dynamic_hyper_ctl -h -silent] -silent]]
+          
+          if {$ltest_en ne ""} {
+              puts $fp "add_primary_input $ltest_en -both"
+              puts $fp "add_pin_constraints 0 $ltest_en -both"
+          }
+          if {$ext_ltest_en ne ""} {
+              puts $fp "add_primary_input $ext_ltest_en -both"
+              puts $fp "add_pin_constraints 0 $ext_ltest_en -both"
+          }
+          if {$int_ltest_en ne ""} {
+              puts $fp "add_primary_input $int_ltest_en -both"
+              puts $fp "add_pin_constraints 0 $int_ltest_en -both"
+          }
+          if {$dfx_icg_mode ne ""} {
+              puts $fp "add_primary_input $dfx_icg_mode -both"
+              puts $fp "add_pin_constraints 0 $dfx_icg_mode -both"
+          }
+          if {$dfx_apc_cp_hyper_ctl ne ""} {
+              puts $fp "add_primary_input $dfx_apc_cp_hyper_ctl -both"
+              puts $fp "add_pin_constraints 0 $dfx_apc_cp_hyper_ctl -both"
+          }
+
+          set target_files [find_files_recursive $target_tsdb_dir "${design_name}.dft_summary_dictionary"]
+
+          if {$target_files ne ""} { 
+              set fp1 [open $target_files r]
+              set text [read $fp1]
+              close $fp1
+              
+              set modules {}
+              foreach line [split $text "\n"] {
+                  if {[regexp {template\s+/Core\(([^)]+)\)/Memory} $line -> name]} {
+                      lappend modules $name
+                  }
+              }
+              
+              set mem_list [lsort -unique $modules]           
+              foreach mod $mem_list {
+                  puts $fpr2r "add_ignored_inputs SI_* -module $mod -both"
+                  puts $fpr2r "add_ignored_outputs SO_* -module $mod -both"
+                  puts $fpr2r "add_ignored_outputs CRE* -module $mod -both"
+                  puts $fpr2r "add_ignored_outputs FCA* -module $mod -both"
+                  puts $fpr2r "add_ignored_outputs DFTRAM* -module $mod -both"
+                  puts $fpr2r "add_ignored_outputs FCA* -module $mod -both"
+              }
+          } 
+          if {[info exists sub_harden]} {
+            foreach sub_harden_cell  $sub_harden {
+               puts $fpr2r "add_ignored_inputs * -module $sub_harden_cell -both"
+               puts $fpr2r "add_ignored_outputs * -module $sub_harden_cell -both"
+            }
+          }
+          close $fpr2r
+          close $fp
+       } 
+scan_test_setting:
+    insertion_uniquify: |
+       set_insertion_options -auto_uniquify_edited_modules on -edited_module_prefix "${design_name}_"
+    test_point: yes
+    static_dft_signal_value_setting: |
+      set_static_dft_signal_values ltest_en 1
+    test_point_ins_setting: |
+      set_test_point_types {lbist_test_coverage edt_pattern_count}
+      set_test_point_analysis_options -total_number 1%
+      set_test_point_analysis_options -shared_observe_points_per_flop 5
+      set_test_point_analysis_options -test_coverage_target 99.5
+      set_test_point_insertion_options -observe_point_enable [get_dft_signal observe_test_point_en]
+      set_test_point_insertion_options -control_point_enable [get_dft_signal control_test_point_en]        
+    test_point_ana_setting: |
+      set number_processors 16
+      add_processors localhost:$number_processors
+      set timeA [clock seconds]
+      analyze_test_points
+      set timeB [clock seconds]
+      set duration [expr $timeB - $timeA]
+      puts "Duration of TPI with $number_processors processors is $duration seconds"
+      write_test_point_dofile  ./report/test_point/processor_core_tpi.dofile -all -replace       
+    wrapper_setting: |
+      set_wrapper_analysis_options -input_fanout_flop_threshold 4
+      set_wrapper_analysis_options -output_fanin_flop_threshold 4
+      set_wrapper_analysis_options -capture_window_behavior shift
+    wrapper_report: |
+      report_wrapper_analysis_options > ./report/scan_chain/${design_name}_wrapper_analysis_options.rpt
+      report_dedicated_wrapper_cell_options > ./report/scan_chain/${design_name}_dedicated_wrapper_cell_options.rpt
+      report_wrapper_cells -verbose > ./report/scan_chain/${design_name}_wrapper_cell_verbose.rpt
+      report_wrapper_cells -summary  > ./report/scan_chain/${design_name}_wrapper_cell_summary.rpt
+    nonscan: |
+      add_nonscan_instances [get_instance  *tessent_edt_*_EDT_chan_*_*_lockup_inst* -silent]
+      add_nonscan_instances [get_instance  *dfx_*_edt_channels_*_pipe* -silent]
+    before_write_design: |      
+        set tp_se_list [get_name_list [get_pins SE -of_instance [get_instance u_dontouch_cell -below_instances [get_instances *_ff_inst* -below_instances u_dfx_dynamic_hyper_ctl -hierarchical]]]]
+        foreach tp_se $tp_se_list {
+           set result [regsub -all {\s} $tp_se ""]
+           delete_connection [get_pins $result] 
+           create_connection [get_pins $result] [get_pins [get_name_list [get_dft_signal scan_en]]]
+        }
+        #set icg_name [get_name_list [get_instance -of_module [get_module PRE_ICG* -silent] -silent]]
+        #if {$icg_name ne ""} { 
+        #   apc_pc_ctrl $icg_name [get_intance *u_dfx_dynamic_hyper_ctl -hier]
+        #} else {
+        #   puts "Info high level Warning: there no synthesis ICG catch, please check why,it should be control else cause power and pattern count issue!!!"
+        #}
+        write_design -output_file $prj_dir/dft_path/${design_name}/$version/${design_name}_tsdb_outdir/dft_inserted_designs/${design_name}_scan.dft_inserted_design/${design_name}.vg -replace        
+    scan_report: |
+       report_scan_enable > ./report/scan_chain/${design_name}_scan_enable.rpt
+       report_scan_chains > ./report/scan_chain/${design_name}_scan_chain.rpt
+       report_scan_cells > ./report/scan_chain/${design_name}_scan_cells.rpt
+       report_shift_registers -verbose > ./report/scan_chain/${design_name}_shift_register_verbose.rpt
+       report_shift_registers -summary >> ./report/scan_chain/${design_name}_shift_register_summary.rpt
+       write_scan_order ./report/scan_chain/scandef_verilog -use_escaping_rule Verilog -replace
+       write_scan_order ./report/scan_chain/scandef_lefdef -use_escaping_rule Lefdef -replace
+       write_scan_order  $deliver/scandef_verilog -use_escaping_rule Verilog -replace
+       write_scan_order  $deliver/scandef_lefdef -use_escaping_rule Lefdef -replace
+       write_design -output_file $deliver/${design_name}.after_scan.vg -replace 
+       if {$release_dir ne ""} {
+          exec cp -rf "$deliver/scandef_lefdef" $release_dir_scan_netlist
+          exec cp -rf "$deliver/${design_name}.after_scan.vg" $release_dir_scan_netlist
+       }
+       set_system_mode setup
+       report_static_dft_signal_settings > ./report/insertion_log/${design_name}_static_dft_signal_settings.rpt
+       report_clocks  > ./report/insertion_log/${design_name}_test_point_stage_dft_clock.rpt
+       report_dft_signals > ./report/insertion_log/${design_name}_test_point_stage_dft_signals.rpt
+       report_dft_signal_names  > ./report/insertion_log/${design_name}_test_point_stage_dft_signal_names.rpt  
+       write_test_point_dofile  ./report/test_point/processor_core_tpi.dofile -all -replace
+
+       if {$release_dir ne ""} {
+           exec cp -rf "$deliver/scandef_lefdef" $release_dir_scan_netlist
+           exec cp -rf "$deliver/${design_name}.after_scan.vg" $release_dir_scan_netlist
+           set const_dir "$release_dir/impl_constraint"
+
+           set fp [open "$release_dir/fv.g2g.constraint.do" w]
+           
+           set scan_en [get_name_list [get_dft_signal scan_en]]
+           puts $fp "add_primary_input $scan_en -both"
+           puts $fp "add_pin_constraints 0 $scan_en -both"
+           
+           set ltest_en [get_name_list [get_pins -direction output -of_instances [get_instances *tessent_persistent_cell_ltest_en -h -silent] -silent]]
+           set ext_ltest_en [get_name_list [get_pins -direction output -of_instances [get_instances *tessent_persistent_cell_ext_ltest_en -h -silent] -silent]]
+           set int_ltest_en [get_name_list [get_pins -direction output -of_instances [get_instances *tessent_persistent_cell_int_ltest_en -h -silent] -silent]]
+
+           set dfx_icg_mode [get_name_list [get_pins dfx_icg_mode -of_instances [get_instances *u_dfx_dynamic_hyper_ctl -h -silent] -silent]]
+           set dfx_apc_cp_hyper_ctl [get_name_list [get_pins dfx_apc_cp_hyper_ctl -of_instances [get_instances *u_dfx_dynamic_hyper_ctl -h -silent] -silent]]
+           
+           if {$ltest_en ne ""} {
+               puts $fp "add_primary_input $ltest_en -both"
+               puts $fp "add_pin_constraints 0 $ltest_en -both"
+           }
+           if {$ext_ltest_en ne ""} {
+               puts $fp "add_primary_input $ext_ltest_en -both"
+               puts $fp "add_pin_constraints 0 $ext_ltest_en -both"
+           }
+           if {$int_ltest_en ne ""} {
+               puts $fp "add_primary_input $int_ltest_en -both"
+               puts $fp "add_pin_constraints 0 $int_ltest_en -both"
+           }
+           if {$dfx_icg_mode ne ""} {
+               puts $fp "add_primary_input $dfx_icg_mode -both"
+               puts $fp "add_pin_constraints 0 $dfx_icg_mode -both"
+           }
+           if {$dfx_apc_cp_hyper_ctl ne ""} {
+               puts $fp "add_primary_input $dfx_apc_cp_hyper_ctl -both"
+               puts $fp "add_pin_constraints 0 $dfx_apc_cp_hyper_ctl -both"
+           }
+           set target_tsdb_dir "../${design_name}_tsdb_outdir" 
+           set target_files [find_files_recursive $target_tsdb_dir "${design_name}.dft_summary_dictionary"]
+
+           if {$target_files ne ""} { 
+              set fp1 [open $target_files r]
+              set text [read $fp1]
+              close $fp1
+              
+              set modules {}
+              foreach line [split $text "\n"] {
+                  if {[regexp {template\s+/Core\(([^)]+)\)/Memory} $line -> name]} {
+                      lappend modules $name
+                  }
+              }
+              
+              set mem_list [lsort -unique $modules]  
+              foreach mod $mem_list {
+                  puts $fp "add_ignored_inputs SI_* -module $mod -both"
+                  puts $fp "add_ignored_outputs SO_* -module $mod -both"
+               }
+           } 
+
+           if {[info exists sub_harden]} {
+             foreach sub_harden_cell  $sub_harden {
+                puts $fp "add_ignored_inputs * -module $sub_harden_cell -both"
+                puts $fp "add_ignored_outputs * -module $sub_harden_cell -both"           
+             }
+           }
+           close $fp
+           set current_date [clock format [clock seconds] -format "%Y-%m-%d"]
+           if {[file exists ./report/scan_chain/${design_name}_scan_cells.rpt]} {
+               exec cp -rf ./report/scan_chain/${design_name}_scan_cells.rpt "$release_dir/${design_name}.${current_date}.scan_cells.rpt"
+           }               
+       }
+atpg_setting:
+    default_setting: |
+       set_split_capture_cycle on 
+       set_simulation_options -c6_mask_races on 
+       add_input_constraint -NO_Z -BIDI_Only
+       add_input_constraint -slow_pad
+       set_simulation_options -set_reset_dominate_port off
+       set_xclock_handling x -pessimistic_simulation on
+       set_simulation_options -mux_select_X_sim_X on
+       set_simulation_options -simulate_learned_sequential_tie_gates ON
+       set_bus_simulation local
+    pat: |
+       # Write Verilog patterns for simulation
+       #**********************************************************************
+       #  SIN_PARALLEL_DELAY_SHIFT_CLOCK
+       #  SIN_PARALLEL_EARLY_FORCE_AND_MEASURE
+       #  SIN_EARLY_SCAN_RELEASE
+       #  SIN_EARLY_RELEASE_TIME
+       #  SIN_EARLY_RELEASE_TIME
+       write_patterns patterns/${design_name}_${current_mode}_internal_parallel_memory_bypass_enable.v.gz -end 5000 -verilog -parallel -parameter_list {SIM_TOP_NAME TB SIM_STATUS_MSG 1 SIM_KEEP_PATH 1 SIM_POST_SHIFT 8} -replace
+       write_patterns patterns/${design_name}_${current_mode}_internal_serial_memory_bypass_enable.v.gz -end 20 -verilog -serial -parameter_list {SIM_TOP_NAME TB SIM_STATUS_MSG 1 SIM_KEEP_PATH 1 SIM_POST_SHIFT 8} -replace
+       #manufacture pattern
+       write_patterns patterns/${design_name}_${current_mode}_internal_parallel_memory_bypass_enable.stil -stil -pattern_sets scan -parallel -replace
+       set_pattern_filtering -sample_per_type 2
+       write_patterns patterns/${design_name}_${current_mode}_internal_serial_memory_bypass_enable.stil -stil -pattern_sets scan -serial  -replace
+      
+    ram_seq_pat: |
+       write_patterns patterns/${design_name}_${current_mode}_internal_parallel_memory_bypass_disable.v -pattern_sets scan -verilog -parallel -parameter_list {SIM_TOP_NAME TB SIM_STATUS_MSG 1 SIM_KEEP_PATH 1 SIM_POST_SHIFT 8} -replace
+       write_patterns patterns/${design_name}_${current_mode}_internal_serial_memory_bypass_disable.v -end 20 -pattern_sets scan -verilog -serial -parameter_list {SIM_TOP_NAME TB SIM_STATUS_MSG 1 SIM_KEEP_PATH 1 SIM_POST_SHIFT 8} -replace
+       #manufacture pattern
+       write_patterns patterns/${design_name}_${current_mode}_internal_parallel_memory_bypass_disable.bin -binary -pattern_sets scan -parallel  -replace
+       set_pattern_filtering -sample_per_type 2
+       write_patterns patterns/${design_name}_${current_mode}_internal_serial_memory_bypass_disable.stil -stil -pattern_sets scan  -serial -parameter_list {SIM_TOP_NAME TB SIM_STATUS_MSG 1 SIM_KEEP_PATH 1 SIM_POST_SHIFT 20} -replace
+   
+retarget_setting:
+       pat: |
+         write_patterns patterns/${retarget_harden}_${current_mode}_internal_parallel.v.gz -end 5000 -verilog -parallel -parameter_list {SIM_TOP_NAME TB SIM_STATUS_MSG 1 SIM_KEEP_PATH 1 SIM_POST_SHIFT 8} -replace
+         write_patterns patterns/${retarget_harden}_${current_mode}_internal_serial.v.gz -end 20 -verilog -serial -parameter_list {SIM_TOP_NAME TB SIM_STATUS_MSG 1 SIM_KEEP_PATH 1 SIM_POST_SHIFT 8} -replace
+         #manufacture pattern
+         write_patterns patterns/${retarget_harden}_${current_mode}_internal_parallel_memory_bypass_enable.stil -stil -pattern_sets scan -parallel -replace
+         #set_pattern_filtering -sample_per_type 2
+         write_patterns patterns/${retarget_harden}_${current_mode}_internal_serial_memory_bypass_enable.stil -stil -pattern_sets scan -serial  -replace
+

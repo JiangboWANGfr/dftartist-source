@@ -1,0 +1,1086 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:wrapper-chain-resets:1",
+  "title": "Wrapper shared state inactive asynchronous control constraints",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-wrapper-chain-resets-v1"
+        },
+        "source": {
+          "$ref": "urn:dft-studio:analysis:wrapper-chain-clocks:1#/oneOf/0"
+        },
+        "resets": {
+          "type": "object",
+          "properties": {
+            "limits": {
+              "type": "object",
+              "properties": {
+                "maxRows": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100000
+                },
+                "maxEvents": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 1000000
+                },
+                "maxWork": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 10000000
+                },
+                "maxDepth": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 256
+                },
+                "maxMillis": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 60000
+                }
+              },
+              "required": [
+                "maxRows",
+                "maxEvents",
+                "maxWork",
+                "maxDepth",
+                "maxMillis"
+              ],
+              "additionalProperties": false
+            },
+            "complete": {
+              "type": "boolean"
+            },
+            "work": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            },
+            "events": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "reasons": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "source_partial",
+                  "control_unresolved",
+                  "budget_rows",
+                  "budget_events",
+                  "budget_work",
+                  "budget_time"
+                ]
+              },
+              "uniqueItems": true
+            },
+            "inputs": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "point": {
+                    "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/TracePoint"
+                  },
+                  "sourceRef": {
+                    "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/ObjectRef"
+                  }
+                },
+                "required": [
+                  "point",
+                  "sourceRef"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "checks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "event": {
+                    "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/AsyncEvent"
+                  },
+                  "status": {
+                    "enum": [
+                      "resolved",
+                      "inactive",
+                      "asserted",
+                      "unresolved"
+                    ]
+                  },
+                  "reason": {
+                    "type": "string"
+                  },
+                  "proof": {
+                    "$ref": "urn:dft-studio:analysis:sequential:2#/$defs/Report/properties/checks/items/properties/logic"
+                  },
+                  "input": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "high": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "event",
+                  "status",
+                  "reason"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "resolved"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "reason": {
+                          "const": "primary_input"
+                        }
+                      },
+                      "required": [
+                        "proof",
+                        "input",
+                        "high"
+                      ]
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "inactive"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "reason": {
+                          "const": "constant_inactive"
+                        },
+                        "input": false,
+                        "high": false
+                      },
+                      "required": [
+                        "proof"
+                      ]
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "asserted"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "reason": {
+                          "const": "constant_asserted"
+                        },
+                        "input": false,
+                        "high": false
+                      },
+                      "required": [
+                        "proof"
+                      ]
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unresolved"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "input": false,
+                        "high": false
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "rows": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "chain": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1023
+                  },
+                  "segment": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "sourceRow": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "complete": {
+                    "type": "boolean"
+                  },
+                  "status": {
+                    "enum": [
+                      "clear",
+                      "hold",
+                      "conflict",
+                      "asserted",
+                      "unresolved",
+                      "pending",
+                      "dedicated"
+                    ]
+                  },
+                  "reason": {
+                    "enum": [
+                      "no_async_controls",
+                      "constant_inactive",
+                      "inactive_inputs",
+                      "conflicting_levels",
+                      "constant_asserted",
+                      "control_unresolved",
+                      "clock_analysis_not_reached",
+                      "control_not_in_rtl",
+                      "register_facts_partial",
+                      "register_gap",
+                      "register_overlap"
+                    ]
+                  },
+                  "events": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "match": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "event": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "check": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "match",
+                        "event",
+                        "check"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "holds": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "input": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "low": {
+                          "type": "boolean"
+                        },
+                        "high": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "input",
+                        "low",
+                        "high"
+                      ],
+                      "additionalProperties": false,
+                      "anyOf": [
+                        {
+                          "properties": {
+                            "low": {
+                              "const": true
+                            }
+                          }
+                        },
+                        {
+                          "properties": {
+                            "high": {
+                              "const": true
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "uniqueItems": true
+                  }
+                },
+                "required": [
+                  "chain",
+                  "segment",
+                  "complete",
+                  "status",
+                  "reason",
+                  "events",
+                  "holds"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "pending"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "sourceRow": false,
+                        "complete": {
+                          "const": false
+                        },
+                        "reason": {
+                          "const": "clock_analysis_not_reached"
+                        },
+                        "events": {
+                          "maxItems": 0
+                        },
+                        "holds": {
+                          "maxItems": 0
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "not": {
+                            "const": "pending"
+                          }
+                        }
+                      }
+                    },
+                    "then": {
+                      "required": [
+                        "sourceRow"
+                      ]
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "dedicated"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "complete": {
+                          "const": true
+                        },
+                        "reason": {
+                          "const": "control_not_in_rtl"
+                        },
+                        "events": {
+                          "maxItems": 0
+                        },
+                        "holds": {
+                          "maxItems": 0
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "clear"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "complete": {
+                          "const": true
+                        },
+                        "reason": {
+                          "enum": [
+                            "no_async_controls",
+                            "constant_inactive"
+                          ]
+                        },
+                        "holds": {
+                          "maxItems": 0
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "hold"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "complete": {
+                          "const": true
+                        },
+                        "reason": {
+                          "const": "inactive_inputs"
+                        },
+                        "holds": {
+                          "minItems": 1,
+                          "items": {
+                            "not": {
+                              "properties": {
+                                "low": {
+                                  "const": true
+                                },
+                                "high": {
+                                  "const": true
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "conflict"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "reason": {
+                          "const": "conflicting_levels"
+                        },
+                        "holds": {
+                          "contains": {
+                            "properties": {
+                              "low": {
+                                "const": true
+                              },
+                              "high": {
+                                "const": true
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "asserted"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "reason": {
+                          "const": "constant_asserted"
+                        },
+                        "events": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unresolved"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "complete": {
+                          "const": false
+                        },
+                        "reason": {
+                          "enum": [
+                            "control_unresolved",
+                            "register_facts_partial",
+                            "register_gap",
+                            "register_overlap"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "maxItems": 100000
+            },
+            "chains": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "chain": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1023
+                  },
+                  "processedSegments": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "complete": {
+                    "type": "boolean"
+                  },
+                  "clearBits": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "holdBits": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "conflictBits": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "assertedBits": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "unresolvedBits": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "pendingBits": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "dedicatedBits": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "holds": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "input": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "low": {
+                          "type": "boolean"
+                        },
+                        "high": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "input",
+                        "low",
+                        "high"
+                      ],
+                      "additionalProperties": false,
+                      "anyOf": [
+                        {
+                          "properties": {
+                            "low": {
+                              "const": true
+                            }
+                          }
+                        },
+                        {
+                          "properties": {
+                            "high": {
+                              "const": true
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "uniqueItems": true
+                  },
+                  "status": {
+                    "enum": [
+                      "empty",
+                      "clear",
+                      "hold",
+                      "conflict",
+                      "asserted",
+                      "unresolved",
+                      "dedicated_only"
+                    ]
+                  }
+                },
+                "required": [
+                  "chain",
+                  "processedSegments",
+                  "complete",
+                  "clearBits",
+                  "holdBits",
+                  "conflictBits",
+                  "assertedBits",
+                  "unresolvedBits",
+                  "pendingBits",
+                  "dedicatedBits",
+                  "holds",
+                  "status"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "asserted"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "assertedBits": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 9007199254740991
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "conflict"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "assertedBits": {
+                          "const": 0
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unresolved"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "complete": {
+                          "const": false
+                        },
+                        "assertedBits": {
+                          "const": 0
+                        },
+                        "conflictBits": {
+                          "const": 0
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "hold"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "complete": {
+                          "const": true
+                        },
+                        "holds": {
+                          "minItems": 1
+                        },
+                        "assertedBits": {
+                          "const": 0
+                        },
+                        "conflictBits": {
+                          "const": 0
+                        },
+                        "unresolvedBits": {
+                          "const": 0
+                        },
+                        "pendingBits": {
+                          "const": 0
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "clear"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "complete": {
+                          "const": true
+                        },
+                        "clearBits": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 9007199254740991
+                        },
+                        "holds": {
+                          "maxItems": 0
+                        },
+                        "holdBits": {
+                          "const": 0
+                        },
+                        "assertedBits": {
+                          "const": 0
+                        },
+                        "conflictBits": {
+                          "const": 0
+                        },
+                        "unresolvedBits": {
+                          "const": 0
+                        },
+                        "pendingBits": {
+                          "const": 0
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "empty"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "complete": {
+                          "const": true
+                        },
+                        "processedSegments": {
+                          "const": 0
+                        },
+                        "holds": {
+                          "maxItems": 0
+                        },
+                        "clearBits": {
+                          "const": 0
+                        },
+                        "holdBits": {
+                          "const": 0
+                        },
+                        "conflictBits": {
+                          "const": 0
+                        },
+                        "assertedBits": {
+                          "const": 0
+                        },
+                        "unresolvedBits": {
+                          "const": 0
+                        },
+                        "pendingBits": {
+                          "const": 0
+                        },
+                        "dedicatedBits": {
+                          "const": 0
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "dedicated_only"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "complete": {
+                          "const": true
+                        },
+                        "dedicatedBits": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 9007199254740991
+                        },
+                        "holds": {
+                          "maxItems": 0
+                        },
+                        "clearBits": {
+                          "const": 0
+                        },
+                        "holdBits": {
+                          "const": 0
+                        },
+                        "conflictBits": {
+                          "const": 0
+                        },
+                        "assertedBits": {
+                          "const": 0
+                        },
+                        "unresolvedBits": {
+                          "const": 0
+                        },
+                        "pendingBits": {
+                          "const": 0
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "maxItems": 1024
+            },
+            "stop": {
+              "type": "object",
+              "properties": {
+                "reason": {
+                  "enum": [
+                    "budget_rows",
+                    "budget_events",
+                    "budget_work",
+                    "budget_time"
+                  ]
+                },
+                "chain": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1024
+                },
+                "segment": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "reason",
+                "chain",
+                "segment"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "limits",
+            "complete",
+            "work",
+            "events",
+            "reasons",
+            "inputs",
+            "checks",
+            "rows",
+            "chains"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "complete": {
+                    "const": true
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "stop": false,
+                  "reasons": {
+                    "maxItems": 0
+                  },
+                  "rows": {
+                    "items": {
+                      "properties": {
+                        "complete": {
+                          "const": true
+                        }
+                      }
+                    }
+                  },
+                  "chains": {
+                    "items": {
+                      "properties": {
+                        "complete": {
+                          "const": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "required": [
+                  "stop"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "complete": {
+                    "const": false
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "source",
+        "resets"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "resets": {
+                "properties": {
+                  "complete": {
+                    "const": true
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "clocks": {
+                    "properties": {
+                      "complete": {
+                        "const": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:wrapper-boundary:1#/oneOf/1"
+    }
+  ]
+}

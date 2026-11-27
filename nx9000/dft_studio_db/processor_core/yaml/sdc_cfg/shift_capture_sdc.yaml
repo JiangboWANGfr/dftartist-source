@@ -1,0 +1,369 @@
+common_replacements:
+  - pattern: 'shaper/clk_out'
+    replacement: 'shaper/tessent_persistent_cell_mux/Y'
+
+  - pattern: 'set_clock_gating_check -high \$mux'
+    replacement: '#set_clock_gating_check -high $mux'
+
+  - pattern: 'set tessent_input_delay_percentage 0\.25'
+    replacement: 'set tessent_input_delay_percentage 0.45'
+
+  - pattern: 'set tessent_output_delay_percentage 0\.25'
+    replacement: 'set tessent_output_delay_percentage 0.4'
+
+  - pattern: 'set tessent_ssn_bus_input_delay_percentage  25\.'
+    replacement: 'set tessent_ssn_bus_input_delay_percentage  35.'
+
+  - pattern: 'set tessent_ssn_bus_output_delay_percentage 25\.'
+    replacement: 'set tessent_ssn_bus_output_delay_percentage 60.'
+
+profiles:
+  shift:
+    replacements:
+      - pattern: 'if \{\$mode eq "shift"\} \{'
+        replacement: 'if {$mode eq "non_modal"} { } elseif {$mode eq "shift"} {'
+
+    append:
+      text: |
+        #=======================================================================================
+        # dft user add
+        #=======================================================================================
+        ##################################################################################
+        #default variable setting
+        ##################################################################################
+        tessent_set_default_variables
+        set tessent_tck_period                            20.0
+        set BisrCKPeriod                                  10.0
+        set tessent_ssn_bus_clock_network_period          5.0
+
+        # Please adjust these numbers according to your own settings.
+        set time_unit_multiplier                 1
+        if { ! [info exists tessent_timing_tool] } {
+        set tessent_timing_tool             genus
+        }
+        ##################################################################################
+        #tessent sdc proc
+        ##################################################################################
+        tessent_set_ltest_modal_shift
+
+        ##################################################################################
+        #dont use -quiet here
+        ##################################################################################
+
+        set dfx_ctl_tdr_inst [get_cells u_dfx_ctl_tdr -quiet -hierarchical]
+        if  {[sizeof_collection $dfx_ctl_tdr_inst] != "0"} {
+            foreach_in_collection dfx_ctl_tdr_inst_temp $dfx_ctl_tdr_inst {
+                set_case_analysis 1 [get_pins [get_object_name $dfx_ctl_tdr_inst_temp]/dfx_mode_persistent_buf_inst/u_dontouch_cell/Y]
+                set_case_analysis 1 [get_pins [get_object_name $dfx_ctl_tdr_inst_temp]/dfx_scan_mode_persistent_and2_inst/u_dontouch_cell/Y]
+                set_case_analysis 1 [get_pins [get_object_name $dfx_ctl_tdr_inst_temp]/dfx_scan_occ_bypass_persistent_buf_inst/u_dontouch_cell/Y]
+            }
+        }
+
+        set dfx_static_inst [get_cells u_dfx_static_signal_gen -quiet -hierarchical]
+        if  {[sizeof_collection $dfx_static_inst] != "0"} {
+            foreach_in_collection dfx_static_inst_temp $dfx_static_inst {
+                set_case_analysis 1 [get_pins [get_object_name $dfx_static_inst_temp]/dfx_mode_persistent_buf_inst/u_dontouch_cell/Y]
+                set_case_analysis 1 [get_pins [get_object_name $dfx_static_inst_temp]/dfx_scan_mode_persistent_and2_inst/u_dontouch_cell/Y]
+                set_case_analysis 1 [get_pins [get_object_name $dfx_static_inst_temp]/dfx_scan_occ_bypass_persistent_buf_inst/u_dontouch_cell/Y]
+            }
+        }
+
+        ##################################################################################
+        ## during stuck@ capture always select slow clock
+        ##################################################################################
+        set occ_mux_sel_pins [get_pins tessent_persistent_cell_clock_out_mux/S -quiet -hierarchical -filter "full_name=~ *tessent_occ*"]
+        if {[sizeof_collection $occ_mux_sel_pins] != 0} {
+          set_case_analysis 1 $occ_mux_sel_pins
+        }
+
+        ###################################################################################
+        ## common sdc setting
+        ###################################################################################
+        set mem_inst [get_cells -quiet -hierarchical -filter "is_memory_cell==true"]
+        if {[sizeof_collection $mem_inst] != "0"} {
+            set_false_path -to [get_pins -of $mem_inst -filter "direction =~ in && full_name !~ */*CLK* && full_name !~ */SE* && full_name !~ */SI* && full_name !~ */SO*"]
+        }
+
+        set crg_flag [get_cells u_dontouch_cell -quiet -hierarchical -filter "full_name =~ *u_cgu_top*u_ckor_clk_out*"]
+        if {[sizeof_collection $crg_flag] != "0"} {
+            set_disable_clock_gating_check [get_cells $crg_flag]
+            set_disable_clock_gating_check [get_cells u_dontouch_cell -hierarchical -filter "full_name =~ *u_cgu_top*u_cgm_mux2_gfree_*/u_ckor_out*"]
+        }
+
+        set pll_flag [get_cells u_dontouch_cell -quiet -hierarchical -filter "full_name =~ *pll_logic_wrap/u_cgm_mux2_gfree_ptest_func_pll_in/u_ckor_out*"]
+        if {[sizeof_collection $pll_flag] != "0"} {
+            set_disable_clock_gating_check [get_cells $pll_flag]
+            set_disable_clock_gating_check [get_cells u_dontouch_cell -hierarchical -filter "full_name =~ *pll_logic_wrap/u_clk_pll_div/u_cgm_div_no_adv/u_ckor_clk_out*"]
+        }
+
+        set mem_ckmux [get_cells u_dontouch_cell -quiet -hierarchical -filter "full_name =~ *u_mux2_ram_*_clk*"]
+        if {[sizeof_collection $mem_ckmux] != "0"} {
+            set_disable_clock_gating_check [get_cells $mem_ckmux]
+        }
+
+        set div_flag [get_cells u_dontouch_cell -quiet -hierarchical -filter "full_name =~ *u_cgm_div_no_adv/u_ckor_clk_out*"]
+        if {[sizeof_collection $div_flag] != "0"} {
+            set_disable_clock_gating_check [get_cells $div_flag]
+        }
+
+        set dbg_bus_flag [get_pins u_dontouch_cell/Y -quiet -hierarchical -filter "full_name =~ *u_cell_buf_dbg_bus_data*"]
+        if {[sizeof_collection $dbg_bus_flag] != "0"} {
+            set_sense -stop_propagation [get_pins $dbg_bus_flag]
+        }
+
+        ##################################################################################
+        ## false path for shift mode
+        ##################################################################################
+        set inputs [remove_from_collection [all_inputs] [get_ports -quiet {ssn_bus*} -filter "port_direction==in"]]
+        set outputs [remove_from_collection [all_outputs] [get_ports -quiet {ssn_bus*} -filter "port_direction==out"]]
+        set_false_path -from $inputs
+        set_false_path -to   $outputs
+
+        ##################################################################################
+        ## memory margin pin case setting
+        ##################################################################################
+        set mem_list [get_cells -quiet -hierarchical -filter "is_memory_cell == true"]
+        if {[sizeof_collection $mem_list] != "0"} {
+            set mem_pins [get_pins -of [get_cells $mem_list] -quiet]
+            if {[sizeof_collection  [get_pins -of_objects [get_cells -quiet -hierarchical *u_mem_nio_gen_snps* -filter "is_memory_cell"] -filter "lib_pin_name =~ RME" -quiet]] != "0"} {
+                set_case_analysis 0 [filter_collection $mem_pins "full_name =~ */u_mem_nio_gen_snps*/RME"]
+                set_case_analysis 0 [filter_collection $mem_pins "full_name =~ */u_mem_nio_gen_snps*/RM[3]"]
+                set_case_analysis 1 [filter_collection $mem_pins "full_name =~ */u_mem_nio_gen_snps*/RM[2]"]
+                set_case_analysis 0 [filter_collection $mem_pins "full_name =~ */u_mem_nio_gen_snps*/RM[1]"]
+                set_case_analysis 0 [filter_collection $mem_pins "full_name =~ */u_mem_nio_gen_snps*/RM[0]"]
+            }
+            if {[sizeof_collection  [get_pins -of_objects [get_cells -quiet -hierarchical *u_mem_nio_gen_snps* -filter "is_memory_cell"] -filter "lib_pin_name =~ RMEA" -quiet]] != "0"} {
+                set_case_analysis 0 [filter_collection $mem_pins "full_name =~ */u_mem_nio_gen_snps*/RMEA"]
+                set_case_analysis 0 [filter_collection $mem_pins "full_name =~ */u_mem_nio_gen_snps*/RMEB"]
+                set_case_analysis 0 [filter_collection $mem_pins "full_name =~ */u_mem_nio_gen_snps*/RMA[3]"]
+                set_case_analysis 0 [filter_collection $mem_pins "full_name =~ */u_mem_nio_gen_snps*/RMB[3]"]
+            }
+            if {[sizeof_collection  [get_pins -of_objects [get_cells -quiet -hierarchical *u_mem_nio_gen_snps* -filter "is_memory_cell"] -filter "lib_pin_name =~ WA[2]" -quiet]] != "0"} {
+                set_case_analysis 1 [filter_collection $mem_pins "full_name =~ */u_mem_nio_gen_snps*/WA[2]"]
+            }
+        }
+
+        ##################################################################################
+        ## debug use slow clock, can be relax
+        ##################################################################################
+        set_multicycle_path -setup 2 -thr [get_pins tessent_persistent_cell_edt_scan_out_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*INT_EDT_inst*"] -thr [get_pins tessent_persistent_cell_edt_scan_in_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*INT_EDT_inst*"]
+        set_multicycle_path -hold 1 -thr [get_pins tessent_persistent_cell_edt_scan_out_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*INT_EDT_inst*"] -thr [get_pins tessent_persistent_cell_edt_scan_in_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*INT_EDT_inst*"]
+        if {[sizeof_collection [get_cells *logic_test_tessent_edt_*EXT_EDT_inst* -quiet -hierarchical]] != "0"} {
+        set_multicycle_path -setup 2 -thr [get_pins tessent_persistent_cell_edt_scan_out_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*EXT_EDT_inst*"] -thr [get_pins tessent_persistent_cell_edt_scan_in_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*EXT_EDT_inst*"]
+        set_multicycle_path -hold 1 -thr [get_pins tessent_persistent_cell_edt_scan_out_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*EXT_EDT_inst*"] -thr [get_pins tessent_persistent_cell_edt_scan_in_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*EXT_EDT_inst*"]
+        }
+
+        set_multicycle_path -setup 2 -thr [get_pins tessent_persistent_cell_edt_channels_in_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*INT_EDT_inst*"] -thr [get_pins tessent_persistent_cell_edt_scan_in_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*INT_EDT_inst*"]
+        set_multicycle_path -hold 1 -thr [get_pins tessent_persistent_cell_edt_channels_in_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*INT_EDT_inst*"] -thr [get_pins tessent_persistent_cell_edt_scan_in_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*INT_EDT_inst*"]
+
+        if {[sizeof_collection [get_cells *logic_test_tessent_edt_*EXT_EDT_inst* -quiet -hierarchical]] != "0"} {
+        set_multicycle_path -setup 2 -thr [get_pins tessent_persistent_cell_edt_channels_in_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*EXT_EDT_inst*"] -thr [get_pins tessent_persistent_cell_edt_scan_in_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*EXT_EDT_inst*"]
+        set_multicycle_path -hold 1 -thr [get_pins tessent_persistent_cell_edt_channels_in_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*EXT_EDT_inst*"] -thr [get_pins tessent_persistent_cell_edt_scan_in_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*EXT_EDT_inst*"]
+        }
+
+        set_multicycle_path -setup 2 -thr [get_pins tessent_persistent_cell_edt_scan_out_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*INT_EDT_inst*"] -thr [get_pins tessent_persistent_cell_edt_channels_out_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*INT_EDT_inst*"]
+        set_multicycle_path -hold 1 -thr [get_pins tessent_persistent_cell_edt_scan_out_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*INT_EDT_inst*"] -thr [get_pins tessent_persistent_cell_edt_channels_out_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*INT_EDT_inst*"]
+        if {[sizeof_collection [get_cells *logic_test_tessent_edt_*EXT_EDT_inst* -quiet -hierarchical]] != "0"} {
+        set_multicycle_path -setup 2 -thr [get_pins tessent_persistent_cell_edt_scan_out_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*EXT_EDT_inst*"] -thr [get_pins tessent_persistent_cell_edt_channels_out_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*EXT_EDT_inst*"]
+        set_multicycle_path -hold 1 -thr [get_pins tessent_persistent_cell_edt_scan_out_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*EXT_EDT_inst*"] -thr [get_pins tessent_persistent_cell_edt_channels_out_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*EXT_EDT_inst*"]
+        }
+
+        ##################################################################################
+        ## no timing path during shift between dual port memory clock input
+        ##################################################################################
+        set s2mem_cells [get_cells * -hierarchical -filter "ref_name =~ s2crls*" -quiet]
+        if {[sizeof_collection [get_cells $s2mem_cells -quiet]] != "0"} {
+          set_disable_timing $s2mem_cells -from CLKA -to CLKB
+          set_disable_timing $s2mem_cells -from CLKB -to CLKA
+        }
+
+  stuck_at_capture:
+    replacements: []
+
+    append:
+      text: |
+        #=======================================================================================
+        # dft user add
+        #=======================================================================================
+        ##################################################################################
+        #default variable setting
+        ##################################################################################
+        tessent_set_default_variables
+        if {[info exists mbist_info]} {
+            set sshsize [array size tessent_ssh_mapping]
+            for {set i 0} {$i<$sshsize} {incr i} {
+                 set ssh_inst $tessent_ssh_mapping(ssh$i)
+                 puts "ssh_inst=$ssh_inst"
+                 if {[regexp {(.*)_logic_test_tessent_ssn_scan_host_1_inst} $ssh_inst]} {
+                     regexp {(.*)_logic_test_tessent_ssn_scan_host_1_inst} $ssh_inst match key1
+                     puts "$key1"
+                     set  miniocc "${key1}_mbist_tessent_sib_sti_inst"
+                     puts "miniocc=$miniocc"
+                     dict set tessent_occ_dict mini_occ_ssh$i  ssh_id ssh$i
+                     dict set tessent_occ_dict mini_occ_ssh$i  ssh_source_clock test_clock
+                     dict set tessent_occ_dict mini_occ_ssh$i  instance_name $miniocc
+                     dict set tessent_occ_dict mini_occ_ssh$i  slow_clock_input slow_clock
+                     dict set tessent_occ_dict mini_occ_ssh$i  slow_clock_buffer_input tessent_persistent_cell_occ_clock_gate/Q
+                 }
+            }
+        }
+        set tessent_tck_period                            20.0
+        set BisrCKPeriod                                  10.0
+        set tessent_ssn_bus_clock_network_period          5.0
+
+        # Please adjust these numbers according to your own settings.
+        set time_unit_multiplier                 1
+        if { ! [info exists tessent_timing_tool] } {
+        set tessent_timing_tool             genus
+        }
+        set tessent_relax_xdomain_capture_paths 1
+        ##################################################################################
+        #tessent sdc proc
+        ##################################################################################
+        tessent_set_ltest_modal_edt_slow_capture
+
+        ##################################################################################
+        ## input/output delay for slow capture
+        ##################################################################################
+        create_clock -period 10 -waveform "0 5" -name tessent_virtual_force_pi
+        create_clock -period 10 -waveform "0 5" -name tessent_virtual_measure_po
+        set none_scan_inports   [remove_from_collection [all_inputs] [get_ports -quiet {ssn_bus* *bisr* *ijtag*} -filter "port_direction == in"]]
+        set_input_delay  2.5   -clock tessent_virtual_force_pi $none_scan_inports
+        set none_scan_outports  [remove_from_collection [all_outputs] [get_ports -quiet {ssn_bus* *bisr* *ijtag*} -filter "port_direction == out"]]
+        set_output_delay 2.5  -clock tessent_virtual_measure_po $none_scan_outports
+
+        ##################################################################################
+        #dfx control part
+        ##################################################################################
+        set dfx_ctl_tdr_inst [get_cells u_dfx_ctl_tdr -quiet -hierarchical]
+        if  {[sizeof_collection $dfx_ctl_tdr_inst] != "0"} {
+            foreach_in_collection dfx_ctl_tdr_inst_temp $dfx_ctl_tdr_inst {
+                set_case_analysis 1 [get_pins [get_object_name $dfx_ctl_tdr_inst_temp]/dfx_mode_persistent_buf_inst/u_dontouch_cell/Y]
+                set_case_analysis 1 [get_pins [get_object_name $dfx_ctl_tdr_inst_temp]/dfx_scan_mode_persistent_and2_inst/u_dontouch_cell/Y]
+                set_case_analysis 1 [get_pins [get_object_name $dfx_ctl_tdr_inst_temp]/dfx_scan_occ_bypass_persistent_buf_inst/u_dontouch_cell/Y]
+            }
+        }
+
+        set dfx_static_inst [get_cells u_dfx_static_signal_gen -quiet -hierarchical]
+        if  {[sizeof_collection $dfx_static_inst] != "0"} {
+            foreach_in_collection dfx_static_inst_temp $dfx_static_inst {
+                set_case_analysis 1 [get_pins [get_object_name $dfx_static_inst_temp]/dfx_mode_persistent_buf_inst/u_dontouch_cell/Y]
+                set_case_analysis 1 [get_pins [get_object_name $dfx_static_inst_temp]/dfx_scan_mode_persistent_and2_inst/u_dontouch_cell/Y]
+                set_case_analysis 1 [get_pins [get_object_name $dfx_static_inst_temp]/dfx_scan_occ_bypass_persistent_buf_inst/u_dontouch_cell/Y]
+            }
+        }
+
+        set crg_flag [get_cells u_dontouch_cell -quiet -hierarchical -filter "full_name =~ *u_cgu_top*u_ckor_clk_out*"]
+        if {[sizeof_collection $crg_flag] != "0"} {
+            set_disable_clock_gating_check [get_cells $crg_flag]
+            set_disable_clock_gating_check [get_cells u_dontouch_cell -hierarchical -filter "full_name =~ *u_cgu_top*u_cgm_mux2_gfree_*/u_ckor_out*"]
+        }
+
+        set pll_flag [get_cells u_dontouch_cell -quiet -hierarchical -filter "full_name =~ *pll_logic_wrap/u_cgm_mux2_gfree_ptest_func_pll_in/u_ckor_out*"]
+        if {[sizeof_collection $pll_flag] != "0"} {
+            set_disable_clock_gating_check [get_cells $pll_flag]
+            set_disable_clock_gating_check [get_cells u_dontouch_cell -hierarchical -filter "full_name =~ *pll_logic_wrap/u_clk_pll_div/u_cgm_div_no_adv/u_ckor_clk_out*"]
+        }
+
+        set mem_ckmux [get_cells u_dontouch_cell -quiet -hierarchical -filter "full_name =~ *u_mux2_ram_*_clk*"]
+        if {[sizeof_collection $mem_ckmux] != "0"} {
+            set_disable_clock_gating_check [get_cells $mem_ckmux]
+        }
+
+        set div_flag [get_cells u_dontouch_cell -quiet -hierarchical -filter "full_name =~ *u_cgm_div_no_adv/u_ckor_clk_out*"]
+        if {[sizeof_collection $div_flag] != "0"} {
+            set_disable_clock_gating_check [get_cells $div_flag]
+        }
+
+        set dbg_bus_flag [get_pins u_dontouch_cell/Y -quiet -hierarchical -filter "full_name =~ *u_cell_buf_dbg_bus_data*"]
+        if {[sizeof_collection $dbg_bus_flag] != "0"} {
+            set_sense -stop_propagation [get_pins $dbg_bus_flag]
+        }
+
+        ##################################################################################
+        ## memory margin pin case setting
+        ##################################################################################
+        set mem_list [get_cells -quiet -hierarchical -filter "is_memory_cell == true"]
+        if {[sizeof_collection $mem_list] != "0"} {
+            set mem_pins [get_pins -of [get_cells $mem_list] -quiet]
+            if {[sizeof_collection  [get_pins -of_objects [get_cells -quiet -hierarchical *u_mem_nio_gen_snps* -filter "is_memory_cell"] -filter "lib_pin_name =~ RME" -quiet]] != "0"} {
+                set_case_analysis 0 [filter_collection $mem_pins "full_name =~ */u_mem_nio_gen_snps*/RME"]
+                set_case_analysis 0 [filter_collection $mem_pins "full_name =~ */u_mem_nio_gen_snps*/RM[3]"]
+                set_case_analysis 1 [filter_collection $mem_pins "full_name =~ */u_mem_nio_gen_snps*/RM[2]"]
+                set_case_analysis 0 [filter_collection $mem_pins "full_name =~ */u_mem_nio_gen_snps*/RM[1]"]
+                set_case_analysis 0 [filter_collection $mem_pins "full_name =~ */u_mem_nio_gen_snps*/RM[0]"]
+            }
+            if {[sizeof_collection  [get_pins -of_objects [get_cells -quiet -hierarchical *u_mem_nio_gen_snps* -filter "is_memory_cell"] -filter "lib_pin_name =~ RMEA" -quiet]] != "0"} {
+                set_case_analysis 0 [filter_collection $mem_pins "full_name =~ */u_mem_nio_gen_snps*/RMEA"]
+                set_case_analysis 0 [filter_collection $mem_pins "full_name =~ */u_mem_nio_gen_snps*/RMEB"]
+                set_case_analysis 0 [filter_collection $mem_pins "full_name =~ */u_mem_nio_gen_snps*/RMA[3]"]
+                set_case_analysis 0 [filter_collection $mem_pins "full_name =~ */u_mem_nio_gen_snps*/RMB[3]"]
+            }
+            if {[sizeof_collection  [get_pins -of_objects [get_cells -quiet -hierarchical *u_mem_nio_gen_snps* -filter "is_memory_cell"] -filter "lib_pin_name =~ WA[2]" -quiet]] != "0"} {
+                set_case_analysis 1 [filter_collection $mem_pins "full_name =~ */u_mem_nio_gen_snps*/WA[2]"]
+            }
+        }
+
+        set tsmc_static_pins [ get_pins -of_objects $mem_list -filter "full_name =~*/u_mem_nio_gen_tsmc*/SD* || full_name =~*/u_mem_nio_gen_tsmc*/*SLP* || full_name =~*/u_mem_nio_gen_tsmc*/*RTSEL* || full_name =~*/u_mem_nio_gen_tsmc*/*WTSEL* || full_name =~*/u_mem_nio_gen_tsmc*/*MTSEL* || full_name =~*/u_mem_nio_gen_tsmc*/*PTSEL* || full_name =~*/u_mem_nio_gen_tsmc*/*KP* || full_name =~*/u_mem_nio_gen_tsmc*/*RCT* || full_name =~*/u_mem_nio_gen_tsmc*/*WCT*" -quiet]
+        set snps_static_pins [ get_pins -of_objects $mem_list -filter "full_name =~*/u_mem_nio_gen_snps*/RM* || full_name =~*/u_mem_nio_gen_snps*/*LS* || full_name =~*/u_mem_nio_gen_snps*/*DS*" -quiet]
+        set static_pins [concat $tsmc_static_pins $snps_static_pins]
+        if {[sizeof_collection [get_pins $static_pins -quiet]] != "0"} {
+            set_false_path -through [get_pins $static_pins]
+        }
+
+        set scan_rst_hold_dff [get_cells sig_out_reg -quiet -hierarchical -filter "full_name =~ *u_dfx_*/rst_scan_n_hold_ff_inst*"]
+        if {[sizeof_collection $scan_rst_hold_dff] != "0"}  {
+            set_multicycle_path -setup 2  -from [get_cells $scan_rst_hold_dff] -through [get_pins u_dontouch_cell/Y -hierarchical -filter "full_name =~ *u_dfx_*/rst_scan_n_dynamic_process_persistent_inst*"]
+            set_multicycle_path -hold 2   -from [get_cells $scan_rst_hold_dff] -through [get_pins u_dontouch_cell/Y -hierarchical -filter "full_name =~ *u_dfx_*/rst_scan_n_dynamic_process_persistent_inst*"]
+        }
+
+        set dfx_icg_tp_ff [get_cells sig_out_reg -quiet -hierarchical -filter "full_name =~ *u_dfx_*/dfx_icg_tp_ff_inst*"]
+        if {[sizeof_collection $dfx_icg_tp_ff] != "0"}  {
+            set_multicycle_path -setup 2  -from [get_cells $dfx_icg_tp_ff] -through [get_pins u_dontouch_cell/Y -hierarchical -filter "full_name =~ *u_dfx_*/dfx_icg_tp_internal_or_se_persistent_or2_inst*"]
+            set_multicycle_path -hold 2   -from [get_cells $dfx_icg_tp_ff] -through [get_pins u_dontouch_cell/Y -hierarchical -filter "full_name =~ *u_dfx_*/dfx_icg_tp_internal_or_se_persistent_or2_inst*"]
+        }
+
+        set apc_cp_ctrl_ff [get_cells sig_out_reg -quiet -hierarchical -filter "full_name =~ *u_dfx_*/apc_cp_ctrl_engine_*__apc_cp_ctrl_ff_inst*"]
+        if {[sizeof_collection $apc_cp_ctrl_ff] != "0"}  {
+            set_multicycle_path -setup 2  -from [get_cells $apc_cp_ctrl_ff] -through [get_pins u_dontouch_cell/Y -hierarchical -filter "full_name =~ *u_dfx_*/apc_cp_ctrl_engine_*__dfx_apc_cp_ctrl_persistent_or2_apc_inst*"]
+            set_multicycle_path -hold 2   -from [get_cells $apc_cp_ctrl_ff] -through [get_pins u_dontouch_cell/Y -hierarchical -filter "full_name =~ *u_dfx_*/apc_cp_ctrl_engine_*__dfx_apc_cp_ctrl_persistent_or2_apc_inst*"]
+        }
+
+        set shift_capture_clock_mux_sel_pins [get_pins -quiet -hier -filter "full_name =~ *tessent_persistent_cell_local_shift_capture_clock_mux*/S"]
+        if {[sizeof_collection $shift_capture_clock_mux_sel_pins] != 0} {
+          set_case_analysis 0 $shift_capture_clock_mux_sel_pins
+        }
+
+        ##################################################################################
+        ## during stuck@ capture always select slow clock
+        ##################################################################################
+        set occ_mux_sel_pins [get_pins tessent_persistent_cell_clock_out_mux/S -quiet -hierarchical -filter "full_name=~ *tessent_occ*"]
+        if {[sizeof_collection $occ_mux_sel_pins] != 0} {
+          set_case_analysis 1 $occ_mux_sel_pins
+        }
+
+        ##################################################################################
+        ## lockup_latch does not work in func or capture mode
+        ##################################################################################
+        set dft_lockup_latch [get_cells *nio_b_dft_ts_*_lockup* -quiet -hierarchical -filter {is_sequential==true && is_hierarchical==false}]
+        if {[sizeof_collection $dft_lockup_latch] != "0"} {
+            set_false_path -to [get_cells $dft_lockup_latch]
+            set_false_path -from [get_cells $dft_lockup_latch]
+        }
+
+        ##################################################################################
+        ## no edt bypass path during capture
+        ##################################################################################
+        set_false_path -thr [get_pins tessent_persistent_cell_edt_scan_out_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*INT_EDT_inst*"] -thr [get_pins tessent_persistent_cell_edt_scan_in_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*INT_EDT_inst*"]
+        if {[sizeof_collection [get_cells *logic_test_tessent_edt_*EXT_EDT_inst* -quiet -hierarchical]] != "0"} {
+        set_false_path -thr [get_pins tessent_persistent_cell_edt_scan_out_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*EXT_EDT_inst*"] -thr [get_pins tessent_persistent_cell_edt_scan_in_*_buf/Y -quiet -hierarchical -filter  "full_name =~ *logic_test_tessent_edt_*EXT_EDT_inst*"]
+        }
+
+        ##################################################################################
+        ## disable_timing for dual port memory between two input clock during capture mode, no path between them need to check
+        ##################################################################################
+        set s2mem_cells [get_cells * -hierarchical -filter "ref_name =~ s2crls*" -quiet]
+        if {[sizeof_collection [get_cells $s2mem_cells -quiet]] != "0"} {
+          set_disable_timing $s2mem_cells -from CLKA -to CLKB
+          set_disable_timing $s2mem_cells -from CLKB -to CLKA
+        }

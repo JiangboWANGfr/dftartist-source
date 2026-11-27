@@ -1,0 +1,2 @@
+export prj_dir=/home/redhat/ywang/tessent_example_hierarchical_flow_with_ssn_test1/
+export prj_path=/home/redhat/ywang/tessent_example_hierarchical_flow_with_ssn_test1/

@@ -1,0 +1,201 @@
+module_match: |
+         set_module_matching_options -prefix_pattern_list {processor_core_ processor_core_processor_core_} -suffix_pattern_list {_processor_core_[0-9]+ _[0-9]+} -regexp
+atpg_setting:
+  type: atpg_map #atpg_syn atpg_pr
+  atpg_map_netlist:  "../../processor_core_tsdb_outdir/dft_inserted_designs/processor_core_scan.dft_inserted_design/processor_core.vg"
+  atpg_syn_netlist:  "xxxx.vg"
+  atpg_pr_netlist:   "xxxxxxx.vg"
+  int_edt_sa:
+     ram_seq: off
+     mode_setting:
+       current_mode: int_stuck_mode
+       scan_mode: int_edt_mode
+     nonscan: |
+       #add_nonscan_instances [get_instance  *tessent_edt_*_EDT_chan_*_*_lockup_inst*]
+       # add_nonscan_instances [get_instance  *dfx_*_edt_channels_*_pipe*]
+     blackbox: |
+       #add_black_box  -module [get_module  *ssss*]
+     test_setup: |
+        set_static_dft_signal_values tck_occ_en 1
+        source $prj_path/user_material/PDL/dfx_static_hyper_ctl_tdr.pdl
+        set_test_setup_icall {u_dfx_static_hyper_ctl_tdr.dfx_sa_hyper_cfg} -merge -append
+        set_ijtag_retargeting_options -tck_ratio 4      
+     core_inst: |
+        set_core_instance_parameters -instrument edt -parameter_values {edt_low_power_shift_en on}
+     pin_cell_constraint: |
+        add_primary_input u_dfx_static_hyper_ctl_tdr/dfx_hyper_ctl_ff_init
+        add_input_constraints u_dfx_static_hyper_ctl_tdr/dfx_hyper_ctl_ff_init -c1
+        add_primary_input u_dfx_static_hyper_ctl_tdr/dfx_rst_tdr_n
+        add_input_constraints u_dfx_static_hyper_ctl_tdr/dfx_rst_tdr_n -c1
+        add_primary_input u_dfx_static_hyper_ctl_tdr/dfx_scan_mode
+        add_input_constraints u_dfx_static_hyper_ctl_tdr/dfx_scan_mode -c1
+        #add_primary_input u_dfx_dynamic_hyper_ctl/dfx_rst_scan_n
+        #add_input_constraints u_dfx_dynamic_hyper_ctl/dfx_rst_scan_n -c1         
+     atpg_power_setting: |
+        set_power_control shift on -switching_threshold 15 -rejection_threshold 25
+     atpg_power_report: |
+        set_power_metrics -composite_shift on
+        report_power_metrics -shift -all_test -patterns all
+     fault_pool: |
+        add_faults -all
+     fault_grading: |
+         read_fault -mode ext_stuck_mode -fault_type stuck -merge
+         report_statistics -detailed_analysis
+  ext_edt_sa:
+     ram_seq: off
+     mode_setting:
+       current_mode: ext_stuck_mode
+       scan_mode: ext_edt_mode
+     nonscan: |
+       #add_nonscan_instances [get_instance  *tessent_edt_*_EDT_chan_*_*_lockup_inst*]
+       # add_nonscan_instances [get_instance  *dfx_*_edt_channels_*_pipe*]
+     blackbox: |
+       #add_black_box  -module [get_module  *ssss*]
+     test_setup: |
+        set_static_dft_signal_values tck_occ_en 1
+        source $prj_path/user_material/PDL/dfx_static_hyper_ctl_tdr.pdl
+        set_test_setup_icall {u_dfx_static_hyper_ctl_tdr.dfx_sa_hyper_cfg} -merge -append
+        set_ijtag_retargeting_options -tck_ratio 4      
+     core_inst: |
+        set_core_instance_parameters -instrument edt -parameter_values {edt_low_power_shift_en on}
+     pin_cell_constraint: |
+        add_primary_input u_dfx_static_hyper_ctl_tdr/dfx_hyper_ctl_ff_init
+        add_input_constraints u_dfx_static_hyper_ctl_tdr/dfx_hyper_ctl_ff_init -c1
+        add_primary_input u_dfx_static_hyper_ctl_tdr/dfx_rst_tdr_n
+        add_input_constraints u_dfx_static_hyper_ctl_tdr/dfx_rst_tdr_n -c1
+        add_primary_input u_dfx_static_hyper_ctl_tdr/dfx_scan_mode
+        add_input_constraints u_dfx_static_hyper_ctl_tdr/dfx_scan_mode -c1
+        #add_primary_input u_dfx_dynamic_hyper_ctl/dfx_rst_scan_n
+        #add_input_constraints u_dfx_dynamic_hyper_ctl/dfx_rst_scan_n -c1         
+     atpg_power_setting: |
+        set_power_control shift on -switching_threshold 15 -rejection_threshold 25
+     atpg_power_report: |
+        set_power_metrics -composite_shift on
+        report_power_metrics -shift -all_test -patterns all
+     fault_pool: |
+        add_faults -all
+  int_edt_as:
+     ram_seq: off
+     mode_setting:
+       current_mode: int_transition_mode
+       scan_mode: int_edt_mode
+     nonscan: |
+       #add_nonscan_instances [get_instance  *tessent_edt_*_EDT_chan_*_*_lockup_inst*]
+       # add_nonscan_instances [get_instance  *dfx_*_edt_channels_*_pipe*]
+     blackbox: |
+       #add_black_box  -module [get_module  *ssss*]
+     test_setup: |
+        set_static_dft_signal_values tck_occ_en 1
+        source $prj_path/user_material/PDL/dfx_static_hyper_ctl_tdr.pdl
+        set_test_setup_icall {u_dfx_static_hyper_ctl_tdr.dfx_as_hyper_cfg} -merge -append
+        set_ijtag_retargeting_options -tck_ratio 4      
+     core_inst: |
+        set_core_instance_parameters -instrument edt -parameter_values {edt_low_power_shift_en on}
+     pin_cell_constraint: |
+        add_primary_input u_dfx_static_hyper_ctl_tdr/dfx_hyper_ctl_ff_init
+        add_input_constraints u_dfx_static_hyper_ctl_tdr/dfx_hyper_ctl_ff_init -c1
+        add_primary_input u_dfx_static_hyper_ctl_tdr/dfx_rst_tdr_n
+        add_input_constraints u_dfx_static_hyper_ctl_tdr/dfx_rst_tdr_n -c1
+        add_primary_input u_dfx_static_hyper_ctl_tdr/dfx_scan_mode
+        add_input_constraints u_dfx_static_hyper_ctl_tdr/dfx_scan_mode -c1
+        #add_primary_input u_dfx_dynamic_hyper_ctl/dfx_rst_scan_n
+        #add_input_constraints u_dfx_dynamic_hyper_ctl/dfx_rst_scan_n -c1         
+     atpg_power_setting: |
+        set_power_control shift on -switching_threshold 15 -rejection_threshold 25
+     atpg_power_report: |
+        set_power_metrics -composite_shift on
+        report_power_metrics -shift -all_test -patterns all
+     fault_pool: |
+        set_fault_type transition
+        add_faults -all
+     fault_grading: |
+         read_fault -mode ext_transition_mode -fault_type transition -merge
+         report_statistics -detailed_analysis         
+  ext_edt_as:
+     ram_seq: off
+     mode_setting:
+       current_mode: ext_transition_mode
+       scan_mode: ext_edt_mode
+     nonscan: |
+       #add_nonscan_instances [get_instance  *tessent_edt_*_EDT_chan_*_*_lockup_inst*]
+       # add_nonscan_instances [get_instance  *dfx_*_edt_channels_*_pipe*]
+     blackbox: |
+       #add_black_box  -module [get_module  *ssss*]
+     test_setup: |
+        set_static_dft_signal_values tck_occ_en 1
+        source $prj_path/user_material/PDL/dfx_static_hyper_ctl_tdr.pdl
+        set_test_setup_icall {u_dfx_static_hyper_ctl_tdr.dfx_as_hyper_cfg} -merge -append
+        set_ijtag_retargeting_options -tck_ratio 4      
+     core_inst: |
+        set_core_instance_parameters -instrument edt -parameter_values {edt_low_power_shift_en on}
+     pin_cell_constraint: |
+        add_primary_input u_dfx_static_hyper_ctl_tdr/dfx_hyper_ctl_ff_init
+        add_input_constraints u_dfx_static_hyper_ctl_tdr/dfx_hyper_ctl_ff_init -c1
+        add_primary_input u_dfx_static_hyper_ctl_tdr/dfx_rst_tdr_n
+        add_input_constraints u_dfx_static_hyper_ctl_tdr/dfx_rst_tdr_n -c1
+        add_primary_input u_dfx_static_hyper_ctl_tdr/dfx_scan_mode
+        add_input_constraints u_dfx_static_hyper_ctl_tdr/dfx_scan_mode -c1
+        #add_primary_input u_dfx_dynamic_hyper_ctl/dfx_rst_scan_n
+        #add_input_constraints u_dfx_dynamic_hyper_ctl/dfx_rst_scan_n -c1         
+     atpg_power_setting: |
+        set_power_control shift on -switching_threshold 15 -rejection_threshold 25
+     atpg_power_report: |
+        set_power_metrics -composite_shift on
+        report_power_metrics -shift -all_test -patterns all
+     fault_pool: |
+        set_fault_type transition
+        add_faults -all
+
+
+
+graybox_setting:
+  netlist_for_extract_graybox: ""
+  design_id: graybox_map
+  ext_mode_name: ext_edt_mode
+  pin_constraint: |
+     add_primary_input u_dfx_static_hyper_ctl_tdr/dfx_hyper_ctl_ff_init
+     add_input_constraints u_dfx_static_hyper_ctl_tdr/dfx_hyper_ctl_ff_init -c1
+     add_primary_input u_dfx_static_hyper_ctl_tdr/dfx_rst_tdr_n
+     add_input_constraints u_dfx_static_hyper_ctl_tdr/dfx_rst_tdr_n -c1
+     add_primary_input u_dfx_static_hyper_ctl_tdr/dfx_scan_mode
+     add_input_constraints u_dfx_static_hyper_ctl_tdr/dfx_scan_mode -c1
+     add_primary_input u_dfx_dynamic_hyper_ctl/dfx_rst_scan_n
+     add_input_constraints u_dfx_dynamic_hyper_ctl/dfx_rst_scan_n -c1         
+  preserve:
+     set preserve_list [get_instance {*U_dfx* *u_dfx*} -h]
+
+
+
+atpg_retargeting:
+   gps_int_edt_sa: 
+     harden_name: gps_baseband
+     current_mode: int_edt_mode
+     netlist:  xxxx.vg
+     nonscan: |
+        add_nonscan_instances [get_instance  *tessent_edt_*_EDT_chan_*_*_lockup_inst*]
+        add_nonscan_instances [get_instance  *dfx_*_edt_channels_*_pipe*]
+     blackbox: |
+        add_black_box  -module [get_module  *ssss*]
+     test_setup: |
+        set_static_dft_signal_values tck_occ_en 1
+        source $prj_path/user_material/PDL/dfx_static_hyper_ctl_tdr.pdl
+        set_test_setup_icall {u_dfx_static_hyper_ctl_tdr.dfx_sa_hyper_cfg} -merge -append
+        set_ijtag_retargeting_options -tck_ratio 4      
+     core_inst: |
+        set_core_instance_parameters -instrument edt -parameter_values {edt_low_power_shift_en on}
+     pin_cell_constraint: |
+        add_primary_input c/d/e/ltest -C1
+        add_input_constraints [get_pins c/d/e/ltest] -C1
+        add_primary_input c/d/e/mtest -C1
+        add_input_constraints [get_pins c/d/e/mtest] -C1 
+     retarget_setting: |
+        set_ijtag_retargeting_options -tck_ratio 4
+     before_drc: |
+        add_clock 0 PAD_CLKIN1v8
+        set_attribute_value {{PAD_CLKIN1v8}} -name is_excluded_from_isolation_constraints
+        set_drc_handling R27 Warning
+        set_drc_handling r8 Warning
+     retarget_harden_patdb: |
+        read_patterns $prj_path/dft_path/${retarget_harden}/${retarget_harden}_tsdb_outdir/logic_test_cores/${retarget_harden}_scan.logic_test_core/${retarget_harden}.atpg_mode_int_transition_mode/${retarget_harden}_int_transition_mode_transition.patdb
+
+

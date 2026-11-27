@@ -1,0 +1,451 @@
+dofile $prj_dir/user_material/PDL/dfx_static_hyper_ctl_tdr.pdl
+dofile $prj_dir/user_material/PDL/dfx_mem_cfg_ctl_tdr.pdl
+read_config_data -in_wrapper $patspec -replace -from_string {
+  Patterns(MemoryBist_hw_default) {
+    ClockPeriods {
+		      ahb_clk : 5ns;
+      core_clk : 1.67ns;
+    }
+	  ProcedureStep(psetup) {
+      iCall(U_dfx_static_hyper_ctl_tdr.dfx_mbist_hyper_cfg) {
+      }
+	  iCall(U_dfx_mem_cfg_ctl_tdr.dfx_mbist_cfg_sel) {
+      }
+	  }
+    TestStep(go_nogo) {
+      MemoryBist {
+        run_mode : hw_default;
+        reduced_address_count : off;
+        Controller(*) {
+          DiagnosisOptions {
+            compare_go : on;
+            compare_go_id : on;
+          }
+        }
+      }
+    }
+  }
+  Patterns(MemoryBist_full) {
+    ClockPeriods {
+      ahb_clk : 5ns;
+      core_clk : 1.67ns;
+    }
+		  ProcedureStep(psetup) {
+      iCall(U_dfx_static_hyper_ctl_tdr.dfx_mbist_hyper_cfg) {
+      }
+	  	  iCall(U_dfx_mem_cfg_ctl_tdr.dfx_mbist_cfg_sel) {
+      }
+
+     }
+    TestStep(go_nogo) {
+      MemoryBist {
+        run_mode : run_time_prog;
+        reduced_address_count : off;
+        Controller(*) {
+          DiagnosisOptions {
+            compare_go : on;
+            compare_go_id : on;
+          }
+        }
+      }
+    }
+  }
+  Patterns(MemoryBist_HammerReadFastX) {
+    ClockPeriods {
+	  ahb_clk : 5ns;
+      core_clk : 1.67ns;
+    }
+		  ProcedureStep(psetup) {
+      iCall(U_dfx_static_hyper_ctl_tdr.dfx_mbist_hyper_cfg) {
+      }
+	  	  iCall(U_dfx_mem_cfg_ctl_tdr.dfx_mbist_cfg_sel) {
+      }
+
+     }
+    TestStep(go_nogo_even) {
+      MemoryBist {
+        run_mode : run_time_prog;
+        reduced_address_count : off;
+        Controller(*) {
+          DiagnosisOptions {
+            compare_go : on;
+            compare_go_id : on;
+            StopOnErrorOptions {
+              data_compare_time_slots : even;
+            }
+          }
+          AdvancedOptions {
+            apply_algorithm : TessentHammerReadFastX;
+            apply_operation_set : TessentSyncRamOps;
+          }
+        }
+      }
+    }
+    TestStep(go_nogo_odd) {
+      MemoryBist {
+        run_mode : run_time_prog;
+        reduced_address_count : off;
+        Controller(*) {
+          DiagnosisOptions {
+            compare_go : on;
+            compare_go_id : on;
+            StopOnErrorOptions {
+              data_compare_time_slots : odd;
+            }
+          }
+          AdvancedOptions {
+            apply_algorithm : TessentHammerReadFastX;
+            apply_operation_set : TessentSyncRamOps;
+          }
+        }
+      }
+    }
+  }
+  Patterns(MemoryBist_HammerWriteFastX) {
+    ClockPeriods {
+	  ahb_clk : 5ns;
+      core_clk : 1.67ns;
+    }
+		  ProcedureStep(psetup) {
+      iCall(U_dfx_static_hyper_ctl_tdr.dfx_mbist_hyper_cfg) {
+      }
+	  	  iCall(U_dfx_mem_cfg_ctl_tdr.dfx_mbist_cfg_sel) {
+      }
+
+     }
+    TestStep(go_nogo_even) {
+      MemoryBist {
+        run_mode : run_time_prog;
+        reduced_address_count : off;
+        Controller(*) {
+          DiagnosisOptions {
+            compare_go : on;
+            compare_go_id : on;
+            StopOnErrorOptions {
+              data_compare_time_slots : even;
+            }
+          }
+          AdvancedOptions {
+            apply_algorithm : TessentHammerWriteFastX;
+            apply_operation_set : TessentSyncRamOps;
+          }
+        }
+      }
+    }
+    TestStep(go_nogo_odd) {
+      MemoryBist {
+        run_mode : run_time_prog;
+        reduced_address_count : off;
+        Controller(*) {
+          DiagnosisOptions {
+            compare_go : on;
+            compare_go_id : on;
+            StopOnErrorOptions {
+              data_compare_time_slots : odd;
+            }
+          }
+          AdvancedOptions {
+            apply_algorithm : TessentHammerWriteFastX;
+            apply_operation_set : TessentSyncRamOps;
+          }
+        }
+      }
+    }
+  }
+  Patterns(MemoryBist_HammerReadFastY) {
+    ClockPeriods {
+	  ahb_clk : 5ns;
+      core_clk : 1.67ns;
+    }
+		  ProcedureStep(psetup) {
+      iCall(U_dfx_static_hyper_ctl_tdr.dfx_mbist_hyper_cfg) {
+      }
+	  	  iCall(U_dfx_mem_cfg_ctl_tdr.dfx_mbist_cfg_sel) {
+      }
+
+     }
+    TestStep(go_nogo_even) {
+      MemoryBist {
+        run_mode : run_time_prog;
+        reduced_address_count : off;
+        Controller(*) {
+          DiagnosisOptions {
+            compare_go : on;
+            compare_go_id : on;
+            StopOnErrorOptions {
+              data_compare_time_slots : even;
+            }
+          }
+          AdvancedOptions {
+            apply_algorithm : TessentHammerReadFastY;
+            apply_operation_set : TessentSyncRamOps;
+          }
+        }
+      }
+    }
+    TestStep(go_nogo_odd) {
+      MemoryBist {
+        run_mode : run_time_prog;
+        reduced_address_count : off;
+        Controller(*) {
+          DiagnosisOptions {
+            compare_go : on;
+            compare_go_id : on;
+            StopOnErrorOptions {
+              data_compare_time_slots : odd;
+            }
+          }
+          AdvancedOptions {
+            apply_algorithm : TessentHammerReadFastY;
+            apply_operation_set : TessentSyncRamOps;
+          }
+        }
+      }
+    }
+  }
+  Patterns(MemoryBist_HammerWriteFastY) {
+    ClockPeriods {
+	  ahb_clk : 5ns;
+      core_clk : 1.67ns;
+    }
+		  ProcedureStep(psetup) {
+      iCall(U_dfx_static_hyper_ctl_tdr.dfx_mbist_hyper_cfg) {
+      }
+	  	  iCall(U_dfx_mem_cfg_ctl_tdr.dfx_mbist_cfg_sel) {
+      }
+
+     }
+    TestStep(go_nogo_even) {
+      MemoryBist {
+        run_mode : run_time_prog;
+        reduced_address_count : off;
+        Controller(*) {
+          DiagnosisOptions {
+            compare_go : on;
+            compare_go_id : on;
+            StopOnErrorOptions {
+              data_compare_time_slots : even;
+            }
+          }
+          AdvancedOptions {
+            apply_algorithm : TessentHammerWriteFastY;
+            apply_operation_set : TessentSyncRamOps;
+          }
+        }
+      }
+    }
+    TestStep(go_nogo_odd) {
+      MemoryBist {
+        run_mode : run_time_prog;
+        reduced_address_count : off;
+        Controller(*) {
+          DiagnosisOptions {
+            compare_go : on;
+            compare_go_id : on;
+            StopOnErrorOptions {
+              data_compare_time_slots : odd;
+            }
+          }
+          AdvancedOptions {
+            apply_algorithm : TessentHammerWriteFastY;
+            apply_operation_set : TessentSyncRamOps;
+          }
+        }
+      }
+    }
+  }
+  Patterns(MemoryBist_DAGalPat) {
+    ClockPeriods {
+	  ahb_clk : 5ns;
+      core_clk : 1.67ns;
+    }
+		  ProcedureStep(psetup) {
+      iCall(U_dfx_static_hyper_ctl_tdr.dfx_mbist_hyper_cfg) {
+      }
+	  	  iCall(U_dfx_mem_cfg_ctl_tdr.dfx_mbist_cfg_sel) {
+      }
+
+     }
+    TestStep(go_nogo) {
+      MemoryBist {
+        run_mode : run_time_prog;
+        reduced_address_count : off;
+        Controller(*) {
+          DiagnosisOptions {
+            compare_go : on;
+            compare_go_id : on;
+          }
+          AdvancedOptions {
+            apply_algorithm : DAGalPat;
+          }
+        }
+      }
+    }
+  }
+  Patterns(MemoryBist_DAGalColumn) {
+    ClockPeriods {
+	  ahb_clk : 5ns;
+      core_clk : 1.67ns;
+    }
+		  ProcedureStep(psetup) {
+      iCall(U_dfx_static_hyper_ctl_tdr.dfx_mbist_hyper_cfg) {
+      }
+	  	  iCall(U_dfx_mem_cfg_ctl_tdr.dfx_mbist_cfg_sel) {
+      }
+
+     }
+    TestStep(go_nogo) {
+      MemoryBist {
+        run_mode : run_time_prog;
+        reduced_address_count : off;
+        Controller(*) {
+          DiagnosisOptions {
+            compare_go : on;
+            compare_go_id : on;
+          }
+          AdvancedOptions {
+            apply_algorithm : DAGalColumn;
+          }
+        }
+      }
+    }
+  }
+  Patterns(MemoryBist_DAGalRow) {
+    ClockPeriods {
+	  ahb_clk : 5ns;
+      core_clk : 1.67ns;
+    }
+		  ProcedureStep(psetup) {
+      iCall(U_dfx_static_hyper_ctl_tdr.dfx_mbist_hyper_cfg) {
+      }
+	  	  iCall(U_dfx_mem_cfg_ctl_tdr.dfx_mbist_cfg_sel) {
+      }
+
+    }
+    TestStep(go_nogo) {
+      MemoryBist {
+        run_mode : run_time_prog;
+        reduced_address_count : off;
+        Controller(*) {
+          DiagnosisOptions {
+            compare_go : on;
+            compare_go_id : on;
+          }
+          AdvancedOptions {
+            apply_algorithm : DAGalRow;
+          }
+        }
+      }
+    }
+  }
+  Patterns(MemoryBist_ParallelRetentionTest_P1) {
+    ClockPeriods {
+	  ahb_clk : 5ns;
+      core_clk : 1.67ns;
+    }
+		  ProcedureStep(psetup) {
+      iCall(U_dfx_static_hyper_ctl_tdr.dfx_mbist_hyper_cfg) {
+      }
+	  	  iCall(U_dfx_mem_cfg_ctl_tdr.dfx_mbist_cfg_sel) {
+      }
+
+    }
+    TestStep(ParallelRetentionTest) {
+      MemoryBist {
+        run_mode : hw_default;
+        parallel_retention_time : 0;
+        reduced_address_count : off;
+        Controller(*) {
+          parallel_retention_group : 1;
+          DiagnosisOptions {
+            compare_go_id : on;
+          }
+        }
+      }
+    }
+  }
+
+    Patterns(MemoryBist_ParallelRetentionTest_DRDF) {
+    ClockPeriods {
+	  ahb_clk : 5ns;
+      core_clk : 1.67ns;
+    }
+		  ProcedureStep(psetup) {
+      iCall(U_dfx_static_hyper_ctl_tdr.dfx_mbist_hyper_cfg) {
+      }
+	  	  iCall(U_dfx_mem_cfg_ctl_tdr.dfx_mbist_cfg_sel) {
+      }
+
+   }
+    TestStep(STP) {
+      MemoryBist {
+        run_mode : run_time_prog;
+        parallel_retention_time : 0;
+        reduced_address_count : off;
+        Controller(*) {
+          parallel_retention_group : 1;
+          DiagnosisOptions {
+            compare_go_id : on;
+          }
+          AdvancedOptions {
+            apply_algorithm : SMarchCHKBvcd;
+            apply_operation_set : SyncWRvcd_DRDF_RTE;
+          }
+        }
+        AdvancedOptions {
+          retention_test_phase : all_phases;
+          preserve_bist_inputs : on;
+        }
+      }
+    }
+    ProcedureStep(wait_2ms_1) {
+      wait_time : 2000ns;
+    }
+    TestStep(PTP) {
+      MemoryBist {
+        run_mode : run_time_prog;
+        parallel_retention_time : 0;
+        reduced_address_count : off;
+        Controller(*) {
+          parallel_retention_group : 1;
+          DiagnosisOptions {
+            compare_go_id : on;
+          }
+          AdvancedOptions {
+            apply_algorithm : SMarchCHKBvcd;
+            apply_operation_set : SyncWRvcd_DRDF_RTE;
+          }
+        }
+        AdvancedOptions {
+          retention_test_phase : all_phases;
+          preserve_bist_inputs : on;
+        }
+      }
+    }
+    ProcedureStep(wait_2ms_2) {
+      wait_time : 2000ns;
+    }
+    TestStep(PTE) {
+      MemoryBist {
+        run_mode : run_time_prog;
+        parallel_retention_time : 0;
+        reduced_address_count : off;
+        Controller(*) {
+          parallel_retention_group : 1;
+          DiagnosisOptions {
+            compare_go_id : on;
+          }
+          AdvancedOptions {
+            apply_algorithm : SMarchCHKBvcd;
+            apply_operation_set : SyncWRvcd_DRDF_RTE;
+          }
+        }
+        AdvancedOptions {
+          retention_test_phase : all_phases;
+          preserve_bist_inputs : on;
+        }
+      }
+    }
+  }
+
+	}

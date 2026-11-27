@@ -1,0 +1,52 @@
+design_manager:
+   design_name: asic_top11
+   design_filelist: /prj/PnR910/workareas/nanocad/liuqi/LSW_DFT_1221/design/asic_top/asic_top_flat.vc
+   design_level: physical_block
+   design_type: hierarchical
+   sub_harden:
+     - pc_cpu_top
+     - cpu0_sys
+     - cpu_sys
+     - pc_top
+     - ddr_sub
+lib_manager:
+   pad:
+     path: 
+       - "/home/redhat/ywang/tessent_example_automotive_reference_flow_v2025.1/library/io_pads"
+     post_fix: 
+       - "*.tcelllib"
+       - "*.v"
+   standard_cell:
+       interface_only: no
+       path: 
+         - "/home/redhat/ywang/tessent_example_automotive_reference_flow_v2025.1/library/NangateOpenCellLibrary_PDKv1_3_v2010_12/Front_End/DFT"
+       postfix:
+         - "*.tcelllib"
+         - "*.atpglib"
+         - "*.v"
+   memory:
+       interface_only: yes
+       mem_prefix: 
+          - "SYNC*"
+       path: 
+         - "/home/redhat/ywang/tessent_example_automotive_reference_flow_v2025.1/library/memories/"
+       postfix: 
+         - "*.lvlib"
+         - "*.tcd_memory"
+         - "*.v"
+   algo: 
+       path: 
+         - "/home/redhat/ywang/tessent_example_automotive_reference_flow_v2025.1/library/memories/"
+       postfix:
+         - "*.algo"
+   tcd_bscan:
+       path: 
+         - "/home/redhat/ywang/tessent_example_automotive_reference_flow_v2025.1/library/memories/"
+       postfix:
+         - "*.tcd_bscan"
+   tcd_scan:
+       path: 
+         - "/home/redhat/ywang/tessent_example_automotive_reference_flow_v2025.1/library/memories/"
+       postfix:
+         - "*.tcd_scan"
+   

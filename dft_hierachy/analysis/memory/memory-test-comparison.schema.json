@@ -1,0 +1,261 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:memory-test-comparison:1",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-memory-test-comparison-v1"
+        },
+        "reference": {
+          "const": 0
+        },
+        "complete": {
+          "type": "boolean"
+        },
+        "configurations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "pattern": "^[^\\u0000]+$"
+              },
+              "report": {
+                "$ref": "urn:dft-studio:analysis:memory-test-timing:1#/oneOf/0"
+              }
+            },
+            "required": [
+              "name",
+              "report"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 2,
+          "maxItems": 8
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "metrics": {
+                "type": "object",
+                "properties": {
+                  "controllers": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "plannedSteps": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "scheduledWaves": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "timedWaves": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "timedInstances": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "timedCapacityBits": {
+                    "oneOf": [
+                      {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 9007199254740991
+                      },
+                      {
+                        "type": "string",
+                        "pattern": "^(0|[1-9][0-9]*)$"
+                      }
+                    ]
+                  },
+                  "durationPicoseconds": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "resourceWaitPicoseconds": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740991
+                  },
+                  "dependencyWaitPicoseconds": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740991
+                  },
+                  "availabilityWaitPicoseconds": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "controllers",
+                  "plannedSteps",
+                  "scheduledWaves",
+                  "timedWaves",
+                  "timedInstances",
+                  "timedCapacityBits",
+                  "durationPicoseconds"
+                ],
+                "additionalProperties": false
+              },
+              "comparable": {
+                "type": "boolean"
+              },
+              "delta": {
+                "type": "object",
+                "properties": {
+                  "controllers": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "plannedSteps": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "scheduledWaves": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "durationPicoseconds": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "resourceWaitPicoseconds": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "dependencyWaitPicoseconds": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "availabilityWaitPicoseconds": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "controllers",
+                  "plannedSteps",
+                  "scheduledWaves",
+                  "durationPicoseconds"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "metrics",
+              "comparable"
+            ],
+            "additionalProperties": false,
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "comparable": {
+                      "const": true
+                    }
+                  }
+                },
+                "then": {
+                  "required": [
+                    "delta"
+                  ]
+                },
+                "else": {
+                  "not": {
+                    "required": [
+                      "delta"
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "minItems": 2,
+          "maxItems": 8
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "reference",
+        "complete",
+        "configurations",
+        "rows"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "complete": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "configurations": {
+                "items": {
+                  "properties": {
+                    "report": {
+                      "properties": {
+                        "timeline": {
+                          "properties": {
+                            "complete": {
+                              "const": true
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "rows": {
+                "items": {
+                  "properties": {
+                    "comparable": {
+                      "const": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:memory-map:1#/oneOf/1"
+    }
+  ]
+}

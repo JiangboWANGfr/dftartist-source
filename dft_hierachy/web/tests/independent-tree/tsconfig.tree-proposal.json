@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.tree-production.json",
+  "compilerOptions": {
+    "paths": {
+      "@hier/viewmodel": ["../../contracts/m5-tree.d.ts"]
+    }
+  }
+}

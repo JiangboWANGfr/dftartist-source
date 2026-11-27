@@ -1,0 +1,104 @@
+impl_script_manager:
+        mbist_insertion:
+          ins: 1.run_mbist_insertion
+          pat: 2.run_pattern_gen
+        logic_test_insertion:
+          ins: 1.run_logic_test_insertion
+          pat: 2.run_pattern_gen  
+        syn_lec:
+          1.syn:
+             syn: 1.run_synthesis
+          2.lec:
+            r2r: 1.run_r2r_formal
+            r2g: 2.run_r2g_formal
+            g2g: 3.run_g2g_formal
+        scan_insertion:
+            ins: 1.run_scan_insertion
+        atpg:
+          atpg_map:
+            int_sa: 1.run_int_edt_sa
+            ext_sa: 2.run_ext_edt_sa
+            int_as: 3.run_int_edt_as
+            ext_as: 4.run_ext_edt_as
+          atpg_syn:
+            int_sa: 1.run_int_edt_sa
+            ext_sa: 2.run_ext_edt_sa
+            int_as: 3.run_int_edt_as
+            ext_as: 4.run_ext_edt_as
+          atpg_pr:
+            int_sa: 1.run_int_edt_sa
+            ext_sa: 2.run_ext_edt_sa
+            int_as: 3.run_int_edt_as
+            ext_as: 4.run_ext_edt_as
+              
+        retargeting:
+            sa_tmp: 1.run_xxx_int_edt_sa_retarget
+            as_tmp: 2.run_xxx_int_edt_as_retarget
+        verification:
+            dir1: 1.rtl_simulation
+            dir2: 2.gate_udly_simulation
+            dir3: 3.gate_sdf_simulation  
+        deliver:
+          dir1: rtl
+          dir2: netlist
+
+
+################33
+common_setting:
+   default_setting:
+        cmd1: "set_quick_synthesis_options -blackbox_design_ware_modules on"
+        cmd2: "set_quick_synthesis_options -skip_synthesis_of_two_dimensional_arrays_larger_than unlimited"
+        cmd3: 'set_attribute_value [get_instance -of_modules [get_modules -filter "cell_type == clock_gating_and || cell_type==clock_gating_or"]] -name dont_touch_enables_of_clock_gater -value on'    
+   exclude_syntehsis: "[list DW_*]"
+
+bscan_setting:
+     dft_signal:
+       cmd1: "add_dft_signal  bscan_clamp_enable"
+       cmd2: "add_dft_signal  bscan_input_isolation_enable"
+       cmd3: "add_dft_signal  output_pad_disable" 
+     for_scan:
+       cmd1: "set_config_value $dftspec/BoundaryScan/max_segment_length_for_logictest  80"
+     timing:
+       cmd1: "set_config_value $dftspec/BoundaryScan/ACModeOptions/test_receiver_init_clock_value falling_edge"
+
+mbist_setting: 
+
+   scan_friendly:
+       scan_bypass_logic: syncmux
+       data_bits_per_bypass_signal: 5
+       observation_xor_size: 5
+   dft_uniquify_design: on
+   dft_uniquify_postfix: _inteligrapics
+   algorithm:
+      extra_algo: "[list Smarch TessentHammerReadFastX TessentHammerReadFastY TessentHammerWriteFastX TessentHammerWriteFastY]"
+      algo_lib:
+          list0: /home/ywang/Tools/DFTArtist_2024_1/lib/dft_assistor/sram_testability_advisor/tessent/algorithm/TessentHammerReadFastX.tcd_mem_lib
+          list1: /home/ywang/Tools/DFTArtist_2024_1/lib/dft_assistor/sram_testability_advisor/tessent/algorithm/TessentHammerReadFastY.tcd_mem_lib
+          list2: /home/ywang/Tools/DFTArtist_2024_1/lib/dft_assistor/sram_testability_advisor/tessent/algorithm/TessentHammerWriteFastX.tcd_mem_lib
+          list3: /home/ywang/Tools/DFTArtist_2024_1/lib/dft_assistor/sram_testability_advisor/tessent/algorithm/TessentHammerWriteFastY.tcd_mem_lib
+   opset:
+      source_list:
+          list0: /home/ywang/Tools/DFTArtist_2024_1/lib/dft_assistor/sram_testability_advisor/tessent/opset/SyncWRvcd_DRDF_RTE.text
+          list1: /home/ywang/Tools/DFTArtist_2024_1/lib/dft_assistor/sram_testability_advisor/tessent/opset/SyncWRvcd_HR6.text
+          list2: /home/ywang/Tools/DFTArtist_2024_1/lib/dft_assistor/sram_testability_advisor/tessent/opset/SyncWRvcd_HR8.text
+      normal_controller: "[list SyncWRvcd_HR6 SyncWRvcd_HR8 SyncWRvcd_DRDF_RTE]"
+
+logic_test_setting:
+   ssh:
+     add_test_clock_on_ssh: on
+   static_dft_signal_value:
+         cmd1: "set_static_dft_signal_value -all ltest_en 1"
+   sdc_gen: on  #default value
+   dft_signals:
+         order1: "add_dft_signal async_set_reset_static_disable"
+         order2: "add_dft_signal ltest_en"
+         order3: "add_dft_signal lbist_en -create_with_tdr"
+         order4: "add_dft_signal edt_clock shift_capture_clock -create_from_other_signals"
+         order5: "add_dft_signal async_set_reset_dynamic_disable -create_from_other_signals -add_hold_scan_cell on"
+         order6: "add_dft_signal observe_test_point_en control_test_point_en -add_hold_scan_cell on"
+         order7: "add_dft_signal lbist_async_set_reset_dynamic_enable"
+         order8: "add_dft_signal tck_occ_en memory_bypass_en int_stuck_mode int_transition_mode"
+         order9: "add_dft_signal x_bounding_en mcp_bounding_en"
+         order10: "add_dft_signal controller_chain_mode"         
+
+          

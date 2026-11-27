@@ -1,0 +1,10 @@
+`celldefine
+module BIG_RAM_8Kx16 (Q, CLK, CEN, WEN, A, D);
+   output [15:0] Q;
+   input CLK;
+   input CEN;
+   input WEN;
+   input [12:0] A;
+   input [15:0] D;
+endmodule
+`endcelldefine

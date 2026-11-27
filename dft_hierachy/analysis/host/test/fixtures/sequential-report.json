@@ -1,0 +1,434 @@
+{
+  "formatVersion": 1,
+  "algorithm": "rtl-structural-control-v1",
+  "snapshot": {
+    "protocol": 2,
+    "schemaVersion": 7,
+    "frontend": {
+      "name": "slang",
+      "version": "12.0.0"
+    },
+    "bodySharing": "fast",
+    "tops": [
+      {
+        "ref": "i:0",
+        "name": "sequential_example",
+        "path": [
+          "sequential_example"
+        ],
+        "pathText": "sequential_example",
+        "kind": "module",
+        "def": "d:1",
+        "defName": "sequential_example",
+        "childCount": 1,
+        "hasParamOverrides": false
+      }
+    ],
+    "definitionCount": 2,
+    "bodyCount": 2,
+    "snapshotId": "1810982492-1942223885-1126286496-3845582970-1",
+    "inputHash": "88ad5b6f18e0f20f5369f8b2af92e292a13244be1292dc06eab5c0cd8e570d15",
+    "inputHashComplete": true,
+    "indexState": "ready",
+    "openedAt": "2026-11-08T14:58:42.943Z",
+    "topCandidates": []
+  },
+  "scope": "sequential_example",
+  "recursive": true,
+  "limits": {
+    "maxFacts": 10000,
+    "maxInstances": 10000,
+    "maxChecks": 1000,
+    "maxTraceNodes": 10000,
+    "maxTraceEdges": 40000,
+    "maxDepth": 64,
+    "maxMillis": 30000
+  },
+  "quality": {
+    "completeness": "complete",
+    "reasons": []
+  },
+  "visitedInstances": 2,
+  "registers": [
+    {
+      "fact": {
+        "ref": "r:0:0",
+        "inst": "i:0",
+        "signal": "s:0:4",
+        "bits": {
+          "lsb": 0,
+          "width": 1
+        },
+        "process": "x:0:0",
+        "clock": {
+          "signal": "s:0:0",
+          "bits": {
+            "lsb": 0,
+            "width": 1
+          },
+          "edge": "posedge"
+        },
+        "async": []
+      },
+      "instancePath": "sequential_example",
+      "signalPath": "sequential_example.s",
+      "source": {
+        "file": "f:0",
+        "path": "/private/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-a-cli-inputs-t_2sryyz/artifacts/relocated prefix 中文/share/dft-analysis/examples/sequential.sv",
+        "start": {
+          "offset": 238,
+          "line": 6,
+          "column": 3
+        },
+        "end": {
+          "offset": 270,
+          "line": 6,
+          "column": 35
+        },
+        "contentHash": "67ac2ce8f06199d2baec6ad8d76d245bd76b18d8aaea82841e2ee2f04ec7814c"
+      },
+      "clockCheck": 0,
+      "asyncChecks": []
+    },
+    {
+      "fact": {
+        "ref": "r:0.0:0",
+        "inst": "i:0.0",
+        "signal": "s:0.0:3",
+        "bits": {
+          "lsb": 0,
+          "width": 1
+        },
+        "process": "x:0.0:0",
+        "clock": {
+          "signal": "s:0.0:0",
+          "bits": {
+            "lsb": 0,
+            "width": 1
+          },
+          "edge": "posedge"
+        },
+        "async": [
+          {
+            "signal": "s:0.0:1",
+            "bits": {
+              "lsb": 0,
+              "width": 1
+            },
+            "edge": "negedge",
+            "type": "reset"
+          }
+        ]
+      },
+      "instancePath": "sequential_example.u",
+      "signalPath": "sequential_example.u.q",
+      "source": {
+        "file": "f:0",
+        "path": "/private/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-a-cli-inputs-t_2sryyz/artifacts/relocated prefix 中文/share/dft-analysis/examples/sequential.sv",
+        "start": {
+          "offset": 58,
+          "line": 2,
+          "column": 3
+        },
+        "end": {
+          "offset": 122,
+          "line": 2,
+          "column": 67
+        },
+        "contentHash": "67ac2ce8f06199d2baec6ad8d76d245bd76b18d8aaea82841e2ee2f04ec7814c"
+      },
+      "clockCheck": 1,
+      "asyncChecks": [
+        2
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "point": {
+        "slice": {
+          "ref": "s:0:0",
+          "bits": {
+            "lsb": 0,
+            "width": 1
+          }
+        }
+      },
+      "path": "sequential_example.clk",
+      "verdict": "primary_input",
+      "reasons": [],
+      "trace": {
+        "result": {
+          "nodes": [
+            {
+              "id": "n:5:slice114:5:s:0:01:01:100000",
+              "kind": "slice",
+              "point": {
+                "slice": {
+                  "ref": "s:0:0",
+                  "bits": {
+                    "lsb": 0,
+                    "width": 1
+                  }
+                }
+              }
+            },
+            {
+              "id": "n:8:top_port122:5:p:0:01:01:116:inside15:p:0:000122:f:8:internal5:p:0:01:0",
+              "kind": "top_port",
+              "point": {
+                "slice": {
+                  "ref": "p:0:0",
+                  "bits": {
+                    "lsb": 0,
+                    "width": 1
+                  }
+                },
+                "side": "inside"
+              },
+              "ref": "p:0:0",
+              "fact": "f:8:internal5:p:0:01:0"
+            }
+          ],
+          "edges": [
+            {
+              "id": "e:22:f:8:internal5:p:0:01:031:n:5:slice114:5:s:0:01:01:10000074:n:8:top_port122:5:p:0:01:01:116:inside15:p:0:000122:f:8:internal5:p:0:01:08:boundary4:data5:exact4:none00",
+              "fact": "f:8:internal5:p:0:01:0",
+              "from": "n:5:slice114:5:s:0:01:01:100000",
+              "to": "n:8:top_port122:5:p:0:01:01:116:inside15:p:0:000122:f:8:internal5:p:0:01:0",
+              "kind": "boundary",
+              "role": "data",
+              "precision": "exact",
+              "align": "none",
+              "via": "p:0:0",
+              "map": []
+            }
+          ],
+          "frontier": [],
+          "hasConservative": false
+        },
+        "completeness": {
+          "status": "complete",
+          "reasons": []
+        }
+      }
+    },
+    {
+      "point": {
+        "slice": {
+          "ref": "s:0.0:0",
+          "bits": {
+            "lsb": 0,
+            "width": 1
+          }
+        }
+      },
+      "path": "sequential_example.u.c",
+      "verdict": "primary_input",
+      "reasons": [],
+      "trace": {
+        "result": {
+          "nodes": [
+            {
+              "id": "n:5:slice114:5:s:0:01:01:100000",
+              "kind": "slice",
+              "point": {
+                "slice": {
+                  "ref": "s:0:0",
+                  "bits": {
+                    "lsb": 0,
+                    "width": 1
+                  }
+                }
+              }
+            },
+            {
+              "id": "n:5:slice116:7:s:0.0:01:01:100000",
+              "kind": "slice",
+              "point": {
+                "slice": {
+                  "ref": "s:0.0:0",
+                  "bits": {
+                    "lsb": 0,
+                    "width": 1
+                  }
+                }
+              }
+            },
+            {
+              "id": "n:8:top_port122:5:p:0:01:01:116:inside15:p:0:000122:f:8:internal5:p:0:01:0",
+              "kind": "top_port",
+              "point": {
+                "slice": {
+                  "ref": "p:0:0",
+                  "bits": {
+                    "lsb": 0,
+                    "width": 1
+                  }
+                },
+                "side": "inside"
+              },
+              "ref": "p:0:0",
+              "fact": "f:8:internal5:p:0:01:0"
+            }
+          ],
+          "edges": [
+            {
+              "id": "e:26:f:7:binding7:p:0.0:01:01:033:n:5:slice116:7:s:0.0:01:01:10000031:n:5:slice114:5:s:0:01:01:1000007:binding4:data5:exact7:bitwise11:01:111:01:11:01:11:0",
+              "fact": "f:7:binding7:p:0.0:01:01:0",
+              "from": "n:5:slice116:7:s:0.0:01:01:100000",
+              "to": "n:5:slice114:5:s:0:01:01:100000",
+              "kind": "binding",
+              "role": "data",
+              "precision": "exact",
+              "align": "bitwise",
+              "via": "p:0.0:0",
+              "fromBits": {
+                "lsb": 0,
+                "width": 1
+              },
+              "toBits": {
+                "lsb": 0,
+                "width": 1
+              },
+              "map": [
+                {
+                  "from": 0,
+                  "to": 0,
+                  "width": 1
+                }
+              ]
+            },
+            {
+              "id": "e:22:f:8:internal5:p:0:01:031:n:5:slice114:5:s:0:01:01:10000074:n:8:top_port122:5:p:0:01:01:116:inside15:p:0:000122:f:8:internal5:p:0:01:08:boundary4:data5:exact4:none00",
+              "fact": "f:8:internal5:p:0:01:0",
+              "from": "n:5:slice114:5:s:0:01:01:100000",
+              "to": "n:8:top_port122:5:p:0:01:01:116:inside15:p:0:000122:f:8:internal5:p:0:01:0",
+              "kind": "boundary",
+              "role": "data",
+              "precision": "exact",
+              "align": "none",
+              "via": "p:0:0",
+              "map": []
+            }
+          ],
+          "frontier": [],
+          "hasConservative": false
+        },
+        "completeness": {
+          "status": "complete",
+          "reasons": []
+        }
+      }
+    },
+    {
+      "point": {
+        "slice": {
+          "ref": "s:0.0:1",
+          "bits": {
+            "lsb": 0,
+            "width": 1
+          }
+        }
+      },
+      "path": "sequential_example.u.r",
+      "verdict": "primary_input",
+      "reasons": [],
+      "trace": {
+        "result": {
+          "nodes": [
+            {
+              "id": "n:5:slice114:5:s:0:11:01:100000",
+              "kind": "slice",
+              "point": {
+                "slice": {
+                  "ref": "s:0:1",
+                  "bits": {
+                    "lsb": 0,
+                    "width": 1
+                  }
+                }
+              }
+            },
+            {
+              "id": "n:5:slice116:7:s:0.0:11:01:100000",
+              "kind": "slice",
+              "point": {
+                "slice": {
+                  "ref": "s:0.0:1",
+                  "bits": {
+                    "lsb": 0,
+                    "width": 1
+                  }
+                }
+              }
+            },
+            {
+              "id": "n:8:top_port122:5:p:0:11:01:116:inside15:p:0:100122:f:8:internal5:p:0:11:0",
+              "kind": "top_port",
+              "point": {
+                "slice": {
+                  "ref": "p:0:1",
+                  "bits": {
+                    "lsb": 0,
+                    "width": 1
+                  }
+                },
+                "side": "inside"
+              },
+              "ref": "p:0:1",
+              "fact": "f:8:internal5:p:0:11:0"
+            }
+          ],
+          "edges": [
+            {
+              "id": "e:26:f:7:binding7:p:0.0:11:01:033:n:5:slice116:7:s:0.0:11:01:10000031:n:5:slice114:5:s:0:11:01:1000007:binding4:data5:exact7:bitwise11:01:111:01:11:01:11:0",
+              "fact": "f:7:binding7:p:0.0:11:01:0",
+              "from": "n:5:slice116:7:s:0.0:11:01:100000",
+              "to": "n:5:slice114:5:s:0:11:01:100000",
+              "kind": "binding",
+              "role": "data",
+              "precision": "exact",
+              "align": "bitwise",
+              "via": "p:0.0:1",
+              "fromBits": {
+                "lsb": 0,
+                "width": 1
+              },
+              "toBits": {
+                "lsb": 0,
+                "width": 1
+              },
+              "map": [
+                {
+                  "from": 0,
+                  "to": 0,
+                  "width": 1
+                }
+              ]
+            },
+            {
+              "id": "e:22:f:8:internal5:p:0:11:031:n:5:slice114:5:s:0:11:01:10000074:n:8:top_port122:5:p:0:11:01:116:inside15:p:0:100122:f:8:internal5:p:0:11:08:boundary4:data5:exact4:none00",
+              "fact": "f:8:internal5:p:0:11:0",
+              "from": "n:5:slice114:5:s:0:11:01:100000",
+              "to": "n:8:top_port122:5:p:0:11:01:116:inside15:p:0:100122:f:8:internal5:p:0:11:0",
+              "kind": "boundary",
+              "role": "data",
+              "precision": "exact",
+              "align": "none",
+              "via": "p:0:1",
+              "map": []
+            }
+          ],
+          "frontier": [],
+          "hasConservative": false
+        },
+        "completeness": {
+          "status": "complete",
+          "reasons": []
+        }
+      }
+    }
+  ],
+  "findings": []
+}

@@ -1,0 +1,459 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:memory-test-timing:1",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-memory-test-timing-v1"
+        },
+        "source": {
+          "$ref": "urn:dft-studio:analysis:memory-test-schedule:1#/oneOf/0"
+        },
+        "timeline": {
+          "type": "object",
+          "properties": {
+            "request": {
+              "type": "object",
+              "properties": {
+                "clocks": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "clockDomain": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 4096,
+                        "pattern": "^[^\\u0000]+$"
+                      },
+                      "periodPicoseconds": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 1000000000000
+                      },
+                      "partitions": {
+                        "type": "array",
+                        "maxItems": 1024,
+                        "uniqueItems": true,
+                        "items": {
+                          "type": "string",
+                          "maxLength": 4096,
+                          "pattern": "^[^\\u0000]*$"
+                        }
+                      }
+                    },
+                    "required": [
+                      "clockDomain",
+                      "periodPicoseconds"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "maxItems": 10000
+                },
+                "policy": {
+                  "type": "object",
+                  "properties": {
+                    "waveOverheadPicoseconds": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 1000000000000
+                    },
+                    "maxDurationPicoseconds": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 9007199254740991
+                    }
+                  },
+                  "required": [
+                    "waveOverheadPicoseconds",
+                    "maxDurationPicoseconds"
+                  ],
+                  "additionalProperties": false
+                },
+                "limits": {
+                  "type": "object",
+                  "properties": {
+                    "maxWork": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 10000000
+                    },
+                    "maxMillis": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 60000
+                    }
+                  },
+                  "required": [
+                    "maxWork",
+                    "maxMillis"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "clocks",
+                "policy",
+                "limits"
+              ],
+              "additionalProperties": false
+            },
+            "complete": {
+              "type": "boolean"
+            },
+            "reasons": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "schedule_partial",
+                  "clock_missing",
+                  "duration_overflow",
+                  "duration_limit",
+                  "budget_work",
+                  "budget_time"
+                ]
+              },
+              "uniqueItems": true
+            },
+            "work": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            },
+            "durationPicoseconds": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "timedSteps": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            },
+            "timedInstances": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            },
+            "timedCapacityBits": {
+              "oneOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                {
+                  "type": "string",
+                  "pattern": "^(0|[1-9][0-9]*)$"
+                }
+              ]
+            },
+            "waves": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "startPicoseconds": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "durationPicoseconds": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740991
+                  },
+                  "endPicoseconds": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740991
+                  },
+                  "entries": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "clock": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9999
+                        },
+                        "durationPicoseconds": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "clock",
+                        "durationPicoseconds"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "minItems": 1,
+                    "maxItems": 1024
+                  },
+                  "resourceWait": {
+                    "type": "object",
+                    "properties": {
+                      "durationPicoseconds": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 1000000000000
+                      },
+                      "resources": {
+                        "type": "array",
+                        "items": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 1023
+                        },
+                        "minItems": 1,
+                        "maxItems": 1024,
+                        "uniqueItems": true
+                      }
+                    },
+                    "required": [
+                      "durationPicoseconds",
+                      "resources"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "dependencyWait": {
+                    "type": "object",
+                    "properties": {
+                      "durationPicoseconds": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 1000000000000
+                      },
+                      "dependencies": {
+                        "type": "array",
+                        "items": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 4095
+                        },
+                        "minItems": 1,
+                        "maxItems": 4096,
+                        "uniqueItems": true
+                      }
+                    },
+                    "required": [
+                      "durationPicoseconds",
+                      "dependencies"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "availabilityWait": {
+                    "type": "object",
+                    "properties": {
+                      "durationPicoseconds": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 9007199254740991
+                      },
+                      "intervals": {
+                        "type": "array",
+                        "minItems": 1,
+                        "maxItems": 4096,
+                        "uniqueItems": true,
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "resource",
+                            "interval"
+                          ],
+                          "properties": {
+                            "resource": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 1023
+                            },
+                            "interval": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 1023
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "required": [
+                      "durationPicoseconds",
+                      "intervals"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "startPicoseconds",
+                  "durationPicoseconds",
+                  "endPicoseconds",
+                  "entries"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 10000
+            },
+            "unusedClocks": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9999
+              },
+              "uniqueItems": true,
+              "maxItems": 10000
+            },
+            "stop": {
+              "type": "object",
+              "properties": {
+                "wave": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9999
+                },
+                "reason": {
+                  "enum": [
+                    "clock_missing",
+                    "duration_overflow",
+                    "duration_limit",
+                    "budget_work",
+                    "budget_time"
+                  ]
+                },
+                "entry": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1023
+                }
+              },
+              "required": [
+                "wave",
+                "reason"
+              ],
+              "additionalProperties": false,
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "reason": {
+                        "const": "duration_limit"
+                      }
+                    }
+                  },
+                  "then": {
+                    "not": {
+                      "required": [
+                        "entry"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "reason": {
+                        "const": "clock_missing"
+                      }
+                    }
+                  },
+                  "then": {
+                    "required": [
+                      "entry"
+                    ]
+                  }
+                }
+              ]
+            },
+            "resourceWaitPicoseconds": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "dependencyWaitPicoseconds": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "availabilityWaitPicoseconds": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "request",
+            "complete",
+            "reasons",
+            "work",
+            "durationPicoseconds",
+            "timedSteps",
+            "timedInstances",
+            "timedCapacityBits",
+            "waves",
+            "unusedClocks"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "complete": {
+                    "const": true
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "reasons": {
+                    "maxItems": 0
+                  }
+                },
+                "not": {
+                  "required": [
+                    "stop"
+                  ]
+                }
+              }
+            },
+            {
+              "if": {
+                "required": [
+                  "stop"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "complete": {
+                    "const": false
+                  },
+                  "reasons": {
+                    "minItems": 1
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "source",
+        "timeline"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:memory-map:1#/oneOf/1"
+    }
+  ]
+}

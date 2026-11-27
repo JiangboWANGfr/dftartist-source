@@ -1,0 +1,661 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:memory-test-coverage:1",
+  "title": "Declared per-macro test coverage",
+  "oneOf": [
+    {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "source",
+        "coverage"
+      ],
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-memory-test-coverage-v1"
+        },
+        "source": {
+          "$ref": "urn:dft-studio:analysis:memory-test-timing:1#/oneOf/0"
+        },
+        "coverage": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "complete",
+            "observedMacros",
+            "matchedInstances",
+            "plannedInstances",
+            "scheduledInstances",
+            "timedInstances",
+            "blockedInstances",
+            "pendingInstances",
+            "rows"
+          ],
+          "properties": {
+            "complete": {
+              "type": "boolean"
+            },
+            "observedMacros": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "matchedInstances": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "plannedInstances": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "scheduledInstances": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "timedInstances": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "blockedInstances": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "pendingInstances": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "rows": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/row"
+              }
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "complete": {
+                    "const": true
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "blockedInstances": {
+                    "const": 0
+                  },
+                  "pendingInstances": {
+                    "const": 0
+                  },
+                  "rows": {
+                    "items": {
+                      "properties": {
+                        "status": {
+                          "const": "timed"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "coverage": {
+                "properties": {
+                  "complete": {
+                    "const": true
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "timeline": {
+                    "properties": {
+                      "complete": {
+                        "const": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "timeline": {
+                    "properties": {
+                      "complete": {
+                        "const": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:memory-map:1#/oneOf/1"
+    }
+  ],
+  "$defs": {
+    "row": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "macro",
+        "stage",
+        "status"
+      ],
+      "properties": {
+        "macro": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "stage": {
+          "enum": [
+            "mapping",
+            "planning",
+            "scheduling",
+            "timing"
+          ]
+        },
+        "status": {
+          "enum": [
+            "timed",
+            "blocked",
+            "pending"
+          ]
+        },
+        "reason": {
+          "type": "string"
+        },
+        "memory": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "plannedMemory": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "controller": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "step": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "wave": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "entry": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "timing": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "startPicoseconds",
+            "durationPicoseconds",
+            "endPicoseconds",
+            "barrierEndPicoseconds"
+          ],
+          "properties": {
+            "startPicoseconds": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "durationPicoseconds": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "endPicoseconds": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            },
+            "barrierEndPicoseconds": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            }
+          }
+        }
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "stage": {
+              "const": "mapping"
+            },
+            "status": {
+              "const": "pending"
+            },
+            "reason": {
+              "enum": [
+                "mapping_not_reached"
+              ]
+            }
+          },
+          "required": [
+            "reason"
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "memory"
+                ]
+              },
+              {
+                "required": [
+                  "plannedMemory"
+                ]
+              },
+              {
+                "required": [
+                  "controller"
+                ]
+              },
+              {
+                "required": [
+                  "step"
+                ]
+              },
+              {
+                "required": [
+                  "wave"
+                ]
+              },
+              {
+                "required": [
+                  "entry"
+                ]
+              },
+              {
+                "required": [
+                  "timing"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "stage": {
+              "const": "mapping"
+            },
+            "status": {
+              "const": "blocked"
+            },
+            "reason": {
+              "enum": [
+                "interface_unmatched"
+              ]
+            }
+          },
+          "required": [
+            "memory",
+            "reason"
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "controller"
+                ]
+              },
+              {
+                "required": [
+                  "step"
+                ]
+              },
+              {
+                "required": [
+                  "wave"
+                ]
+              },
+              {
+                "required": [
+                  "entry"
+                ]
+              },
+              {
+                "required": [
+                  "timing"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "stage": {
+              "const": "planning"
+            },
+            "status": {
+              "const": "pending"
+            },
+            "reason": {
+              "enum": [
+                "planning_not_reached"
+              ]
+            }
+          },
+          "required": [
+            "memory",
+            "reason"
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "plannedMemory"
+                ]
+              },
+              {
+                "required": [
+                  "controller"
+                ]
+              },
+              {
+                "required": [
+                  "step"
+                ]
+              },
+              {
+                "required": [
+                  "wave"
+                ]
+              },
+              {
+                "required": [
+                  "entry"
+                ]
+              },
+              {
+                "required": [
+                  "timing"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "stage": {
+              "const": "planning"
+            },
+            "status": {
+              "const": "blocked"
+            },
+            "reason": {
+              "enum": [
+                "domain_missing",
+                "power_exceeded"
+              ]
+            }
+          },
+          "required": [
+            "memory",
+            "plannedMemory",
+            "reason"
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "controller"
+                ]
+              },
+              {
+                "required": [
+                  "step"
+                ]
+              },
+              {
+                "required": [
+                  "wave"
+                ]
+              },
+              {
+                "required": [
+                  "entry"
+                ]
+              },
+              {
+                "required": [
+                  "timing"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "stage": {
+              "const": "scheduling"
+            },
+            "status": {
+              "const": "pending"
+            },
+            "reason": {
+              "enum": [
+                "schedule_not_reached"
+              ]
+            }
+          },
+          "required": [
+            "memory",
+            "plannedMemory",
+            "controller",
+            "step",
+            "reason"
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "wave"
+                ]
+              },
+              {
+                "required": [
+                  "entry"
+                ]
+              },
+              {
+                "required": [
+                  "timing"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "stage": {
+              "const": "scheduling"
+            },
+            "status": {
+              "const": "blocked"
+            },
+            "reason": {
+              "enum": [
+                "step_power_exceeded",
+                "dependency_unavailable",
+                "dependency_blocked",
+                "prior_step_blocked",
+                "resource_power_exceeded",
+                "resource_units_exceeded"
+              ]
+            }
+          },
+          "required": [
+            "memory",
+            "plannedMemory",
+            "controller",
+            "step",
+            "reason"
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "wave"
+                ]
+              },
+              {
+                "required": [
+                  "entry"
+                ]
+              },
+              {
+                "required": [
+                  "timing"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "stage": {
+              "const": "timing"
+            },
+            "status": {
+              "const": "pending"
+            },
+            "reason": {
+              "enum": [
+                "timing_not_reached",
+                "wave_not_committed",
+                "duration_limit",
+                "budget_work",
+                "budget_time"
+              ]
+            }
+          },
+          "required": [
+            "memory",
+            "plannedMemory",
+            "controller",
+            "step",
+            "wave",
+            "entry",
+            "reason"
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "timing"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "stage": {
+              "const": "timing"
+            },
+            "status": {
+              "const": "blocked"
+            },
+            "reason": {
+              "enum": [
+                "clock_missing",
+                "duration_overflow"
+              ]
+            }
+          },
+          "required": [
+            "memory",
+            "plannedMemory",
+            "controller",
+            "step",
+            "wave",
+            "entry",
+            "reason"
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "timing"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "stage": {
+              "const": "timing"
+            },
+            "status": {
+              "const": "timed"
+            }
+          },
+          "required": [
+            "memory",
+            "plannedMemory",
+            "controller",
+            "step",
+            "wave",
+            "entry",
+            "timing"
+          ],
+          "not": {
+            "anyOf": [
+              {
+                "required": [
+                  "reason"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{"schemaVersion":1,"library":{"defs":[
+ {"id":"SEC","designName":"SEC","designLevel":"sub_block","designType":"tiling","interfaces":[{"id":"SEC.r1","busType":"IJTAG","role":"secondary","interfaceName":"r1"}],"childInstances":[],"connections":[]},
+ {"id":"CLI","designName":"CLI","designLevel":"sub_block","designType":"tiling","interfaces":[{"id":"CLI.cli","busType":"IJTAG","role":"client"}],"childInstances":[],"connections":[]},
+ {"id":"TOP","designName":"top","designLevel":"chip","designType":"hierarchical","interfaces":[],"childInstances":[{"id":"sec_i","instanceName":"sec_i","hardenId":"SEC"},{"id":"cli_i","instanceName":"cli_i","hardenId":"CLI"}],"connections":[{"id":"k","secondaryInstanceId":"sec_i","secondaryInterfaceId":"SEC.r1","clientInstanceId":"cli_i","clientInterfaceId":"CLI.cli"}]}
+]},"ui":{"openDefId":"TOP","rootDefId":"TOP"}}

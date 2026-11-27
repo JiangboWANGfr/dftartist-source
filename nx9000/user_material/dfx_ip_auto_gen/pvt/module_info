@@ -1,0 +1,36 @@
+module_name:
+- dfx_pvt_ctrl_tdr
+
+input_pin_name:
+  - OUT_12BIT_TS	[11:0]
+  - EOC_TS	
+  - OUT_12BIT_PS	1[11:0]
+  - EOC_PS	
+
+
+
+output_pin_name:
+  - HTOL_SEL
+  - AMUX_ADDR_TS	[1:0]
+  - AVG_MODE_TS	[1:0]
+  - BGR_I_CON_TS	[1:0]
+  - BGR_TC_CON_TS	[1:0]
+  - BJT_SEL_TS	[3:0]
+  - DMUX_ADDR_TS	[1:0]
+  - EN_TS	
+  - OFFSET_CON_TS	[3:0]
+  - SLOPE_CON_TS	[6:0]
+  - SOC_TS	
+  - TEST_MODE_TS	
+  - I_EN_CYCLE	
+  - EN_PS	[2:0]
+  - SOC_PS	
+  - SEL_TS	[3:0]
+  - VOL_RANGE_TS	
+  - SLOPE_CONT_VS	[6:0]
+  - I_HFDIV_PS	
+  - I_PS_SEL	[5:0]
+
+
+
+

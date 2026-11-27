@@ -1,0 +1,5 @@
+// Only reachable with `+libext+.vlib` (slang searches .v/.sv unconditionally, nothing else).
+module mem_1k(input clk, input en, output reg [7:0] rd);
+  reg [7:0] arr [0:1023];
+  always @(posedge clk) if (en) rd <= arr[0];
+endmodule

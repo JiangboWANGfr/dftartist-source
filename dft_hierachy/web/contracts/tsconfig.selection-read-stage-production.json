@@ -1,0 +1,6 @@
+{
+  "extends": "../tests/independent/tsconfig.selection-read-stage.json",
+  "compilerOptions": {
+    "paths": {}
+  }
+}

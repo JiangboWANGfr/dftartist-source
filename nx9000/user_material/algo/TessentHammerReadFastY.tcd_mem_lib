@@ -1,0 +1,90 @@
+//
+//  This material contains trade secrets or otherwise confidential                                                       
+//  information owned by Siemens Industry Software Inc. or its affiliates                                                    
+//  (collectively, "SISW"), or its licensors. Access to and use of this                                                     
+//  information is strictly limited as set forth in the Customer's                                                        
+//  applicable agreements with SISW. 
+//
+//  Unpublished work. Copyright 2024 Siemens
+//
+//  Technology Release: 2024.1
+Algorithm (TessentHammerReadFastY) {
+    TestRegisterSetup {
+        OperationSetSelect        : TessentSyncRamOps ;
+        AddressGenerator {
+            AddressRegister (A) {
+                LoadColumnAddress : MinColumn ;
+                LoadRowAddress    : MinRow ;
+                X1CarryIn         : Y1CarryOut ;
+                Y1CarryIn         : None ;
+            }
+        }
+        DataGenerator {
+        }
+        LoadCounterA_EndCount     : 25; // i.e. 2*(n+1) = 8 hammer writes to be done (+2 more) per address
+    }
+    MicroProgram {
+        Instruction (M0_uW0) {
+            OperationSelect       : WriteWriteFastColumn ;
+            AddressSelectCmd      : Select_A ;
+            WriteDataCmd          : DataReg ;
+            X1AddressCmd          : Increment ;
+            Y1AddressCmd          : Increment ;
+            NextConditions {
+                X1_EndCount       : On ;
+                Y1_EndCount       : On ;
+            }
+        }
+        Instruction (M1_uW1R1) { 
+            OperationSelect       : WriteRead ;
+            AddressSelectCmd      : Select_A ;
+            ExpectDataCmd         : InverseDataReg ;
+            WriteDataCmd          : InverseDataReg ;
+            NextConditions {
+            }
+        }
+        Instruction (M1_uR1Rx) { // Next N hammer reads applied
+            OperationSelect       : Read ;
+            AddressSelectCmd      : Select_A ;
+            ExpectDataCmd          : InverseDataReg ;
+            CounterACmd           : Increment ;
+            NextConditions {
+                CounterAEndCount  : On ;
+            }
+        }
+        Instruction (M1_uR1W1) { // Final hammer read done here & value checked
+            OperationSelect       : ReadModifyWrite ;
+            AddressSelectCmd      : Select_A ;
+            WriteDataCmd          : InverseDataReg ;
+            ExpectDataCmd         : InverseDataReg ;
+            X1AddressCmd          : Increment ;
+            Y1AddressCmd          : Increment ;
+            BranchToInstruction   : M1_uW1R1 ;
+            NextConditions {
+                X1_EndCount       : On ;
+                Y1_EndCount       : On ;
+                RepeatLoop(A) {
+                    BranchToInstruction         : M1_uW1R1 ;
+                    Repeat { // M2_^W0R0R0...R0W0
+                        WriteDataSequence       : Inverse ;
+                        ExpectDataSequence      : Inverse ;
+                        AddressSequence         : NoChange ;
+                        InhibitLastAddressCount : On ;
+                    }
+                    Repeat { // M3_vW1R1R1...R1W1
+                        WriteDataSequence       : NoChange ;
+                        ExpectDataSequence      : NoChange ;
+                        AddressSequence         : Inverse ;
+                        InhibitLastAddressCount : Off ;
+                    }
+                    Repeat { // M4_vW0R0R0...R0W0
+                        WriteDataSequence       : Inverse ;
+                        ExpectDataSequence      : Inverse ;
+                        AddressSequence         : Inverse ;
+                        InhibitLastAddressCount : On ;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,36 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist/renderer-types",
+    "emitDeclarationOnly": true,
+    "jsx": "react-jsx",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["react", "react-dom"]
+  },
+  "include": [
+    "src/renderer.tsx",
+    "src/design-lifecycle.ts",
+    "src/workspace-boundary.tsx",
+    "src/design-diagnostic.ts",
+    "src/design-inputs.ts",
+    "src/design-information.tsx",
+    "src/design-progress.ts",
+    "src/design-panels.ts",
+    "src/query-command-feedback.ts",
+    "src/design-graph.ts",
+    "src/graph-workspace.tsx",
+    "src/instance-grouping.ts",
+    "src/workspace-widths.tsx",
+    "src/workspace-split.ts",
+    "src/workspace-focus.ts",
+    "src/workspace-keyboard.ts",
+    "src/bridge.ts"
+  ],
+  "references": [
+    { "path": "../../packages/protocol-types" },
+    { "path": "../../packages/client" },
+    { "path": "../../packages/viewmodel" },
+    { "path": "../../packages/views" }
+  ]
+}

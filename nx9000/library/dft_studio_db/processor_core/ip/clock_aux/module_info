@@ -1,0 +1,10 @@
+module_name:
+- dfx_clk_aux_monitor_ctrl_tdr
+
+output_pin_name:
+ - dfx_clock_aux_rst_n
+ - dfx_clock_aux_div_ratio [7:0]
+ - dfx_clock_aux_clk_sel [5:0]
+ - dfx_clock_aux_pad_en
+ - dfx_clock_aux_clk_en [63:0]
+

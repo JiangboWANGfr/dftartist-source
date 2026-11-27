@@ -1,0 +1,11 @@
+module_name:
+- dfx_dro_ctrl_tdr
+
+input_pin_name:
+  - dro_ctrl	[17:0]
+
+output_pin_name:
+  - dro_count_status	[319:0]
+
+
+

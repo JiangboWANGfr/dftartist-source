@@ -1,0 +1,23 @@
+module_name:
+- dfx_trug_ctrl_tdr
+
+input_pin_name:
+  - o_DTRNG_BIST_ERROR
+  - o_DTRNG_BIST_DONE
+  - o_FAULT_LAD_DETECT_QF
+  - o_FAULT_LAD_DETECT_QL
+
+
+
+output_pin_name:
+  - i_DTRNG_BIST_MODE	
+  - i_DTRNG_BIST_RSTN	
+  - i_DTRNG_BIST_SEL	[15:0]
+  - i_DTRNG_BIST_TEST_SIZE	[3:0]
+  - i_DTRNG_BIST_ACT_CUTOFF	[15:0]
+  - i_DTRNG_BIST_MB_CUTOFF	[15:0]
+  - i_DTRNG_BIST_SBIST_EN	
+  - i_DTRNG_BIST_LAD_RESET	
+  - i_STMODE
+
+

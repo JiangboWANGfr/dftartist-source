@@ -1,0 +1,155 @@
+design_manager:
+   design_name: processor_core
+   design_filelist: /home/redhat/ywang/tessent_example_hierarchical_flow_with_ssn_test/design/processor_core/processor_core.flist 
+   design_level: physical_block
+   design_type: hierarchical
+   rtl_or_gate: gate
+     #sub_harden:
+     #  processor_core: 
+     #    path: /home/redhat/ywang/simple_flow/ZYXX_PC_TOP/test/dft_path/processor_core/v1/tsdb_outdir
+   #black_box:
+   #   module_list: "[list LVDS_TX_RX_IO_TOP NNS28NHKCEDPAUX_1M_18FN1 NNS28NHKCU2OPHY_P3_18FN1]"
+   exclude_quick_syntehsis: "xxx xxx DW*"
+
+stage_manager:
+        stage1: 
+           script_path: 1.mbist_insertion
+           design_id: mbist #?
+           feature: "mbist bscan ist ijtag mbisr_controller" # mbist =>memory_test bscan=>boundary_scan, mbisr_controller=>mbisr_controller
+           dft_req: "-memory_test on -boundary_scan on -mbisr_controller on"
+        stage2:
+           script_path: 2.logic_test_insertion 
+           design_id: logic_test
+           feature: "edt occ ssn lbist"
+           dft_req: "-logic_test on -add_test_clock_on_ssh on"
+        #below can be infer from default rules 
+        stage3: 
+          script_path: 3.syn_lec 
+          lec: g2g
+          syn: type2 #bottomup 
+        stage4: 
+          script_path: 4.scan_insertion
+          design_id: scan
+        stage5: 
+          script_path: 5.lbist_fault_simulation
+          design_id: lbist_sa_fsim
+        stage6: 
+          script_path: 6.lbist_pattern_gen
+        stage7: 
+          script_path: 7.atpg
+          
+        stage8: 
+          script_path: 8.retargeting
+        stage9: 
+          script_path: 9.verification
+        stage10: 
+          script_path: 10.deliver
+     
+lib_manager:
+   pad:
+     path: 
+       - "/home/redhat/ywang/tessent_example_automotive_reference_flow_v2025.1/library/io_pads"
+     post_fix: 
+        - "*.tcelllib"
+        - "*.v"
+        - "*.sv"
+   standard_cell:
+       interface_only: no
+       path: 
+         - "/home/redhat/ywang/tessent_example_automotive_reference_flow_v2025.1/library/NangateOpenCellLibrary_PDKv1_3_v2010_12/Front_End/DFT"
+       postfix:
+         - "*.tcelllib"
+         - "*.atpglib"
+         - "*.v"
+         - "*.sv"
+   memory:
+       interface_only: yes
+       exclude_from_file_dictionary: yes
+       mem_prefix: 
+          - "SYNC*"
+          - "ROM*"
+       path: 
+         - "/home/redhat/ywang/tessent_example_automotive_reference_flow_v2025.1/library/memories/"
+       postfix: 
+         - "*.lvlib"
+         - "*.tcd_memory"
+         - "*.lvmemlib"
+         - "*.v"
+         - "*.sv"
+   algo: 
+       path: 
+         - "/home/redhat/ywang/tessent_example_automotive_reference_flow_v2025.1/library/memories/"
+       postfix:
+         - "*.algo"
+   tcd_bscan:
+       path: 
+         - "/home/redhat/ywang/tessent_example_automotive_reference_flow_v2025.1/library/memories/"
+       postfix:
+         - "*.tcd_bscan"
+   tcd_scan:
+       path: 
+         - "/home/redhat/ywang/tessent_example_automotive_reference_flow_v2025.1/library/memories/"
+       postfix:
+         - "*.tcd_scan"
+   tcd:
+       path:
+         
+bscan_setting:
+   ac_bscan: on
+   no_bsd_pad: [list reset_n ptest_dfx_mode ptest si0 si1] 
+   int_aux:
+     input: [list dat1 dat2 dat3]
+     output: [list dato datp]
+
+mbist_setting:   
+   sharebus: no
+   pin_constraint: 
+       a/bc: -C0
+       a/c/b: -C1
+   clock:
+     list0:
+        path: xxxx/xxx/xxx/xxx
+        label: xxxx
+        period: 2ns
+        off_state: 0
+logic_test_setting:
+   ssn: on
+   pin_constraint: 
+       a/bc: -C0
+       a/c/b: -C1
+   clock:
+     list0:
+        path: xxxx/xxx/xxx/xxx
+        label: xxxx
+        period: 2ns     
+   add_core_instance:
+       default_setting:
+           list0: "add_core_instances -instances [get_instances *_tessent_sib_sti_inst]"
+   nonscan:
+       module:
+         list0: "gps ddr fsi"
+       instance:
+         list0: "u_dfx_fsi[0]\/ codec/rsu"
+         list1: "u_qrsi/d/c/d/f/g/e/g"
+   dft_signals:
+       register:
+          int_stuck_mode:
+              usage: scan_mode
+              scan_mode_type: internal
+          lbist_sa_mode:
+              usage: scan_mode
+              scan_mode_type: internal
+          int_transition_mode:
+              usage: scan_mode
+              scan_mode_type: internal            
+       source_signal:  #//from arch design by user
+          scan_en: 
+               source_node: "[get_pins u_dfx_scan_enable_persistent_buf_inst/Y]"
+               associated_ports: dati
+          edt_update: 
+               source_node: "[get_pins u_dfx_scan_enable_persistent_buf_inst/Y]"
+               associated_ports: dati
+          test_clock: 
+               source_node: "[get_pins u_dfx_scan_enable_persistent_buf_inst/Y]"
+               associated_ports: dati
+scan_test_setting:                

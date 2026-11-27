@@ -1,0 +1,283 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:object-catalog:1",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-object-catalog-v1"
+        },
+        "snapshot": {
+          "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/SnapshotInfo"
+        },
+        "scope": {
+          "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/InstInfo"
+        },
+        "request": {
+          "type": "object",
+          "properties": {
+            "scope": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            },
+            "recursive": {
+              "type": "boolean"
+            },
+            "kinds": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "instance",
+                  "port",
+                  "signal"
+                ]
+              },
+              "minItems": 1,
+              "maxItems": 3,
+              "uniqueItems": true
+            },
+            "limits": {
+              "type": "object",
+              "properties": {
+                "maxInstances": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100000
+                },
+                "maxObjects": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 1000000
+                },
+                "maxQueries": {
+                  "type": "integer",
+                  "minimum": 3,
+                  "maximum": 1000000
+                },
+                "maxWork": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 10000000
+                },
+                "maxMillis": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 60000
+                },
+                "pageSize": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 2000
+                }
+              },
+              "required": [
+                "maxInstances",
+                "maxObjects",
+                "maxQueries",
+                "maxWork",
+                "maxMillis",
+                "pageSize"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "scope",
+            "text",
+            "recursive",
+            "kinds",
+            "limits"
+          ],
+          "additionalProperties": false
+        },
+        "complete": {
+          "type": "boolean"
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "queries": {
+          "type": "integer",
+          "minimum": 3,
+          "maximum": 1000000
+        },
+        "work": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000000
+        },
+        "visitedObjects": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "instances": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "info": {
+                "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/InstInfo"
+              },
+              "objectsComplete": {
+                "type": "boolean"
+              },
+              "childrenComplete": {
+                "type": "boolean"
+              },
+              "signalStatus": {
+                "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/Completeness"
+              }
+            },
+            "required": [
+              "info",
+              "objectsComplete",
+              "childrenComplete"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 100000
+        },
+        "objects": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "const": "instance"
+                  },
+                  "instance": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "object": {
+                    "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/ObjectInfo"
+                  }
+                },
+                "required": [
+                  "kind",
+                  "instance",
+                  "object"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "const": "port"
+                  },
+                  "instance": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "object": {
+                    "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/ObjectInfo"
+                  },
+                  "port": {
+                    "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/PortInfo"
+                  }
+                },
+                "required": [
+                  "kind",
+                  "instance",
+                  "object",
+                  "port"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "const": "signal"
+                  },
+                  "instance": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "object": {
+                    "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/ObjectInfo"
+                  },
+                  "signal": {
+                    "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/SignalInfo"
+                  }
+                },
+                "required": [
+                  "kind",
+                  "instance",
+                  "object",
+                  "signal"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "maxItems": 1000000
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "snapshot",
+        "scope",
+        "request",
+        "complete",
+        "reasons",
+        "queries",
+        "work",
+        "visitedObjects",
+        "instances",
+        "objects"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "enum": [
+                "invalid_arguments",
+                "not_found",
+                "cancelled",
+                "analysis_failed",
+                "design_invalid",
+                "output_failed"
+              ]
+            },
+            "message": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "code",
+            "message"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "formatVersion",
+        "error"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

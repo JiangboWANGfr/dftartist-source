@@ -1,0 +1,307 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:memory-clock-check:1",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-memory-clock-check-v1"
+        },
+        "source": {
+          "$ref": "urn:dft-studio:analysis:memory-test-domains:1#/oneOf/0"
+        },
+        "check": {
+          "type": "object",
+          "properties": {
+            "request": {
+              "$ref": "urn:dft-studio:analysis:memory-clock-expectations:1#/properties/domains"
+            },
+            "complete": {
+              "type": "boolean"
+            },
+            "verdict": {
+              "enum": [
+                "pass",
+                "fail",
+                "unknown"
+              ]
+            },
+            "reasons": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "source_partial",
+                  "domain_missing",
+                  "expectation_missing",
+                  "source_unresolved",
+                  "unused_expectations"
+                ]
+              },
+              "uniqueItems": true
+            },
+            "matchedInstances": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "mismatchedInstances": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "unresolvedInstances": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "unconstrainedInstances": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "unassignedInstances": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "rows": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "row": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "status": {
+                    "enum": [
+                      "match",
+                      "mismatch",
+                      "unresolved",
+                      "unconstrained",
+                      "unassigned"
+                    ]
+                  },
+                  "expectation": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "source": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "reason": {
+                    "enum": [
+                      "clock_not_reached",
+                      "source_unresolved"
+                    ]
+                  }
+                },
+                "required": [
+                  "row",
+                  "status"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "enum": [
+                            "match",
+                            "mismatch",
+                            "unresolved"
+                          ]
+                        }
+                      }
+                    },
+                    "then": {
+                      "required": [
+                        "expectation"
+                      ]
+                    },
+                    "else": {
+                      "not": {
+                        "required": [
+                          "expectation"
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "match"
+                        }
+                      }
+                    },
+                    "then": {
+                      "required": [
+                        "source"
+                      ]
+                    },
+                    "else": {
+                      "not": {
+                        "required": [
+                          "source"
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unresolved"
+                        }
+                      }
+                    },
+                    "then": {
+                      "required": [
+                        "reason"
+                      ]
+                    },
+                    "else": {
+                      "not": {
+                        "required": [
+                          "reason"
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "unusedExpectations": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "request",
+            "complete",
+            "verdict",
+            "reasons",
+            "matchedInstances",
+            "mismatchedInstances",
+            "unresolvedInstances",
+            "unconstrainedInstances",
+            "unassignedInstances",
+            "rows",
+            "unusedExpectations"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "complete": {
+                    "const": true
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "reasons": {
+                    "maxItems": 0
+                  },
+                  "unusedExpectations": {
+                    "maxItems": 0
+                  },
+                  "unresolvedInstances": {
+                    "const": 0
+                  },
+                  "unconstrainedInstances": {
+                    "const": 0
+                  },
+                  "unassignedInstances": {
+                    "const": 0
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "reasons": {
+                    "minItems": 1
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "verdict": {
+                    "const": "pass"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "complete": {
+                    "const": true
+                  },
+                  "mismatchedInstances": {
+                    "const": 0
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "verdict": {
+                    "const": "fail"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "mismatchedInstances": {
+                    "minimum": 1
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "mismatchedInstances": {
+                    "const": 0
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "verdict": {
+                    "const": "unknown"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "complete": {
+                    "const": false
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "source",
+        "check"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:memory-map:1#/oneOf/1"
+    }
+  ]
+}

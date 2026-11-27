@@ -1,0 +1,184 @@
+SIM_PRE:
+     COMMON_SCRIPT: /App/others/DFTArtist_2025.1/lib/scripts/common_script
+     SIM_DIR: 11.rtl_simulation
+     DESIGN_NAME: rsoc_top 
+     PATTERN_DIR: /projects/30JW081/wx/liuqi/81_PRJ_0422/dft_path/rsoc_top/rsoc_top_tsdb_outdir/patterns/rsoc_top_logic_test.patterns_signoff
+     SIM_TOOL:
+         NAME: questa
+         COMPILE_OPTIONS:
+             LIST0: "+error+1000 -full64 -sverilog -timescale=1ns/1fs +libext+.v_.sv -debug_acc"
+             LIST1: "+define+TSMC_NO_TESTPINS_DEFAULT_VALUE_CHECK +define+SNOPSYS_SV +define+TSMC_DISABLE_WARNING_MESSAGE +define+TSMC_DISABLE_INFO_MESSAGE +define+TSMC_NO_XADDR_WARNING +define+MEM_CHECK_OFF"
+             LIST2: "-lca +notimingcheck +nospecify -full64 -work dut_work +librescan +v2k -kdb"
+         SIM_OPTIONS:
+             LIST0: "-full64 -licqueue -R -debug_all -ucli -do ../vcs.ucli +nowarnTFMPC -debug_region=cell+lib +notimingcheck +nospecify"
+     TEST_LIST:
+         ICLNetwork:
+             TYPE: IJTAG
+             STATUS: new
+             DUT: DUT
+             SIM_NAME: ICLNetwork
+             SIM_TOP: TB
+             TEST_BENCH: ICLNetwork
+             EXTRA_COMPILE_OPTIONS: ""
+             EXTRA_SIM_OPTIONS: ""
+             EXTRA_TOP: ""
+             FILELIST:
+                 LIST0: "-f  /projects/30JW081/icbend/common/dft_design_0422/rsoc_top_sim.f"
+             TESTBENCH: "ICLNetwork.sv09"
+         JtagBscanPatterns:
+             TYPE: IJTAG
+             STATUS: new
+             DUT: DUT
+             SIM_NAME: JtagBscanPatterns
+             SIM_TOP: TB
+             TEST_BENCH: JtagBscanPatterns
+             EXTRA_COMPILE_OPTIONS: ""
+             EXTRA_SIM_OPTIONS: ""
+             EXTRA_TOP: ""
+             FILELIST:
+                 LIST0: "-f  /projects/30JW081/icbend/common/dft_design_0422/rsoc_top_sim.f"
+             TESTBENCH: "JtagBscanPatterns.sv09"
+         MemoryBist_hw_default:
+             TYPE: MBIST
+             STATUS: new
+             DUT: DUT
+             SIM_NAME: MemoryBist_hw_default
+             SIM_TOP: TB
+             TEST_BENCH: MemoryBist_hw_default
+             EXTRA_COMPILE_OPTIONS: ""
+             EXTRA_SIM_OPTIONS: ""
+             EXTRA_TOP: ""
+             FILELIST:
+                 LIST0: "-f  /projects/30JW081/icbend/common/dft_design_0422/rsoc_top_sim.f"
+             TESTBENCH: "MemoryBist_hw_default.sv09"
+         MemoryBist_full:
+             TYPE: MBIST
+             STATUS: new
+             DUT: DUT
+             SIM_NAME: MemoryBist_full
+             SIM_TOP: TB
+             TEST_BENCH: MemoryBist_full
+             EXTRA_COMPILE_OPTIONS: ""
+             EXTRA_SIM_OPTIONS: ""
+             EXTRA_TOP: ""
+             FILELIST:
+                 LIST0: "-f  /projects/30JW081/icbend/common/dft_design_0422/rsoc_top_sim.f"
+             TESTBENCH: "MemoryBist_full.sv09"
+         MemoryBist_HammerReadFastX:
+             TYPE: MBIST
+             STATUS: new
+             DUT: DUT
+             SIM_NAME: MemoryBist_HammerReadFastX
+             SIM_TOP: TB
+             TEST_BENCH: MemoryBist_HammerReadFastX
+             EXTRA_COMPILE_OPTIONS: ""
+             EXTRA_SIM_OPTIONS: ""
+             EXTRA_TOP: ""
+             FILELIST:
+                 LIST0: "-f  /projects/30JW081/icbend/common/dft_design_0422/rsoc_top_sim.f"
+             TESTBENCH: "MemoryBist_HammerReadFastX.sv09"
+         MemoryBist_HammerReadFastY:
+             TYPE: MBIST
+             STATUS: new
+             DUT: DUT
+             SIM_NAME: MemoryBist_HammerReadFastY
+             SIM_TOP: TB
+             TEST_BENCH: MemoryBist_HammerReadFastY
+             EXTRA_COMPILE_OPTIONS: ""
+             EXTRA_SIM_OPTIONS: ""
+             EXTRA_TOP: ""
+             FILELIST:
+                 LIST0: "-f  /projects/30JW081/icbend/common/dft_design_0422/rsoc_top_sim.f"
+             TESTBENCH: "MemoryBist_HammerReadFastY.sv09"
+         MemoryBist_HammerWriteFastX:
+             TYPE: MBIST
+             STATUS: new
+             DUT: DUT
+             SIM_NAME: MemoryBist_HammerWriteFastX
+             SIM_TOP: TB
+             TEST_BENCH: MemoryBist_HammerWriteFastX
+             EXTRA_COMPILE_OPTIONS: ""
+             EXTRA_SIM_OPTIONS: ""
+             EXTRA_TOP: ""
+             FILELIST:
+                 LIST0: "-f  /projects/30JW081/icbend/common/dft_design_0422/rsoc_top_sim.f"
+             TESTBENCH: "MemoryBist_HammerWriteFastX.sv09"
+         MemoryBist_HammerWriteFastY:
+             TYPE: MBIST
+             STATUS: new
+             DUT: DUT
+             SIM_NAME: MemoryBist_HammerWriteFastY
+             SIM_TOP: TB
+             TEST_BENCH: MemoryBist_HammerWriteFastY
+             EXTRA_COMPILE_OPTIONS: ""
+             EXTRA_SIM_OPTIONS: ""
+             EXTRA_TOP: ""
+             FILELIST:
+                 LIST0: "-f  /projects/30JW081/icbend/common/dft_design_0422/rsoc_top_sim.f"
+             TESTBENCH: "MemoryBist_HammerWriteFastY.sv09"
+         MemoryBist_DAGalPat:
+             TYPE: MBIST
+             STATUS: new
+             DUT: DUT
+             SIM_NAME: MemoryBist_DAGalPat
+             SIM_TOP: TB
+             TEST_BENCH: MemoryBist_DAGalPat
+             EXTRA_COMPILE_OPTIONS: ""
+             EXTRA_SIM_OPTIONS: ""
+             EXTRA_TOP: ""
+             FILELIST:
+                 LIST0: "-f  /projects/30JW081/icbend/common/dft_design_0422/rsoc_top_sim.f"
+             TESTBENCH: "MemoryBist_DAGalPat.sv09"
+         MemoryBist_DAGalColumn:
+             TYPE: MBIST
+             STATUS: new
+             DUT: DUT
+             SIM_NAME: MemoryBist_DAGalColumn
+             SIM_TOP: TB
+             TEST_BENCH: MemoryBist_DAGalColumn
+             EXTRA_COMPILE_OPTIONS: ""
+             EXTRA_SIM_OPTIONS: ""
+             EXTRA_TOP: ""
+             FILELIST:
+                 LIST0: "-f  /projects/30JW081/icbend/common/dft_design_0422/rsoc_top_sim.f"
+             TESTBENCH: "MemoryBist_DAGalColumn.sv09"
+         MemoryBist_DAGalRow:
+             TYPE: MBIST
+             STATUS: new
+             DUT: DUT
+             SIM_NAME: MemoryBist_DAGalRow
+             SIM_TOP: TB
+             TEST_BENCH: MemoryBist_DAGalRow
+             EXTRA_COMPILE_OPTIONS: ""
+             EXTRA_SIM_OPTIONS: ""
+             EXTRA_TOP: ""
+             FILELIST:
+                 LIST0: "-f  /projects/30JW081/icbend/common/dft_design_0422/rsoc_top_sim.f"
+             TESTBENCH: "MemoryBist_DAGalRow.sv09"
+         MemoryBist_ParallelRetentionTest_P1:
+             TYPE: MBIST
+             STATUS: new
+             DUT: DUT
+             SIM_NAME: MemoryBist_ParallelRetentionTest_P1
+             SIM_TOP: TB
+             TEST_BENCH: MemoryBist_ParallelRetentionTest_P1
+             EXTRA_COMPILE_OPTIONS: ""
+             EXTRA_SIM_OPTIONS: ""
+             EXTRA_TOP: ""
+             FILELIST:
+                 LIST0: "-f  /projects/30JW081/icbend/common/dft_design_0422/rsoc_top_sim.f"
+             TESTBENCH: "MemoryBist_ParallelRetentionTest_P1.sv09"
+         MemoryBist_ParallelRetentionTest_DRDF:
+             TYPE: MBIST
+             STATUS: new
+             DUT: DUT
+             SIM_NAME: MemoryBist_ParallelRetentionTest_DRDF
+             SIM_TOP: TB
+             TEST_BENCH: MemoryBist_ParallelRetentionTest_DRDF
+             EXTRA_COMPILE_OPTIONS: ""
+             EXTRA_SIM_OPTIONS: ""
+             EXTRA_TOP: ""
+             FILELIST:
+                 LIST0: "-f  /projects/30JW081/icbend/common/dft_design_0422/rsoc_top_sim.f"
+             TESTBENCH: "MemoryBist_ParallelRetentionTest_DRDF.sv09"
+

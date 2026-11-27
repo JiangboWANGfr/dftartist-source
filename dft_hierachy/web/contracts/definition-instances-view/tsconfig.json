@@ -1,0 +1,6 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": { "types": ["react"] },
+  "files": ["definition-instances-view.d.ts", "consumer.ts"],
+  "include": []
+}

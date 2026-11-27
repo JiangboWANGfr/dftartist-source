@@ -1,0 +1,26 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist/types",
+    "emitDeclarationOnly": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": ["node"]
+  },
+  "include": [
+    "src/main.ts",
+    "src/design-host.ts",
+    "src/design-diagnostic.ts",
+    "src/design-progress.ts",
+    "src/resource-limits.ts",
+    "src/preload.ts",
+    "src/control-wire.ts",
+    "src/bridge.ts"
+  ],
+  "references": [
+    { "path": "../../packages/protocol-types" },
+    { "path": "../../packages/client" },
+    { "path": "../../packages/viewmodel" },
+    { "path": "../../packages/views" }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.selection-production.json",
+  "compilerOptions": {
+    "paths": {
+      "@hier/viewmodel": ["../../contracts/m5-selection.d.ts"]
+    }
+  }
+}

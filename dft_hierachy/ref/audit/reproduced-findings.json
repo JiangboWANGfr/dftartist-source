@@ -1,0 +1,28 @@
+{
+  "cross_instance_statement": {
+    "expected": "no match",
+    "actual": {
+      "nodeId": "logic:soc.u_a:/synthetic/unit.sv:10",
+      "port": "Q"
+    },
+    "issue_reproduced": true
+  },
+  "cross_instance_same_name_port": {
+    "expected": "no match",
+    "actual": {
+      "nodeId": "port:soc.u_a.clk",
+      "port": "clk"
+    },
+    "issue_reproduced": true
+  },
+  "different_driver_discarded": {
+    "expectedDriverNodes": [
+      "soc.a",
+      "soc.b"
+    ],
+    "actualDriverNodes": [
+      "soc.a"
+    ],
+    "issue_reproduced": true
+  }
+}

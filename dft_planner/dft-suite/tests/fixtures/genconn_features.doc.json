@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "library": {
+    "defs": [
+      {
+        "id": "top",
+        "designName": "top",
+        "designLevel": "chip",
+        "designType": "hierarchical",
+        "interfaces": [],
+        "childInstances": [
+          { "id": "sec_i", "instanceName": "sec_i", "hardenId": "sec" },
+          { "id": "cli_i", "instanceName": "cli_i", "hardenId": "cli" }
+        ],
+        "connections": [
+          {
+            "id": "k0",
+            "secondaryInstanceId": "sec_i",
+            "secondaryInterfaceId": "sec.bisr.b0",
+            "clientInstanceId": "cli_i",
+            "clientInterfaceId": "cli.bisr.pdA"
+          },
+          {
+            "id": "k1",
+            "secondaryInstanceId": "sec_i",
+            "secondaryInterfaceId": "sec.bisr.b1",
+            "clientInstanceId": "cli_i",
+            "clientInterfaceId": "cli.bisr.pdB"
+          },
+          {
+            "id": "k2",
+            "secondaryInstanceId": "sec_i",
+            "secondaryInterfaceId": "sec.ssn.sA",
+            "clientInstanceId": "cli_i",
+            "clientInterfaceId": "cli.ssn.s0"
+          }
+        ]
+      },
+      {
+        "id": "sec",
+        "designName": "sec",
+        "designLevel": "sub_block",
+        "designType": "tiling",
+        "interfaces": [
+          {
+            "id": "sec.bisr.b0",
+            "busType": "BISR",
+            "role": "secondary",
+            "interfaceName": "b0",
+            "powerDomain": "pdA",
+            "omitMemCtrl": true
+          },
+          {
+            "id": "sec.bisr.b1",
+            "busType": "BISR",
+            "role": "secondary",
+            "interfaceName": "b1",
+            "powerDomain": "pdB"
+          },
+          {
+            "id": "sec.ssn.sA",
+            "busType": "SSN",
+            "role": "secondary",
+            "interfaceName": "sA",
+            "busWidth": 4
+          }
+        ],
+        "childInstances": [],
+        "connections": []
+      },
+      {
+        "id": "cli",
+        "designName": "cli",
+        "designLevel": "sub_block",
+        "designType": "tiling",
+        "interfaces": [
+          {
+            "id": "cli.bisr.pdA",
+            "busType": "BISR",
+            "role": "client",
+            "powerDomain": "pdA",
+            "omitMemCtrl": true
+          },
+          {
+            "id": "cli.bisr.pdB",
+            "busType": "BISR",
+            "role": "client",
+            "powerDomain": "pdB"
+          },
+          {
+            "id": "cli.ssn.s0",
+            "busType": "SSN",
+            "role": "client",
+            "interfaceName": "s0",
+            "busWidth": 4
+          },
+          {
+            "id": "cli.ssn.s1",
+            "busType": "SSN",
+            "role": "client",
+            "interfaceName": "s1",
+            "busWidth": 4
+          }
+        ],
+        "childInstances": [],
+        "connections": []
+      }
+    ]
+  },
+  "ui": {
+    "openDefId": "top",
+    "rootDefId": "top"
+  }
+}

@@ -1,0 +1,160 @@
+.................
+.................
+STEP 0 of creating a new ADK/<new_dir> set of files -- Creating directory & copying some files.
+.................
+.................
+A. cp -r 4.<current_number>  4.<next_number>
+   For the rest of the instructions below, these are called 4.<old_number> and 4.<new_number> respectively.
+
+B. Change techlib_adk.tnt/current to point to 4.<new_number> but do NOT tci until regressions clean and updated:
+   ln -sfn 4.<new_number>  current
+
+.................
+.................
+STEP 1 of creating a new ADK set of files
+.................
+.................
+
+Edit 4.<new_number>/verilog/adk.v
+to create any new modules.
+
+Editing the Liberty is explained in STEP 3 below.
+
+.................
+.................
+STEP 2 of creating a new ADK set of files
+.................
+.................
+cd 4.<new_number>/creation_scripts  to access the following run_.. creation scripts
+
+run_libcomp
+
+This creates a local libcomp.atpglib file from the ../verilog/adk.v  file, 
+   as well as important output files to examine.
+
+cat sim.log and make sure "No error between simulated and expected patterns" near the end (rather than mismatches).
+
+For fault coverage, make sure only the file "fault_coverage_100_percent_models" exists, and the file
+"fault_coverage_60_to_70_percent_models".  The 4 clock_shaper models are currently in 60-70% file and all other
+models are currently in 100% file.  If any other fault_coverage_.. file exists, the models listed in that 
+file should be examined carefully.  Also if any other models in 60-70% than clock shapers.
+The Verilog is probably bad, although it may be a difficult to test model (such as the clock_shapers). 
+Possibly (although not likely), the libcomp.atpglib models listed in that file needs manual intervention
+due to inability to translate the model completely and correctly.
+
+.................
+.................
+STEP 3 of creating a new ADK set of files.  Verifying the Liberty.
+.................
+.................
+A. Make corresponding changes to the liberty/adk.lib file.  There is no automation to do this.
+
+B. Change the search_path at top in BOTH synopsys/synopsys_dc.setup and synopsys/synopsys_pt.setup
+   from prerequisites/techlib_adk.tnt/4.<old_number>/synopsys to prerequisites/techlib_adk.tnt/4.<new_number>/synopsys
+   in all the serial paths specified there.
+   CAVEAT: Do not forget this because there will be no indication until regressions fail.
+
+C. Verify that LC accepts it using (in the same directory as the new ADK Liberty file):
+run_lc_shell
+
+See run_lc_shell for comments on how to check that everything is OK.
+
+CAVEAT: The following reuses fastscan.do.cat and overwrites sim.log from run_libcomp, so make sure
+        you are done with run_libcomp results, and have examined sim.log before doing this step.
+        run_libcomp is the first step of run_all.
+
+D. Verify Liberty against the Verilog by :
+  D.1. run/source verify_liberty_step_1  to create only_liberty.atpglib
+  D.2. edit fastscan.do.cat from earlier run_libcomp run and change :
+   write netlist design.v -verilog -rep -positional   to :
+   write netlist design.v -verilog -rep
+  D.3. run/source verify_liberty_step_2  to verify Liberty against Verilog
+
+   NOTE : that it will Error unable to load design if port names in Liberty not same as in Verilog.
+
+  D.4. Check bottom of sim.log to ensure no simulation mismatches.
+   Note that any Liberty with statetables (clock gaters and synchronizer_cells) as well as clock shapers will have
+     0% coverage, and that verification of the Liberty hardware statetables against the Verilog hardware is meaningless 
+     for those, because ATPG produced only X (dont compare) for them.
+  D.5. diff verify_liberty_step_1.atpglib_last_release verify_liberty_step_1.atpglib 
+     to see what Liberty model differences exist.
+
+E. Verify Cadence has no Errors. Currently it has several IQ2 Warnings
+  E.1. tco cadence_rtlc_lib_test_adk_rev.tshell
+  E.2. cd !$ 
+  E.3. pushd data, then cp techlib_adk.tnt/4.<new_number>/liberty/adk.lib .  // Replace old adk.lib in data/ with new
+  E.4. popd, then drun (run the in_techlib_adk and mod_techlib_adk target)
+  E.5. Check the transcript diffs (for some reason, you will get LM_LICENSE diffs at the top of both transcripts
+       although they are the same -- ignore those).
+
+.................
+.................
+STEP 4 of creating a new ADK set of files
+.................
+.................
+Before making this run, add any tessent attributes (if needed) for new cells to cell.map file in this directory.
+Also, add your preferred cell to be used for test insertion to dft_cell_selection file in this directory.
+Send mail to don_ross@mentor.com (or doneross@gmail.com if I'm dead) if you are in doubt.
+
+run_fs_tessent
+diff fs_tessent_last_release.log  fs_tessent.log
+
+.................
+.................
+STEP 5 of creating a new ADK set of files.  To help person doing next release.
+.................
+.................
+run clean in this directory to cleanup the intermediate files created.
+mv fs_tessent.log fs_tessent_last_release.log  // So next person has something to compare to.
+mv verify_liberty_step_1.atpglib verify_liberty_step_1.atpglib_last_release
+
+.................
+.................
+STEP 6 of creating a new ADK set of files.
+.................
+.................
+tco dts0101261650_check_adk_db_is_complete.tshell and drun with --prerequisite=<this_new_techlib_adk.tnt_directory>
+   to ensure all Verilog modules are also Liberty cells and to ensure synopsys/..setup files point to 4.<new_number>
+
+
+.................
+.................
+STEP 7 How to run regressions, and update if clean :
+.................
+.................
+
+pushd <regression_dir>
+mkdir regressoin_subdir_for_TOT_ADK
+mkdir regression_subdir_for_new_ADK
+pushd !$
+// Only do following in subdir for new ADK
+mkdir my_local_prerequisites 
+cd !$
+cp -r <dir_where_created_new_techlib_adk>/techlib_adk.tnt .  // or ./techlib_adk.tnt (same thing).
+cd techlib_adk.tnt
+ls -ld current  // To ensure it points to <new_dir> for this new ADK release.
+
+popd    // Back to where see both regression areas just created (for TOT ADK and new ADK).
+
+// pushd to an all_prods all_libs build and make sure it is up to date
+//    Will use that same TOT build in 2 regression areas -- one using TOT ADK, and other using -prerequisite to use new ADK
+//    This is the only reliable way I know of to ensure you do not miss fails due to new ADK.
+// popd to get back to where regression areas are for the 2 gsubs
+
+// Run at least the following suites :
+// pushd to the regression area for the new ADK :
+gsub tshell_bscan tshell lbist lbista ijtag fscan edt dfta yielda ALL:tshell ALL:@tshell  -prerequisite ./my_local_prerequisites
+// popd then pushd to the regression area for TOT ADK :
+gsub <same_suites_as_above> // But with NO "-prerequisite"
+
+If everything looks good (may have to fix some testcases) :
+tci techlib_adk.tnt // The one in regression_subdir_for_new_ADK/my_local_prerequisites
+tci any testcases that had to be fixed, and any with diffs that need updating.
+
+Else (things are wrong). If you want to tci to save work, BE SURE TO :
+ln -sfn 4.<old_number> current
+before you tci techlib_adk.tnt
+Also change 4.<new_number> to 4.<new_number>_work_in_progress
+so it is obvious that it is not released yet.
+
+

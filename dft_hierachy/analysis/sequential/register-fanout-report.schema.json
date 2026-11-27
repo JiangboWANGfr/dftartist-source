@@ -1,0 +1,442 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:register-control-fanout:1",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/Report"
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:sequential:2#/$defs/Error"
+    }
+  ],
+  "$defs": {
+    "Report": {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-register-control-fanout-v1"
+        },
+        "snapshotId": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "limits": {
+          "type": "object",
+          "properties": {
+            "maxOrigins": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "maxSeeds": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000
+            },
+            "maxNodes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000
+            },
+            "maxLinks": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "maxMembers": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "maxSegments": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000000
+            },
+            "maxWork": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000000
+            },
+            "maxMillis": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 60000
+            }
+          },
+          "required": [
+            "maxOrigins",
+            "maxSeeds",
+            "maxNodes",
+            "maxLinks",
+            "maxMembers",
+            "maxSegments",
+            "maxWork",
+            "maxMillis"
+          ],
+          "additionalProperties": false
+        },
+        "quality": {
+          "$ref": "urn:dft-studio:analysis:register-control-profile:1#/$defs/Report/properties/quality"
+        },
+        "analysis": {
+          "$ref": "urn:dft-studio:analysis:register-control-generation:1#/$defs/Report"
+        },
+        "inputOrigins": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "inputSeeds": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "inputNodes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "relevantSeeds": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "work": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "links": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "memberFacts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "segmentCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "origins": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "event": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "seed": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "minimum": 0
+              }
+            },
+            "required": [
+              "event",
+              "seed"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "seeds": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "check": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "node": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "traversalComplete": {
+                "type": "boolean"
+              },
+              "reasons": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "origins": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "minItems": 1
+              },
+              "steps": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "node": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "parent": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ],
+                      "minimum": 0
+                    },
+                    "generator": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ],
+                      "minimum": 0
+                    },
+                    "asyncIndex": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ],
+                      "minimum": 0
+                    },
+                    "role": {
+                      "enum": [
+                        "root",
+                        "clock",
+                        "async"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "node",
+                    "parent",
+                    "generator",
+                    "asyncIndex",
+                    "role"
+                  ],
+                  "additionalProperties": false,
+                  "allOf": [
+                    {
+                      "if": {
+                        "properties": {
+                          "parent": {
+                            "type": "null"
+                          }
+                        }
+                      },
+                      "then": {
+                        "properties": {
+                          "generator": {
+                            "type": "null"
+                          },
+                          "asyncIndex": {
+                            "type": "null"
+                          },
+                          "role": {
+                            "const": "root"
+                          }
+                        }
+                      },
+                      "else": {
+                        "properties": {
+                          "generator": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "role": {
+                            "enum": [
+                              "clock",
+                              "async"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "role": {
+                            "const": "async"
+                          }
+                        }
+                      },
+                      "then": {
+                        "properties": {
+                          "asyncIndex": {
+                            "type": "integer",
+                            "minimum": 0
+                          }
+                        }
+                      },
+                      "else": {
+                        "properties": {
+                          "asyncIndex": {
+                            "type": "null"
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "required": [
+              "check",
+              "node",
+              "traversalComplete",
+              "reasons",
+              "origins",
+              "steps"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "node": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "membersComplete": {
+                "type": "boolean"
+              },
+              "reasons": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "reaches": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "seed": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "step": {
+                      "type": "integer",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "seed",
+                    "step"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 1
+              },
+              "rawGroups": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "signals": {
+                "$ref": "urn:dft-studio:analysis:register-scenarios:1#/$defs/Report/properties/comparisons/items/properties/changedSignals"
+              },
+              "totals": {
+                "$ref": "urn:dft-studio:analysis:register-statistics:1#/$defs/Report/properties/totals"
+              }
+            },
+            "required": [
+              "node",
+              "membersComplete",
+              "reasons",
+              "reaches",
+              "rawGroups",
+              "signals",
+              "totals"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "summary": {
+          "type": "object",
+          "properties": {
+            "origins": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "unassignedOrigins": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "seeds": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "partialSeeds": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "nodes": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "partialNodes": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "links": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "nodeSignals": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "summarizedNodeSignals": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "origins",
+            "unassignedOrigins",
+            "seeds",
+            "partialSeeds",
+            "nodes",
+            "partialNodes",
+            "links",
+            "nodeSignals",
+            "summarizedNodeSignals"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "snapshotId",
+        "scope",
+        "limits",
+        "quality",
+        "analysis",
+        "inputOrigins",
+        "inputSeeds",
+        "inputNodes",
+        "relevantSeeds",
+        "work",
+        "links",
+        "memberFacts",
+        "segmentCount",
+        "origins",
+        "seeds",
+        "nodes",
+        "summary"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

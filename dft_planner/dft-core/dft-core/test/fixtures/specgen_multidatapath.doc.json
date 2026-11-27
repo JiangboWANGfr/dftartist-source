@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 1,
+  "library": {
+    "defs": [
+      {
+        "id": "p",
+        "designName": "p",
+        "designLevel": "chip",
+        "designType": "hierarchical",
+        "interfaces": [
+          {
+            "id": "cli",
+            "busType": "SSN",
+            "role": "client",
+            "busWidth": 4
+          },
+          {
+            "id": "sec",
+            "busType": "SSN",
+            "role": "secondary",
+            "busWidth": 4,
+            "interfaceName": "sec"
+          }
+        ],
+        "childInstances": [],
+        "connections": [],
+        "dftIps": [
+          {
+            "id": "dft_41ebfa2d",
+            "ipType": "Receiver1xPipeline",
+            "instanceName": "rpp_1",
+            "position": {
+              "x": 140,
+              "y": 60
+            }
+          },
+          {
+            "id": "dft_8d81b345",
+            "ipType": "ScanHost",
+            "instanceName": "ssh_1",
+            "position": {
+              "x": 340,
+              "y": 60
+            }
+          },
+          {
+            "id": "dft_8aed8069",
+            "ipType": "Multiplexer",
+            "instanceName": "mux_1",
+            "position": {
+              "x": 540,
+              "y": 60
+            }
+          },
+          {
+            "id": "dft_a9a75cac",
+            "ipType": "Pipeline",
+            "instanceName": "pp_1",
+            "position": {
+              "x": 740,
+              "y": 60
+            }
+          },
+          {
+            "id": "dft_ad7b1392",
+            "ipType": "Pipeline",
+            "instanceName": "pp_2",
+            "position": {
+              "x": 940,
+              "y": 60
+            }
+          }
+        ],
+        "dftWires": [
+          {
+            "id": "dw_c04b08ee",
+            "from": {
+              "kind": "iface",
+              "instanceId": "p",
+              "interfaceId": "cli",
+              "pin": "out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_41ebfa2d",
+              "port": "bus_data_in"
+            }
+          },
+          {
+            "id": "dw_9c505aa8",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_41ebfa2d",
+              "port": "bus_data_out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_ad7b1392",
+              "port": "bus_data_in"
+            }
+          },
+          {
+            "id": "dw_9b08e5a0",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_ad7b1392",
+              "port": "bus_data_out"
+            },
+            "to": {
+              "kind": "iface",
+              "instanceId": "p",
+              "interfaceId": "sec",
+              "pin": "in"
+            }
+          },
+          {
+            "id": "dw_23272f29",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_41ebfa2d",
+              "port": "bus_data_out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_8aed8069",
+              "port": "secondary_bus_data_in"
+            }
+          },
+          {
+            "id": "dw_8860a7d5",
+            "from": {
+              "kind": "iface",
+              "instanceId": "p",
+              "interfaceId": "sec",
+              "pin": "out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_a9a75cac",
+              "port": "bus_data_in"
+            }
+          },
+          {
+            "id": "dw_08f72cd5",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_a9a75cac",
+              "port": "bus_data_out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_8aed8069",
+              "port": "master_bus_data_in"
+            }
+          },
+          {
+            "id": "dw_1d486c8f",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_8aed8069",
+              "port": "bus_data_out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_8d81b345",
+              "port": "bus_data_in"
+            }
+          },
+          {
+            "id": "dw_c6485cdc",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_8d81b345",
+              "port": "bus_data_out"
+            },
+            "to": {
+              "kind": "iface",
+              "instanceId": "p",
+              "interfaceId": "cli",
+              "pin": "in"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ui": {
+    "openDefId": "p",
+    "rootDefId": "p"
+  }
+}

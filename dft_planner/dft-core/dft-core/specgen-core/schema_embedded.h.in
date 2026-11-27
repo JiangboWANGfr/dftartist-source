@@ -1,0 +1,6 @@
+#pragma once
+#include <string_view>
+namespace specgen {
+inline constexpr std::string_view DATAPATH_SCHEMA_JSON = R"SPECGENSCHEMA(@SPECGEN_SCHEMA_CONTENT@)SPECGENSCHEMA";
+inline constexpr std::string_view BSCAN_SCHEMA_JSON = R"SPECGENBSCAN(@SPECGEN_BSCAN_SCHEMA_CONTENT@)SPECGENBSCAN";
+}

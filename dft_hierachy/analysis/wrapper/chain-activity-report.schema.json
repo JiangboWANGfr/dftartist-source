@@ -1,0 +1,424 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:wrapper-chain-activity:1",
+  "title": "Greedy functional activity batches",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-wrapper-chain-activity-v1"
+        },
+        "source": {
+          "$ref": "urn:dft-studio:analysis:wrapper-chain-compatibility:1#/oneOf/0"
+        },
+        "activity": {
+          "type": "object",
+          "properties": {
+            "policy": {
+              "const": "first_fit_single_functional_clock"
+            },
+            "limits": {
+              "type": "object",
+              "properties": {
+                "maxBatches": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 1024
+                },
+                "maxChainsPerBatch": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 1024
+                },
+                "maxSharedBitsPerBatch": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 9007199254740991
+                },
+                "maxWork": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 10000000
+                },
+                "maxMillis": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 60000
+                }
+              },
+              "required": [
+                "maxBatches",
+                "maxChainsPerBatch",
+                "maxSharedBitsPerBatch",
+                "maxWork",
+                "maxMillis"
+              ],
+              "additionalProperties": false
+            },
+            "complete": {
+              "type": "boolean"
+            },
+            "work": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            },
+            "reasons": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "source_partial",
+                  "budget_batches",
+                  "budget_work",
+                  "budget_time"
+                ]
+              },
+              "maxItems": 4,
+              "uniqueItems": true
+            },
+            "rows": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "chain": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1023
+                  },
+                  "status": {
+                    "enum": [
+                      "assigned",
+                      "conflict",
+                      "unresolved",
+                      "empty",
+                      "oversized",
+                      "pending"
+                    ]
+                  },
+                  "sourceRow": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1023
+                  },
+                  "batch": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1023
+                  }
+                },
+                "required": [
+                  "chain",
+                  "status"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "assigned"
+                        }
+                      }
+                    },
+                    "then": {
+                      "required": [
+                        "sourceRow",
+                        "batch"
+                      ]
+                    },
+                    "else": {
+                      "not": {
+                        "required": [
+                          "batch"
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "pending"
+                        }
+                      }
+                    },
+                    "then": {
+                      "not": {
+                        "required": [
+                          "sourceRow"
+                        ]
+                      }
+                    },
+                    "else": {
+                      "required": [
+                        "sourceRow"
+                      ]
+                    }
+                  }
+                ]
+              },
+              "maxItems": 1024
+            },
+            "batches": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "chains": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 1023
+                    },
+                    "maxItems": 1024,
+                    "minItems": 1,
+                    "uniqueItems": true
+                  },
+                  "sharedBits": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740991
+                  },
+                  "clockGroup": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "holds": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "input": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "low": {
+                          "type": "boolean"
+                        },
+                        "high": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "input",
+                        "low",
+                        "high"
+                      ],
+                      "additionalProperties": false,
+                      "oneOf": [
+                        {
+                          "properties": {
+                            "low": {
+                              "const": true
+                            }
+                          }
+                        },
+                        {
+                          "properties": {
+                            "high": {
+                              "const": true
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "maxItems": 1000000
+                  }
+                },
+                "required": [
+                  "chains",
+                  "sharedBits",
+                  "clockGroup",
+                  "holds"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 1024
+            },
+            "counts": {
+              "type": "object",
+              "properties": {
+                "chains": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1024
+                },
+                "assigned": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1024
+                },
+                "conflict": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1024
+                },
+                "unresolved": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1024
+                },
+                "empty": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1024
+                },
+                "oversized": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1024
+                },
+                "pending": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1024
+                },
+                "assignedSharedBits": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "chains",
+                "assigned",
+                "conflict",
+                "unresolved",
+                "empty",
+                "oversized",
+                "pending",
+                "assignedSharedBits"
+              ],
+              "additionalProperties": false
+            },
+            "stop": {
+              "type": "object",
+              "properties": {
+                "reason": {
+                  "enum": [
+                    "budget_batches",
+                    "budget_work",
+                    "budget_time"
+                  ]
+                },
+                "chain": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1024
+                }
+              },
+              "required": [
+                "reason",
+                "chain"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "policy",
+            "limits",
+            "complete",
+            "work",
+            "reasons",
+            "rows",
+            "batches",
+            "counts"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "complete": {
+                    "const": true
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "reasons": {
+                    "maxItems": 0
+                  }
+                },
+                "not": {
+                  "required": [
+                    "stop"
+                  ]
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "complete": {
+                    "const": false
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "reasons": {
+                    "minItems": 1
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "source",
+        "activity"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "compatibility": {
+                    "properties": {
+                      "complete": {
+                        "const": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "activity": {
+                "properties": {
+                  "complete": {
+                    "const": false
+                  },
+                  "reasons": {
+                    "contains": {
+                      "const": "source_partial"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:wrapper-boundary:1#/oneOf/1"
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "library": {
+    "defs": [
+      {
+        "id": "p",
+        "designName": "p",
+        "designLevel": "chip",
+        "designType": "hierarchical",
+        "interfaces": [
+          {
+            "id": "ext",
+            "busType": "SSN",
+            "role": "client",
+            "busWidth": 4
+          }
+        ],
+        "childInstances": [],
+        "connections": [],
+        "dftIps": [
+          {
+            "id": "dft_f6ab545c",
+            "ipType": "Receiver1xPipeline",
+            "instanceName": "rpp_1",
+            "position": {
+              "x": 140,
+              "y": 60
+            }
+          },
+          {
+            "id": "dft_0c156f62",
+            "ipType": "Pipeline",
+            "instanceName": "pp_1",
+            "position": {
+              "x": 340,
+              "y": 60
+            }
+          },
+          {
+            "id": "dft_c4e9e303",
+            "ipType": "Multiplexer",
+            "instanceName": "mux_1",
+            "position": {
+              "x": 540,
+              "y": 60
+            }
+          },
+          {
+            "id": "dft_6e35242b",
+            "ipType": "ScanHost",
+            "instanceName": "ssh_1",
+            "position": {
+              "x": 740,
+              "y": 60
+            }
+          }
+        ],
+        "dftWires": [
+          {
+            "id": "dw_ca2660d6",
+            "from": {
+              "kind": "iface",
+              "instanceId": "p",
+              "interfaceId": "ext",
+              "pin": "out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_f6ab545c",
+              "port": "bus_data_in"
+            }
+          },
+          {
+            "id": "dw_b5961197",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_f6ab545c",
+              "port": "bus_data_out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_c4e9e303",
+              "port": "master_bus_data_in"
+            }
+          },
+          {
+            "id": "dw_2995036e",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_f6ab545c",
+              "port": "bus_data_out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_0c156f62",
+              "port": "bus_data_in"
+            }
+          },
+          {
+            "id": "dw_e324ab9f",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_0c156f62",
+              "port": "bus_data_out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_c4e9e303",
+              "port": "secondary_bus_data_in"
+            }
+          },
+          {
+            "id": "dw_6c4c205f",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_c4e9e303",
+              "port": "bus_data_out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_6e35242b",
+              "port": "bus_data_in"
+            }
+          },
+          {
+            "id": "dw_b86fa05b",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_6e35242b",
+              "port": "bus_data_out"
+            },
+            "to": {
+              "kind": "iface",
+              "instanceId": "p",
+              "interfaceId": "ext",
+              "pin": "in"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ui": {
+    "openDefId": "p",
+    "rootDefId": "p"
+  }
+}

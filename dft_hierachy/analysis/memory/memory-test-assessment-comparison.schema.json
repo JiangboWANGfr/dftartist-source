@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:memory-test-assessment-comparison:1",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-memory-test-assessment-comparison-v1"
+        },
+        "reference": {
+          "const": 0
+        },
+        "complete": {
+          "type": "boolean"
+        },
+        "source": {
+          "$ref": "urn:dft-studio:analysis:memory-test-comparison:1#/oneOf/0"
+        },
+        "clockLimits": {
+          "$ref": "urn:dft-studio:analysis:memory-test-assessment:1#/oneOf/0/properties/clockLimits"
+        },
+        "clocks": {
+          "$ref": "urn:dft-studio:analysis:memory-test-assessment:1#/oneOf/0/properties/clocks"
+        },
+        "configurations": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "properties": {
+              "coverage": {
+                "$ref": "urn:dft-studio:analysis:memory-test-coverage:1#/oneOf/0/properties/coverage"
+              },
+              "domains": {
+                "$ref": "urn:dft-studio:analysis:memory-test-assessment:1#/oneOf/0/properties/domains"
+              },
+              "check": {
+                "$ref": "urn:dft-studio:analysis:memory-test-assessment:1#/oneOf/0/properties/check"
+              },
+              "assessment": {
+                "$ref": "urn:dft-studio:analysis:memory-test-assessment:1#/oneOf/0/properties/assessment"
+              }
+            },
+            "required": [
+              "coverage",
+              "domains",
+              "check",
+              "assessment"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "rows": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "properties": {
+              "comparable": {
+                "type": "boolean"
+              },
+              "delta": {
+                "type": "object",
+                "properties": {
+                  "satisfiedInstances": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "blockedInstances": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "pendingInstances": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "satisfiedInstances",
+                  "blockedInstances",
+                  "pendingInstances"
+                ],
+                "additionalProperties": false
+              },
+              "transitions": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "macro": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "referenceStatus": {
+                      "enum": [
+                        "satisfied",
+                        "blocked",
+                        "pending"
+                      ]
+                    },
+                    "status": {
+                      "enum": [
+                        "satisfied",
+                        "blocked",
+                        "pending"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "macro",
+                    "referenceStatus",
+                    "status"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "comparable",
+              "transitions"
+            ],
+            "additionalProperties": false,
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "comparable": {
+                      "const": true
+                    }
+                  }
+                },
+                "then": {
+                  "required": [
+                    "delta"
+                  ]
+                },
+                "else": {
+                  "not": {
+                    "required": [
+                      "delta"
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "reference",
+        "complete",
+        "source",
+        "clockLimits",
+        "clocks",
+        "configurations",
+        "rows"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:memory-map:1#/oneOf/1"
+    }
+  ]
+}

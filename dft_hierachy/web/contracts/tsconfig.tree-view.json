@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "react": [
+        "../experiments/m5-tree-ui/node_modules/@types/react/index.d.ts"
+      ]
+    }
+  },
+  "files": ["m5-tree-view.d.ts", "m5-tree-view.consumer.ts"],
+  "include": []
+}

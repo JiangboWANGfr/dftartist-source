@@ -1,0 +1,150 @@
+impl_manager:
+        stage1: 
+           design_id: mbist
+           feature: [list mbist bscan ist]   //use for find the spec (same path with this dft_imp_cfg.yaml) which name is mbist.spec bscan.spec ist.spec(which exist) and generate a source in the  mbist/1.run_mbist_insertion which insdie impl_script_manager
+           dft_req: [list memory_test boundary_scan]
+           default_setting:
+               dont_touch_enables_of_clock_gater: on
+               blackbox_design_ware_modules: on
+               skip_synthesis_of_two_dimensional_arrays_larger_than: unlimited
+           exclude_syntehsis: "[list DW_*]"
+        stage2: 
+           design_id: logic_test
+           feature: [list edt occ ssn lbist]
+           dft_req: [list logic_test]
+        stage3: me
+        stage4: scan
+        stage5: atpg
+        stage6: simulation
+impl_script_manager:
+        mbist:
+           - 1.run_mbist_insertion
+           - 2.run_pattern_gen
+        logic_test:
+           - 1.run_logictest_insertion
+           - 2.run_pattern_gen  
+        me:
+          1.synthesis:
+           - 1.run_synthesis
+          2.formal:
+           - 1.run_r2r_formal
+           - 2.run_r2g_formal
+           - 3.run_g2g_formal
+        scan:
+           - 1.run_scan_insertion
+        atpg_manager:
+          atpg_pr:
+             - 1.run_int_edt_sa
+             - 2.run_ext_edt_sa
+             - 3.run_int_edt_as
+             - 4.run_ext_edt_as
+           retarget:
+             - 1.run_xxx_int_edt_sa_retarget
+             - 2.run_xxx_int_edt_as_retarget
+        simulation:
+            - 1.rtl_simulation
+            - 2.gate_udly_simulation
+            - 3.gate_sdf_simulation
+
+    user_override:
+        mbist:
+           - 1.run_mbist_insert
+           - 2.run_pattern_gen
+        logic_test:
+           - 1.run_logictest_insert
+           - 2.run_pattern_gen  
+        me:
+           - 1.run_synthesis_lec
+           - 2.run_r2r_formal
+           - 3.run_r2g_formal
+           - 4.run_g2g_formal
+        scan:
+           - 1.run_scan_insertion
+        atpg_manager:
+          atpg:
+             - 1.run_int_edt_sa
+             - 2.run_ext_edt_sa
+             - 3.run_int_edt_as
+             - 4.run_ext_edt_as
+           retarget:
+             - 1.run_xxx_int_edt_sa_retarget
+             - 2.run_xxx_int_edt_as_retarget
+
+bscan_setting:
+   max_segment_length_for_logictest: 80
+   dft_signal:
+       - bscan_clamp_enable
+       - bscan_input_isolation_enable
+       - output_pad_disable 
+   no_bsd_pad: [list reset_n ptest_dfx_mode ptest si0 si1] 
+   int_aux:
+     input: [list dat1 dat2 dat3]
+     output: [list dato datp]
+
+mbist_setting: 
+   scan_friendly:
+       scan_bypass_logic: syncmux
+       data_bits_per_bypass_signal: 5
+       observation_xor_size: 5
+   dft_uniquify_design: on
+   dft_uniquify_postfix: _idstudio
+   algorithm:
+      extra_algo: "[list Smarch TessentHammerReadFastX TessentHammerReadFastY TessentHammerWriteFastX TessentHammerWriteFastY]"
+      algo_lib:
+          list0: /home/ywang/Tools/DFTArtist_2024_1/lib/dft_assistor/sram_testability_advisor/tessent/algorithm/TessentHammerReadFastX.tcd_mem_lib
+          list1: /home/ywang/Tools/DFTArtist_2024_1/lib/dft_assistor/sram_testability_advisor/tessent/algorithm/TessentHammerReadFastY.tcd_mem_lib
+          list2: /home/ywang/Tools/DFTArtist_2024_1/lib/dft_assistor/sram_testability_advisor/tessent/algorithm/TessentHammerWriteFastX.tcd_mem_lib
+          list3: /home/ywang/Tools/DFTArtist_2024_1/lib/dft_assistor/sram_testability_advisor/tessent/algorithm/TessentHammerWriteFastY.tcd_mem_lib
+   opset:
+      source_list:
+          list0: /home/ywang/Tools/DFTArtist_2024_1/lib/dft_assistor/sram_testability_advisor/tessent/opset/SyncWRvcd_DRDF_RTE.text
+          list1: /home/ywang/Tools/DFTArtist_2024_1/lib/dft_assistor/sram_testability_advisor/tessent/opset/SyncWRvcd_HR6.text
+          list2: /home/ywang/Tools/DFTArtist_2024_1/lib/dft_assistor/sram_testability_advisor/tessent/opset/SyncWRvcd_HR8.text
+      normal_controller: "[list SyncWRvcd_HR6 SyncWRvcd_HR8 SyncWRvcd_DRDF_RTE]"
+   
+logic_test_setting:
+   #STATIC_DFT_SIGNAL_VALUE_SETTING:
+   #   LIST0:
+   #       SIGNAL: -all ltest_en
+   #       VALUE: 1
+   static_dft_signal_value:
+          ltest_en:      //default
+             region: all
+             value: 1
+
+   sdc_gen: on  //default value
+   add_core_instance:
+       default_setting:
+           list0: add_core_instances -instances [get_instances *_tessent_sib_sti_inst]            
+   dft_signals:
+       register:
+          int_stuck_mode:
+              usage: scan_mode
+              scan_mode_type: internal
+          lbist_sa_mode:
+              usage: scan_mode
+              scan_mode_type: internal
+          int_transition_mode:
+              usage: scan_mode
+              scan_mode_type: internal            
+       type1:  //default setting by tool
+         list: [list ltest_en tck_occ_en memory_bypass_en edt_clock shift_capture_clock async_set_reset_static_disable async_set_reset_dynamic_disable x_bounding_en mcp_bounding_en  int_stuck_mode int_transition_mode lbist_sa_mode controller_chain_mode lbist_async_set_reset_dynamic_enable lbist_en] 
+       type2:  //from arch design by user
+          list: [list scan_en edt_update test_clock] 
+          //if below setting not specified by user, i hope you can auto set the source_node same as it name, example: scan_en source_node is scan_en;
+          scan_en: 
+               source_node: "[get_pins u_dfx_scan_enable_persistent_buf_inst/Y]"
+               associated_ports: dati
+          edt_update: 
+               source_node: "[get_pins u_dfx_scan_enable_persistent_buf_inst/Y]"
+               associated_ports: dati
+          test_clock: 
+               source_node: "[get_pins u_dfx_scan_enable_persistent_buf_inst/Y]"
+               associated_ports: dati
+scan_setting:
+     netlist: "/prj/PnR910/workareas/nanocad/liuqi/syn_1223/run_dft_asic_top_1223/results/3.syn.ultra.asic_top.1120.vg"
+     3rd_ip_interface:
+       list0: "read_verilog $prj_dir/user_material/ip_tcd/NNS28NHKCU2OPHY_P3_18FN1.v -interface_only -exclude_from_file_dictionary"
+       list1: "read_verilog $prj_dir/user_material/ip_tcd/NNS28NHKCUPSPHY_6G_18FN1.v -interface_only -exclude_from_file_dictionary"
+     
+     

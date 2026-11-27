@@ -1,0 +1,58 @@
+.hier-hierarchy-tree {
+  color: var(--hier-text, #20242b);
+  font:
+    13px/1.4 system-ui,
+    sans-serif;
+}
+.hier-hierarchy-tree [role="tree"]:focus-visible {
+  outline: 2px solid var(--hier-focus, #245bcc);
+  outline-offset: -2px;
+}
+.hier-hierarchy-tree__row {
+  cursor: default;
+}
+.hier-hierarchy-tree__row[aria-selected="true"] {
+  background: var(--hier-selected, #e0ebff);
+  font-weight: 600;
+}
+.hier-hierarchy-tree
+  [role="tree"]:focus
+  .hier-hierarchy-tree__row[data-active="true"] {
+  outline: 1px solid var(--hier-focus, #245bcc);
+  outline-offset: -1px;
+}
+.hier-hierarchy-tree__expand {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.hier-hierarchy-tree__diagnostic {
+  margin-left: 8px;
+}
+.hier-hierarchy-tree__error {
+  padding: 6px;
+  color: var(--hier-error, #a51d24);
+  border-inline-start: 3px solid currentColor;
+}
+.hier-hierarchy-tree__annotations {
+  display: inline-flex;
+  gap: 6px;
+  margin-left: 8px;
+  max-width: 240px;
+  overflow: hidden;
+}
+.hier-hierarchy-tree__annotation {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.hier-hierarchy-tree__annotation-color {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+}

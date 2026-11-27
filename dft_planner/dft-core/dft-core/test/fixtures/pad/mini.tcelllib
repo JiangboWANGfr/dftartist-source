@@ -1,0 +1,102 @@
+// handcrafted mini cell library for pad-core tests (syntax mirrors Tessent cell library)
+
+library_format_version = 9;
+
+array_delimiter = "[]";
+
+dft_cell_selection ( mini ) (
+  buffer = buf1;
+  and =  and2;
+)
+
+model buf1
+  (A, Y)
+(
+  model_source = verilog_module;
+  cell_type = buffer;
+  input (A) ( )
+  output (Y) ( )
+  (
+    primitive = _buf b1 (A, Y);
+  )
+) // end model buf1
+
+model IPAD
+  (PAD, C)
+(
+  model_source = verilog_module;
+  cell_type = pad;
+  simulation_function = buffer;
+  mode(
+    pin (C) (pad_from_pad; )
+    pin (PAD) (pad_from_io; )
+  )
+
+  input (PAD) ( )
+  output (C) ( )
+  (
+    instance = buf1 ipad_inst (PAD, C);
+  )
+) // end model IPAD
+
+model OPAD
+  (I, OEN, PAD)
+(
+  model_source = verilog_module;
+  cell_type = pad;
+  mode(
+    pin (I) (pad_to_pad; )
+    pin (OEN) (pad_enable_high; )
+    pin (PAD) (pad_to_io; )
+  )
+
+  input (I) ( )
+  input (OEN) ( )
+  output (PAD) ( )
+) // end model OPAD
+
+model iopad
+  (OEN, PAD, I, C)
+(
+  model_source = verilog_module;
+  cell_type = pad;
+  mode(
+    pin (C) (pad_from_pad; )
+    pin (I) (pad_to_pad; )
+    pin (OEN) (pad_enable_high; )
+    pin (PAD) (pad_pad_io; )
+  )
+
+  input (OEN) ( )
+  input (I) ( unused; no_fault = sa0 sa1; )
+  inout (PAD) ( )
+  output (C) ( )
+) // end model iopad
+
+model iopad_pd
+  (OEN, PAD, I, C)
+(
+  model_source = verilog_module;
+  cell_type = pad;
+  mode(
+    pin (C) (pad_from_pad; )
+    pin (I) (pad_to_pad; )
+    pin (OEN) (pad_enable_high; )
+    pin (PAD) (pad_pad_io; pad_pull0; )
+  )
+
+  input (OEN) ( )
+  input (I) ( )
+  inout (PAD) ( )
+  output (C) ( )
+) // end model iopad_pd
+
+model and2
+  (A0, A1, Y)
+(
+  model_source = verilog_module;
+  cell_type = and;
+  input (A0) ( )
+  input (A1) ( )
+  output (Y) ( )
+) // end model and2

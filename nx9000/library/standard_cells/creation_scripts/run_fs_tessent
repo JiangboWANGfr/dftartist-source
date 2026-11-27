@@ -1,0 +1,1 @@
+$TESSENT_TREE/bin/tessent -shell -dofile fs_tessent.do -log fs_tessent.log -replace

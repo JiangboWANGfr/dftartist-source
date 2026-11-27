@@ -1,0 +1,32 @@
+import assert from "node:assert/strict";
+import { test } from "node:test";
+import { mkdtemp, writeFile, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join, resolve } from "node:path";
+import { pathToFileURL } from "node:url";
+const root = process.env.HIER_A_CLIENT_MODULE_ROOT;
+const url = name => root ? pathToFileURL(join(root, name + ".js")) : new URL(`../../packages/client/dist/${name}.js`, import.meta.url);
+const { HierClient } = await import(url("index"));
+const { createProcessTransport } = await import(url("node/index"));
+function frozen(value) { if (value && typeof value === "object") { assert.equal(Object.isFrozen(value), true); for (const child of Object.values(value)) frozen(child); } }
+for (const perInstance of [false, true]) test(`A M7 frozen SDK/Core: wide cached ports and params retain ownership (${perInstance})`, { timeout: 20000 }, async t => {
+  assert.ok(process.env.HIER_BIN, "explicit own Core required");
+  const dir = await mkdtemp(join(tmpdir(), "hier-a-frozen-core-")), file = join(dir, "wide.sv");
+  const names = Array.from({ length: 512 }, (_, i) => "p" + i);
+  await writeFile(file, `module frozen_top #(parameter int WIDTH=4, parameter string LABEL="label") (${names.map(name => "input wire [WIDTH-1:0] " + name).join(",")}, output wire [WIDTH-1:0] y); assign y=p0; endmodule\n`);
+  const transport = createProcessTransport({ command: resolve(process.env.HIER_BIN), args: ["serve", file, "--top", "frozen_top", ...(perInstance ? ["--per-instance-bodies"] : [])] });
+  const frames = [], sent = [];
+  const boundary = { send(value) { sent.push(value); transport.send(value); }, close() { transport.close(); }, onClose(handler) { return transport.onClose(handler); }, onMessage(handler) { return transport.onMessage(frame => { frames.push(frame); handler(frame); if (frame?.ok && Array.isArray(frame.result) && frame.result[0]?.name) { assert.equal(Object.isFrozen(frame.result[0]), false); frame.result[0].name = "transport-only mutation"; } }); } };
+  const client = new HierClient(boundary);
+  t.after(async () => { try { client.dispose(); assert.deepEqual(await transport.exited, { code: 0, signal: null }); } finally { await rm(dir, { recursive: true, force: true }); } });
+  const snapshot = await client.ready, top = (await client.roots()).result[0]; frozen(snapshot);
+  assert.equal(top.name, "frozen_top");
+  const [ports, duplicate] = await Promise.all([client.ports(top.ref), client.ports(top.ref)]); frozen(ports);
+  assert.equal(ports, duplicate); assert.deepEqual(ports.result.map(port => port.name), [...names, "y"]);
+  assert.ok(ports.result.every(port => port.width === 4));
+  const params = await client.params(top.ref); frozen(params); assert.deepEqual(params.result.map(param => param.name), ["WIDTH", "LABEL"]);
+  const count = sent.length; assert.equal(await client.ports(top.ref), ports); assert.equal(await client.params(top.ref), params); assert.equal(sent.length, count);
+  assert.ok(frames.every(frame => !Object.isFrozen(frame)));
+  const original = JSON.stringify(ports); client.dispose(); assert.deepEqual(await transport.exited, { code: 0, signal: null });
+  assert.equal(client.snapshot, snapshot); assert.equal(JSON.stringify(ports), original); frozen(ports);
+});

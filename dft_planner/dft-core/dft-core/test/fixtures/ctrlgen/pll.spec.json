@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 2,
+  "moduleBase": "pll_ctrl",
+  "dsIndex": 1,
+  "pins": [
+    { "portName": "enable", "mode": "control", "width": 1, "stitch": "mux",
+      "target": "PLL_1/enable",
+      "muxName": "u_dfx_PLL_1_enable_persistent_mux_inst_ds1" },
+    { "portName": "LOCKED", "mode": "observe", "width": 1, "target": "PLL_1/LOCKED" }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "types": [], "lib": ["ES2022", "DOM"] },
+  "files": ["m5-source-navigation.d.ts", "m5-source-navigation.consumer.ts"],
+  "include": []
+}

@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 2,
+  "moduleBase": "fbi_instance_ctrl",
+  "pins": [
+    { "portName": "read_buffer", "mode": "control", "width": 1, "stitch": "replace",
+      "target": "u_dfx_fbi_instance_read_buffer_persistent_buf/A" },
+    { "portName": "donFB", "mode": "observe", "width": 1,
+      "target": "u_dfx_fbi_instance_donFB_persistent_buf/Y" }
+  ]
+}

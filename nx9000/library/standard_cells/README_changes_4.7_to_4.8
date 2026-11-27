@@ -1,0 +1,18 @@
+
+Changes to 4.8 from 4.7
+
+1. 8 new 'cell_type = clock_dff' were added to adk.v and adk.lib -- TPD-90869
+   4 posedge -- no asynchs, set, reset, both
+   4 negedge -- no asynchs, set, reset, both   
+   CAVEAT: Simply copied dff cells and changed name and removed QB output.
+           Assumed clock_dff does not need different Liberty timing or attributes than dff.
+
+2. Added 2 new clock gaters (mixed enable polarities -- HI/LO and LO/HI) to adk.v and adk.lib
+
+3. Added 4 new clock shapers (mixed enable polarities -- HI/HI HI/LO LO/HI LO/LO) to adk.v and adk.lib
+
+
+
+
+
+     

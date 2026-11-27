@@ -1,0 +1,10 @@
+lec_conformal:
+  name: cpu0_sys
+  golden_rtl: /prj/PnR910/workareas/nanocad/liuqi/LSW_DFT_1221/design/cpu0_sys/cpu0_sys_flat.vc
+  revised_rtl: /prj/PnR910/workareas/nanocad/roger/LSW_DFT_1221/dft_path/cpu0_sys/cpu0_sys.vc_et
+  golden_netlist: netlist/golden/design_mapped.v
+  revised_netlist: netlist/revised/design_opt.v
+  dft_r2r_constraint_file: /prj/PnR910/workareas/nanocad/liuqi/LSW_DFT_1220/user_material/lec_const/cpu0_sys_r2r_const.tcl
+  dft_g2g_constraint_file: constraints/dft.tcl
+  cell_lib: /s4d0/pdk/smic/smic28hkcp/STD/SCC28NHKCPE_HSC35P140_PMK_RVT_V0p1/liberty/1.0v/scc28nhkcpe_hsc35p140_pmk_rvt_tt_v1p0_25c_ccs.lib /s4d0/pdk/smic/smic28hkcp/STD/SCC28NHKCPE_HSC35P140_RVT_V0p1/liberty/1.0v/scc28nhkcpe_hsc35p140_rvt_tt_v1p0_25c_ccs.lib /s4d0/pdk/smic/smic28hkcp/STD/SCC28NHKCP_HDC30P140_ECO_HVT_V0p1/liberty/1.0v/scc28nhkcp_hdc30p140_eco_hvt_tt_v1p0_25c_ccs.lib 
+  svf:  xxxx.svf

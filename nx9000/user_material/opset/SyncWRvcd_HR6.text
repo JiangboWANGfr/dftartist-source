@@ -1,0 +1,306 @@
+//
+//  This material contains trade secrets or otherwise confidential                                                       
+//  information owned by Siemens Industry Software Inc. or its affiliates                                                    
+//  (collectively, "SISW"), or its licensors. Access to and use of this                                                     
+//  information is strictly limited as set forth in the Customer's                                                        
+//  applicable agreements with SISW. 
+//
+//  Unpublished work. Copyright 2024 Siemens
+//
+//  Technology Release: 2024.1
+OperationSet(SyncWRvcd_HR6) {
+   Operation (NoOperation) {
+      Tick { 
+         Select       : On;
+         OutputEnable : On;
+      }
+      Tick {
+      }
+      Tick {
+      }
+      Tick {
+      }
+   }
+   Operation (Write) {
+      Tick {
+         Select            : On;
+         writeEnable       : On;
+         ReadEnable        : Off;
+         ShadowReadEnable  : On;
+         ShadowReadAddress : On;
+         OutputEnable      : On;
+      }
+      Tick {
+         Select            : On;
+         WriteEnable       : Off;
+         ReadEnable        : On;
+         ShadowReadAddress : Off;
+      }
+   }
+
+   Operation (Read) {
+      Tick {
+         Select            : On;
+         writeEnable       : Off;
+         ReadEnable        : On;
+         ShadowReadEnable  : On;
+         OutputEnable      : On;
+      }
+      Tick {
+         Select            : On;
+         WriteEnable       : Off;
+         ReadEnable        : On;
+         OutputEnable      : On;
+         ShadowReadEnable  : On;
+         StrobeDataOut;
+      }
+      Tick {
+      }
+      Tick {
+      }
+      Tick {
+      }
+      Tick {
+      }
+      Tick {
+      }
+      Tick {
+         Select            : On;
+         WriteEnable       : Off;
+         ReadEnable        : On;
+         OutputEnable      : On;
+         ShadowReadEnable  : On;
+         StrobeDataOut;
+      }
+
+   }
+
+   Operation (ReadModifyWrite) {
+      Tick{
+         Select            : On;
+         WriteEnable       : Off;
+         ReadEnable        : On;
+         ShadowReadEnable  : On;
+         OutputEnable      : On;
+      }
+      Tick{
+         Select            : On;
+         WriteEnable       : On;
+         ReadEnable        : Off;
+         ShadowReadAddress : On;
+         StrobeDataOut;
+      }
+   }
+
+   Operation (ReadModifyWrite_WithSelectOff) {
+      Tick{
+         Select            : Off;
+         WriteEnable       : Off;
+         ReadEnable        : On;
+         OutputEnable      : On;
+      }
+      Tick{
+         Select            : Off;
+         WriteEnable       : On;
+         ReadEnable        : Off;
+         StrobeDataOut;
+      }
+   }
+
+   Operation (WriteReadCompare) {
+      Tick {
+         Select            : On;
+         writeEnable       : On;
+         ReadEnable        : Off;
+         ShadowReadEnable  : On;
+         ShadowReadAddress : On;
+         OutputEnable      : On;
+      }
+      Tick { 
+         Select            : On;
+         WriteEnable       : Off;
+         ReadEnable        : On;
+         ShadowReadAddress : Off;
+         OutputEnable      : On ;
+      }
+      Tick {
+         Select            : On;
+         WriteEnable       : Off;
+         ReadEnable        : Off;
+         ShadowReadAddress : Off;
+         OutputEnable      : On ;
+         StrobeDataOut;
+      }
+   }
+
+   Operation (WriteReadCompare_EvenGWE_ON) {
+      Tick {
+         Select               : On;
+         writeEnable          : On;
+         ReadEnable           : Off;
+         ShadowReadEnable     : On;
+         ShadowReadAddress    : On;
+         OutputEnable         : On;
+         OddGroupWriteEnable  : Off;
+         EvenGroupWriteEnable : On;
+      }
+      Tick {
+         Select               : On;
+         WriteEnable          : Off;
+         ReadEnable           : On;
+         ShadowReadAddress    : Off;
+         OutputEnable         : On;
+         OddGroupWriteEnable  : Off;
+         EvenGroupWriteEnable : On;
+      }
+      Tick {
+         Select                : On;
+         WriteEnable           : Off;
+         ReadEnable            : Off;
+         OutputEnable          : On;
+         OddGroupWriteEnable   : Off;
+         EvenGroupWriteEnable  : On;
+         StrobeDataOut;
+      }
+   }
+
+   Operation (WriteReadCompare_OddGWE_ON) {
+      Tick {
+         Select               : On;
+         writeEnable          : On;
+         ReadEnable           : Off;
+         ShadowReadEnable     : On;
+         ShadowReadAddress    : On;
+         OutputEnable         : On;
+         OddGroupWriteEnable  : On;
+         EvenGroupWriteEnable : Off;
+      }
+      Tick { 
+         Select               : On;
+         WriteEnable          : Off;
+         ReadEnable           : On;
+         ShadowReadAddress    : Off;
+         OutputEnable         : On;
+         OddGroupWriteEnable  : On;
+         EvenGroupWriteEnable : Off;
+      }
+      Tick {
+         Select               : On;
+         WriteEnable          : Off;
+         ReadEnable           : Off;
+         OutputEnable         : On;
+         OddGroupWriteEnable  : On;
+         EvenGroupWriteEnable : Off;
+         StrobeDataOut;
+      }
+   }
+
+   Operation (WriteReadCompare_AllGWE_OFF) { 
+      Tick {
+         Select               : On;
+         writeEnable          : On;
+         ReadEnable           : Off;
+         ShadowReadEnable     : On;
+         ShadowReadAddress    : On;
+         OutputEnable         : On;
+         OddGroupWriteEnable  : Off;
+         EvenGroupWriteEnable : Off;
+      }
+      Tick {
+         Select               : On;
+         WriteEnable          : Off;
+         ReadEnable           : On;
+         ShadowReadAddress    : Off;
+         OutputEnable         : On;
+         OddGroupWriteEnable  : Off;
+         EvenGroupWriteEnable : Off;
+      }
+      Tick {
+         Select               : On;
+         WriteEnable          : Off;
+         ReadEnable           : Off;
+         OutputEnable         : On;
+         OddGroupWriteEnable  : Off;
+         EvenGroupWriteEnable : Off;
+         StrobeDataOut;
+      }
+   }
+
+   Operation (Read_WithReadEnableOff) {
+      Tick {
+         Select       : On;
+         writeEnable  : Off;
+         ReadEnable   : Off;
+         OutputEnable : On;
+      }
+      Tick {
+         Select       : On;
+         WriteEnable  : Off;
+         ReadEnable   : Off;
+         StrobeDataOut;
+      }
+   }
+   Operation (ReadModifyWrite_Column_ShadowWriteRead) { 
+      Tick{
+         Select                       : On;
+         WriteEnable                  : Off;
+         ConcurrentWriteColumnAddress : On;
+         ConcurrentWriteDataPolarity  : Inverse;
+         ReadEnable                   : On;
+         ConcurrentReadEnable         : On;
+         OutputEnable                 : On;
+      }
+      Tick{
+         Select                       : On;
+         ConcurrentWriteColumnAddress : Off ;
+         WriteEnable                  : On;
+         ConcurrentReadEnable         : On;
+         ConcurrentReadColumnAddress  : On;
+         ReadEnable                   : Off ;
+         StrobeDataOut;
+      }
+   }
+
+   Operation (ReadModifyWrite_Row_ShadowWriteRead) {
+      Tick{
+         Select                       : On;
+         WriteEnable                  : Off;
+         ConcurrentWriteRowAddress    : On;
+         ConcurrentWriteDataPolarity  : Inverse;
+         ReadEnable                   : On;
+         OutputEnable                 : On;
+      }
+      Tick{
+         Select                       : On;
+         WriteEnable                  : On;
+         ReadEnable                   : Off;
+         ConcurrentWriteRowAddress    : Off;
+         ConcurrentReadEnable         : On;
+         ConcurrentReadRowAddress     : On;
+         StrobeDataOut;
+      }
+   }
+
+   Operation (WriteRead_Column_ShadowReadWrite) {
+      Tick {
+         Select                      : On;
+         writeEnable                 : On;
+         ReadEnable                  : Off;
+         ConcurrentReadEnable        : On;
+         ConcurrentReadColumnAddress : On;
+         OutputEnable                : On ;
+      }
+      Tick {
+         Select                      : On;
+         WriteEnable                 : Off;
+         ReadEnable                  : On;
+         ConcurrentReadColumnAddress : Off;
+         ConcurrentWriteColumnAddress: On;
+         ConcurrentWriteDataPolarity : Inverse;
+         OutputEnable                : On;
+      }
+   }
+}
+
+
+

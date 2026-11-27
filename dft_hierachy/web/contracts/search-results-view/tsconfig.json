@@ -1,0 +1,5 @@
+{
+  "extends": "../tsconfig.json",
+  "files": ["search-results-view.d.ts", "consumer.ts"],
+  "include": []
+}

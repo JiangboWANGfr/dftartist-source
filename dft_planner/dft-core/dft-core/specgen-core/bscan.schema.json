@@ -1,0 +1,57 @@
+{
+  "components": {
+    "HostBScanInterface": {
+      "name": "HostBScanInterface",
+      "id": { "kind": "id" },
+      "props": [],
+      "blocks": []
+    },
+    "EBScanPipeline": {
+      "name": "EBScanPipeline",
+      "id": { "kind": "id" },
+      "props": [
+        { "name": "so_retiming", "type": "enum", "values": ["on", "off"], "default": "", "spec": "on | off" },
+        { "name": "parent_instance", "type": "text", "default": "", "placeholder": "instance_name", "spec": "instance_name" },
+        { "name": "leaf_instance_name", "type": "text", "default": "", "placeholder": "leaf_instance_name", "spec": "leaf_instance_name" }
+      ],
+      "blocks": [
+        {
+          "name": "Interface",
+          "id": null,
+          "props": [
+            { "name": "bscan_clock", "type": "text", "default": "", "placeholder": "port_name", "spec": "port_name" },
+            { "name": "select", "type": "text", "default": "", "placeholder": "port_name", "spec": "port_name" },
+            { "name": "shift_en", "type": "text", "default": "", "placeholder": "port_name", "spec": "port_name" },
+            { "name": "scan_in", "type": "text", "default": "", "placeholder": "port_name", "spec": "port_name" },
+            { "name": "scan_out", "type": "text", "default": "", "placeholder": "port_name", "spec": "port_name" }
+          ],
+          "blocks": []
+        }
+      ]
+    },
+    "EBScanInstance": {
+      "name": "EBScanInstance",
+      "id": { "kind": "id" },
+      "props": [],
+      "blocks": []
+    },
+    "SecondaryEBScanInterface": {
+      "name": "SecondaryEBScanInterface",
+      "id": { "kind": "id" },
+      "props": [
+        { "name": "select", "type": "text", "default": "", "placeholder": "port_name", "spec": "port_name" },
+        { "name": "reset", "type": "text", "default": "", "placeholder": "port_name", "spec": "port_name" },
+        { "name": "reset_present", "type": "enum", "values": ["on", "off", "auto"], "default": "", "spec": "on | off | auto" },
+        { "name": "bscan_clock", "type": "text", "default": "", "placeholder": "port_name", "spec": "port_name" },
+        { "name": "capture_en", "type": "text", "default": "", "placeholder": "port_name", "spec": "port_name" },
+        { "name": "shift_en", "type": "text", "default": "", "placeholder": "port_name", "spec": "port_name" },
+        { "name": "update_en", "type": "text", "default": "", "placeholder": "port_name", "spec": "port_name" },
+        { "name": "scan_out", "type": "text", "default": "", "placeholder": "port_name", "spec": "port_name" },
+        { "name": "scan_in", "type": "text", "default": "", "placeholder": "port_name", "spec": "port_name" },
+        { "name": "force_disable", "type": "text", "default": "", "placeholder": "port_name", "spec": "port_name" },
+        { "name": "force_disable_present", "type": "enum", "values": ["on", "off", "auto"], "default": "", "spec": "on | off | auto" }
+      ],
+      "blocks": []
+    }
+  }
+}

@@ -1,0 +1,108 @@
+
+Initializing...
+#enable_write_lib_mode
+read_lib ../liberty/adk.lib
+Reading '/wv/donr_nb/new_4.8_hardwired/my_local_prerequisite/techlib_adk.tnt/4.8/liberty/adk.lib' ...
+Information: Line 19822, Cell 'cgand', Complex function sequential cell will skip
+ sequential cell timing consistency check. (LIBG-275)
+Information: Line 19822, Cell 'cgand', Derived ICG type for cell 'cgand' is 'latch_posedge_precontrol'. (LIBG-265)
+Warning: Line 19822, Cell 'cgand', Cell(cgand): The function cannot be recognized 
+        during functional optimization by Design Compiler. (LIBG-205)
+Information: Line 19950, Cell 'cgor', Complex function sequential cell will skip
+ sequential cell timing consistency check. (LIBG-275)
+Information: Line 19950, Cell 'cgor', Derived ICG type for cell 'cgor' is 'latch_negedge_precontrol'. (LIBG-265)
+Warning: Line 19950, Cell 'cgor', Cell(cgor): The function cannot be recognized 
+        during functional optimization by Design Compiler. (LIBG-205)
+Information: Line 20078, Cell 'cgand0', Complex function sequential cell will skip
+ sequential cell timing consistency check. (LIBG-275)
+Information: Line 20202, Cell 'cgor0', Complex function sequential cell will skip
+ sequential cell timing consistency check. (LIBG-275)
+Information: Line 20324, Cell 'cgand_fe_inv', Complex function sequential cell will skip
+ sequential cell timing consistency check. (LIBG-275)
+Information: Line 20449, Cell 'cgand_te_inv', Complex function sequential cell will skip
+ sequential cell timing consistency check. (LIBG-275)
+Information: Line 22620, Cell 'sync_cell', Complex function sequential cell will skip
+ sequential cell timing consistency check. (LIBG-275)
+Warning: Line 22620, Cell 'sync_cell', Cell(sync_cell): The function cannot be recognized 
+        during functional optimization by Design Compiler. (LIBG-205)
+Information: Line 22784, Cell 'scan_sync_cell', Complex function sequential cell will skip
+ sequential cell timing consistency check. (LIBG-275)
+Warning: Line 22784, Cell 'scan_sync_cell', Cell(scan_sync_cell): The function cannot be recognized 
+        during functional optimization by Design Compiler. (LIBG-205)
+Information: Line 23078, Cell 'sync_cell_rst', Complex function sequential cell will skip
+ sequential cell timing consistency check. (LIBG-275)
+Warning: Line 23078, Cell 'sync_cell_rst', Cell(sync_cell_rst): The function cannot be recognized 
+        during functional optimization by Design Compiler. (LIBG-205)
+Information: Line 23247, Cell 'scan_sync_cell_rst', Complex function sequential cell will skip
+ sequential cell timing consistency check. (LIBG-275)
+Warning: Line 23247, Cell 'scan_sync_cell_rst', Cell(scan_sync_cell_rst): The function cannot be recognized 
+        during functional optimization by Design Compiler. (LIBG-205)
+Information: Line 23552, Cell 'sync_cell_set', Complex function sequential cell will skip
+ sequential cell timing consistency check. (LIBG-275)
+Warning: Line 23552, Cell 'sync_cell_set', Cell(sync_cell_set): The function cannot be recognized 
+        during functional optimization by Design Compiler. (LIBG-205)
+Information: Line 23721, Cell 'scan_sync_cell_set', Complex function sequential cell will skip
+ sequential cell timing consistency check. (LIBG-275)
+Warning: Line 23721, Cell 'scan_sync_cell_set', Cell(scan_sync_cell_set): The function cannot be recognized 
+        during functional optimization by Design Compiler. (LIBG-205)
+Information: Line 24026, Cell 'sync_cell_set_rst', Complex function sequential cell will skip
+ sequential cell timing consistency check. (LIBG-275)
+Warning: Line 24026, Cell 'sync_cell_set_rst', Cell(sync_cell_set_rst): The function cannot be recognized 
+        during functional optimization by Design Compiler. (LIBG-205)
+Information: Line 24201, Cell 'scan_sync_cell_set_rst', Complex function sequential cell will skip
+ sequential cell timing consistency check. (LIBG-275)
+Warning: Line 24201, Cell 'scan_sync_cell_set_rst', Cell(scan_sync_cell_set_rst): The function cannot be recognized 
+        during functional optimization by Design Compiler. (LIBG-205)
+Information: Line 24521, Cell 'nck_sync_cell', Complex function sequential cell will skip
+ sequential cell timing consistency check. (LIBG-275)
+Warning: Line 24521, Cell 'nck_sync_cell', Cell(nck_sync_cell): The function cannot be recognized 
+        during functional optimization by Design Compiler. (LIBG-205)
+Information: Line 24685, Cell 'nck_scan_sync_cell', Complex function sequential cell will skip
+ sequential cell timing consistency check. (LIBG-275)
+Warning: Line 24685, Cell 'nck_scan_sync_cell', Cell(nck_scan_sync_cell): The function cannot be recognized 
+        during functional optimization by Design Compiler. (LIBG-205)
+Information: Line 24979, Cell 'nck_sync_cell_rst', Complex function sequential cell will skip
+ sequential cell timing consistency check. (LIBG-275)
+Warning: Line 24979, Cell 'nck_sync_cell_rst', Cell(nck_sync_cell_rst): The function cannot be recognized 
+        during functional optimization by Design Compiler. (LIBG-205)
+Information: Line 25148, Cell 'nck_scan_sync_cell_rst', Complex function sequential cell will skip
+ sequential cell timing consistency check. (LIBG-275)
+Warning: Line 25148, Cell 'nck_scan_sync_cell_rst', Cell(nck_scan_sync_cell_rst): The function cannot be recognized 
+        during functional optimization by Design Compiler. (LIBG-205)
+Information: Line 25453, Cell 'nck_sync_cell_set', Complex function sequential cell will skip
+ sequential cell timing consistency check. (LIBG-275)
+Warning: Line 25453, Cell 'nck_sync_cell_set', Cell(nck_sync_cell_set): The function cannot be recognized 
+        during functional optimization by Design Compiler. (LIBG-205)
+Information: Line 25622, Cell 'nck_scan_sync_cell_set', Complex function sequential cell will skip
+ sequential cell timing consistency check. (LIBG-275)
+Warning: Line 25622, Cell 'nck_scan_sync_cell_set', Cell(nck_scan_sync_cell_set): The function cannot be recognized 
+        during functional optimization by Design Compiler. (LIBG-205)
+Information: Line 25927, Cell 'nck_sync_cell_set_rst', Complex function sequential cell will skip
+ sequential cell timing consistency check. (LIBG-275)
+Warning: Line 25927, Cell 'nck_sync_cell_set_rst', Cell(nck_sync_cell_set_rst): The function cannot be recognized 
+        during functional optimization by Design Compiler. (LIBG-205)
+Information: Line 26102, Cell 'nck_scan_sync_cell_set_rst', Complex function sequential cell will skip
+ sequential cell timing consistency check. (LIBG-275)
+Warning: Line 26102, Cell 'nck_scan_sync_cell_set_rst', Cell(nck_scan_sync_cell_set_rst): The function cannot be recognized 
+        during functional optimization by Design Compiler. (LIBG-205)
+Warning: Line 26911, Cell 'clock_shaper', Cell(clock_shaper): The function cannot be recognized 
+        during functional optimization by Design Compiler. (LIBG-205)
+Warning: Line 27043, Cell 'clock_shaper_en1_inv', Cell(clock_shaper_en1_inv): The function cannot be recognized 
+        during functional optimization by Design Compiler. (LIBG-205)
+Warning: Line 27175, Cell 'clock_shaper_en0_inv', Cell(clock_shaper_en0_inv): The function cannot be recognized 
+        during functional optimization by Design Compiler. (LIBG-205)
+Warning: Line 27307, Cell 'clock_shaper_en0_inv_en1_inv', Cell(clock_shaper_en0_inv_en1_inv): The function cannot be recognized 
+        during functional optimization by Design Compiler. (LIBG-205)
+Technology library 'adk_typ' read successfully
+1
+write_lib adk_typ -f db -o ../synopsys/adk.db
+Wrote the 'adk_typ' library to '/wv/donr_nb/new_4.8_hardwired/my_local_prerequisite/techlib_adk.tnt/4.8/creation_scripts/../synopsys/adk.db' successfully
+1
+1
+lc_shell> exit
+Maximum memory usage for this session: 84.98 MB
+Maximum memory usage for this session including child processes: 84.98 MB
+CPU usage for this session:      3 seconds (  0.00 hours)
+Elapsed time for this session:     10 seconds (  0.00 hours)
+Thank you for using Library Compiler.
+

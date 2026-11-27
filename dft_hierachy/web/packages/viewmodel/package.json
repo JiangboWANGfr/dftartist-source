@@ -1,0 +1,13 @@
+{
+  "name": "@hier/viewmodel",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "@hier/client": "*",
+    "@hier/protocol-types": "*",
+    "elkjs": "0.12.0"
+  }
+}

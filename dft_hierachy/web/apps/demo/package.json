@@ -1,0 +1,6 @@
+{
+  "name": "@hier/demo",
+  "private": true,
+  "type": "module",
+  "main": "dist/main.mjs"
+}

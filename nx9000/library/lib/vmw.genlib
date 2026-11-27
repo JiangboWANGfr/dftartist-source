@@ -1,0 +1,123 @@
+GATE RTL_VCC 0.00 out = CONST1;
+GATE RTL_GND 0.00 out = CONST0;
+
+GATE VMW_BUF 1.00 Z = A;
+  PIN A NONINV 0.00 999.0 1.0 1.0 1.0 1.0 
+
+GATE VMW_INV  0.00 Z = !A;
+  PIN A INV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_MUX2  3.00  Z = (( A * !S ) + ( B * S));
+  PIN * UNKNOWN 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_AND2  2.00 Z = (A * B);
+  PIN * NONINV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_AND3  3.00 Z = (A * B * C);
+  PIN * NONINV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_AND4  5.00 Z = (A * B * C * D);
+  PIN * NONINV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_AND5  6.00 Z = (A * B * C * D * E);
+  PIN * NONINV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_NAND2  2.00 Z = !(A * B);
+  PIN * INV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_NAND3  3.00 Z = !(A * B * C);
+  PIN * INV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_NAND4  5.00 Z = !(A * B * C * D);
+  PIN * INV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_NAND5  6.00 Z = !(A * B * C * D * E);
+  PIN * INV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_OR2  2.00 Z = (A + B);
+  PIN * NONINV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_OR3  3.00 Z = (A + B + C);
+  PIN * NONINV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_OR4  5.00 Z = (A + B + C + D);
+  PIN * NONINV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_OR5  6.00 Z = (A + B + C + D + E);
+  PIN * NONINV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_NOR2  2.00 Z = !(A + B);
+  PIN * INV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_NOR3  3.00 Z = !(A + B + C);
+  PIN * INV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_NOR4  5.00 Z = !(A + B + C + D);
+  PIN * INV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_NOR5  6.00 Z = !(A + B + C + D + E);
+  PIN * INV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_XOR2  2.00 Z = ((!A * B) + (A * !B));
+  PIN * UNKNOWN 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_XOR3  3.00 Z = ((!A * !B * C) + (!A * B * !C) + (A * !B * !C) + (A * B * C));
+  PIN * UNKNOWN 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_XNOR2  2.00 Z = ((!A * !B) + (A * B));
+  PIN * UNKNOWN 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_XNOR3  3.00 Z = ((!A * !B * !C) + (!A * B * C) + (A * !B * C) + (A * B * !C));
+  PIN * UNKNOWN 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_AO21  3.00 Z = A * B + C;
+  PIN * NONINV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_AO211 4.00 Z = (A * B) + C + D;
+  PIN * NONINV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_AO22  5.00 Z = (A * B) + (C * D);
+  PIN * NONINV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_AO222  6.00 Z = (A * B) + (C * D) + (E * F);
+  PIN * NONINV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_AOI21 3.00 Z = !(A * B + C);
+  PIN * INV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_AOI211 5.00 Z = !(A * B + C + D);
+  PIN * INV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_AOI22  5.00 Z = !((A * B) + (C * D));
+  PIN * INV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_AOI222  7.00 Z = !((A * B) + (C * D) + (E * F));
+  PIN * INV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_OA31  4.00  Z = (A + B + C) * D;
+  PIN * NONINV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_OAI21 3.00  Z = !((A + B) * C);
+  PIN * INV 0.00 999.0 1.0 1.0 1.0 1.0 
+
+GATE VMW_OAI211 5.00 Z = !((A + B) * C * D);
+  PIN * INV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE  VMW_OAI22 5.00 Z = !((A + B) * (C + D));
+  PIN * INV 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_MAJ3  3.00  Z = A * B + A * C + B * C;
+  PIN * NONINV 0.00 999.0 1.0 1.0 1.0 1.0
+
+
+GATE VMW_MUX2I  3.00  Z = !(( B * S ) + ( A * !S));
+  PIN * UNKNOWN 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_MUX21L  5.00 Z = !((A * !S * SN) + (B * S * !SN));
+  PIN * UNKNOWN 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_MUX4  7.00 Z = ((D0 * !A * !B) + (D1 * A * !B) + (D2 * !A * B) + (D3 * A * B));
+  PIN * UNKNOWN 0.00 999.0 1.0 1.0 1.0 1.0
+
+GATE VMW_OAI2222  9.00 Z = !((A + B) * (C + D) * (E + F) * (G + H));
+  PIN * NONINV 0.00 999.0 1.0 1.0 1.0 1.0

@@ -1,0 +1,999 @@
+{
+  "task": "D-M56-01",
+  "recorded_utc": "2026-10-12T07:05:48.728272+00:00",
+  "research_baseline": {
+    "head": "2b25f0fab69653a0426e2a74b09b178503add3ba",
+    "design_sha256": "28916edcb2a14725108af2120ef9ada95e1cd26a10608c91562d3bd114163874",
+    "branch": "m3"
+  },
+  "scope": "Source research and bounded experiments; not product runtime or competitor GUI acceptance",
+  "environment": {
+    "system": "macOS-26.0.1-arm64-arm-64bit-Mach-O",
+    "mac_version": "26.0.1",
+    "python": "3.13.3",
+    "node": "v24.21.0",
+    "npm": "10.9.2",
+    "typescript": "5.9.3"
+  },
+  "old_ui_readonly_check": {
+    "tracked_by_content_count": 171,
+    "changed_paths": [],
+    "method": "All 171 UI/electron source entries hash and mtime compared before/after research"
+  },
+  "old_sources": [
+    {
+      "path": "dft_planner/dft-suite/src/shell/TopBar.tsx",
+      "sha256": "12638a4c7ef500b085b6b48688ec17d4de6e970170294d83ee307bdb8e32d000",
+      "size": 1438,
+      "mtime_ns": 1787062178548478300,
+      "mtime_local": "2026-08-18T22:09:38.548478"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/shell/App.tsx",
+      "sha256": "c2bebba2eaae43276958bb81d2f5d32f2935ea79c82e7f3b16fd513618987a88",
+      "size": 9054,
+      "mtime_ns": 1787062177271122200,
+      "mtime_local": "2026-08-18T22:09:37.271122"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/store/design.ts",
+      "sha256": "41d6a45be761b499ab1be4069f3ca3172ead54545eb74d495a9087bec7b302b4",
+      "size": 6189,
+      "mtime_ns": 1787060187849659700,
+      "mtime_local": "2026-08-18T21:36:27.849660"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/store/project.ts",
+      "sha256": "e4314075113d0c9ef50e8b23972f89c3d0bb82f2022354258fef38584cc948db",
+      "size": 9931,
+      "mtime_ns": 1788700515878867900,
+      "mtime_local": "2026-09-06T21:15:15.878868"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/store/projectFile.ts",
+      "sha256": "1599ef98f92b2573c8c66ef3feada04b19b7301a284fd8e08ea6ff7ddadfff51",
+      "size": 1391,
+      "mtime_ns": 1786007273698088000,
+      "mtime_local": "2026-08-06T17:07:53.698088"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/core-bridge/client.ts",
+      "sha256": "68196b14c4adab25b4bdea6545ceab0109b2be04302d28fcb7308f2a978497d1",
+      "size": 10361,
+      "mtime_ns": 1788358373593533300,
+      "mtime_local": "2026-09-02T22:12:53.593533"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/core-bridge/specgen.ts",
+      "sha256": "66ffaaf55b13e330d01d6052a01e85c11ded1744d18b3c861d448b65d80abf93",
+      "size": 486,
+      "mtime_ns": 1783672664000000000,
+      "mtime_local": "2026-07-10T16:37:44"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/core-bridge/genconn.ts",
+      "sha256": "05e62844ec786c9b1798f21a2ef61d519f2f355e6fc864a446bd1571b7f75b29",
+      "size": 251,
+      "mtime_ns": 1782793638000000000,
+      "mtime_local": "2026-06-30T12:27:18"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/core-bridge/planRev.ts",
+      "sha256": "c3bc2d71d2225c9359e9300b0ee9012fd8f41fabe414cdb633f2f112199c35e9",
+      "size": 1079,
+      "mtime_ns": 1786358891258745800,
+      "mtime_local": "2026-08-10T18:48:11.258746"
+    },
+    {
+      "path": "dft_planner/dft-suite/electron/preload.cjs",
+      "sha256": "72e4d319205ff95e3fcae7c1716227257f6044ff46e9446544cf5762e161a0ae",
+      "size": 2948,
+      "mtime_ns": 1788702701424582300,
+      "mtime_local": "2026-09-06T21:51:41.424582"
+    },
+    {
+      "path": "dft_planner/dft-suite/electron/main.cjs",
+      "sha256": "2c4db9d2c6d7c42fe4ff4762343cf6998c68a73ba604b0e5932b6137e19c245c",
+      "size": 12726,
+      "mtime_ns": 1788702689282398600,
+      "mtime_local": "2026-09-06T21:51:29.282399"
+    },
+    {
+      "path": "dft_planner/dft-suite/electron/daemon.cjs",
+      "sha256": "9cb1f25c3ae187c1344ade62cfe6d2bfb270c6495cbd0b121f02feae1e33f969",
+      "size": 3636,
+      "mtime_ns": 1782793638000000000,
+      "mtime_local": "2026-06-30T12:27:18"
+    },
+    {
+      "path": "dft_planner/dft-suite/electron/cli.cjs",
+      "sha256": "fca2bfd80a77b7448b4a474faa4768945530a838b249ba6900276f243944725f",
+      "size": 6290,
+      "mtime_ns": 1784133380000000000,
+      "mtime_local": "2026-07-16T00:36:20"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/hierarchy/Workspace.tsx",
+      "sha256": "c9eddd4995a4d3d9cd7f4ffc89fc3274b90313a1261c31745d3f7dce184471fc",
+      "size": 4956,
+      "mtime_ns": 1785114725389451700,
+      "mtime_local": "2026-07-27T09:12:05.389452"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/hierarchy/store.ts",
+      "sha256": "6ea99f20f31af9587c540bf6eca633a498fb6b57f88f885357f5eb984026b4b2",
+      "size": 90069,
+      "mtime_ns": 1788939263852783300,
+      "mtime_local": "2026-09-09T15:34:23.852783"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/hierarchy/HierarchyTree.tsx",
+      "sha256": "0e69a66f7d463ccceddbb04c5bef5de90852716f24f96ab626d9179a212794f6",
+      "size": 5754,
+      "mtime_ns": 1785113340505597800,
+      "mtime_local": "2026-07-27T08:49:00.505598"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/hierarchy/HdlSourceTab.tsx",
+      "sha256": "bf9254edca19c9a1b40e8c8d3e9c3961183ec8f825793fc86e6f6a37603a711d",
+      "size": 7323,
+      "mtime_ns": 1785109163598441600,
+      "mtime_local": "2026-07-27T07:39:23.598442"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/hierarchy/ClockResetTab.tsx",
+      "sha256": "f36bb55d42f0987d73f162f6829764bde27b477a5b89a1946f874cde99f8687e",
+      "size": 35311,
+      "mtime_ns": 1789108299746189500,
+      "mtime_local": "2026-09-11T14:31:39.746190"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/hierarchy/DrcTab.tsx",
+      "sha256": "c86c248a30dc00acb7aa34149456cc567408211eca74a65c637149dbf8e6585a",
+      "size": 46970,
+      "mtime_ns": 1788702769497072700,
+      "mtime_local": "2026-09-06T21:52:49.497073"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/hierarchy/SdcTab.tsx",
+      "sha256": "615d85ed0e171748fbafc2780a6c05cea9593600404762c237473e74d4aee375",
+      "size": 12485,
+      "mtime_ns": 1788702733402986000,
+      "mtime_local": "2026-09-06T21:52:13.402986"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/hierarchy/DfxIpTab.tsx",
+      "sha256": "72724fb6d3663380f7fa2ca87d9bb73466dc65ac92ffb3557fcb89be5215d055",
+      "size": 18028,
+      "mtime_ns": 1786801084240327200,
+      "mtime_local": "2026-08-15T21:38:04.240327"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/hierarchy/MbistTab.tsx",
+      "sha256": "1686f916210a29f41ac887d339467a448e7109e6800f233c9e6331110ad0822a",
+      "size": 44193,
+      "mtime_ns": 1789008930560848600,
+      "mtime_local": "2026-09-10T10:55:30.560849"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/hierarchy/DftCfgTab.tsx",
+      "sha256": "002d549b8cc119ac4e4bdea6556e2308ec2535fa6a388636298dbb036e1001fe",
+      "size": 7760,
+      "mtime_ns": 1787060239942905700,
+      "mtime_local": "2026-08-18T21:37:19.942906"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/hierarchy/ScanPlannerTab.tsx",
+      "sha256": "1ff74a987b8d213540b5be327262e37684e52ab419870445ae0b3c707a0eb302",
+      "size": 92450,
+      "mtime_ns": 1789004812797521700,
+      "mtime_local": "2026-09-10T09:46:52.797522"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/hierarchy/core/scanplan.ts",
+      "sha256": "aaf247e30aecfb80d86b70fdd12f6100e99bd89d00ed43deecd285d5fe5623dd",
+      "size": 41224,
+      "mtime_ns": 1788430259777819400,
+      "mtime_local": "2026-09-03T18:10:59.777819"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/hierarchy/core/crCache.ts",
+      "sha256": "286e6c8a3229aa2f1052c4c74e46c93ce6683182cb2cbfe58801732913f5d415",
+      "size": 2146,
+      "mtime_ns": 1785224836327662700,
+      "mtime_local": "2026-07-28T15:47:16.327663"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/hierarchy/schematic/elkLayout.ts",
+      "sha256": "baec877ea28fcdd95598dd5f14644edf27ad6dbd82d78f087b4629c5a183db69",
+      "size": 418,
+      "mtime_ns": 1782793638000000000,
+      "mtime_local": "2026-06-30T12:27:18"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/hierarchy/schematic/SchematicTab.tsx",
+      "sha256": "4ba73928739bd3e5cd3e50b44660506820fa99f7072a612d87054e8ea9d0ef5a",
+      "size": 133102,
+      "mtime_ns": 1790956507035840547,
+      "mtime_local": "2026-10-02T23:55:07.035841"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/genconn/store.ts",
+      "sha256": "9b3b7c62e242013a4c4e740fc3dee201b8dadaf66e8ef92807b82d5314f31cbb",
+      "size": 41068,
+      "mtime_ns": 1784938891925922700,
+      "mtime_local": "2026-07-25T08:21:31.925923"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/genconn/Workspace.tsx",
+      "sha256": "e628f651cd38e6d9602ffee03f54b20cbfaa9d667869bea3402e36458d8e9b0b",
+      "size": 7778,
+      "mtime_ns": 1784705238000000000,
+      "mtime_local": "2026-07-22T15:27:18"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/genconn/GeneratePanel.tsx",
+      "sha256": "32b1316d96cc6d94515e5d54fc43138ee385c58a818ea4768fc965d67e001d12",
+      "size": 11468,
+      "mtime_ns": 1784695214000000000,
+      "mtime_local": "2026-07-22T12:40:14"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/specgen/Workspace.tsx",
+      "sha256": "7f0b37b5424f3d435c5d3397e69881e36abfde5c6caabacc955b7449725e770e",
+      "size": 52278,
+      "mtime_ns": 1788700573353795800,
+      "mtime_local": "2026-09-06T21:16:13.353796"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/specgen/DftConfigDialog.tsx",
+      "sha256": "a29326baffac672d470b6cb760b178890d352cb9a599fa81f1af854e1178993c",
+      "size": 17754,
+      "mtime_ns": 1786285619312791000,
+      "mtime_local": "2026-08-09T22:26:59.312791"
+    },
+    {
+      "path": "dft_planner/dft-suite/src/specgen/gen.ts",
+      "sha256": "a04034018ef79c05954c1ffb87cd6d639d4af534684fc486cdd590a386c29eb8",
+      "size": 1742,
+      "mtime_ns": 1783672530000000000,
+      "mtime_local": "2026-07-10T16:35:30"
+    },
+    {
+      "path": "dft_planner/dft-core/dft-core/hdl-core/protocol/NdjsonServer.cpp",
+      "sha256": "68f5764698aa22e7a37b2d45475bfef04ebb7bd98481922abb20dbf07fa394ef",
+      "size": 65620,
+      "mtime_ns": 1788750102760929400,
+      "mtime_local": "2026-09-07T11:01:42.760929"
+    }
+  ],
+  "new_sources": [
+    {
+      "path": "dft_hierachy/docs/DESIGN.md",
+      "source_basis": "fixed git blob",
+      "commit": "2b25f0fab69653a0426e2a74b09b178503add3ba",
+      "sha256": "28916edcb2a14725108af2120ef9ada95e1cd26a10608c91562d3bd114163874",
+      "size": 182674
+    },
+    {
+      "path": "dft_hierachy/web/package.json",
+      "source_basis": "fixed git blob",
+      "commit": "2b25f0fab69653a0426e2a74b09b178503add3ba",
+      "sha256": "ed9f7c131487ea614ef2a124bcf4995b2387464244e1c9eac1b1f45c27b15e48",
+      "size": 581
+    },
+    {
+      "path": "dft_hierachy/web/tsconfig.base.json",
+      "source_basis": "fixed git blob",
+      "commit": "2b25f0fab69653a0426e2a74b09b178503add3ba",
+      "sha256": "954e4df19a770733f6a7937b47008c20a5a3e9c4b25bb18d460bf2cd8f0061ba",
+      "size": 288
+    },
+    {
+      "path": "dft_hierachy/web/packages/protocol-types/src/index.ts",
+      "source_basis": "fixed git blob",
+      "commit": "2b25f0fab69653a0426e2a74b09b178503add3ba",
+      "sha256": "d0017a3700fd34869b9b15fdb8a8c763548c3979436408ce87b4520eb5b101d2",
+      "size": 111
+    },
+    {
+      "path": "dft_hierachy/web/packages/client/src/index.ts",
+      "source_basis": "fixed git blob",
+      "commit": "2b25f0fab69653a0426e2a74b09b178503add3ba",
+      "sha256": "ad707519a470a43db2cb958d5d147cd869784efd99aa3597e64528530c318b40",
+      "size": 184
+    },
+    {
+      "path": "dft_hierachy/web/packages/viewmodel/src/index.ts",
+      "source_basis": "fixed git blob",
+      "commit": "2b25f0fab69653a0426e2a74b09b178503add3ba",
+      "sha256": "1d76c67b0b5f0ea7d385710258540c497e34d5bb2187f3c8f0b8272dd381a8bb",
+      "size": 183
+    },
+    {
+      "path": "dft_hierachy/web/packages/views/src/index.ts",
+      "source_basis": "fixed git blob",
+      "commit": "2b25f0fab69653a0426e2a74b09b178503add3ba",
+      "sha256": "191cbf1e3b066d77d6dc5e1e10a860131300badc4298c71e27e24458e74d328b",
+      "size": 207
+    },
+    {
+      "path": "dft_hierachy/web/packages/client/package.json",
+      "source_basis": "fixed git blob",
+      "commit": "2b25f0fab69653a0426e2a74b09b178503add3ba",
+      "sha256": "9b99cc948fe2ced0f2e866d12a211aa8f20b6bbbd64cf7d708a37e94c9954f5a",
+      "size": 198
+    },
+    {
+      "path": "dft_hierachy/web/packages/viewmodel/package.json",
+      "source_basis": "fixed git blob",
+      "commit": "2b25f0fab69653a0426e2a74b09b178503add3ba",
+      "sha256": "007461befebb34e18fa90144259ec0a50cd4c7891831623145e31ca657ed315d",
+      "size": 221
+    },
+    {
+      "path": "dft_hierachy/web/packages/views/package.json",
+      "source_basis": "fixed git blob",
+      "commit": "2b25f0fab69653a0426e2a74b09b178503add3ba",
+      "sha256": "f5088996f98d1b384f3ca92748e7a96d4258a9c6f5368ed86aefb061f6fe5267",
+      "size": 220
+    }
+  ],
+  "reference_sources": [
+    {
+      "name": "hal",
+      "head": "acc899e297ed3866ad7da432ab0403c3d8d62d1c",
+      "locked_head": "acc899e297ed3866ad7da432ab0403c3d8d62d1c",
+      "matches_lock": true,
+      "status": "",
+      "remote": "https://github.com/emsec/hal.git",
+      "sources": [
+        {
+          "path": "dft_hierachy/ref/hal/plugins/gui/src/selection_relay/selection_relay.cpp",
+          "sha256": "6ca58d4f5ce08c5c2be0b025a4bf3a26bbdc67c61b593e5aac9c0d7bd93c35be",
+          "size": 13807,
+          "mtime_ns": 1790956502951215695,
+          "mtime_local": "2026-10-02T23:55:02.951216"
+        },
+        {
+          "path": "dft_hierachy/ref/hal/plugins/gui/src/selection_details_widget/selection_details_widget.cpp",
+          "sha256": "852e91920a2ed54b5a43d3bba36cff8f58a162b2b00d192528210bfaf899ced0",
+          "size": 20837,
+          "mtime_ns": 1790956502950952442,
+          "mtime_local": "2026-10-02T23:55:02.950953"
+        },
+        {
+          "path": "dft_hierachy/ref/hal/plugins/gui/src/graph_widget/graph_widget.cpp",
+          "sha256": "7aa3ad90fd47735998f41f179b89ed95374a7c4aac5a13ce05694d9c700c8d88",
+          "size": 43244,
+          "mtime_ns": 1790956502941098813,
+          "mtime_local": "2026-10-02T23:55:02.941099"
+        },
+        {
+          "path": "dft_hierachy/ref/hal/plugins/gui/src/graph_widget/graph_navigation_widget.cpp",
+          "sha256": "d901904798044150dcdb12f497cd22ae6ebad36011d8e511a1ccb53f38ba4ca7",
+          "size": 21972,
+          "mtime_ns": 1790956502941006145,
+          "mtime_local": "2026-10-02T23:55:02.941006"
+        },
+        {
+          "path": "dft_hierachy/ref/hal/plugins/gui/src/graph_widget/contexts/graph_context.cpp",
+          "sha256": "b07e40b5b91ac6e5721265962f0aad73f7ba85bd14f542582a3ab55bce760fe9",
+          "size": 30197,
+          "mtime_ns": 1790956502940670307,
+          "mtime_local": "2026-10-02T23:55:02.940670"
+        },
+        {
+          "path": "dft_hierachy/ref/hal/plugins/gui/src/graph_widget/layouters/graph_layouter.cpp",
+          "sha256": "a2998fd87094b3ac1b79786d85f4dc7eeb7ebd43ea95ca55f012bd1752adf13f",
+          "size": 54703,
+          "mtime_ns": 1790956502942543957,
+          "mtime_local": "2026-10-02T23:55:02.942544"
+        }
+      ]
+    },
+    {
+      "name": "sprotty",
+      "head": "21b80fc2c852411261a692c834d2a4390ba7f2df",
+      "locked_head": "21b80fc2c852411261a692c834d2a4390ba7f2df",
+      "matches_lock": true,
+      "status": "",
+      "remote": "https://github.com/eclipse-sprotty/sprotty.git",
+      "sources": [
+        {
+          "path": "dft_hierachy/ref/sprotty/packages/sprotty-protocol/src/diagram-server.ts",
+          "sha256": "0ab632dd1d7913596a754176e09f91670d31ded619f66caca26843c3c16efddf",
+          "size": 11027,
+          "mtime_ns": 1791269327019550586,
+          "mtime_local": "2026-10-06T14:48:47.019551"
+        },
+        {
+          "path": "dft_hierachy/ref/sprotty/packages/sprotty-protocol/src/actions.ts",
+          "sha256": "993851b5bc5ccf7d08cef70296ad1e2fc67f045f5098268ac81e77fd2f14591f",
+          "size": 24934,
+          "mtime_ns": 1791269327019410794,
+          "mtime_local": "2026-10-06T14:48:47.019411"
+        },
+        {
+          "path": "dft_hierachy/ref/sprotty/packages/sprotty/src/model-source/local-model-source.ts",
+          "sha256": "4a61187ce31181f2a4b04bb207682b648b2fd061823e57cb182673be973fe1a8",
+          "size": 11504,
+          "mtime_ns": 1791269327034226195,
+          "mtime_local": "2026-10-06T14:48:47.034226"
+        },
+        {
+          "path": "dft_hierachy/ref/sprotty/packages/sprotty-elk/src/elk-layout.ts",
+          "sha256": "fb9b391bcc9c645713eb61818553affc8869461a721c44bf6e0eb6193fd11671",
+          "size": 17940,
+          "mtime_ns": 1791269327017514541,
+          "mtime_local": "2026-10-06T14:48:47.017514"
+        }
+      ]
+    },
+    {
+      "name": "elkjs",
+      "head": "722f1a3f63016e64f534a8b445283d4d31a88d0e",
+      "locked_head": "722f1a3f63016e64f534a8b445283d4d31a88d0e",
+      "matches_lock": true,
+      "status": "",
+      "remote": "https://github.com/kieler/elkjs.git",
+      "sources": [
+        {
+          "path": "dft_hierachy/ref/elkjs/src/js/elk-api.js",
+          "sha256": "0257ec535add79d9e613b3f07417d1e3c603f8d48d6154cd62c6d4326d9b4add",
+          "size": 4910,
+          "mtime_ns": 1790956489043139275,
+          "mtime_local": "2026-10-02T23:54:49.043139"
+        },
+        {
+          "path": "dft_hierachy/ref/elkjs/README.md",
+          "sha256": "b2d1f5d457f07b28356f400b6600ea62f5239f0d0db51b23933d4aa47711d95c",
+          "size": 16160,
+          "mtime_ns": 1790956489040301322,
+          "mtime_local": "2026-10-02T23:54:49.040301"
+        }
+      ]
+    },
+    {
+      "name": "d3-hwschematic",
+      "head": "0664665d87d7fe8575a812714b765a81de1affbf",
+      "locked_head": "0664665d87d7fe8575a812714b765a81de1affbf",
+      "matches_lock": true,
+      "status": "",
+      "remote": "https://github.com/Nic30/d3-hwschematic.git",
+      "sources": [
+        {
+          "path": "dft_hierachy/ref/d3-hwschematic/src/dataPrepare.js",
+          "sha256": "5ffb4f655b8f15f5671d7418ca8052bdb22094bedcd57871081d5eb37caba05d",
+          "size": 2846,
+          "mtime_ns": 1790956452371450328,
+          "mtime_local": "2026-10-02T23:54:12.371450"
+        },
+        {
+          "path": "dft_hierachy/ref/d3-hwschematic/src/d3-hwschematic.js",
+          "sha256": "eeb6259fba7cf5b4797f6fdce23e9c8a35df22b87735f503b9c27e5ee578246f",
+          "size": 10004,
+          "mtime_ns": 1790956452371390411,
+          "mtime_local": "2026-10-02T23:54:12.371390"
+        },
+        {
+          "path": "dft_hierachy/ref/d3-hwschematic/src/node_renderers/generic.js",
+          "sha256": "2bb22433a148059df81d8b8254f1f586593d54711f4a74a5cf26bb721a60df85",
+          "size": 8523,
+          "mtime_ns": 1790956452371964669,
+          "mtime_local": "2026-10-02T23:54:12.371965"
+        }
+      ]
+    },
+    {
+      "name": "react-arborist",
+      "head": "d74c4ec696ba98c1a4e981075f6d60cdff3e290b",
+      "locked_head": "d74c4ec696ba98c1a4e981075f6d60cdff3e290b",
+      "matches_lock": true,
+      "status": "",
+      "remote": "https://github.com/jameskerr/react-arborist.git",
+      "sources": [
+        {
+          "path": "dft_hierachy/ref/react-arborist/modules/react-arborist/src/data/create-root.ts",
+          "sha256": "61c88e8a63bce294e0111526e82c9d8f948e570991f859c55e00aa42c9ec343a",
+          "size": 1099,
+          "mtime_ns": 1790956577442113650,
+          "mtime_local": "2026-10-02T23:56:17.442114"
+        },
+        {
+          "path": "dft_hierachy/ref/react-arborist/modules/react-arborist/src/data/create-list.ts",
+          "sha256": "91834c876bd734dd2544cff12f3a7681a0d2201d348ed949d3083c22e97169b0",
+          "size": 1956,
+          "mtime_ns": 1790956577442057858,
+          "mtime_local": "2026-10-02T23:56:17.442058"
+        },
+        {
+          "path": "dft_hierachy/ref/react-arborist/modules/react-arborist/src/components/default-container.tsx",
+          "sha256": "a4e1f3ed418663004f7bd3d2b6e100da8ecb6f8489d10040e487f786ed9d5bc7",
+          "size": 8791,
+          "mtime_ns": 1790956577440931343,
+          "mtime_local": "2026-10-02T23:56:17.440931"
+        }
+      ]
+    },
+    {
+      "name": "kactus2",
+      "head": "342bc30c2947afe0e2a479f75fed9449102f71a4",
+      "locked_head": "342bc30c2947afe0e2a479f75fed9449102f71a4",
+      "matches_lock": true,
+      "status": "",
+      "remote": "https://github.com/kactus2/kactus2dev.git",
+      "sources": [
+        {
+          "path": "dft_hierachy/ref/kactus2/editors/HWDesign/HWDesignDiagram.cpp",
+          "sha256": "263b7d4252a9d64654cb38446aa98a84d2e05d3b08199808cfade4222ff6d145",
+          "size": 131641,
+          "mtime_ns": 1790956605561904258,
+          "mtime_local": "2026-10-02T23:56:45.561904"
+        },
+        {
+          "path": "dft_hierachy/ref/kactus2/editors/HWDesign/undoCommands/AdHocConnectionAddCommand.cpp",
+          "sha256": "92a066ae158f03de0e443bc4af9a91e25a5a037dc125d07fb2dc8efdbdccd1d1",
+          "size": 2862,
+          "mtime_ns": 1790956605563493195,
+          "mtime_local": "2026-10-02T23:56:45.563493"
+        },
+        {
+          "path": "dft_hierachy/ref/kactus2/IPXACTmodels/Component/validators/PortMapValidator.cpp",
+          "sha256": "d953f78be38d5aa7394487a8bd6ad05611eb08dd4fde95cd3ec3a51a703433fd",
+          "size": 32068,
+          "mtime_ns": 1790956605343092727,
+          "mtime_local": "2026-10-02T23:56:45.343093"
+        },
+        {
+          "path": "dft_hierachy/ref/kactus2/LICENSE",
+          "sha256": "7a8cce170657f4537d6624f6e18946bca63864cf7a6bf07f9a4b683822556fbf",
+          "size": 18428,
+          "mtime_ns": 1790956605376061866,
+          "mtime_local": "2026-10-02T23:56:45.376062"
+        }
+      ]
+    }
+  ],
+  "theia": {
+    "head": "29045502ffe2bd1ecd5c655b40f37f0d0bc0c4ad",
+    "committer_date": "2026-10-09T16:35:31Z",
+    "commit_api": "https://api.github.com/repos/eclipse-theia/theia/commits/master",
+    "sources": [
+      {
+        "upstream_path": "packages/core/src/browser/widget-manager.ts",
+        "sha256": "6e1e5f89de48eb4c1a9b651d2fb36818af868ac865f54b43ae783aefe9432b24",
+        "url": "https://raw.githubusercontent.com/eclipse-theia/theia/29045502ffe2bd1ecd5c655b40f37f0d0bc0c4ad/packages/core/src/browser/widget-manager.ts",
+        "local_evidence": "/private/tmp/hier-d-m56-research-ndevjg_y/theia-widget-manager.ts"
+      },
+      {
+        "upstream_path": "packages/core/src/browser/shell/application-shell.ts",
+        "sha256": "009e3ab9158046d27c206882f60720e06c17a11d964118ca73854ecd8969eddc",
+        "url": "https://raw.githubusercontent.com/eclipse-theia/theia/29045502ffe2bd1ecd5c655b40f37f0d0bc0c4ad/packages/core/src/browser/shell/application-shell.ts",
+        "local_evidence": "/private/tmp/hier-d-m56-research-ndevjg_y/theia-application-shell.ts"
+      },
+      {
+        "upstream_path": "packages/core/src/common/selection-service.ts",
+        "sha256": "cd2ae803dd3ae42d0bfcbeb86e0f157b7fe7b247ba83ba76d65074bb6e68166e",
+        "url": "https://raw.githubusercontent.com/eclipse-theia/theia/29045502ffe2bd1ecd5c655b40f37f0d0bc0c4ad/packages/core/src/common/selection-service.ts",
+        "local_evidence": "/private/tmp/hier-d-m56-research-ndevjg_y/theia-selection-service.ts"
+      },
+      {
+        "upstream_path": "packages/core/src/browser/shell/view-contribution.ts",
+        "sha256": "fa6f13a087fa912b811cba8d85091c533a69c4672bd4e631b218e45d5ee54e28",
+        "url": "https://raw.githubusercontent.com/eclipse-theia/theia/29045502ffe2bd1ecd5c655b40f37f0d0bc0c4ad/packages/core/src/browser/shell/view-contribution.ts",
+        "local_evidence": "/private/tmp/hier-d-m56-research-ndevjg_y/theia-view-contribution.ts"
+      },
+      {
+        "upstream_path": "packages/core/src/common/command.ts",
+        "sha256": "8564822a1d58c0242853e32617ae701ebf8b4f30d6daf4b2ae4cd706c4cba710",
+        "url": "https://raw.githubusercontent.com/eclipse-theia/theia/29045502ffe2bd1ecd5c655b40f37f0d0bc0c4ad/packages/core/src/common/command.ts",
+        "local_evidence": "/private/tmp/hier-d-m56-research-ndevjg_y/theia-command.ts"
+      }
+    ]
+  },
+  "official_material": [
+    {
+      "url": "https://theia-ide.org/docs/architecture/",
+      "scope": "platform separation; supporting documentation"
+    },
+    {
+      "url": "https://theia-ide.org/docs/composing_applications/",
+      "scope": "application/package composition; supporting documentation"
+    },
+    {
+      "url": "https://www.synopsys.com/content/dam/synopsys/verification/datasheets/verdi-ds.pdf",
+      "scope": "public feature description, page 3; no licensed client operation"
+    },
+    {
+      "url": "https://resources.sw.siemens.com/en-US/video-tessent-visualizer-new-ijtag-visualization-and-debug/",
+      "scope": "public page description; did not watch full video or operate client"
+    }
+  ],
+  "source_probe": {
+    "command": [
+      "/Users/jiangbowang/.npm-global/bin/node",
+      "docs/research/client-research-probes.mjs",
+      "ref",
+      "/private/tmp/hier-d-m56-research-ndevjg_y/source-probes-final.json"
+    ],
+    "exit_code": 0,
+    "result": {
+      "node": "v24.21.0",
+      "kind": "source-behavior probes; not product or GUI acceptance",
+      "sources": [
+        {
+          "path": "d3-hwschematic/src/dataPrepare.js",
+          "sha256": "5ffb4f655b8f15f5671d7418ca8052bdb22094bedcd57871081d5eb37caba05d"
+        },
+        {
+          "path": "elkjs/src/js/elk-api.js",
+          "sha256": "0257ec535add79d9e613b3f07417d1e3c603f8d48d6154cd62c6d4326d9b4add"
+        }
+      ],
+      "findings": [
+        {
+          "id": "D3-1",
+          "scope": "upstream projection function; no DOM or HDL semantics",
+          "sources": 2,
+          "targets": 2,
+          "renderedEdges": 4,
+          "originalNetRetained": true,
+          "generatedIds": [
+            "11",
+            "12",
+            "13",
+            "14"
+          ]
+        },
+        {
+          "id": "D3-2",
+          "scope": "upstream projection function",
+          "oneToOneInputMutated": true
+        },
+        {
+          "id": "ELK-1",
+          "scope": "upstream JS API with controlled worker transport; no layout computation",
+          "freshReplyThenOldReplyBothResolve": true
+        },
+        {
+          "id": "ELK-2",
+          "scope": "deterministic API state inspection, not real Worker termination timing",
+          "workerTerminateCalled": true,
+          "pendingResolverRetained": true,
+          "promiseSettledByTerminate": false
+        }
+      ]
+    }
+  },
+  "package_probe": {
+    "command": [
+      "python3",
+      "docs/research/client-package-probe.py",
+      "--node",
+      "/Users/jiangbowang/.npm-global/bin/node"
+    ],
+    "exit_code": 0,
+    "result": {
+      "kind": "fixed skeleton package mechanics; not runtime/UI acceptance",
+      "head": "2b25f0fab69653a0426e2a74b09b178503add3ba",
+      "node": "v24.21.0",
+      "workdir": "/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t",
+      "consumer": {
+        "protocol-types": {
+          "keys": [
+            "PROTOCOL_VERSION"
+          ],
+          "values": [
+            2
+          ],
+          "resolved": "file:///private/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/consumer/node_modules/@hier/protocol-types/dist/index.js",
+          "symlink": false
+        },
+        "client": {
+          "keys": [
+            "CLIENT_PROTOCOL_VERSION"
+          ],
+          "values": [
+            2
+          ],
+          "resolved": "file:///private/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/consumer/node_modules/@hier/client/dist/index.js",
+          "symlink": false
+        },
+        "viewmodel": {
+          "keys": [
+            "VIEWMODEL_PROTOCOL_VERSION"
+          ],
+          "values": [
+            2
+          ],
+          "resolved": "file:///private/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/consumer/node_modules/@hier/viewmodel/dist/index.js",
+          "symlink": false
+        },
+        "views": {
+          "keys": [
+            "VIEWS_PROTOCOL_VERSION"
+          ],
+          "values": [
+            2
+          ],
+          "resolved": "file:///private/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/consumer/node_modules/@hier/views/dist/index.js",
+          "symlink": false
+        },
+        "nodeEntry": "ERR_MODULE_NOT_FOUND",
+        "clientInternalSource": "file:///private/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/consumer/node_modules/@hier/client/src/index.ts"
+      },
+      "command_count": 11,
+      "all_exit_zero": true
+    },
+    "commands": [
+      {
+        "command": [
+          "/Users/jiangbowang/.npm-global/lib/node_modules/node/bin/node",
+          "--version"
+        ],
+        "cwd": "/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t",
+        "exit_code": 0,
+        "stdout": "v24.21.0\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/Users/jiangbowang/.npm-global/lib/node_modules/node/bin/node",
+          "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+          "--version",
+          "--loglevel=error"
+        ],
+        "cwd": "/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t",
+        "exit_code": 0,
+        "stdout": "10.9.2\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/Users/jiangbowang/.npm-global/lib/node_modules/node/bin/node",
+          "/Users/jiangbowang/MOI/2025/dftartist/2026.9/dft_hierachy/web/node_modules/typescript/bin/tsc",
+          "--version"
+        ],
+        "cwd": "/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t",
+        "exit_code": 0,
+        "stdout": "Version 5.9.3\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "git",
+          "archive",
+          "--format=tar",
+          "--output=/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/skeleton.tar",
+          "2b25f0fab69653a0426e2a74b09b178503add3ba",
+          "web"
+        ],
+        "cwd": "/Users/jiangbowang/MOI/2025/dftartist/2026.9/dft_hierachy",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/Users/jiangbowang/.npm-global/lib/node_modules/node/bin/node",
+          "/Users/jiangbowang/MOI/2025/dftartist/2026.9/dft_hierachy/web/node_modules/typescript/bin/tsc",
+          "-b",
+          "/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/source/web"
+        ],
+        "cwd": "/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/Users/jiangbowang/.npm-global/lib/node_modules/node/bin/node",
+          "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+          "pack",
+          "--ignore-scripts",
+          "--json",
+          "--pack-destination",
+          "/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/artifacts",
+          "--cache",
+          "/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/npm-cache",
+          "--loglevel=error"
+        ],
+        "cwd": "/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/source/web/packages/protocol-types",
+        "exit_code": 0,
+        "stdout": "[\n  {\n    \"id\": \"@hier/protocol-types@0.1.0\",\n    \"name\": \"@hier/protocol-types\",\n    \"version\": \"0.1.0\",\n    \"size\": 479,\n    \"unpackedSize\": 685,\n    \"shasum\": \"523f78f721c955d8e1583b3b35ff9d7d028f90a0\",\n    \"integrity\": \"sha512-sfPj4vGCvx49ux7CkiEQBxv0U3X/Jm9K9n1C/x9Dx2YxCTKT1/PQKBn/JFdQ+ctbt2Go9hSVT5IqieZ0FwdsIg==\",\n    \"filename\": \"hier-protocol-types-0.1.0.tgz\",\n    \"files\": [\n      {\n        \"path\": \"dist/index.d.ts\",\n        \"size\": 119,\n        \"mode\": 420\n      },\n      {\n        \"path\": \"dist/index.js\",\n        \"size\": 111,\n        \"mode\": 420\n      },\n      {\n        \"path\": \"package.json\",\n        \"size\": 179,\n        \"mode\": 420\n      },\n      {\n        \"path\": \"src/index.ts\",\n        \"size\": 111,\n        \"mode\": 420\n      },\n      {\n        \"path\": \"tsconfig.json\",\n        \"size\": 165,\n        \"mode\": 420\n      }\n    ],\n    \"entryCount\": 5,\n    \"bundled\": []\n  }\n]\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/Users/jiangbowang/.npm-global/lib/node_modules/node/bin/node",
+          "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+          "pack",
+          "--ignore-scripts",
+          "--json",
+          "--pack-destination",
+          "/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/artifacts",
+          "--cache",
+          "/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/npm-cache",
+          "--loglevel=error"
+        ],
+        "cwd": "/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/source/web/packages/client",
+        "exit_code": 0,
+        "stdout": "[\n  {\n    \"id\": \"@hier/client@0.1.0\",\n    \"name\": \"@hier/client\",\n    \"version\": \"0.1.0\",\n    \"size\": 548,\n    \"unpackedSize\": 898,\n    \"shasum\": \"ca2a6fcca14d08b3e50323a5ea768b9742d5bb44\",\n    \"integrity\": \"sha512-QoQyGI562Ek/uljsJkoRhyhgVDCNeuhlN4RiqCyuVgvZlWf7PIrfyZXKJJDvIZNAhwZ8zBiYOk5GR6OzTIY2Fw==\",\n    \"filename\": \"hier-client-0.1.0.tgz\",\n    \"files\": [\n      {\n        \"path\": \"dist/index.d.ts\",\n        \"size\": 119,\n        \"mode\": 420\n      },\n      {\n        \"path\": \"dist/index.js\",\n        \"size\": 183,\n        \"mode\": 420\n      },\n      {\n        \"path\": \"package.json\",\n        \"size\": 198,\n        \"mode\": 420\n      },\n      {\n        \"path\": \"src/index.ts\",\n        \"size\": 184,\n        \"mode\": 420\n      },\n      {\n        \"path\": \"tsconfig.json\",\n        \"size\": 214,\n        \"mode\": 420\n      }\n    ],\n    \"entryCount\": 5,\n    \"bundled\": []\n  }\n]\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/Users/jiangbowang/.npm-global/lib/node_modules/node/bin/node",
+          "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+          "pack",
+          "--ignore-scripts",
+          "--json",
+          "--pack-destination",
+          "/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/artifacts",
+          "--cache",
+          "/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/npm-cache",
+          "--loglevel=error"
+        ],
+        "cwd": "/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/source/web/packages/viewmodel",
+        "exit_code": 0,
+        "stdout": "[\n  {\n    \"id\": \"@hier/viewmodel@0.1.0\",\n    \"name\": \"@hier/viewmodel\",\n    \"version\": \"0.1.0\",\n    \"size\": 567,\n    \"unpackedSize\": 951,\n    \"shasum\": \"fe72a9cdc81d4114bf474e594be337d3fd35506f\",\n    \"integrity\": \"sha512-E4Do5s7n7mYbwMRmSXHSWVhOjknr5eViEdlKkJ9o+lvzWx/bhOu20s46jMpot58VdqfxuBN+ZfpnmU9qgjgLAg==\",\n    \"filename\": \"hier-viewmodel-0.1.0.tgz\",\n    \"files\": [\n      {\n        \"path\": \"dist/index.d.ts\",\n        \"size\": 112,\n        \"mode\": 420\n      },\n      {\n        \"path\": \"dist/index.js\",\n        \"size\": 182,\n        \"mode\": 420\n      },\n      {\n        \"path\": \"package.json\",\n        \"size\": 221,\n        \"mode\": 420\n      },\n      {\n        \"path\": \"src/index.ts\",\n        \"size\": 183,\n        \"mode\": 420\n      },\n      {\n        \"path\": \"tsconfig.json\",\n        \"size\": 253,\n        \"mode\": 420\n      }\n    ],\n    \"entryCount\": 5,\n    \"bundled\": []\n  }\n]\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/Users/jiangbowang/.npm-global/lib/node_modules/node/bin/node",
+          "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+          "pack",
+          "--ignore-scripts",
+          "--json",
+          "--pack-destination",
+          "/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/artifacts",
+          "--cache",
+          "/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/npm-cache",
+          "--loglevel=error"
+        ],
+        "cwd": "/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/source/web/packages/views",
+        "exit_code": 0,
+        "stdout": "[\n  {\n    \"id\": \"@hier/views@0.1.0\",\n    \"name\": \"@hier/views\",\n    \"version\": \"0.1.0\",\n    \"size\": 575,\n    \"unpackedSize\": 1016,\n    \"shasum\": \"a36c68e417aa402f50dee080d398e43ca8ea41c3\",\n    \"integrity\": \"sha512-e55mBW5tdqAltxWRafKGWkgXtW3rXdyYUm1c0cuxZ7BrM3ujCHtaSahTx9pzpnefvrFxz2oP9EmG+d39/gwNXg==\",\n    \"filename\": \"hier-views-0.1.0.tgz\",\n    \"files\": [\n      {\n        \"path\": \"dist/index.d.ts\",\n        \"size\": 127,\n        \"mode\": 420\n      },\n      {\n        \"path\": \"dist/index.js\",\n        \"size\": 206,\n        \"mode\": 420\n      },\n      {\n        \"path\": \"package.json\",\n        \"size\": 220,\n        \"mode\": 420\n      },\n      {\n        \"path\": \"src/index.ts\",\n        \"size\": 207,\n        \"mode\": 420\n      },\n      {\n        \"path\": \"tsconfig.json\",\n        \"size\": 256,\n        \"mode\": 420\n      }\n    ],\n    \"entryCount\": 5,\n    \"bundled\": []\n  }\n]\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/Users/jiangbowang/.npm-global/lib/node_modules/node/bin/node",
+          "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+          "install",
+          "--offline",
+          "--ignore-scripts",
+          "--no-audit",
+          "--no-fund",
+          "--cache",
+          "/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/npm-cache",
+          "--loglevel=error",
+          "/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/artifacts/hier-protocol-types-0.1.0.tgz",
+          "/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/artifacts/hier-client-0.1.0.tgz",
+          "/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/artifacts/hier-viewmodel-0.1.0.tgz",
+          "/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/artifacts/hier-views-0.1.0.tgz"
+        ],
+        "cwd": "/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/consumer",
+        "exit_code": 0,
+        "stdout": "\nadded 4 packages in 111ms\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/Users/jiangbowang/.npm-global/lib/node_modules/node/bin/node",
+          "inspect.mjs"
+        ],
+        "cwd": "/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/consumer",
+        "exit_code": 0,
+        "stdout": "{\n  \"protocol-types\": {\n    \"keys\": [\n      \"PROTOCOL_VERSION\"\n    ],\n    \"values\": [\n      2\n    ],\n    \"resolved\": \"file:///private/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/consumer/node_modules/@hier/protocol-types/dist/index.js\",\n    \"symlink\": false\n  },\n  \"client\": {\n    \"keys\": [\n      \"CLIENT_PROTOCOL_VERSION\"\n    ],\n    \"values\": [\n      2\n    ],\n    \"resolved\": \"file:///private/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/consumer/node_modules/@hier/client/dist/index.js\",\n    \"symlink\": false\n  },\n  \"viewmodel\": {\n    \"keys\": [\n      \"VIEWMODEL_PROTOCOL_VERSION\"\n    ],\n    \"values\": [\n      2\n    ],\n    \"resolved\": \"file:///private/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/consumer/node_modules/@hier/viewmodel/dist/index.js\",\n    \"symlink\": false\n  },\n  \"views\": {\n    \"keys\": [\n      \"VIEWS_PROTOCOL_VERSION\"\n    ],\n    \"values\": [\n      2\n    ],\n    \"resolved\": \"file:///private/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/consumer/node_modules/@hier/views/dist/index.js\",\n    \"symlink\": false\n  },\n  \"nodeEntry\": \"ERR_MODULE_NOT_FOUND\",\n  \"clientInternalSource\": \"file:///private/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/consumer/node_modules/@hier/client/src/index.ts\"\n}\n",
+        "stderr": ""
+      }
+    ],
+    "archives": [
+      {
+        "path": "/private/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/artifacts/hier-client-0.1.0.tgz",
+        "sha256": "0c2fddffee0fb7ba2b01a685980fd88e20d632276388a60ef89908278cf0afb0",
+        "size": 548,
+        "mtime_ns": 1791788277324893180,
+        "mtime_local": "2026-10-12T14:57:57.324893"
+      },
+      {
+        "path": "/private/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/artifacts/hier-protocol-types-0.1.0.tgz",
+        "sha256": "97d0c49dc50aeea12900acdd45d1cff0dc82502a5ac019542bad2ddb0eda8ba5",
+        "size": 479,
+        "mtime_ns": 1791788277204450677,
+        "mtime_local": "2026-10-12T14:57:57.204451"
+      },
+      {
+        "path": "/private/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/artifacts/hier-viewmodel-0.1.0.tgz",
+        "sha256": "c09aeb317cf2144b6522010e93292f86ac8cb09553cefb38f4f3da8ff250043b",
+        "size": 567,
+        "mtime_ns": 1791788277448546400,
+        "mtime_local": "2026-10-12T14:57:57.448546"
+      },
+      {
+        "path": "/private/var/folders/g4/bhc8hd9969l3z_9yg53y_9wm0000gn/T/hier-d-m56-package-qflyxe1t/artifacts/hier-views-0.1.0.tgz",
+        "sha256": "f985c5a9275c554ef953d4cea2ea4f819ea772c5ac708a32166ab1e86429fa85",
+        "size": 575,
+        "mtime_ns": 1791788277575837258,
+        "mtime_local": "2026-10-12T14:57:57.575837"
+      }
+    ]
+  },
+  "reproduction_scripts": [
+    {
+      "path": "dft_hierachy/docs/research/client-research-probes.mjs",
+      "sha256": "084407c3d09d0ff7d71612ceafcd266a418b28409244c9d856a2889384c53521",
+      "size": 3513,
+      "mtime_ns": 1791788259864564301,
+      "mtime_local": "2026-10-12T14:57:39.864564"
+    },
+    {
+      "path": "dft_hierachy/docs/research/client-package-probe.py",
+      "sha256": "2dfca490a91c6bd053fb48732fdf269e1dae3a9831a40b8f88ff40e5d37e0253",
+      "size": 4558,
+      "mtime_ns": 1791788259878373136,
+      "mtime_local": "2026-10-12T14:57:39.878373"
+    }
+  ],
+  "initial_exploration": {
+    "node": "v23.11.0",
+    "accepted_as_supported_environment": false,
+    "records": [
+      "/private/tmp/hier-d-m56-research-ndevjg_y/package-build.json",
+      "/private/tmp/hier-d-m56-research-ndevjg_y/package-pack.json"
+    ],
+    "reason": "Default shell Node was unsupported; final script rejects it and all final package steps reran on Node 24.21.0"
+  },
+  "not_executed": [
+    "Competitor desktop GUI operations",
+    "Commercial licensed clients",
+    "Real Core/SDK external-consumer E2E",
+    "Real browser Worker cancellation/layout computation",
+    "M5/M6 rendered UI E2E",
+    "Performance/resource budgets",
+    "Product regression tests or remote CI"
+  ],
+  "concurrent_work": {
+    "observed": "A is implementing M4 generator/client and Node transport in shared working tree; latest log contains A first-run self-tests",
+    "policy": "not modified by D; not included in fixed skeleton experiments or judged as acceptance",
+    "observed_status": " M docs/REVIEW_LOG.md\n M docs/plans/M4.md\n M web/.dependency-cruiser.cjs\n M web/package-lock.json\n M web/package.json\n M web/packages/client/package.json\n M web/packages/client/src/index.ts\n M web/packages/protocol-types/src/index.ts\n M web/packages/protocol-types/tsconfig.json\n M web/tests/layering/run.mjs\n?? docs/plans/M3-coordination.md\n?? docs/research/\n?? web/packages/client/src/client.ts\n?? web/packages/client/src/errors.ts\n?? web/packages/client/src/json-snapshot.ts\n?? web/packages/client/src/node/\n?? web/packages/client/src/reply-cache.ts\n?? web/packages/client/src/transport.ts\n?? web/packages/protocol-types/src/registry.generated.ts\n?? web/packages/protocol-types/src/validation.ts\n?? web/packages/protocol-types/src/validators.LICENSE.txt\n?? web/packages/protocol-types/src/validators.generated.js\n?? web/packages/protocol-types/src/wire.generated.ts\n?? web/scripts/\n?? web/tests/client/\n"
+  },
+  "document_checks": {
+    "local_link_occurrences": 18,
+    "missing_local_links": [],
+    "fenced_blocks": 5,
+    "python_parse": "passed",
+    "evidence_consistency": "passed",
+    "report_lines": 274,
+    "whitespace_checks": [
+      {
+        "file": "M5-M6-client-research.md",
+        "no_index_exit_code": 1,
+        "diagnostics": "",
+        "trailing_whitespace_and_eof_assertions": "passed"
+      },
+      {
+        "file": "client-package-probe.py",
+        "no_index_exit_code": 1,
+        "diagnostics": "",
+        "trailing_whitespace_and_eof_assertions": "passed"
+      },
+      {
+        "file": "client-research-probes.mjs",
+        "no_index_exit_code": 1,
+        "diagnostics": "",
+        "trailing_whitespace_and_eof_assertions": "passed"
+      },
+      {
+        "file": "m5-m6-client-evidence.json",
+        "no_index_exit_code": 1,
+        "diagnostics": "",
+        "trailing_whitespace_and_eof_assertions": "passed"
+      }
+    ],
+    "no_index_exit_explanation": "git diff --no-index reports 1 for new-file differences; no whitespace diagnostics. Independent line/EOF assertions passed. An initial wrapper wrongly treated this expected difference code as a failure; no file edit was needed."
+  }
+}

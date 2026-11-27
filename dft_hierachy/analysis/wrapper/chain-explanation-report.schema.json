@@ -1,0 +1,434 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:wrapper-chain-explanation:1",
+  "title": "Existing Wrapper control findings and declaration locations",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-wrapper-chain-explanation-v1"
+        },
+        "source": {
+          "$ref": "urn:dft-studio:analysis:wrapper-chain-compatibility:1#/oneOf/0"
+        },
+        "explanation": {
+          "type": "object",
+          "properties": {
+            "limits": {
+              "type": "object",
+              "properties": {
+                "maxChains": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 1024
+                },
+                "maxSegments": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100000
+                },
+                "maxLocations": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100000
+                },
+                "maxWork": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 10000000
+                },
+                "maxMillis": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 60000
+                }
+              },
+              "required": [
+                "maxChains",
+                "maxSegments",
+                "maxLocations",
+                "maxWork",
+                "maxMillis"
+              ],
+              "additionalProperties": false
+            },
+            "complete": {
+              "type": "boolean"
+            },
+            "work": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            },
+            "reasons": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "source_partial",
+                  "location_unavailable",
+                  "budget_chains",
+                  "budget_segments",
+                  "budget_locations",
+                  "budget_work",
+                  "budget_time"
+                ]
+              },
+              "maxItems": 7,
+              "uniqueItems": true
+            },
+            "locations": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "ref": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "span": {
+                    "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/SourceSpan"
+                  },
+                  "error": {
+                    "type": "object",
+                    "properties": {
+                      "code": {
+                        "enum": [
+                          "not_found",
+                          "unsupported"
+                        ]
+                      },
+                      "message": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "message"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "ref"
+                ],
+                "additionalProperties": false,
+                "oneOf": [
+                  {
+                    "required": [
+                      "span"
+                    ],
+                    "not": {
+                      "required": [
+                        "error"
+                      ]
+                    }
+                  },
+                  {
+                    "required": [
+                      "error"
+                    ],
+                    "not": {
+                      "required": [
+                        "span"
+                      ]
+                    }
+                  }
+                ]
+              },
+              "maxItems": 100000
+            },
+            "rows": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "chain": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1023
+                  },
+                  "status": {
+                    "enum": [
+                      "compatible",
+                      "conflict",
+                      "unresolved",
+                      "empty",
+                      "pending"
+                    ]
+                  },
+                  "controlsComplete": {
+                    "type": "boolean"
+                  },
+                  "reasons": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "maxItems": 8,
+                    "uniqueItems": true
+                  },
+                  "compatibilityRow": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1023
+                  },
+                  "segments": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "segment": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 99999
+                        },
+                        "boundaryRow": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "portLocation": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 99999
+                        },
+                        "stateLocation": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 99999
+                        },
+                        "clockRow": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 99999
+                        },
+                        "resetRow": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 99999
+                        }
+                      },
+                      "required": [
+                        "segment",
+                        "boundaryRow",
+                        "portLocation"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "maxItems": 100000
+                  }
+                },
+                "required": [
+                  "chain",
+                  "status",
+                  "controlsComplete",
+                  "reasons",
+                  "segments"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "pending"
+                        }
+                      }
+                    },
+                    "then": {
+                      "not": {
+                        "required": [
+                          "compatibilityRow"
+                        ]
+                      },
+                      "properties": {
+                        "controlsComplete": {
+                          "const": false
+                        },
+                        "reasons": {
+                          "contains": {
+                            "const": "compatibility_not_reached"
+                          }
+                        }
+                      }
+                    },
+                    "else": {
+                      "required": [
+                        "compatibilityRow"
+                      ]
+                    }
+                  }
+                ]
+              },
+              "maxItems": 1024
+            },
+            "counts": {
+              "type": "object",
+              "properties": {
+                "chains": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1024
+                },
+                "segments": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 100000
+                },
+                "compatible": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1024
+                },
+                "conflict": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1024
+                },
+                "unresolved": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1024
+                },
+                "empty": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1024
+                },
+                "pending": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1024
+                }
+              },
+              "required": [
+                "chains",
+                "segments",
+                "compatible",
+                "conflict",
+                "unresolved",
+                "empty",
+                "pending"
+              ],
+              "additionalProperties": false
+            },
+            "stop": {
+              "type": "object",
+              "properties": {
+                "reason": {
+                  "enum": [
+                    "budget_chains",
+                    "budget_segments",
+                    "budget_locations",
+                    "budget_work",
+                    "budget_time"
+                  ]
+                },
+                "chain": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1024
+                }
+              },
+              "required": [
+                "reason",
+                "chain"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "limits",
+            "complete",
+            "work",
+            "reasons",
+            "locations",
+            "rows",
+            "counts"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "complete": {
+                    "const": true
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "reasons": {
+                    "maxItems": 0
+                  }
+                },
+                "not": {
+                  "required": [
+                    "stop"
+                  ]
+                }
+              },
+              "else": {
+                "properties": {
+                  "reasons": {
+                    "minItems": 1
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "source",
+        "explanation"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "compatibility": {
+                    "properties": {
+                      "complete": {
+                        "const": false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "explanation": {
+                "properties": {
+                  "complete": {
+                    "const": false
+                  },
+                  "reasons": {
+                    "contains": {
+                      "const": "source_partial"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:wrapper-boundary:1#/oneOf/1"
+    }
+  ]
+}

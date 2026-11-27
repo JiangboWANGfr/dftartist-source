@@ -1,0 +1,27 @@
+# Hand-authored mock DEF for the soc_mem fixture design (tests/fixtures/mbist/soc_mem.v).
+# NOT real backend output — placements are made up. groupMemories tiles the die into cells whose
+# diagonal is clusterSizeRatio percent of the die's (default 20 when a DEF is given): each group
+# below is packed tightly enough that it stays within ONE tile on a 6000x5000um die (cell
+# 1200x1000um at ratio 20), so the floorplan/MBIST overlay draws one controller per real clock
+# domain (core_clk's 8 memories together, div2's 2, div4's 2) instead of fragmenting across tile
+# boundaries. Component names are the design's top-relative memory instance names (the memoryMap
+# path matcher tries top-relative first).
+VERSION 5.8 ;
+DESIGN soc_mem ;
+UNITS DISTANCE MICRONS 1000 ;
+DIEAREA ( 0 0 ) ( 6000000 5000000 ) ;
+COMPONENTS 12 ;
+- MEM_A0 BIG_RAM_8Kx16 + PLACED ( 100000 4100000 ) N ;
+- MEM_A1 BIG_RAM_8Kx16 + PLACED ( 300000 4100000 ) N ;
+- MEM_A2 BIG_RAM_8Kx16 + PLACED ( 500000 4100000 ) N ;
+- MEM_A3 BIG_RAM_8Kx16 + PLACED ( 700000 4100000 ) N ;
+- MEM_A4 BIG_RAM_8Kx16 + PLACED ( 100000 4300000 ) N ;
+- MEM_A5 BIG_RAM_8Kx16 + PLACED ( 300000 4300000 ) N ;
+- MEM_C0 SMALL_RAM_4Kx16 + PLACED ( 500000 4300000 ) N ;
+- MEM_C1 SMALL_RAM_4Kx16 + PLACED ( 700000 4300000 ) N ;
+- MEM_D0 BIG_RAM_8Kx16 + PLACED ( 4800000 4000000 ) N ;
+- MEM_D1 BIG_RAM_8Kx16 + PLACED ( 5000000 4200000 ) N ;
+- MEM_E0 BIG_RAM_8Kx16 + PLACED ( 4800000 100000 ) N ;
+- MEM_E1 BIG_RAM_8Kx16 + PLACED ( 5000000 300000 ) N ;
+END COMPONENTS
+END DESIGN

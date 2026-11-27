@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>M6 canvas comparison</title>
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="icon" href="data:," />
+  </head>
+  <body>
+    <main>
+      <header>
+        <span class="eyebrow">M6 · CONTROLLED DISPLAY EXPERIMENT</span>
+        <h1 id="route">Canvas comparison</h1>
+        <p>Shared GraphSession · SelectionModel · LayoutService / native ELK Worker</p>
+      </header>
+      <nav id="actions" aria-label="Experiment actions">
+        <button data-action="external">Select x externally</button
+        ><button data-action="back">Back</button><button data-action="forward">Forward</button
+        ><button data-action="fold:bus">Toggle bus</button
+        ><button data-action="fold:hierarchy">Toggle stage</button
+        ><button data-action="replace">Replace A</button><button data-action="reset">Reset A</button
+        ><button data-action="relayout:crash">Fail Worker</button
+        ><button data-action="retry">Retry</button>
+      </nav>
+      <p id="status" role="status">Opening…</p>
+      <div id="canvas" class="viewport" aria-label="Diagram viewport"></div>
+      <p class="note">
+        Fixed handwritten DTO, 5 nodes / 5 edges. Display folding preserves original member
+        mappings; boundary rerouting is not implemented.
+      </p>
+      <details open>
+        <summary>Shared selection and last hit receipt</summary>
+        <pre id="inspector"></pre>
+      </details>
+    </main>
+    <script type="module" src="/ENTRY.js"></script>
+  </body>
+</html>

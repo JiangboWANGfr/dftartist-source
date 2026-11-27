@@ -1,0 +1,504 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:memory-map:1",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-memory-map-v1"
+        },
+        "interfaces": {
+          "$ref": "urn:dft-studio:analysis:macro-interfaces:1#/oneOf/0"
+        },
+        "mapping": {
+          "type": "object",
+          "properties": {
+            "snapshotId": {
+              "type": "string"
+            },
+            "request": {
+              "type": "object",
+              "properties": {
+                "models": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "definitionName": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "words": {
+                        "type": "integer",
+                        "minimum": 2,
+                        "maximum": 4294967296
+                      },
+                      "dataBits": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 65536
+                      },
+                      "maskLaneBits": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 65536
+                      },
+                      "roles": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "role": {
+                              "enum": [
+                                "address",
+                                "data_in",
+                                "data_out",
+                                "clock",
+                                "chip_enable",
+                                "write_enable",
+                                "output_enable",
+                                "write_mask"
+                              ]
+                            },
+                            "pin": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "sense": {
+                              "enum": [
+                                "none",
+                                "high",
+                                "low",
+                                "posedge",
+                                "negedge"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "role",
+                            "pin",
+                            "sense"
+                          ],
+                          "additionalProperties": false,
+                          "allOf": [
+                            {
+                              "if": {
+                                "properties": {
+                                  "role": {
+                                    "const": "clock"
+                                  }
+                                }
+                              },
+                              "then": {
+                                "properties": {
+                                  "sense": {
+                                    "enum": [
+                                      "posedge",
+                                      "negedge"
+                                    ]
+                                  }
+                                }
+                              },
+                              "else": {
+                                "if": {
+                                  "properties": {
+                                    "role": {
+                                      "enum": [
+                                        "address",
+                                        "data_in",
+                                        "data_out"
+                                      ]
+                                    }
+                                  }
+                                },
+                                "then": {
+                                  "properties": {
+                                    "sense": {
+                                      "const": "none"
+                                    }
+                                  }
+                                },
+                                "else": {
+                                  "properties": {
+                                    "sense": {
+                                      "enum": [
+                                        "high",
+                                        "low"
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "minItems": 4,
+                        "maxItems": 8
+                      }
+                    },
+                    "required": [
+                      "definitionName",
+                      "words",
+                      "dataBits",
+                      "maskLaneBits",
+                      "roles"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1,
+                  "maxItems": 256
+                },
+                "limits": {
+                  "type": "object",
+                  "properties": {
+                    "maxMacros": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 10000
+                    },
+                    "maxWork": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 10000000
+                    },
+                    "maxMillis": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 60000
+                    }
+                  },
+                  "required": [
+                    "maxMacros",
+                    "maxWork",
+                    "maxMillis"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "models",
+                "limits"
+              ],
+              "additionalProperties": false
+            },
+            "complete": {
+              "type": "boolean"
+            },
+            "reasons": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "interfaces_partial",
+                  "interface_mismatch",
+                  "model_missing",
+                  "budget_macros",
+                  "budget_work",
+                  "budget_time"
+                ]
+              },
+              "uniqueItems": true
+            },
+            "work": {
+              "oneOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                {
+                  "type": "string",
+                  "pattern": "^(0|[1-9][0-9]*)$"
+                }
+              ]
+            },
+            "visitedMacros": {
+              "oneOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                {
+                  "type": "string",
+                  "pattern": "^(0|[1-9][0-9]*)$"
+                }
+              ]
+            },
+            "matchedInstances": {
+              "oneOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                {
+                  "type": "string",
+                  "pattern": "^(0|[1-9][0-9]*)$"
+                }
+              ]
+            },
+            "matchedCapacityBits": {
+              "oneOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                {
+                  "type": "string",
+                  "pattern": "^(0|[1-9][0-9]*)$"
+                }
+              ]
+            },
+            "memories": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "macro": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "model": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "status": {
+                    "enum": [
+                      "matched",
+                      "mismatch",
+                      "unmapped"
+                    ]
+                  },
+                  "roles": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "role": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "pin": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "compatible": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "role",
+                        "compatible"
+                      ],
+                      "additionalProperties": false,
+                      "allOf": [
+                        {
+                          "if": {
+                            "properties": {
+                              "compatible": {
+                                "const": true
+                              }
+                            }
+                          },
+                          "then": {
+                            "required": [
+                              "pin"
+                            ]
+                          }
+                        }
+                      ]
+                    },
+                    "maxItems": 8
+                  },
+                  "issues": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "enum": [
+                            "pin_missing",
+                            "pin_width",
+                            "pin_direction",
+                            "unmapped_pin",
+                            "model_missing"
+                          ]
+                        },
+                        "role": {
+                          "enum": [
+                            "",
+                            "address",
+                            "data_in",
+                            "data_out",
+                            "clock",
+                            "chip_enable",
+                            "write_enable",
+                            "output_enable",
+                            "write_mask"
+                          ]
+                        },
+                        "pin": {
+                          "type": "string"
+                        },
+                        "expected": {
+                          "type": "string"
+                        },
+                        "actual": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "code",
+                        "role",
+                        "pin",
+                        "expected",
+                        "actual"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "macro",
+                  "status",
+                  "roles",
+                  "issues"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unmapped"
+                        }
+                      }
+                    },
+                    "then": {
+                      "not": {
+                        "required": [
+                          "model"
+                        ]
+                      },
+                      "properties": {
+                        "roles": {
+                          "maxItems": 0
+                        },
+                        "issues": {
+                          "minItems": 1
+                        }
+                      }
+                    },
+                    "else": {
+                      "required": [
+                        "model"
+                      ],
+                      "properties": {
+                        "roles": {
+                          "minItems": 4
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "matched"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "issues": {
+                          "maxItems": 0
+                        },
+                        "roles": {
+                          "items": {
+                            "properties": {
+                              "compatible": {
+                                "const": true
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "issues": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "maxItems": 10000
+            }
+          },
+          "required": [
+            "snapshotId",
+            "request",
+            "complete",
+            "reasons",
+            "work",
+            "visitedMacros",
+            "matchedInstances",
+            "matchedCapacityBits",
+            "memories"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "interfaces",
+        "mapping"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "enum": [
+                "invalid_arguments",
+                "not_found",
+                "cancelled",
+                "analysis_failed",
+                "design_invalid",
+                "output_failed"
+              ]
+            },
+            "message": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "code",
+            "message"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "formatVersion",
+        "error"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

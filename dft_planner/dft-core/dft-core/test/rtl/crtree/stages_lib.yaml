@@ -1,0 +1,6 @@
+# Test fixture: points at the synthetic stages.tcelllib next to it.
+# The path is rewritten by the test to an absolute one before use.
+lib_manager:
+   standard_cell: |
+       read_cell_library STAGES_TCELLLIB
+       #read_cell_library /nonexistent/commented_out.tcelllib

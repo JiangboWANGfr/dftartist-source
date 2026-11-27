@@ -1,0 +1,25 @@
+MemoryTemplate (BIG_RAM_8Kx16) {
+
+   MemoryType      : SRAM;
+   CellName        : BIG_RAM_8Kx16;
+   Algorithm       : SMarchCHKBCil;
+   logicalPorts    : 1rw;
+   NumberOfWords   : 8192;
+   MilliWattsPerMegaHertz : 1.2;
+   DataOutStage    : None;
+   OperationSet    : sync;
+      Port (CLK) { Function : Clock; Polarity : ActiveHigh; }
+      Port (WEN) { Function : WriteEnable; Polarity : ActiveLow; }
+      Port (D[15:0]) { Function : Data; Direction : Input; }
+      Port (Q[15:0]) { Function : Data; Direction : Output; }
+      port (A[12:0]) { function : Address; }
+      port (CEN) { function : Select; Polarity : ActiveLow; }
+      AddressCounter {
+           Function (Address) {
+               LogicalAddressMap {
+                   RowAddress[8:0]    : Address [12:4];
+                   ColumnAddress[3:0] : Address [3:0];
+               }
+           }
+      }
+}

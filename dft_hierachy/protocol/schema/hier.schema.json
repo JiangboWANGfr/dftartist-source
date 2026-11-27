@@ -1,0 +1,5641 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:hier:protocol:2:schema:7",
+  "title": "Hierarchy wire contract (M4 draft)",
+  "description": "Draft for independent C review and B freeze. The current M3 runtime remains protocol 2 / schema 6. This file is hand-authored from DESIGN, not inferred from runtime JSON.",
+  "x-hier-contract": {
+    "status": "draft",
+    "protocolVersion": {
+      "$ref": "#/$defs/ProtocolVersion"
+    },
+    "schemaVersion": {
+      "$ref": "#/$defs/SchemaVersion"
+    },
+    "designSection": "5.6",
+    "m3FrozenDesignSha256": "487211cec837aed48879f9915372780f1c03b7b0adf61cccbcbc4bb36a6e89e0"
+  },
+  "x-hier-methods": {
+    "design.info": {
+      "params": {
+        "$ref": "#/$defs/DesignInfoParams"
+      },
+      "result": {
+        "$ref": "#/$defs/DesignInfoResult"
+      },
+      "response": {
+        "$ref": "#/$defs/DesignInfoResponse"
+      },
+      "clientMethod": "info",
+      "cacheComplete": false,
+      "allowsPartial": false
+    },
+    "design.diagnostics": {
+      "params": {
+        "$ref": "#/$defs/DesignDiagnosticsParams"
+      },
+      "result": {
+        "$ref": "#/$defs/DesignDiagnosticsResult"
+      },
+      "response": {
+        "$ref": "#/$defs/DesignDiagnosticsResponse"
+      },
+      "clientMethod": "diagnostics",
+      "cacheComplete": false,
+      "allowsPartial": false
+    },
+    "design.checkInputs": {
+      "params": {
+        "$ref": "#/$defs/DesignCheckInputsParams"
+      },
+      "result": {
+        "$ref": "#/$defs/DesignCheckInputsResult"
+      },
+      "response": {
+        "$ref": "#/$defs/DesignCheckInputsResponse"
+      },
+      "clientMethod": "checkInputs",
+      "cacheComplete": false,
+      "allowsPartial": false
+    },
+    "inst.roots": {
+      "params": {
+        "$ref": "#/$defs/InstRootsParams"
+      },
+      "result": {
+        "$ref": "#/$defs/InstRootsResult"
+      },
+      "response": {
+        "$ref": "#/$defs/InstRootsResponse"
+      },
+      "clientMethod": "roots",
+      "cacheComplete": false,
+      "allowsPartial": false
+    },
+    "inst.children": {
+      "params": {
+        "$ref": "#/$defs/InstChildrenParams"
+      },
+      "result": {
+        "$ref": "#/$defs/InstChildrenResult"
+      },
+      "response": {
+        "$ref": "#/$defs/InstChildrenResponse"
+      },
+      "clientMethod": "children",
+      "cacheComplete": false,
+      "allowsPartial": false
+    },
+    "inst.ancestors": {
+      "params": {
+        "$ref": "#/$defs/InstAncestorsParams"
+      },
+      "result": {
+        "$ref": "#/$defs/InstAncestorsResult"
+      },
+      "response": {
+        "$ref": "#/$defs/InstAncestorsResponse"
+      },
+      "clientMethod": "ancestors",
+      "cacheComplete": false,
+      "allowsPartial": false
+    },
+    "inst.get": {
+      "params": {
+        "$ref": "#/$defs/InstGetParams"
+      },
+      "result": {
+        "$ref": "#/$defs/InstGetResult"
+      },
+      "response": {
+        "$ref": "#/$defs/InstGetResponse"
+      },
+      "clientMethod": "instance",
+      "cacheComplete": false,
+      "allowsPartial": false
+    },
+    "inst.ports": {
+      "params": {
+        "$ref": "#/$defs/InstPortsParams"
+      },
+      "result": {
+        "$ref": "#/$defs/InstPortsResult"
+      },
+      "response": {
+        "$ref": "#/$defs/InstPortsResponse"
+      },
+      "clientMethod": "ports",
+      "cacheComplete": true,
+      "allowsPartial": false
+    },
+    "inst.params": {
+      "params": {
+        "$ref": "#/$defs/InstParamsParams"
+      },
+      "result": {
+        "$ref": "#/$defs/InstParamsResult"
+      },
+      "response": {
+        "$ref": "#/$defs/InstParamsResponse"
+      },
+      "clientMethod": "params",
+      "cacheComplete": true,
+      "allowsPartial": false
+    },
+    "inst.signals": {
+      "params": {
+        "$ref": "#/$defs/InstSignalsParams"
+      },
+      "result": {
+        "$ref": "#/$defs/InstSignalsResult"
+      },
+      "response": {
+        "$ref": "#/$defs/InstSignalsResponse"
+      },
+      "clientMethod": "signals",
+      "cacheComplete": false,
+      "allowsPartial": false
+    },
+    "def.list": {
+      "params": {
+        "$ref": "#/$defs/DefListParams"
+      },
+      "result": {
+        "$ref": "#/$defs/DefListResult"
+      },
+      "response": {
+        "$ref": "#/$defs/DefListResponse"
+      },
+      "clientMethod": "definitions",
+      "cacheComplete": false,
+      "allowsPartial": false
+    },
+    "def.instances": {
+      "params": {
+        "$ref": "#/$defs/DefInstancesParams"
+      },
+      "result": {
+        "$ref": "#/$defs/DefInstancesResult"
+      },
+      "response": {
+        "$ref": "#/$defs/DefInstancesResponse"
+      },
+      "clientMethod": "instancesOf",
+      "cacheComplete": false,
+      "allowsPartial": true
+    },
+    "search": {
+      "params": {
+        "$ref": "#/$defs/SearchParams"
+      },
+      "result": {
+        "$ref": "#/$defs/SearchResult"
+      },
+      "response": {
+        "$ref": "#/$defs/SearchResponse"
+      },
+      "clientMethod": "search",
+      "cacheComplete": false,
+      "allowsPartial": true
+    },
+    "path.resolve": {
+      "params": {
+        "$ref": "#/$defs/PathResolveParams"
+      },
+      "result": {
+        "$ref": "#/$defs/PathResolveResult"
+      },
+      "response": {
+        "$ref": "#/$defs/PathResolveResponse"
+      },
+      "clientMethod": "resolvePath",
+      "cacheComplete": false,
+      "allowsPartial": true
+    },
+    "conn.bindings": {
+      "params": {
+        "$ref": "#/$defs/ConnBindingsParams"
+      },
+      "result": {
+        "$ref": "#/$defs/ConnBindingsResult"
+      },
+      "response": {
+        "$ref": "#/$defs/ConnBindingsResponse"
+      },
+      "clientMethod": "bindings",
+      "cacheComplete": true,
+      "allowsPartial": false
+    },
+    "conn.drivers": {
+      "params": {
+        "$ref": "#/$defs/ConnDriversParams"
+      },
+      "result": {
+        "$ref": "#/$defs/ConnDriversResult"
+      },
+      "response": {
+        "$ref": "#/$defs/ConnDriversResponse"
+      },
+      "clientMethod": "drivers",
+      "cacheComplete": false,
+      "allowsPartial": true
+    },
+    "conn.loads": {
+      "params": {
+        "$ref": "#/$defs/ConnLoadsParams"
+      },
+      "result": {
+        "$ref": "#/$defs/ConnLoadsResult"
+      },
+      "response": {
+        "$ref": "#/$defs/ConnLoadsResponse"
+      },
+      "clientMethod": "loads",
+      "cacheComplete": false,
+      "allowsPartial": true
+    },
+    "conn.step": {
+      "params": {
+        "$ref": "#/$defs/ConnStepParams"
+      },
+      "result": {
+        "$ref": "#/$defs/ConnStepResult"
+      },
+      "response": {
+        "$ref": "#/$defs/ConnStepResponse"
+      },
+      "clientMethod": "step",
+      "cacheComplete": false,
+      "allowsPartial": true
+    },
+    "trace.cone": {
+      "params": {
+        "$ref": "#/$defs/TraceConeParams"
+      },
+      "result": {
+        "$ref": "#/$defs/TraceConeResult"
+      },
+      "response": {
+        "$ref": "#/$defs/TraceConeResponse"
+      },
+      "clientMethod": "cone",
+      "cacheComplete": false,
+      "allowsPartial": true
+    },
+    "trace.paths": {
+      "params": {
+        "$ref": "#/$defs/TracePathsParams"
+      },
+      "result": {
+        "$ref": "#/$defs/TracePathsResult"
+      },
+      "response": {
+        "$ref": "#/$defs/TracePathsResponse"
+      },
+      "clientMethod": "paths",
+      "cacheComplete": false,
+      "allowsPartial": true
+    },
+    "seq.registers": {
+      "params": {
+        "$ref": "#/$defs/SeqRegistersParams"
+      },
+      "result": {
+        "$ref": "#/$defs/SeqRegistersResult"
+      },
+      "response": {
+        "$ref": "#/$defs/SeqRegistersResponse"
+      },
+      "clientMethod": "registers",
+      "cacheComplete": false,
+      "allowsPartial": true
+    },
+    "proc.list": {
+      "params": {
+        "$ref": "#/$defs/ProcListParams"
+      },
+      "result": {
+        "$ref": "#/$defs/ProcListResult"
+      },
+      "response": {
+        "$ref": "#/$defs/ProcListResponse"
+      },
+      "clientMethod": "procs",
+      "cacheComplete": false,
+      "allowsPartial": false
+    },
+    "proc.get": {
+      "params": {
+        "$ref": "#/$defs/ProcGetParams"
+      },
+      "result": {
+        "$ref": "#/$defs/ProcGetResult"
+      },
+      "response": {
+        "$ref": "#/$defs/ProcGetResponse"
+      },
+      "clientMethod": "proc",
+      "cacheComplete": false,
+      "allowsPartial": true
+    },
+    "obj.get": {
+      "params": {
+        "$ref": "#/$defs/ObjGetParams"
+      },
+      "result": {
+        "$ref": "#/$defs/ObjGetResult"
+      },
+      "response": {
+        "$ref": "#/$defs/ObjGetResponse"
+      },
+      "clientMethod": "object",
+      "cacheComplete": false,
+      "allowsPartial": false
+    },
+    "obj.source": {
+      "params": {
+        "$ref": "#/$defs/ObjSourceParams"
+      },
+      "result": {
+        "$ref": "#/$defs/ObjSourceResult"
+      },
+      "response": {
+        "$ref": "#/$defs/ObjSourceResponse"
+      },
+      "clientMethod": "source",
+      "cacheComplete": false,
+      "allowsPartial": false
+    },
+    "source.resolve": {
+      "params": {
+        "$ref": "#/$defs/SourceResolveParams"
+      },
+      "result": {
+        "$ref": "#/$defs/SourceResolveResult"
+      },
+      "response": {
+        "$ref": "#/$defs/SourceResolveResponse"
+      },
+      "clientMethod": "resolveSource",
+      "cacheComplete": false,
+      "allowsPartial": true
+    },
+    "source.read": {
+      "params": {
+        "$ref": "#/$defs/SourceReadParams"
+      },
+      "result": {
+        "$ref": "#/$defs/SourceReadResult"
+      },
+      "response": {
+        "$ref": "#/$defs/SourceReadResponse"
+      },
+      "clientMethod": "readSource",
+      "cacheComplete": false,
+      "allowsPartial": false
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/ClientFrame"
+    },
+    {
+      "$ref": "#/$defs/ServerFrame"
+    }
+  ],
+  "$defs": {
+    "ProtocolVersion": {
+      "const": 2
+    },
+    "SchemaVersion": {
+      "const": 7
+    },
+    "Text": {
+      "type": "string"
+    },
+    "NonemptyText": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ObjectRef": {
+      "$ref": "#/$defs/NonemptyText",
+      "description": "Opaque identity; consumers do not parse its encoding."
+    },
+    "DefRef": {
+      "$ref": "#/$defs/NonemptyText",
+      "description": "Opaque identity; consumers do not parse its encoding."
+    },
+    "FileRef": {
+      "$ref": "#/$defs/NonemptyText",
+      "description": "Opaque identity; consumers do not parse its encoding."
+    },
+    "SnapshotId": {
+      "$ref": "#/$defs/NonemptyText",
+      "description": "Opaque identity; consumers do not parse its encoding."
+    },
+    "Cursor": {
+      "$ref": "#/$defs/NonemptyText",
+      "description": "Opaque identity; consumers do not parse its encoding."
+    },
+    "FactId": {
+      "$ref": "#/$defs/NonemptyText",
+      "description": "Opaque identity; consumers do not parse its encoding."
+    },
+    "NodeId": {
+      "$ref": "#/$defs/NonemptyText",
+      "description": "Opaque identity; consumers do not parse its encoding."
+    },
+    "EdgeId": {
+      "$ref": "#/$defs/NonemptyText",
+      "description": "Opaque identity; consumers do not parse its encoding."
+    },
+    "UInt": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "PositiveInt": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "Int32": {
+      "type": "integer",
+      "minimum": -2147483648,
+      "maximum": 2147483647
+    },
+    "RequestId": {
+      "$ref": "#/$defs/PositiveInt"
+    },
+    "Hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}(?![\\s\\S])",
+      "$comment": "Absolute end of string in Python and ECMAScript; a final line terminator is not accepted.",
+      "minLength": 64,
+      "maxLength": 64
+    },
+    "UtcTimestamp": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\\.[0-9]{3}Z(?![\\s\\S])",
+      "format": "date-time",
+      "$comment": "Absolute end of string in Python and ECMAScript; a final line terminator is not accepted.",
+      "minLength": 24,
+      "maxLength": 24
+    },
+    "Attributes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "InstKind": {
+      "type": "string",
+      "enum": [
+        "module",
+        "interface",
+        "program",
+        "blackbox",
+        "primitive"
+      ]
+    },
+    "Direction": {
+      "type": "string",
+      "enum": [
+        "in",
+        "out",
+        "inout",
+        "ref",
+        "unknown"
+      ]
+    },
+    "Side": {
+      "type": "string",
+      "enum": [
+        "inside",
+        "outside"
+      ]
+    },
+    "TraceDirection": {
+      "type": "string",
+      "enum": [
+        "back",
+        "forward"
+      ]
+    },
+    "TracePolicy": {
+      "type": "string",
+      "enum": [
+        "structural",
+        "combinational",
+        "full"
+      ]
+    },
+    "UseRole": {
+      "type": "string",
+      "enum": [
+        "data",
+        "control",
+        "clock",
+        "async"
+      ]
+    },
+    "Precision": {
+      "type": "string",
+      "enum": [
+        "exact",
+        "conservative"
+      ]
+    },
+    "Alignment": {
+      "type": "string",
+      "enum": [
+        "bitwise",
+        "all"
+      ]
+    },
+    "SourceRefKind": {
+      "type": "string",
+      "enum": [
+        "definition",
+        "object"
+      ]
+    },
+    "SourceKind": {
+      "type": "string",
+      "enum": [
+        "definition",
+        "instantiation",
+        "statement"
+      ]
+    },
+    "HitKind": {
+      "type": "string",
+      "enum": [
+        "definition",
+        "instance",
+        "port",
+        "signal",
+        "process",
+        "register"
+      ]
+    },
+    "ProcessKind": {
+      "type": "string",
+      "enum": [
+        "assign",
+        "init",
+        "port_expr",
+        "always_comb",
+        "always_ff",
+        "always_latch",
+        "always",
+        "initial"
+      ]
+    },
+    "ReasonCode": {
+      "type": "string",
+      "enum": [
+        "budget_nodes",
+        "budget_edges",
+        "budget_depth",
+        "budget_time",
+        "blackbox",
+        "unresolved_expr",
+        "hier_ref",
+        "interface_port",
+        "unknown_pin_width",
+        "complex_port",
+        "indexing",
+        "unsupported"
+      ]
+    },
+    "WireErrorCode": {
+      "type": "string",
+      "enum": [
+        "bad_request",
+        "unknown_method",
+        "stale_snapshot",
+        "stale_cursor",
+        "not_found",
+        "cancelled",
+        "unsupported",
+        "internal"
+      ]
+    },
+    "WireError": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/WireErrorCode"
+        },
+        "message": {
+          "$ref": "#/$defs/NonemptyText"
+        },
+        "data": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "code",
+        "message",
+        "data"
+      ],
+      "additionalProperties": true
+    },
+    "BitRange": {
+      "type": "object",
+      "properties": {
+        "lsb": {
+          "$ref": "#/$defs/UInt"
+        },
+        "width": {
+          "$ref": "#/$defs/UInt"
+        }
+      },
+      "required": [
+        "lsb",
+        "width"
+      ],
+      "additionalProperties": true
+    },
+    "RequestedBitRange": {
+      "type": "object",
+      "properties": {
+        "lsb": {
+          "$ref": "#/$defs/UInt"
+        },
+        "width": {
+          "$ref": "#/$defs/PositiveInt"
+        }
+      },
+      "required": [
+        "lsb",
+        "width"
+      ],
+      "additionalProperties": true
+    },
+    "Slice": {
+      "type": "object",
+      "properties": {
+        "ref": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "bits": {
+          "$ref": "#/$defs/BitRange"
+        }
+      },
+      "required": [
+        "ref",
+        "bits"
+      ],
+      "additionalProperties": true
+    },
+    "SliceRequest": {
+      "type": "object",
+      "properties": {
+        "ref": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "bits": {
+          "$ref": "#/$defs/RequestedBitRange"
+        }
+      },
+      "required": [
+        "ref"
+      ],
+      "additionalProperties": true
+    },
+    "TracePoint": {
+      "type": "object",
+      "properties": {
+        "slice": {
+          "$ref": "#/$defs/Slice",
+          "properties": {
+            "bits": {
+              "if": {
+                "properties": {
+                  "width": {
+                    "const": 0
+                  }
+                },
+                "required": [
+                  "width"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "lsb": {
+                    "const": 0
+                  }
+                }
+              }
+            }
+          }
+        },
+        "side": {
+          "$ref": "#/$defs/Side"
+        }
+      },
+      "required": [
+        "slice"
+      ],
+      "additionalProperties": true
+    },
+    "Dim": {
+      "type": "object",
+      "properties": {
+        "left": {
+          "$ref": "#/$defs/Int32"
+        },
+        "right": {
+          "$ref": "#/$defs/Int32"
+        },
+        "packed": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "left",
+        "right",
+        "packed"
+      ],
+      "additionalProperties": true
+    },
+    "MemberInfo": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/Text"
+        },
+        "type": {
+          "$ref": "#/$defs/Text"
+        },
+        "bits": {
+          "$ref": "#/$defs/BitRange"
+        },
+        "signed": {
+          "type": "boolean"
+        },
+        "dims": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Dim"
+          }
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/MemberInfo"
+          }
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "bits",
+        "signed",
+        "dims",
+        "members"
+      ],
+      "additionalProperties": true
+    },
+    "Reason": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/ReasonCode"
+        },
+        "at": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "detail": {
+          "$ref": "#/$defs/Text"
+        }
+      },
+      "required": [
+        "code"
+      ],
+      "additionalProperties": true
+    },
+    "Completeness": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "partial"
+          ]
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Reason"
+          }
+        }
+      },
+      "required": [
+        "status",
+        "reasons"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "complete"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "reasons": {
+                "maxItems": 0
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "reasons": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "InstInfo": {
+      "type": "object",
+      "properties": {
+        "ref": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "name": {
+          "$ref": "#/$defs/Text"
+        },
+        "path": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Text"
+          }
+        },
+        "pathText": {
+          "$ref": "#/$defs/Text"
+        },
+        "kind": {
+          "$ref": "#/$defs/InstKind"
+        },
+        "def": {
+          "$ref": "#/$defs/DefRef"
+        },
+        "defName": {
+          "$ref": "#/$defs/Text"
+        },
+        "childCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 4294967295
+        },
+        "hasParamOverrides": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "ref",
+        "name",
+        "path",
+        "pathText",
+        "kind",
+        "def",
+        "defName",
+        "childCount",
+        "hasParamOverrides"
+      ],
+      "additionalProperties": true
+    },
+    "DefSummary": {
+      "type": "object",
+      "properties": {
+        "ref": {
+          "$ref": "#/$defs/DefRef"
+        },
+        "name": {
+          "$ref": "#/$defs/Text"
+        },
+        "kind": {
+          "$ref": "#/$defs/InstKind"
+        },
+        "file": {
+          "$ref": "#/$defs/NonemptyText"
+        },
+        "line": {
+          "$ref": "#/$defs/PositiveInt"
+        }
+      },
+      "required": [
+        "ref",
+        "name",
+        "kind"
+      ],
+      "additionalProperties": true,
+      "dependentRequired": {
+        "file": [
+          "line"
+        ],
+        "line": [
+          "file"
+        ]
+      }
+    },
+    "Diagnostic": {
+      "type": "object",
+      "properties": {
+        "severity": {
+          "type": "string",
+          "enum": [
+            "error",
+            "warning"
+          ]
+        },
+        "message": {
+          "$ref": "#/$defs/Text"
+        },
+        "file": {
+          "$ref": "#/$defs/NonemptyText"
+        },
+        "line": {
+          "$ref": "#/$defs/UInt"
+        }
+      },
+      "required": [
+        "severity",
+        "message"
+      ],
+      "additionalProperties": true,
+      "dependentRequired": {
+        "file": [
+          "line"
+        ],
+        "line": [
+          "file"
+        ]
+      }
+    },
+    "Diagnostics": {
+      "type": "object",
+      "properties": {
+        "errorCount": {
+          "$ref": "#/$defs/UInt"
+        },
+        "warningCount": {
+          "$ref": "#/$defs/UInt"
+        },
+        "truncated": {
+          "type": "boolean"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Diagnostic"
+          }
+        }
+      },
+      "required": [
+        "errorCount",
+        "warningCount",
+        "truncated",
+        "items"
+      ],
+      "additionalProperties": true
+    },
+    "SnapshotInfo": {
+      "type": "object",
+      "properties": {
+        "protocol": {
+          "$ref": "#/$defs/ProtocolVersion"
+        },
+        "schemaVersion": {
+          "$ref": "#/$defs/SchemaVersion"
+        },
+        "frontend": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "const": "slang"
+            },
+            "version": {
+              "$ref": "#/$defs/NonemptyText"
+            }
+          },
+          "required": [
+            "name",
+            "version"
+          ],
+          "additionalProperties": true
+        },
+        "bodySharing": {
+          "type": "string",
+          "enum": [
+            "fast",
+            "per-instance"
+          ]
+        },
+        "bodySharingReason": {
+          "$ref": "#/$defs/Text"
+        },
+        "tops": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/InstInfo"
+          }
+        },
+        "definitionCount": {
+          "$ref": "#/$defs/UInt"
+        },
+        "bodyCount": {
+          "$ref": "#/$defs/UInt"
+        },
+        "snapshotId": {
+          "$ref": "#/$defs/SnapshotId"
+        },
+        "inputHash": {
+          "$ref": "#/$defs/Hash"
+        },
+        "inputHashComplete": {
+          "type": "boolean"
+        },
+        "indexState": {
+          "type": "string",
+          "enum": [
+            "building",
+            "ready"
+          ]
+        },
+        "openedAt": {
+          "$ref": "#/$defs/UtcTimestamp"
+        },
+        "topCandidates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ObjectRef"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "protocol",
+        "schemaVersion",
+        "frontend",
+        "bodySharing",
+        "tops",
+        "definitionCount",
+        "bodyCount",
+        "snapshotId",
+        "inputHash",
+        "inputHashComplete",
+        "indexState",
+        "openedAt",
+        "topCandidates"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "bodySharing": {
+                "const": "per-instance"
+              }
+            },
+            "required": [
+              "bodySharing"
+            ]
+          },
+          "then": {
+            "required": [
+              "bodySharingReason"
+            ]
+          }
+        }
+      ]
+    },
+    "BindTarget": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "signal"
+            },
+            "signal": {
+              "$ref": "#/$defs/ObjectRef"
+            },
+            "bits": {
+              "$ref": "#/$defs/BitRange"
+            }
+          },
+          "required": [
+            "kind",
+            "signal",
+            "bits"
+          ],
+          "additionalProperties": true,
+          "allOf": [
+            {
+              "properties": {
+                "value": false,
+                "process": false,
+                "reason": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "const"
+            },
+            "value": {
+              "$ref": "#/$defs/FourStateValue"
+            }
+          },
+          "required": [
+            "kind",
+            "value"
+          ],
+          "additionalProperties": true,
+          "allOf": [
+            {
+              "properties": {
+                "signal": false,
+                "bits": false,
+                "process": false,
+                "reason": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "unconnected"
+            }
+          },
+          "required": [
+            "kind"
+          ],
+          "additionalProperties": true,
+          "allOf": [
+            {
+              "properties": {
+                "signal": false,
+                "bits": false,
+                "value": false,
+                "process": false,
+                "reason": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "expr"
+            },
+            "process": {
+              "$ref": "#/$defs/ObjectRef"
+            }
+          },
+          "required": [
+            "kind",
+            "process"
+          ],
+          "additionalProperties": true,
+          "allOf": [
+            {
+              "properties": {
+                "signal": false,
+                "bits": false,
+                "value": false,
+                "reason": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "unresolved"
+            },
+            "reason": {
+              "$ref": "#/$defs/ReasonCode"
+            }
+          },
+          "required": [
+            "kind",
+            "reason"
+          ],
+          "additionalProperties": true,
+          "allOf": [
+            {
+              "properties": {
+                "signal": false,
+                "bits": false,
+                "value": false,
+                "process": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "FourStateValue": {
+      "type": "string",
+      "pattern": "^[1-9][0-9]*'b[01xz]+(?![\\s\\S])",
+      "description": "Bit count must also equal the decimal width; checked by Core semantics.",
+      "$comment": "Absolute end of string in Python and ECMAScript; a final line terminator is not accepted."
+    },
+    "BindSegment": {
+      "type": "object",
+      "properties": {
+        "pinBits": {
+          "$ref": "#/$defs/BitRange"
+        },
+        "target": {
+          "$ref": "#/$defs/BindTarget"
+        }
+      },
+      "required": [
+        "pinBits",
+        "target"
+      ],
+      "additionalProperties": true
+    },
+    "InternalSegment": {
+      "type": "object",
+      "properties": {
+        "portBits": {
+          "$ref": "#/$defs/BitRange"
+        },
+        "target": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/BindTarget"
+            },
+            {
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "signal",
+                    "const",
+                    "unresolved"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "portBits",
+        "target"
+      ],
+      "additionalProperties": true
+    },
+    "PortInternal": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "direct"
+            },
+            "signal": {
+              "$ref": "#/$defs/ObjectRef"
+            },
+            "bits": {
+              "$ref": "#/$defs/BitRange"
+            }
+          },
+          "required": [
+            "kind",
+            "signal",
+            "bits"
+          ],
+          "additionalProperties": true,
+          "allOf": [
+            {
+              "properties": {
+                "status": false,
+                "segments": false,
+                "reason": false,
+                "expr": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "mapped"
+            },
+            "segments": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/InternalSegment"
+              }
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "complete",
+                "partial"
+              ]
+            },
+            "expr": {
+              "$ref": "#/$defs/Text"
+            }
+          },
+          "required": [
+            "kind",
+            "segments",
+            "status"
+          ],
+          "additionalProperties": true,
+          "allOf": [
+            {
+              "properties": {
+                "signal": false,
+                "bits": false,
+                "reason": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "unresolved"
+            },
+            "reason": {
+              "$ref": "#/$defs/ReasonCode"
+            },
+            "expr": {
+              "$ref": "#/$defs/Text"
+            }
+          },
+          "required": [
+            "kind",
+            "reason"
+          ],
+          "additionalProperties": true,
+          "allOf": [
+            {
+              "properties": {
+                "signal": false,
+                "bits": false,
+                "status": false,
+                "segments": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "PortInfo": {
+      "type": "object",
+      "properties": {
+        "ref": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "name": {
+          "$ref": "#/$defs/Text"
+        },
+        "direction": {
+          "$ref": "#/$defs/Direction"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "port",
+            "interface",
+            "multi"
+          ]
+        },
+        "internal": {
+          "$ref": "#/$defs/PortInternal"
+        },
+        "attrs": {
+          "$ref": "#/$defs/Attributes"
+        },
+        "interfaceDef": {
+          "$ref": "#/$defs/Text"
+        },
+        "modport": {
+          "$ref": "#/$defs/Text"
+        },
+        "type": {
+          "$ref": "#/$defs/Text"
+        },
+        "width": {
+          "$ref": "#/$defs/UInt"
+        },
+        "signed": {
+          "type": "boolean"
+        },
+        "dims": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Dim"
+          }
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/MemberInfo"
+          }
+        }
+      },
+      "required": [
+        "ref",
+        "name",
+        "direction",
+        "kind",
+        "internal"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "interface"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "interfaceDef",
+              "modport"
+            ],
+            "properties": {
+              "type": false,
+              "width": false,
+              "signed": false,
+              "dims": false,
+              "members": false
+            }
+          },
+          "else": {
+            "required": [
+              "type",
+              "width",
+              "signed",
+              "dims",
+              "members"
+            ],
+            "properties": {
+              "interfaceDef": false,
+              "modport": false
+            }
+          }
+        }
+      ]
+    },
+    "ParamInfo": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/Text"
+        },
+        "value": {
+          "$ref": "#/$defs/Text"
+        },
+        "type": {
+          "$ref": "#/$defs/Text"
+        },
+        "isType": {
+          "type": "boolean"
+        },
+        "isLocal": {
+          "type": "boolean"
+        },
+        "isPort": {
+          "type": "boolean"
+        },
+        "isOverridden": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "name",
+        "value",
+        "isType",
+        "isLocal",
+        "isPort",
+        "isOverridden"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "isType": {
+                "const": true
+              }
+            },
+            "required": [
+              "isType"
+            ]
+          },
+          "then": {
+            "properties": {
+              "type": false
+            }
+          },
+          "else": {
+            "required": [
+              "type"
+            ]
+          }
+        }
+      ]
+    },
+    "SignalInfo": {
+      "type": "object",
+      "properties": {
+        "ref": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "name": {
+          "$ref": "#/$defs/Text"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "net",
+            "variable"
+          ]
+        },
+        "type": {
+          "$ref": "#/$defs/Text"
+        },
+        "width": {
+          "$ref": "#/$defs/UInt"
+        },
+        "signed": {
+          "type": "boolean"
+        },
+        "dims": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Dim"
+          }
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/MemberInfo"
+          }
+        },
+        "opaque": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "ref",
+        "name",
+        "kind",
+        "type",
+        "width",
+        "signed",
+        "dims",
+        "members",
+        "opaque"
+      ],
+      "additionalProperties": true
+    },
+    "PinInfo": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/Text"
+        },
+        "direction": {
+          "$ref": "#/$defs/Direction"
+        },
+        "width": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4294967295
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "attrs": {
+          "$ref": "#/$defs/Attributes"
+        }
+      },
+      "required": [
+        "name",
+        "direction",
+        "width",
+        "attrs"
+      ],
+      "additionalProperties": true
+    },
+    "CellInfo": {
+      "type": "object",
+      "properties": {
+        "pins": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PinInfo"
+          }
+        },
+        "attrs": {
+          "$ref": "#/$defs/Attributes"
+        }
+      },
+      "required": [
+        "pins",
+        "attrs"
+      ],
+      "additionalProperties": true
+    },
+    "PinBinding": {
+      "type": "object",
+      "properties": {
+        "inst": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "pin": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "port": {
+          "$ref": "#/$defs/Text"
+        },
+        "direction": {
+          "$ref": "#/$defs/Direction"
+        },
+        "width": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/UInt"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "segments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/BindSegment"
+          }
+        },
+        "unresolved": {
+          "$ref": "#/$defs/ReasonCode"
+        }
+      },
+      "required": [
+        "inst",
+        "pin",
+        "port",
+        "direction",
+        "width",
+        "segments"
+      ],
+      "additionalProperties": true
+    },
+    "LocalNetlist": {
+      "type": "object",
+      "properties": {
+        "inst": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "bindings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PinBinding"
+          }
+        }
+      },
+      "required": [
+        "inst",
+        "bindings"
+      ],
+      "additionalProperties": true
+    },
+    "Dep": {
+      "type": "object",
+      "properties": {
+        "signal": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "bits": {
+          "$ref": "#/$defs/BitRange"
+        },
+        "role": {
+          "$ref": "#/$defs/UseRole"
+        },
+        "precision": {
+          "$ref": "#/$defs/Precision"
+        },
+        "align": {
+          "$ref": "#/$defs/Alignment"
+        }
+      },
+      "required": [
+        "signal",
+        "bits",
+        "role",
+        "precision",
+        "align"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "precision": {
+                "const": "conservative"
+              }
+            },
+            "required": [
+              "precision"
+            ]
+          },
+          "then": {
+            "properties": {
+              "align": {
+                "const": "all"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "BitMapSegment": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "$ref": "#/$defs/UInt"
+        },
+        "to": {
+          "$ref": "#/$defs/UInt"
+        },
+        "width": {
+          "$ref": "#/$defs/PositiveInt"
+        }
+      },
+      "required": [
+        "from",
+        "to",
+        "width"
+      ],
+      "additionalProperties": true
+    },
+    "BitMap": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/BitMapSegment"
+      }
+    },
+    "ExprMapping": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "status": {
+              "const": "mapped"
+            },
+            "segments": {
+              "$ref": "#/$defs/BitMap"
+            }
+          },
+          "required": [
+            "status",
+            "segments"
+          ],
+          "additionalProperties": true,
+          "allOf": [
+            {
+              "properties": {
+                "reason": false
+              }
+            }
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "status": {
+              "const": "unresolved"
+            },
+            "reason": {
+              "const": "unsupported"
+            }
+          },
+          "required": [
+            "status",
+            "reason"
+          ],
+          "additionalProperties": true,
+          "allOf": [
+            {
+              "properties": {
+                "segments": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "Expr": {
+      "type": "object",
+      "properties": {
+        "op": {
+          "type": "string",
+          "enum": [
+            "ref",
+            "const",
+            "not",
+            "reduce_and",
+            "reduce_or",
+            "reduce_xor",
+            "and",
+            "or",
+            "xor",
+            "mux",
+            "concat",
+            "other"
+          ]
+        },
+        "width": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/UInt"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "signed": {
+          "type": "boolean"
+        },
+        "slice": {
+          "$ref": "#/$defs/Slice"
+        },
+        "value": {
+          "$ref": "#/$defs/FourStateValue"
+        },
+        "args": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Expr"
+          }
+        },
+        "text": {
+          "$ref": "#/$defs/Text"
+        },
+        "uses": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/Dep"
+              },
+              {
+                "properties": {
+                  "align": {
+                    "const": "all"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "required": [
+        "op",
+        "width",
+        "signed"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "properties": {
+            "signal": false,
+            "bits": false,
+            "parts": false,
+            "cond": false,
+            "then": false,
+            "else": false
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "ref"
+              }
+            },
+            "required": [
+              "op"
+            ]
+          },
+          "then": {
+            "required": [
+              "slice"
+            ],
+            "properties": {
+              "value": false,
+              "args": false,
+              "uses": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "const"
+              }
+            },
+            "required": [
+              "op"
+            ]
+          },
+          "then": {
+            "required": [
+              "value"
+            ],
+            "properties": {
+              "slice": false,
+              "uses": false,
+              "args": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "not"
+              }
+            },
+            "required": [
+              "op"
+            ]
+          },
+          "then": {
+            "required": [
+              "args"
+            ],
+            "properties": {
+              "value": false,
+              "slice": false,
+              "uses": false,
+              "args": {
+                "minItems": 1,
+                "maxItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "reduce_and"
+              }
+            },
+            "required": [
+              "op"
+            ]
+          },
+          "then": {
+            "required": [
+              "args"
+            ],
+            "properties": {
+              "value": false,
+              "slice": false,
+              "uses": false,
+              "args": {
+                "minItems": 1,
+                "maxItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "reduce_or"
+              }
+            },
+            "required": [
+              "op"
+            ]
+          },
+          "then": {
+            "required": [
+              "args"
+            ],
+            "properties": {
+              "value": false,
+              "slice": false,
+              "uses": false,
+              "args": {
+                "minItems": 1,
+                "maxItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "reduce_xor"
+              }
+            },
+            "required": [
+              "op"
+            ]
+          },
+          "then": {
+            "required": [
+              "args"
+            ],
+            "properties": {
+              "value": false,
+              "slice": false,
+              "uses": false,
+              "args": {
+                "minItems": 1,
+                "maxItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "and"
+              }
+            },
+            "required": [
+              "op"
+            ]
+          },
+          "then": {
+            "required": [
+              "args"
+            ],
+            "properties": {
+              "value": false,
+              "slice": false,
+              "uses": false,
+              "args": {
+                "minItems": 2,
+                "maxItems": 2
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "or"
+              }
+            },
+            "required": [
+              "op"
+            ]
+          },
+          "then": {
+            "required": [
+              "args"
+            ],
+            "properties": {
+              "value": false,
+              "slice": false,
+              "uses": false,
+              "args": {
+                "minItems": 2,
+                "maxItems": 2
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "xor"
+              }
+            },
+            "required": [
+              "op"
+            ]
+          },
+          "then": {
+            "required": [
+              "args"
+            ],
+            "properties": {
+              "value": false,
+              "slice": false,
+              "uses": false,
+              "args": {
+                "minItems": 2,
+                "maxItems": 2
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "mux"
+              }
+            },
+            "required": [
+              "op"
+            ]
+          },
+          "then": {
+            "required": [
+              "args"
+            ],
+            "properties": {
+              "value": false,
+              "slice": false,
+              "uses": false,
+              "args": {
+                "minItems": 3,
+                "maxItems": 3
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "concat"
+              }
+            },
+            "required": [
+              "op"
+            ]
+          },
+          "then": {
+            "required": [
+              "args"
+            ],
+            "properties": {
+              "value": false,
+              "slice": false,
+              "uses": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "op": {
+                "const": "other"
+              }
+            },
+            "required": [
+              "op"
+            ]
+          },
+          "then": {
+            "required": [
+              "text",
+              "uses"
+            ],
+            "properties": {
+              "value": false,
+              "slice": false,
+              "args": false,
+              "text": {
+                "minLength": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Write": {
+      "type": "object",
+      "properties": {
+        "target": {
+          "$ref": "#/$defs/Slice"
+        },
+        "deps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Dep"
+          }
+        },
+        "exprMap": {
+          "$ref": "#/$defs/ExprMapping"
+        }
+      },
+      "required": [
+        "target",
+        "deps"
+      ],
+      "additionalProperties": true
+    },
+    "ExternalRef": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "$ref": "#/$defs/Text"
+        },
+        "access": {
+          "type": "string",
+          "enum": [
+            "read",
+            "write"
+          ]
+        }
+      },
+      "required": [
+        "text",
+        "access"
+      ],
+      "additionalProperties": true
+    },
+    "ProcessSummary": {
+      "type": "object",
+      "properties": {
+        "ref": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "kind": {
+          "$ref": "#/$defs/ProcessKind"
+        }
+      },
+      "required": [
+        "ref",
+        "kind"
+      ],
+      "additionalProperties": true
+    },
+    "ProcessInfo": {
+      "type": "object",
+      "properties": {
+        "ref": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "kind": {
+          "$ref": "#/$defs/ProcessKind"
+        },
+        "inst": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "writes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Write"
+          }
+        },
+        "expr": {
+          "$ref": "#/$defs/Expr"
+        },
+        "externalRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ExternalRef"
+          }
+        }
+      },
+      "required": [
+        "ref",
+        "kind",
+        "inst",
+        "writes",
+        "externalRefs"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "assign",
+                  "init",
+                  "port_expr"
+                ]
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "expr"
+            ],
+            "properties": {
+              "writes": {
+                "items": {
+                  "required": [
+                    "exprMap"
+                  ]
+                }
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "expr": false,
+              "writes": {
+                "items": {
+                  "properties": {
+                    "exprMap": false
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ClockEvent": {
+      "type": "object",
+      "properties": {
+        "signal": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "bits": {
+          "$ref": "#/$defs/BitRange"
+        },
+        "edge": {
+          "type": "string",
+          "enum": [
+            "posedge",
+            "negedge",
+            "both"
+          ]
+        }
+      },
+      "required": [
+        "signal",
+        "bits",
+        "edge"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "properties": {
+            "type": false
+          }
+        }
+      ]
+    },
+    "AsyncEvent": {
+      "type": "object",
+      "properties": {
+        "signal": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "bits": {
+          "$ref": "#/$defs/BitRange"
+        },
+        "edge": {
+          "type": "string",
+          "enum": [
+            "posedge",
+            "negedge"
+          ]
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "reset",
+            "set",
+            "unknown"
+          ]
+        }
+      },
+      "required": [
+        "signal",
+        "bits",
+        "edge",
+        "type"
+      ],
+      "additionalProperties": true
+    },
+    "RegisterInfo": {
+      "type": "object",
+      "properties": {
+        "ref": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "inst": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "signal": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "bits": {
+          "$ref": "#/$defs/BitRange"
+        },
+        "process": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "clock": {
+          "$ref": "#/$defs/ClockEvent"
+        },
+        "async": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/AsyncEvent"
+          }
+        }
+      },
+      "required": [
+        "ref",
+        "inst",
+        "signal",
+        "bits",
+        "process",
+        "clock",
+        "async"
+      ],
+      "additionalProperties": true
+    },
+    "ObjectInfo": {
+      "type": "object",
+      "properties": {
+        "ref": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "instance",
+            "port",
+            "signal",
+            "process",
+            "register"
+          ]
+        },
+        "name": {
+          "$ref": "#/$defs/Text"
+        },
+        "inst": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "pathText": {
+          "$ref": "#/$defs/Text"
+        }
+      },
+      "required": [
+        "ref",
+        "kind",
+        "name",
+        "inst",
+        "pathText"
+      ],
+      "additionalProperties": true
+    },
+    "ObjectHit": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "$ref": "#/$defs/HitKind"
+        },
+        "ref": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "name": {
+          "$ref": "#/$defs/Text"
+        },
+        "path": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Text"
+          }
+        },
+        "pathText": {
+          "$ref": "#/$defs/Text"
+        },
+        "inst": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "def": {
+          "$ref": "#/$defs/DefRef"
+        }
+      },
+      "required": [
+        "kind",
+        "ref",
+        "name",
+        "path",
+        "pathText",
+        "def"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "definition"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "inst": false
+            }
+          },
+          "else": {
+            "required": [
+              "inst"
+            ]
+          }
+        }
+      ]
+    },
+    "Continuation": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "$ref": "#/$defs/BitRange"
+        },
+        "slice": {
+          "$ref": "#/$defs/Slice"
+        },
+        "side": {
+          "$ref": "#/$defs/Side"
+        },
+        "role": {
+          "$ref": "#/$defs/UseRole"
+        },
+        "precision": {
+          "$ref": "#/$defs/Precision"
+        },
+        "align": {
+          "$ref": "#/$defs/Alignment"
+        },
+        "map": {
+          "$ref": "#/$defs/BitMap"
+        }
+      },
+      "required": [
+        "from",
+        "slice",
+        "role",
+        "precision",
+        "align",
+        "map"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "precision": {
+                "const": "conservative"
+              }
+            },
+            "required": [
+              "precision"
+            ]
+          },
+          "then": {
+            "properties": {
+              "align": {
+                "const": "all"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "align": {
+                "const": "all"
+              }
+            },
+            "required": [
+              "align"
+            ]
+          },
+          "then": {
+            "properties": {
+              "map": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "BoundaryContinuation": {
+      "type": "object",
+      "properties": {
+        "slice": {
+          "$ref": "#/$defs/Slice"
+        },
+        "role": {
+          "$ref": "#/$defs/UseRole"
+        },
+        "precision": {
+          "$ref": "#/$defs/Precision"
+        }
+      },
+      "required": [
+        "slice",
+        "role",
+        "precision"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "properties": {
+            "from": false,
+            "side": false,
+            "align": false,
+            "map": false
+          }
+        }
+      ]
+    },
+    "BoundaryRoute": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "boundary"
+        },
+        "from": {
+          "$ref": "#/$defs/Slice"
+        },
+        "via": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "map": {
+          "$ref": "#/$defs/BitMap"
+        },
+        "next": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/BoundaryContinuation"
+          }
+        }
+      },
+      "required": [
+        "kind",
+        "from",
+        "via",
+        "map",
+        "next"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "properties": {
+            "fact": false,
+            "at": false,
+            "value": false,
+            "reason": false,
+            "cell": false
+          }
+        }
+      ]
+    },
+    "Hop": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "binding_up",
+            "binding_down",
+            "process",
+            "register",
+            "blackbox_pin",
+            "primitive_pin",
+            "top_port",
+            "const",
+            "unconnected",
+            "unresolved"
+          ]
+        },
+        "fact": {
+          "$ref": "#/$defs/FactId"
+        },
+        "from": {
+          "$ref": "#/$defs/Slice"
+        },
+        "via": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "map": {
+          "$ref": "#/$defs/BitMap"
+        },
+        "next": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Continuation"
+          }
+        },
+        "at": {
+          "$ref": "#/$defs/TracePoint"
+        },
+        "value": {
+          "$ref": "#/$defs/FourStateValue"
+        },
+        "cell": {
+          "$ref": "#/$defs/CellInfo"
+        },
+        "reason": {
+          "$ref": "#/$defs/ReasonCode"
+        }
+      },
+      "required": [
+        "kind",
+        "fact",
+        "from",
+        "map",
+        "next"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "const"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "value"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "unresolved"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "reason"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "process",
+                  "register"
+                ]
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "next": {
+                "maxItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "blackbox_pin",
+                  "primitive_pin",
+                  "top_port",
+                  "const",
+                  "unconnected",
+                  "unresolved"
+                ]
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "next": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "blackbox_pin",
+                  "primitive_pin"
+                ]
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "at"
+            ],
+            "properties": {
+              "at": {
+                "required": [
+                  "side"
+                ],
+                "properties": {
+                  "side": {
+                    "const": "outside"
+                  },
+                  "slice": {
+                    "properties": {
+                      "bits": {
+                        "$ref": "#/$defs/RequestedBitRange"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "allOf": [
+              {
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "top_port"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              },
+              {
+                "properties": {
+                  "from": {
+                    "properties": {
+                      "bits": {
+                        "properties": {
+                          "width": {
+                            "minimum": 1
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "then": {
+            "required": [
+              "at"
+            ],
+            "properties": {
+              "at": {
+                "required": [
+                  "side"
+                ],
+                "properties": {
+                  "side": {
+                    "const": "inside"
+                  },
+                  "slice": {
+                    "properties": {
+                      "bits": {
+                        "$ref": "#/$defs/RequestedBitRange"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Endpoint": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "process",
+            "top_port",
+            "own_port",
+            "module_pin",
+            "blackbox_pin",
+            "primitive_pin",
+            "const",
+            "unconnected",
+            "unresolved"
+          ]
+        },
+        "queried": {
+          "$ref": "#/$defs/BitRange"
+        },
+        "ref": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "inst": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "bits": {
+          "$ref": "#/$defs/BitRange"
+        },
+        "at": {
+          "$ref": "#/$defs/Slice"
+        },
+        "value": {
+          "$ref": "#/$defs/FourStateValue"
+        },
+        "reason": {
+          "$ref": "#/$defs/ReasonCode"
+        },
+        "via": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/BoundaryRoute"
+          }
+        },
+        "source": {
+          "$ref": "#/$defs/SourceSpan"
+        }
+      },
+      "required": [
+        "kind",
+        "queried",
+        "via"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "process"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "ref",
+              "inst",
+              "bits",
+              "at"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "const"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "value"
+            ],
+            "properties": {
+              "bits": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "unresolved"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "reason"
+            ]
+          }
+        }
+      ]
+    },
+    "StepResult": {
+      "type": "object",
+      "properties": {
+        "hops": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Hop"
+          }
+        },
+        "next": {
+          "$ref": "#/$defs/Cursor"
+        },
+        "hasConservative": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "hops",
+        "hasConservative"
+      ],
+      "additionalProperties": true
+    },
+    "TraceNode": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/NodeId"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "slice",
+            "process",
+            "register",
+            "blackbox_pin",
+            "primitive_pin",
+            "top_port",
+            "const",
+            "unconnected",
+            "unresolved"
+          ]
+        },
+        "point": {
+          "$ref": "#/$defs/TracePoint"
+        },
+        "ref": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "fact": {
+          "$ref": "#/$defs/FactId"
+        },
+        "value": {
+          "$ref": "#/$defs/FourStateValue"
+        },
+        "reason": {
+          "$ref": "#/$defs/ReasonCode"
+        }
+      },
+      "required": [
+        "id",
+        "kind"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "slice"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "point"
+            ],
+            "properties": {
+              "fact": false
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "const"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "value"
+            ]
+          }
+        }
+      ]
+    },
+    "TraceEdge": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/EdgeId"
+        },
+        "fact": {
+          "$ref": "#/$defs/FactId"
+        },
+        "from": {
+          "$ref": "#/$defs/NodeId"
+        },
+        "to": {
+          "$ref": "#/$defs/NodeId"
+        },
+        "via": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "binding",
+            "dependency",
+            "blackbox",
+            "boundary"
+          ]
+        },
+        "role": {
+          "$ref": "#/$defs/UseRole"
+        },
+        "precision": {
+          "$ref": "#/$defs/Precision"
+        },
+        "align": {
+          "type": "string",
+          "enum": [
+            "bitwise",
+            "all",
+            "none"
+          ]
+        },
+        "fromBits": {
+          "$ref": "#/$defs/BitRange"
+        },
+        "toBits": {
+          "$ref": "#/$defs/BitRange"
+        },
+        "map": {
+          "$ref": "#/$defs/BitMap"
+        }
+      },
+      "required": [
+        "id",
+        "fact",
+        "from",
+        "to",
+        "kind",
+        "role",
+        "precision",
+        "align",
+        "map"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "boundary"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "role": {
+                "const": "data"
+              },
+              "precision": {
+                "const": "exact"
+              },
+              "align": {
+                "const": "none"
+              },
+              "map": {
+                "maxItems": 0
+              },
+              "fromBits": false,
+              "toBits": false
+            }
+          },
+          "else": {
+            "required": [
+              "fromBits",
+              "toBits"
+            ],
+            "properties": {
+              "align": {
+                "$ref": "#/$defs/Alignment"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "dependency"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "via"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "align": {
+                "const": "all"
+              }
+            },
+            "required": [
+              "align"
+            ]
+          },
+          "then": {
+            "properties": {
+              "map": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "precision": {
+                "const": "conservative"
+              }
+            },
+            "required": [
+              "precision"
+            ]
+          },
+          "then": {
+            "properties": {
+              "align": {
+                "const": "all"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "TraceFrontier": {
+      "type": "object",
+      "properties": {
+        "point": {
+          "$ref": "#/$defs/TracePoint"
+        },
+        "depth": {
+          "$ref": "#/$defs/UInt"
+        },
+        "reason": {
+          "$ref": "#/$defs/ReasonCode"
+        },
+        "stepCursor": {
+          "$ref": "#/$defs/Cursor"
+        }
+      },
+      "required": [
+        "point",
+        "depth",
+        "reason"
+      ],
+      "additionalProperties": true
+    },
+    "TraceResult": {
+      "type": "object",
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TraceNode"
+          }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TraceEdge"
+          }
+        },
+        "frontier": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TraceFrontier"
+          }
+        },
+        "hasConservative": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "nodes",
+        "edges",
+        "frontier",
+        "hasConservative"
+      ],
+      "additionalProperties": true
+    },
+    "SourcePos": {
+      "type": "object",
+      "properties": {
+        "offset": {
+          "$ref": "#/$defs/UInt"
+        },
+        "line": {
+          "$ref": "#/$defs/PositiveInt"
+        },
+        "column": {
+          "$ref": "#/$defs/PositiveInt"
+        }
+      },
+      "required": [
+        "offset",
+        "line",
+        "column"
+      ],
+      "additionalProperties": true
+    },
+    "SourceSpan": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "$ref": "#/$defs/FileRef"
+        },
+        "path": {
+          "$ref": "#/$defs/NonemptyText"
+        },
+        "start": {
+          "$ref": "#/$defs/SourcePos"
+        },
+        "end": {
+          "$ref": "#/$defs/SourcePos"
+        },
+        "contentHash": {
+          "$ref": "#/$defs/Hash"
+        }
+      },
+      "required": [
+        "file",
+        "path",
+        "start",
+        "end",
+        "contentHash"
+      ],
+      "additionalProperties": true
+    },
+    "SourceHit": {
+      "type": "object",
+      "properties": {
+        "ref": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "kind": {
+          "$ref": "#/$defs/SourceKind"
+        },
+        "span": {
+          "$ref": "#/$defs/SourceSpan"
+        },
+        "inst": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "refKind": {
+          "$ref": "#/$defs/SourceRefKind"
+        }
+      },
+      "required": [
+        "ref",
+        "kind",
+        "span"
+      ],
+      "additionalProperties": true
+    },
+    "SourceRead": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "$ref": "#/$defs/Text"
+        },
+        "contentHash": {
+          "$ref": "#/$defs/Hash"
+        },
+        "matchesSnapshot": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "text",
+        "contentHash",
+        "matchesSnapshot"
+      ],
+      "additionalProperties": true
+    },
+    "InputCheck": {
+      "type": "object",
+      "properties": {
+        "changed": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FileRef"
+          }
+        },
+        "complete": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "changed",
+        "complete"
+      ],
+      "additionalProperties": true
+    },
+    "InstInfoPage": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/InstInfo"
+          }
+        },
+        "next": {
+          "$ref": "#/$defs/Cursor"
+        }
+      },
+      "required": [
+        "items"
+      ],
+      "additionalProperties": true
+    },
+    "DefSummaryPage": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/DefSummary"
+          }
+        },
+        "next": {
+          "$ref": "#/$defs/Cursor"
+        }
+      },
+      "required": [
+        "items"
+      ],
+      "additionalProperties": true
+    },
+    "SignalInfoPage": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SignalInfo"
+          }
+        },
+        "next": {
+          "$ref": "#/$defs/Cursor"
+        }
+      },
+      "required": [
+        "items"
+      ],
+      "additionalProperties": true
+    },
+    "ObjectHitPage": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ObjectHit"
+          }
+        },
+        "next": {
+          "$ref": "#/$defs/Cursor"
+        }
+      },
+      "required": [
+        "items"
+      ],
+      "additionalProperties": true
+    },
+    "RegisterInfoPage": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RegisterInfo"
+          }
+        },
+        "next": {
+          "$ref": "#/$defs/Cursor"
+        }
+      },
+      "required": [
+        "items"
+      ],
+      "additionalProperties": true
+    },
+    "ProcessSummaryPage": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ProcessSummary"
+          }
+        },
+        "next": {
+          "$ref": "#/$defs/Cursor"
+        }
+      },
+      "required": [
+        "items"
+      ],
+      "additionalProperties": true
+    },
+    "SourceHitPage": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SourceHit"
+          }
+        },
+        "next": {
+          "$ref": "#/$defs/Cursor"
+        }
+      },
+      "required": [
+        "items"
+      ],
+      "additionalProperties": true
+    },
+    "PageLimit": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2147483647,
+      "default": 200
+    },
+    "MaxHops": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2147483647,
+      "default": 1000
+    },
+    "RequestCursor": {
+      "type": "string",
+      "default": ""
+    },
+    "PageReq": {
+      "type": "object",
+      "properties": {
+        "cursor": {
+          "$ref": "#/$defs/RequestCursor"
+        },
+        "limit": {
+          "$ref": "#/$defs/PageLimit"
+        }
+      },
+      "required": [],
+      "additionalProperties": true
+    },
+    "Budget": {
+      "type": "object",
+      "properties": {
+        "maxNodes": {
+          "$ref": "#/$defs/PositiveInt",
+          "default": 1000
+        },
+        "maxEdges": {
+          "$ref": "#/$defs/UInt",
+          "default": 4000
+        },
+        "maxDepth": {
+          "$ref": "#/$defs/UInt",
+          "default": 64
+        },
+        "maxMillis": {
+          "$ref": "#/$defs/PositiveInt"
+        }
+      },
+      "required": [],
+      "additionalProperties": true,
+      "default": {}
+    },
+    "SignalFilter": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "$ref": "#/$defs/Text",
+          "default": ""
+        }
+      },
+      "required": [],
+      "additionalProperties": true,
+      "default": {}
+    },
+    "DesignInfoParams": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": true
+    },
+    "DesignInfoResult": {
+      "$ref": "#/$defs/SnapshotInfo"
+    },
+    "DesignInfoResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/DesignInfoResult"
+            },
+            "completeness": {
+              "$ref": "#/$defs/Complete"
+            }
+          }
+        }
+      ]
+    },
+    "DesignDiagnosticsParams": {
+      "type": "object",
+      "properties": {
+        "maxItems": {
+          "$ref": "#/$defs/UInt",
+          "default": 200
+        }
+      },
+      "required": [],
+      "additionalProperties": true
+    },
+    "DesignDiagnosticsResult": {
+      "$ref": "#/$defs/Diagnostics"
+    },
+    "DesignDiagnosticsResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/DesignDiagnosticsResult"
+            },
+            "completeness": {
+              "$ref": "#/$defs/Complete"
+            }
+          }
+        }
+      ]
+    },
+    "DesignCheckInputsParams": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": true
+    },
+    "DesignCheckInputsResult": {
+      "$ref": "#/$defs/InputCheck"
+    },
+    "DesignCheckInputsResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/DesignCheckInputsResult"
+            },
+            "completeness": {
+              "$ref": "#/$defs/Complete"
+            }
+          }
+        }
+      ]
+    },
+    "InstRootsParams": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": true
+    },
+    "InstRootsResult": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/InstInfo"
+      }
+    },
+    "InstRootsResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/InstRootsResult"
+            },
+            "completeness": {
+              "$ref": "#/$defs/Complete"
+            }
+          }
+        }
+      ]
+    },
+    "InstChildrenParams": {
+      "type": "object",
+      "properties": {
+        "inst": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "cursor": {
+          "$ref": "#/$defs/RequestCursor"
+        },
+        "limit": {
+          "$ref": "#/$defs/PageLimit"
+        }
+      },
+      "required": [
+        "inst"
+      ],
+      "additionalProperties": true
+    },
+    "InstChildrenResult": {
+      "$ref": "#/$defs/InstInfoPage"
+    },
+    "InstChildrenResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/InstChildrenResult"
+            },
+            "completeness": {
+              "$ref": "#/$defs/Complete"
+            }
+          }
+        }
+      ]
+    },
+    "InstAncestorsParams": {
+      "type": "object",
+      "properties": {
+        "inst": {
+          "$ref": "#/$defs/ObjectRef"
+        }
+      },
+      "required": [
+        "inst"
+      ],
+      "additionalProperties": true
+    },
+    "InstAncestorsResult": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/InstInfo"
+      }
+    },
+    "InstAncestorsResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/InstAncestorsResult"
+            },
+            "completeness": {
+              "$ref": "#/$defs/Complete"
+            }
+          }
+        }
+      ]
+    },
+    "InstGetParams": {
+      "type": "object",
+      "properties": {
+        "inst": {
+          "$ref": "#/$defs/ObjectRef"
+        }
+      },
+      "required": [
+        "inst"
+      ],
+      "additionalProperties": true
+    },
+    "InstGetResult": {
+      "$ref": "#/$defs/InstInfo"
+    },
+    "InstGetResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/InstGetResult"
+            },
+            "completeness": {
+              "$ref": "#/$defs/Complete"
+            }
+          }
+        }
+      ]
+    },
+    "InstPortsParams": {
+      "type": "object",
+      "properties": {
+        "inst": {
+          "$ref": "#/$defs/ObjectRef"
+        }
+      },
+      "required": [
+        "inst"
+      ],
+      "additionalProperties": true
+    },
+    "InstPortsResult": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/PortInfo"
+      }
+    },
+    "InstPortsResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/InstPortsResult"
+            },
+            "completeness": {
+              "$ref": "#/$defs/Complete"
+            }
+          }
+        }
+      ]
+    },
+    "InstParamsParams": {
+      "type": "object",
+      "properties": {
+        "inst": {
+          "$ref": "#/$defs/ObjectRef"
+        }
+      },
+      "required": [
+        "inst"
+      ],
+      "additionalProperties": true
+    },
+    "InstParamsResult": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ParamInfo"
+      }
+    },
+    "InstParamsResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/InstParamsResult"
+            },
+            "completeness": {
+              "$ref": "#/$defs/Complete"
+            }
+          }
+        }
+      ]
+    },
+    "InstSignalsParams": {
+      "type": "object",
+      "properties": {
+        "inst": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "filter": {
+          "$ref": "#/$defs/SignalFilter"
+        },
+        "cursor": {
+          "$ref": "#/$defs/RequestCursor"
+        },
+        "limit": {
+          "$ref": "#/$defs/PageLimit"
+        }
+      },
+      "required": [
+        "inst"
+      ],
+      "additionalProperties": true
+    },
+    "InstSignalsResult": {
+      "$ref": "#/$defs/SignalInfoPage"
+    },
+    "InstSignalsResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/InstSignalsResult"
+            },
+            "completeness": {
+              "$ref": "#/$defs/Complete"
+            }
+          }
+        }
+      ]
+    },
+    "DefListParams": {
+      "type": "object",
+      "properties": {
+        "cursor": {
+          "$ref": "#/$defs/RequestCursor"
+        },
+        "limit": {
+          "$ref": "#/$defs/PageLimit"
+        }
+      },
+      "required": [],
+      "additionalProperties": true
+    },
+    "DefListResult": {
+      "$ref": "#/$defs/DefSummaryPage"
+    },
+    "DefListResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/DefListResult"
+            },
+            "completeness": {
+              "$ref": "#/$defs/Complete"
+            }
+          }
+        }
+      ]
+    },
+    "DefInstancesParams": {
+      "type": "object",
+      "properties": {
+        "def": {
+          "$ref": "#/$defs/DefRef"
+        },
+        "cursor": {
+          "$ref": "#/$defs/RequestCursor"
+        },
+        "limit": {
+          "$ref": "#/$defs/PageLimit"
+        }
+      },
+      "required": [
+        "def"
+      ],
+      "additionalProperties": true
+    },
+    "DefInstancesResult": {
+      "$ref": "#/$defs/InstInfoPage"
+    },
+    "DefInstancesResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/DefInstancesResult"
+            }
+          }
+        }
+      ]
+    },
+    "SearchParams": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "$ref": "#/$defs/Text"
+        },
+        "kinds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/HitKind"
+          }
+        },
+        "scope": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "cursor": {
+          "$ref": "#/$defs/RequestCursor"
+        },
+        "limit": {
+          "$ref": "#/$defs/PageLimit"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "additionalProperties": true
+    },
+    "SearchResult": {
+      "$ref": "#/$defs/ObjectHitPage"
+    },
+    "SearchResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/SearchResult"
+            }
+          }
+        }
+      ]
+    },
+    "PathResolveParams": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "$ref": "#/$defs/Text"
+        }
+      },
+      "required": [
+        "text"
+      ],
+      "additionalProperties": true
+    },
+    "PathResolveResult": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ObjectRef"
+      }
+    },
+    "PathResolveResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/PathResolveResult"
+            }
+          }
+        }
+      ]
+    },
+    "ConnBindingsParams": {
+      "type": "object",
+      "properties": {
+        "inst": {
+          "$ref": "#/$defs/ObjectRef"
+        }
+      },
+      "required": [
+        "inst"
+      ],
+      "additionalProperties": true
+    },
+    "ConnBindingsResult": {
+      "$ref": "#/$defs/LocalNetlist"
+    },
+    "ConnBindingsResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/ConnBindingsResult"
+            },
+            "completeness": {
+              "$ref": "#/$defs/Complete"
+            }
+          }
+        }
+      ]
+    },
+    "ConnDriversParams": {
+      "type": "object",
+      "properties": {
+        "slice": {
+          "$ref": "#/$defs/SliceRequest"
+        },
+        "reach": {
+          "type": "string",
+          "enum": [
+            "local",
+            "hier"
+          ]
+        },
+        "side": {
+          "$ref": "#/$defs/Side"
+        }
+      },
+      "required": [
+        "slice",
+        "reach"
+      ],
+      "additionalProperties": true
+    },
+    "ConnDriversResult": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Endpoint"
+      }
+    },
+    "ConnDriversResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/ConnDriversResult"
+            }
+          }
+        }
+      ]
+    },
+    "ConnLoadsParams": {
+      "type": "object",
+      "properties": {
+        "slice": {
+          "$ref": "#/$defs/SliceRequest"
+        },
+        "reach": {
+          "type": "string",
+          "enum": [
+            "local",
+            "hier"
+          ]
+        },
+        "side": {
+          "$ref": "#/$defs/Side"
+        }
+      },
+      "required": [
+        "slice",
+        "reach"
+      ],
+      "additionalProperties": true
+    },
+    "ConnLoadsResult": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Endpoint"
+      }
+    },
+    "ConnLoadsResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/ConnLoadsResult"
+            }
+          }
+        }
+      ]
+    },
+    "ConnStepParams": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "$ref": "#/$defs/SliceRequest"
+        },
+        "direction": {
+          "$ref": "#/$defs/TraceDirection"
+        },
+        "side": {
+          "$ref": "#/$defs/Side"
+        },
+        "maxHops": {
+          "$ref": "#/$defs/MaxHops"
+        },
+        "cursor": {
+          "$ref": "#/$defs/RequestCursor"
+        }
+      },
+      "required": [
+        "from",
+        "direction"
+      ],
+      "additionalProperties": true
+    },
+    "ConnStepResult": {
+      "$ref": "#/$defs/StepResult"
+    },
+    "ConnStepResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/ConnStepResult"
+            }
+          }
+        }
+      ]
+    },
+    "TraceConeParams": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "$ref": "#/$defs/TracePoint"
+        },
+        "direction": {
+          "$ref": "#/$defs/TraceDirection"
+        },
+        "policy": {
+          "$ref": "#/$defs/TracePolicy"
+        },
+        "budget": {
+          "$ref": "#/$defs/Budget"
+        }
+      },
+      "required": [
+        "start",
+        "direction",
+        "policy"
+      ],
+      "additionalProperties": true
+    },
+    "TraceConeResult": {
+      "$ref": "#/$defs/TraceResult"
+    },
+    "TraceConeResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/TraceConeResult"
+            }
+          }
+        }
+      ]
+    },
+    "TracePathsParams": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "$ref": "#/$defs/TracePoint"
+        },
+        "to": {
+          "$ref": "#/$defs/TracePoint"
+        },
+        "budget": {
+          "$ref": "#/$defs/Budget"
+        }
+      },
+      "required": [
+        "from",
+        "to"
+      ],
+      "additionalProperties": true
+    },
+    "TracePathsResult": {
+      "$ref": "#/$defs/TraceResult"
+    },
+    "TracePathsResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/TracePathsResult"
+            }
+          }
+        }
+      ]
+    },
+    "SeqRegistersParams": {
+      "type": "object",
+      "properties": {
+        "inst": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "recursive": {
+          "type": "boolean",
+          "default": false
+        },
+        "cursor": {
+          "$ref": "#/$defs/RequestCursor"
+        },
+        "limit": {
+          "$ref": "#/$defs/PageLimit"
+        }
+      },
+      "required": [
+        "inst"
+      ],
+      "additionalProperties": true
+    },
+    "SeqRegistersResult": {
+      "$ref": "#/$defs/RegisterInfoPage"
+    },
+    "SeqRegistersResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/SeqRegistersResult"
+            }
+          }
+        }
+      ]
+    },
+    "ProcListParams": {
+      "type": "object",
+      "properties": {
+        "inst": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "cursor": {
+          "$ref": "#/$defs/RequestCursor"
+        },
+        "limit": {
+          "$ref": "#/$defs/PageLimit"
+        }
+      },
+      "required": [
+        "inst"
+      ],
+      "additionalProperties": true
+    },
+    "ProcListResult": {
+      "$ref": "#/$defs/ProcessSummaryPage"
+    },
+    "ProcListResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/ProcListResult"
+            },
+            "completeness": {
+              "$ref": "#/$defs/Complete"
+            }
+          }
+        }
+      ]
+    },
+    "ProcGetParams": {
+      "type": "object",
+      "properties": {
+        "ref": {
+          "$ref": "#/$defs/ObjectRef"
+        }
+      },
+      "required": [
+        "ref"
+      ],
+      "additionalProperties": true
+    },
+    "ProcGetResult": {
+      "$ref": "#/$defs/ProcessInfo"
+    },
+    "ProcGetResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/ProcGetResult"
+            }
+          }
+        }
+      ]
+    },
+    "ObjGetParams": {
+      "type": "object",
+      "properties": {
+        "ref": {
+          "$ref": "#/$defs/ObjectRef"
+        }
+      },
+      "required": [
+        "ref"
+      ],
+      "additionalProperties": true
+    },
+    "ObjGetResult": {
+      "$ref": "#/$defs/ObjectInfo"
+    },
+    "ObjGetResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/ObjGetResult"
+            },
+            "completeness": {
+              "$ref": "#/$defs/Complete"
+            }
+          }
+        }
+      ]
+    },
+    "ObjSourceParams": {
+      "type": "object",
+      "properties": {
+        "ref": {
+          "$ref": "#/$defs/ObjectRef"
+        },
+        "kind": {
+          "$ref": "#/$defs/SourceKind"
+        }
+      },
+      "required": [
+        "ref",
+        "kind"
+      ],
+      "additionalProperties": true
+    },
+    "ObjSourceResult": {
+      "$ref": "#/$defs/SourceSpan"
+    },
+    "ObjSourceResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/ObjSourceResult"
+            },
+            "completeness": {
+              "$ref": "#/$defs/Complete"
+            }
+          }
+        }
+      ]
+    },
+    "SourceResolveParams": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "$ref": "#/$defs/FileRef"
+        },
+        "line": {
+          "$ref": "#/$defs/PositiveInt"
+        },
+        "col": {
+          "$ref": "#/$defs/PositiveInt"
+        },
+        "cursor": {
+          "$ref": "#/$defs/RequestCursor"
+        },
+        "limit": {
+          "$ref": "#/$defs/PageLimit"
+        }
+      },
+      "required": [
+        "file",
+        "line"
+      ],
+      "additionalProperties": true
+    },
+    "SourceResolveResult": {
+      "$ref": "#/$defs/SourceHitPage"
+    },
+    "SourceResolveResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/SourceResolveResult"
+            }
+          }
+        }
+      ]
+    },
+    "SourceReadParams": {
+      "type": "object",
+      "properties": {
+        "file": {
+          "$ref": "#/$defs/FileRef"
+        }
+      },
+      "required": [
+        "file"
+      ],
+      "additionalProperties": true
+    },
+    "SourceReadResult": {
+      "$ref": "#/$defs/SourceRead"
+    },
+    "SourceReadResponse": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "properties": {
+            "result": {
+              "$ref": "#/$defs/SourceReadResult"
+            },
+            "completeness": {
+              "$ref": "#/$defs/Complete"
+            }
+          }
+        }
+      ]
+    },
+    "RequestEnvelope": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/RequestId"
+        },
+        "method": {
+          "type": "string",
+          "not": {
+            "const": "cancel"
+          }
+        },
+        "snapshot": {
+          "$ref": "#/$defs/SnapshotId"
+        },
+        "params": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "method",
+        "snapshot",
+        "params"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "properties": {
+            "event": false,
+            "ok": false,
+            "result": false,
+            "error": false,
+            "completeness": false
+          }
+        }
+      ]
+    },
+    "Request": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/RequestEnvelope"
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "design.info"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/DesignInfoParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "design.diagnostics"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/DesignDiagnosticsParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "design.checkInputs"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/DesignCheckInputsParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "inst.roots"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/InstRootsParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "inst.children"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/InstChildrenParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "inst.ancestors"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/InstAncestorsParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "inst.get"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/InstGetParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "inst.ports"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/InstPortsParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "inst.params"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/InstParamsParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "inst.signals"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/InstSignalsParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "def.list"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/DefListParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "def.instances"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/DefInstancesParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "search"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/SearchParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "path.resolve"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/PathResolveParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "conn.bindings"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/ConnBindingsParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "conn.drivers"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/ConnDriversParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "conn.loads"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/ConnLoadsParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "conn.step"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/ConnStepParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "trace.cone"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/TraceConeParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "trace.paths"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/TracePathsParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "seq.registers"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/SeqRegistersParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "proc.list"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/ProcListParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "proc.get"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/ProcGetParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "obj.get"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/ObjGetParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "obj.source"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/ObjSourceParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "source.resolve"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/SourceResolveParams"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "method": {
+                "const": "source.read"
+              }
+            },
+            "required": [
+              "method"
+            ]
+          },
+          "then": {
+            "properties": {
+              "params": {
+                "$ref": "#/$defs/SourceReadParams"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Cancel": {
+      "type": "object",
+      "properties": {
+        "method": {
+          "const": "cancel"
+        },
+        "params": {
+          "type": "object",
+          "properties": {
+            "target": {
+              "$ref": "#/$defs/RequestId"
+            }
+          },
+          "required": [
+            "target"
+          ],
+          "additionalProperties": true
+        }
+      },
+      "required": [
+        "method",
+        "params"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "properties": {
+            "id": false,
+            "snapshot": false,
+            "event": false,
+            "ok": false,
+            "result": false,
+            "error": false,
+            "completeness": false
+          }
+        }
+      ]
+    },
+    "Hello": {
+      "type": "object",
+      "properties": {
+        "event": {
+          "const": "hello"
+        },
+        "protocol": {
+          "$ref": "#/$defs/ProtocolVersion"
+        },
+        "snapshot": {
+          "$ref": "#/$defs/SnapshotInfo"
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/NonemptyText"
+          },
+          "uniqueItems": true,
+          "allOf": [
+            {
+              "contains": {
+                "const": "cancel"
+              }
+            },
+            {
+              "contains": {
+                "const": "progress"
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "event",
+        "protocol",
+        "snapshot",
+        "capabilities"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "properties": {
+            "id": false,
+            "method": false,
+            "ok": false,
+            "result": false,
+            "error": false,
+            "completeness": false
+          }
+        }
+      ]
+    },
+    "Success": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/RequestId"
+        },
+        "ok": {
+          "const": true
+        },
+        "result": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DesignInfoResult"
+            },
+            {
+              "$ref": "#/$defs/DesignDiagnosticsResult"
+            },
+            {
+              "$ref": "#/$defs/DesignCheckInputsResult"
+            },
+            {
+              "$ref": "#/$defs/InstRootsResult"
+            },
+            {
+              "$ref": "#/$defs/InstChildrenResult"
+            },
+            {
+              "$ref": "#/$defs/InstAncestorsResult"
+            },
+            {
+              "$ref": "#/$defs/InstGetResult"
+            },
+            {
+              "$ref": "#/$defs/InstPortsResult"
+            },
+            {
+              "$ref": "#/$defs/InstParamsResult"
+            },
+            {
+              "$ref": "#/$defs/InstSignalsResult"
+            },
+            {
+              "$ref": "#/$defs/DefListResult"
+            },
+            {
+              "$ref": "#/$defs/DefInstancesResult"
+            },
+            {
+              "$ref": "#/$defs/SearchResult"
+            },
+            {
+              "$ref": "#/$defs/PathResolveResult"
+            },
+            {
+              "$ref": "#/$defs/ConnBindingsResult"
+            },
+            {
+              "$ref": "#/$defs/ConnDriversResult"
+            },
+            {
+              "$ref": "#/$defs/ConnLoadsResult"
+            },
+            {
+              "$ref": "#/$defs/ConnStepResult"
+            },
+            {
+              "$ref": "#/$defs/TraceConeResult"
+            },
+            {
+              "$ref": "#/$defs/TracePathsResult"
+            },
+            {
+              "$ref": "#/$defs/SeqRegistersResult"
+            },
+            {
+              "$ref": "#/$defs/ProcListResult"
+            },
+            {
+              "$ref": "#/$defs/ProcGetResult"
+            },
+            {
+              "$ref": "#/$defs/ObjGetResult"
+            },
+            {
+              "$ref": "#/$defs/ObjSourceResult"
+            },
+            {
+              "$ref": "#/$defs/SourceResolveResult"
+            },
+            {
+              "$ref": "#/$defs/SourceReadResult"
+            }
+          ]
+        },
+        "completeness": {
+          "$ref": "#/$defs/Completeness"
+        }
+      },
+      "required": [
+        "id",
+        "ok",
+        "result",
+        "completeness"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "properties": {
+            "event": false,
+            "method": false,
+            "error": false
+          }
+        }
+      ]
+    },
+    "Failure": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/RequestId"
+        },
+        "ok": {
+          "const": false
+        },
+        "error": {
+          "$ref": "#/$defs/WireError"
+        }
+      },
+      "required": [
+        "id",
+        "ok",
+        "error"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "properties": {
+            "event": false,
+            "method": false,
+            "result": false,
+            "completeness": false
+          }
+        }
+      ]
+    },
+    "Progress": {
+      "type": "object",
+      "properties": {
+        "event": {
+          "const": "progress"
+        },
+        "target": {
+          "$ref": "#/$defs/RequestId"
+        },
+        "done": {
+          "$ref": "#/$defs/UInt"
+        },
+        "total": {
+          "$ref": "#/$defs/UInt"
+        }
+      },
+      "required": [
+        "event",
+        "target",
+        "done",
+        "total"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "properties": {
+            "id": false,
+            "method": false,
+            "ok": false,
+            "result": false,
+            "error": false,
+            "completeness": false
+          }
+        }
+      ]
+    },
+    "IndexReady": {
+      "type": "object",
+      "properties": {
+        "event": {
+          "const": "index"
+        },
+        "state": {
+          "const": "ready"
+        }
+      },
+      "required": [
+        "event",
+        "state"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "properties": {
+            "id": false,
+            "method": false,
+            "ok": false,
+            "result": false,
+            "error": false,
+            "completeness": false
+          }
+        }
+      ]
+    },
+    "ProtocolError": {
+      "type": "object",
+      "properties": {
+        "event": {
+          "const": "protocol_error"
+        },
+        "error": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/WireError"
+            },
+            {
+              "properties": {
+                "code": {
+                  "const": "bad_request"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "event",
+        "error"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "properties": {
+            "id": false,
+            "method": false,
+            "ok": false,
+            "result": false,
+            "completeness": false
+          }
+        }
+      ]
+    },
+    "ExtensionEvent": {
+      "type": "object",
+      "properties": {
+        "event": {
+          "type": "string",
+          "not": {
+            "enum": [
+              "hello",
+              "progress",
+              "index",
+              "protocol_error"
+            ]
+          }
+        }
+      },
+      "required": [
+        "event"
+      ],
+      "additionalProperties": true
+    },
+    "ClientFrame": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/Request"
+        },
+        {
+          "$ref": "#/$defs/Cancel"
+        }
+      ]
+    },
+    "ServerFrame": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/Hello"
+        },
+        {
+          "$ref": "#/$defs/Success"
+        },
+        {
+          "$ref": "#/$defs/Failure"
+        },
+        {
+          "$ref": "#/$defs/Progress"
+        },
+        {
+          "$ref": "#/$defs/IndexReady"
+        },
+        {
+          "$ref": "#/$defs/ProtocolError"
+        },
+        {
+          "$ref": "#/$defs/ExtensionEvent"
+        }
+      ]
+    },
+    "Complete": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/Completeness"
+        },
+        {
+          "properties": {
+            "status": {
+              "const": "complete"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

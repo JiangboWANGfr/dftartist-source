@@ -1,0 +1,81 @@
+SIM_PRE:
+     COMMON_SCRIPT: /prj/PnR910/workareas///script/common_script
+     SIM_DIR: 12.rtl_simulation
+     DESIGN_NAME: asic_top 
+     PATTERN_DIR: /prj/PnR910/workareas///dft_path/asic_top/asic_top_tsdb_outdir/patterns/asic_top_logic_test.patterns_signoff
+     SIM_TOOL:
+         NAME: questa
+         COMPILE_OPTIONS:
+             LIST0: "+error+1000 -full64 -sverilog -timescale=1ns/1fs +libext+.v_.sv -debug_acc"
+             LIST1: "+define+TSMC_NO_TESTPINS_DEFAULT_VALUE_CHECK +define+SNOPSYS_SV +define+TSMC_DISABLE_WARNING_MESSAGE +define+TSMC_DISABLE_INFO_MESSAGE +define+TSMC_NO_XADDR_WARNING +define+MEM_CHECK_OFF"
+             LIST2: "-lca +notimingcheck +nospecify -full64 -work dut_work +librescan +v2k -kdb"
+         SIM_OPTIONS:
+             LIST0: "-full64 -licqueue -R -debug_all -ucli -do ../vcs.ucli +nowarnTFMPC -debug_region=cell+lib +notimingcheck +nospecify"
+     TEST_LIST:
+         ICLNetwork:
+             TYPE: IJTAG
+             STATUS: new
+             DUT: DUT
+             SIM_NAME: ICLNetwork
+             SIM_TOP: TB
+             TEST_BENCH: ICLNetwork
+             EXTRA_COMPILE_OPTIONS: ""
+             EXTRA_SIM_OPTIONS: ""
+             EXTRA_TOP: ""
+             FILELIST:
+                 LIST0: "-f  /prj/PnR910/workareas///dft_path/asic_top/asic_top.vc_et_complete"
+             TESTBENCH: "ICLNetwork.sv"
+         SSN:
+             TYPE: IJTAG
+             STATUS: new
+             DUT: DUT
+             SIM_NAME: SSN
+             SIM_TOP: TB
+             TEST_BENCH: SSN
+             EXTRA_COMPILE_OPTIONS: ""
+             EXTRA_SIM_OPTIONS: ""
+             EXTRA_TOP: ""
+             FILELIST:
+                 LIST0: "-f  /prj/PnR910/workareas///dft_path/asic_top/asic_top.vc_et_complete"
+             TESTBENCH: "SSN.sv"
+         JtagBscanPatterns:
+             TYPE: IJTAG
+             STATUS: new
+             DUT: DUT
+             SIM_NAME: JtagBscanPatterns
+             SIM_TOP: TB
+             TEST_BENCH: JtagBscanPatterns
+             EXTRA_COMPILE_OPTIONS: ""
+             EXTRA_SIM_OPTIONS: ""
+             EXTRA_TOP: ""
+             FILELIST:
+                 LIST0: "-f  /prj/PnR910/workareas///dft_path/asic_top/asic_top.vc_et_complete"
+             TESTBENCH: "JtagBscanPatterns.sv"
+         MemoryBisr_TapAccessMode:
+             TYPE: MBIST
+             STATUS: new
+             DUT: DUT
+             SIM_NAME: MemoryBisr_TapAccessMode
+             SIM_TOP: TB
+             TEST_BENCH: MemoryBisr_TapAccessMode
+             EXTRA_COMPILE_OPTIONS: ""
+             EXTRA_SIM_OPTIONS: ""
+             EXTRA_TOP: ""
+             FILELIST:
+                 LIST0: "-f  /prj/PnR910/workareas///dft_path/asic_top/asic_top.vc_et_complete"
+             TESTBENCH: "MemoryBisr_TapAccessMode.sv"
+         MemoryBisr_AutonomousMode:
+             TYPE: MBIST
+             STATUS: new
+             DUT: DUT
+             SIM_NAME: MemoryBisr_AutonomousMode
+             SIM_TOP: TB
+             TEST_BENCH: MemoryBisr_AutonomousMode
+             EXTRA_COMPILE_OPTIONS: ""
+             EXTRA_SIM_OPTIONS: ""
+             EXTRA_TOP: ""
+             FILELIST:
+                 LIST0: "-f  /prj/PnR910/workareas///dft_path/asic_top/asic_top.vc_et_complete"
+             TESTBENCH: "MemoryBisr_AutonomousMode.sv"
+
+

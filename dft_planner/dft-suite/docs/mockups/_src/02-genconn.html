@@ -1,0 +1,183 @@
+<!doctype html><html lang="zh"><head><meta charset="utf-8">
+<link rel="stylesheet" href="theme.css"></head>
+<body><div class="app">
+
+  <div class="topbar">
+    <div class="brand"><span class="logo"></span>dft-suite <small>DFT&nbsp;Studio</small></div>
+    <div class="tabs">
+      <div class="tab"><svg class="ic" viewBox="0 0 16 16" fill="none" stroke="#7f8b9c" stroke-width="1.4"><path d="M3 3h4v4H3zM9 9h4v4H9zM5 7v4h4"/></svg>层次浏览</div>
+      <div class="tab active"><svg class="ic" viewBox="0 0 16 16" fill="none" stroke="#9fc3ff" stroke-width="1.4"><rect x="2.5" y="2.5" width="5" height="5" rx="1"/><rect x="8.5" y="8.5" width="5" height="5" rx="1"/><path d="M7.5 5h4v4"/></svg>连接生成</div>
+    </div>
+    <div class="spacer"></div>
+    <div class="tbtn primary"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#fff" stroke-width="1.4"><path d="M2 4.5h4l1.2 1.5H14v6H2z"/></svg>openc910 <span class="chev">▾</span></div>
+    <div class="iconbtn">⚙</div>
+  </div>
+
+  <div class="toolbar">
+    <div class="tg">载入例子</div><div class="tg">新建</div><div class="tg">打开</div>
+    <div class="sep"></div>
+    <div class="tg" style="color:var(--accent);border-color:var(--accent);background:var(--accent-soft)">⤵ 从层次树导入</div>
+    <div class="tg">导出注入 .v</div>
+    <div class="sep"></div>
+    <span style="margin-left:auto">layer <b style="color:var(--text)">chip_top</b> · grid 10 · zoom 100% · 逐层生成</span>
+  </div>
+
+  <div class="body">
+    <!-- left: hierarchy + library -->
+    <div class="panel" style="flex:0 0 226px;border-right:1px solid var(--border)">
+      <div class="panel-head">层次面板 <span class="r">共享设计</span></div>
+      <div class="tree" style="flex:0 0 220px">
+        <div class="row"><span class="tw">▾</span><span class="nm">openc910</span></div>
+        <div class="row ind1"><span class="tw">▾</span><span class="nm">x_ct_top</span></div>
+        <div class="row ind2" style="cursor:grab"><span class="tw">▸</span><span class="nm">x_cpu_top</span><span class="tag">拖→画布</span></div>
+        <div class="row ind2"><span class="tw">▸</span><span class="nm">x_l2c_top</span></div>
+        <div class="row ind2"><span class="tw">▸</span><span class="nm">x_clint</span></div>
+        <div class="row ind1"><span class="tw">▸</span><span class="nm">x_pll</span></div>
+      </div>
+      <div class="panel-head" style="border-top:1px solid var(--border)">库 (Library)</div>
+      <div style="padding:8px 10px;display:flex;flex-direction:column;gap:7px;font-size:12px">
+        <div class="chip"><span class="sw" style="background:#5b8fc7"></span>CPU_CORE <span class="muted" style="margin-left:auto">×2</span></div>
+        <div class="chip"><span class="sw" style="background:#9b7fc9"></span>L2_CACHE</div>
+        <div class="chip"><span class="sw" style="background:#5fae87"></span>DDR_PHY</div>
+        <div class="chip"><span class="sw" style="background:#c9a651"></span>PLL <span class="muted" style="margin-left:auto">blackbox</span></div>
+      </div>
+    </div>
+
+    <!-- center canvas -->
+    <div class="center">
+      <div class="canvas-bg">
+        <svg width="100%" height="100%" viewBox="0 0 700 600" preserveAspectRatio="xMidYMid meet" font-family="var(--mono)" font-size="11">
+          <rect class="s-frame" x="30" y="26" width="610" height="520" rx="10" stroke-width="1.4" stroke-dasharray="5 4"/>
+          <text class="s-tf" x="44" y="20" font-size="11">chip_top · frame · layer 0</text>
+
+          <!-- pairing wires -->
+          <g stroke-width="2" fill="none">
+            <path d="M244 150 H300" style="stroke:var(--teal)"/>
+            <path d="M155 232 V280" style="stroke:var(--accent)"/>
+            <path d="M385 232 V280" style="stroke:var(--accent)"/>
+            <path d="M150 384 V430" style="stroke:var(--teal)"/>
+          </g>
+
+          <!-- CPU_CORE0 -->
+          <g>
+            <rect class="b-cpu" x="72" y="78" width="170" height="150" rx="7" stroke-width="1.4"/>
+            <rect class="b-cpu-h" x="72" y="78" width="170" height="22" rx="7"/>
+            <text class="s-t" x="157" y="93" text-anchor="middle" font-weight="700" font-size="11.5">x_core0 : CPU_CORE</text>
+            <text class="s-tf" x="157" y="166" text-anchor="middle" font-size="10">tiling · PD_CPU</text>
+            <rect class="if-ssn" x="236" y="138" width="9" height="26" rx="2"/><text class="tx-ssn" x="232" y="130" text-anchor="end" font-size="9">SSN ◂4</text>
+            <rect class="if-ijtag" x="140" y="224" width="30" height="9" rx="2"/><text class="tx-ijtag" x="146" y="248" font-size="9">IJTAG</text>
+          </g>
+          <!-- CPU_CORE1 (selected) -->
+          <g>
+            <rect class="b-cpu sel-stroke" x="300" y="78" width="170" height="150" rx="7" stroke-width="2"/>
+            <rect class="b-cpu-h" x="300" y="78" width="170" height="22" rx="7"/>
+            <text class="s-t" x="385" y="93" text-anchor="middle" font-weight="700" font-size="11.5">x_core1 : CPU_CORE</text>
+            <text class="s-tf" x="385" y="166" text-anchor="middle" font-size="10">tiling · PD_CPU</text>
+            <rect class="if-ssn" x="296" y="138" width="9" height="26" rx="2"/><text class="tx-ssn" x="310" y="130" font-size="9">SSN ▸4</text>
+            <rect class="if-ijtag" x="370" y="224" width="30" height="9" rx="2"/><text class="tx-ijtag" x="376" y="248" font-size="9">IJTAG</text>
+            <rect class="if-bisr" x="350" y="74" width="30" height="9" rx="2"/><text class="tx-bisr" x="386" y="71" font-size="9">BISR ▸ported</text>
+            <rect class="if-bscan" x="466" y="180" width="9" height="22" rx="2"/><text class="tx-bscan" x="462" y="176" text-anchor="end" font-size="9">BSCAN</text>
+            <g fill="var(--svg-canvas)" class="sel-stroke" stroke-width="1.4">
+              <rect x="295" y="73" width="9" height="9"/><rect x="466" y="73" width="9" height="9"/>
+              <rect x="295" y="224" width="9" height="9"/><rect x="466" y="224" width="9" height="9"/>
+            </g>
+          </g>
+          <!-- L2_CACHE -->
+          <g>
+            <rect class="b-l2" x="72" y="280" width="398" height="100" rx="7" stroke-width="1.4"/>
+            <rect class="b-l2-h" x="72" y="280" width="398" height="22" rx="7"/>
+            <text class="s-t" x="271" y="295" text-anchor="middle" font-weight="700" font-size="11.5">x_l2 : L2_CACHE</text>
+            <text class="s-tf" x="271" y="345" text-anchor="middle" font-size="10">tiling · PD_SOC</text>
+            <rect class="if-ijtag" x="140" y="276" width="30" height="9" rx="2"/>
+            <rect class="if-ijtag" x="370" y="276" width="30" height="9" rx="2"/>
+            <rect class="if-ssn" x="135" y="376" width="30" height="9" rx="2"/><text class="tx-ssn" x="170" y="372" font-size="9">SSN ▸4</text>
+          </g>
+          <!-- DDR_PHY -->
+          <g>
+            <rect class="b-ddr" x="72" y="430" width="170" height="92" rx="7" stroke-width="1.4"/>
+            <rect class="b-ddr-h" x="72" y="430" width="170" height="22" rx="7"/>
+            <text class="s-t" x="157" y="445" text-anchor="middle" font-weight="700" font-size="11.5">x_ddr : DDR_PHY</text>
+            <text class="s-tf" x="157" y="495" text-anchor="middle" font-size="10">PD_DDR</text>
+            <rect class="if-ssn" x="135" y="426" width="30" height="9" rx="2"/>
+          </g>
+          <!-- PLL blackbox -->
+          <g>
+            <rect class="b-pll" x="300" y="430" width="140" height="92" rx="7" stroke-width="1.4"/>
+            <rect class="b-pll-h" x="300" y="430" width="140" height="22" rx="7"/>
+            <text class="s-t" x="370" y="445" text-anchor="middle" font-weight="700" font-size="11.5">x_pll : PLL</text>
+            <text class="s-tf" x="370" y="493" text-anchor="middle" font-size="10">▦ blackbox</text>
+          </g>
+
+          <!-- legend -->
+          <g font-size="10" class="s-td">
+            <rect class="if-ssn" x="500" y="470" width="11" height="9" rx="2"/><text class="s-td" x="516" y="478">SSN</text>
+            <rect class="if-ijtag" x="556" y="470" width="11" height="9" rx="2"/><text class="s-td" x="572" y="478">IJTAG</text>
+            <rect class="if-bisr" x="500" y="488" width="11" height="9" rx="2"/><text class="s-td" x="516" y="496">BISR</text>
+            <rect class="if-bscan" x="556" y="488" width="11" height="9" rx="2"/><text class="s-td" x="572" y="496">BSCAN</text>
+          </g>
+          <text x="44" y="536" font-size="10" style="fill:var(--green)">● 自动配对: 相邻边重叠 + busType/powerDomain 兼容 → 自动连</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- right: instance + interfaces detail -->
+    <div class="panel col-right">
+      <div class="panel-head">Inspector — 实例</div>
+      <!-- instance identity -->
+      <div style="padding:11px 12px;border-bottom:1px solid var(--border)">
+        <div style="font-family:var(--mono);font-size:15px;font-weight:700;color:var(--text-strong)">x_core1</div>
+        <div style="font-family:var(--mono);font-size:12px;color:var(--text-dim);margin-top:3px">CPU_CORE · tiling</div>
+        <div style="display:flex;gap:8px;margin-top:9px;font-family:var(--mono);font-size:11px;color:var(--text-faint)">
+          <span class="chip"><span class="sw" style="background:#5b8fc7"></span>#5b8fc7</span>
+          <span class="chip">pos 300,80</span>
+          <span class="chip">170×150</span>
+        </div>
+      </div>
+
+      <!-- interfaces -->
+      <div class="panel-head">接口 (4)<span class="r"><span style="color:var(--green)">3 paired</span> · <span style="color:var(--amber)">1 未连</span></span></div>
+      <div style="flex:1;overflow:auto">
+        <div class="ifcard">
+          <div class="hd"><span class="bar if-ssn" style="background:var(--teal)"></span>SSN<span class="role">client</span></div>
+          <div class="gd"><span class="lk">edge</span><span class="lv">左</span><span class="lk">offset</span><span class="lv">60</span>
+            <span class="lk">width</span><span class="lv">4</span><span class="lk">pd</span><span class="lv">PD_CPU</span>
+            <span class="lk">signals</span><span class="lv">12</span><span class="lk">↔ pair</span><span class="lv" style="color:var(--green)">x_core0</span></div>
+        </div>
+        <div class="ifcard">
+          <div class="hd"><span class="bar" style="background:var(--accent)"></span>IJTAG<span class="role">secondary</span></div>
+          <div class="gd"><span class="lk">edge</span><span class="lv">下</span><span class="lk">offset</span><span class="lv">70</span>
+            <span class="lk">width</span><span class="lv">1</span><span class="lk">pd</span><span class="lv">PD_SOC</span>
+            <span class="lk">signals</span><span class="lv">6</span><span class="lk">↔ pair</span><span class="lv" style="color:var(--green)">x_l2</span></div>
+        </div>
+        <div class="ifcard">
+          <div class="hd"><span class="bar" style="background:var(--purple)"></span>BISR<span class="role">client</span></div>
+          <div class="gd"><span class="lk">edge</span><span class="lv">上</span><span class="lk">offset</span><span class="lv">40</span>
+            <span class="lk">width</span><span class="lv">2</span><span class="lk">pd</span><span class="lv">PD_CPU</span>
+            <span class="lk">signals</span><span class="lv">8</span><span class="lk">状态</span><span class="lv" style="color:var(--purple)">▸ported→frame</span></div>
+        </div>
+        <div class="ifcard" style="border-color:#5a4a1c">
+          <div class="hd"><span class="bar" style="background:var(--amber)"></span>BSCAN<span class="role">secondary</span></div>
+          <div class="gd"><span class="lk">edge</span><span class="lv">右</span><span class="lk">offset</span><span class="lv">50</span>
+            <span class="lk">width</span><span class="lv">1</span><span class="lk">pd</span><span class="lv">PD_SOC</span>
+            <span class="lk">signals</span><span class="lv">5</span><span class="lk">状态</span><span class="lv" style="color:var(--amber)">未连 (UNCONNECTED)</span></div>
+        </div>
+      </div>
+
+      <div style="padding:10px 12px;display:flex;gap:8px;border-top:1px solid var(--border)">
+        <div class="tbtn primary" style="flex:1;justify-content:center">逐层生成 Tcl</div>
+        <div class="tbtn">预览</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="status">
+    <div class="seg"><span class="dot ok"></span>daemon <b>ready</b></div>
+    <div class="seg">设计 <b>openc910</b></div>
+    <div class="seg">layer <b>chip_top</b></div>
+    <div class="seg">hardens <b>5</b></div>
+    <div class="seg">接口对 <b>4 paired</b> · <b style="color:var(--amber)">1 未连</b></div>
+    <div class="sp"></div>
+    <div class="seg muted">genconn-core · byte-identical</div>
+    <span class="kbd">R 旋转 · ⇧H/V 镜像 · ⌘Z 撤销</span>
+  </div>
+</div></body></html>

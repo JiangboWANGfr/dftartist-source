@@ -1,0 +1,11 @@
+{
+  "files": [],
+  "references": [
+    { "path": "packages/protocol-types" },
+    { "path": "packages/client" },
+    { "path": "packages/viewmodel" },
+    { "path": "packages/views" },
+    { "path": "apps/demo" },
+    { "path": "apps/demo/tsconfig.renderer.json" }
+  ]
+}

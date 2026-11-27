@@ -1,0 +1,15 @@
+module_name:
+- dfx_pvt_ctrl_tdr
+
+input_pin_name:
+
+
+
+output_pin_name:
+  - m1_tsen_jtag_ovrd_ijtag_ovrd  [119:0]
+  - m1_tsen_jtag_ovrd_ijtag_ovrd_en
+
+
+
+
+

@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "lib": ["ES2022", "DOM", "DOM.Iterable"] },
+  "files": [
+    "electron/main.consumer.ts",
+    "electron/preload.consumer.ts",
+    "electron/renderer.consumer.ts"
+  ],
+  "include": []
+}

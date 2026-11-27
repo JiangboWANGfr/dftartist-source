@@ -1,0 +1,3888 @@
+{
+  "task": "D-STUDIO-02",
+  "recorded_at": "2026-10-12T19:46:39.675000+08:00",
+  "scope": "Research report and controlled upstream state-tracker observations only; no product implementation or acceptance",
+  "baseline": {
+    "collected_at": "2026-10-12T15:17:38.267095+08:00",
+    "root": "/Users/jiangbowang/MOI/2025/dftartist/2026.9/dft_hierachy",
+    "temp": "/private/tmp/hier-d-studio-research-48xcbnv6",
+    "head": "2b25f0fab69653a0426e2a74b09b178503add3ba",
+    "branch": "m3",
+    "status": " M docs/DESIGN.md\n M docs/REVIEW_LOG.md\n M docs/plans/M4.md\n M web/.dependency-cruiser.cjs\n M web/package-lock.json\n M web/package.json\n M web/packages/client/package.json\n M web/packages/client/src/index.ts\n M web/packages/protocol-types/src/index.ts\n M web/packages/protocol-types/tsconfig.json\n M web/tests/layering/run.mjs\n?? core/protocol/src/SessionContract.h\n?? docs/plans/M3-coordination.md\n?? docs/research/\n?? web/packages/client/src/client.ts\n?? web/packages/client/src/errors.ts\n?? web/packages/client/src/json-snapshot.ts\n?? web/packages/client/src/node/\n?? web/packages/client/src/reply-cache.ts\n?? web/packages/client/src/transport.ts\n?? web/packages/protocol-types/src/registry.generated.ts\n?? web/packages/protocol-types/src/validation.ts\n?? web/packages/protocol-types/src/validators.LICENSE.txt\n?? web/packages/protocol-types/src/validators.generated.js\n?? web/packages/protocol-types/src/wire.generated.ts\n?? web/scripts/\n?? web/tests/client/\n",
+    "files": {
+      "AGENTS.md": {
+        "sha256": "99ee127190dd2b9a32565ad9c8e3def7e999e59657bb3a0d1823ecab0371f2be",
+        "mtime_ns": 1791654195992342900,
+        "size": 6777
+      },
+      "docs/DESIGN.md": {
+        "sha256": "e458f01177b20c0eb60693c90196b7374aa264be5aefe4e178fa94fc927550fd",
+        "mtime_ns": 1791789455176028161,
+        "size": 187598
+      },
+      "docs/REVIEW_LOG.md": {
+        "sha256": "5cdea9be4a732fb269ddad1e28cf82e6f28ea0d13edf3df9679aa45e011e614c",
+        "mtime_ns": 1791789455952362737,
+        "size": 670603
+      },
+      "docs/research/M5-M6-client-research.md": {
+        "sha256": "e07b4419b7e2c1c8222de4f1579ea0089b223bf3e28195dc63a8d519c547366f",
+        "mtime_ns": 1791788872369969869,
+        "size": 33583
+      },
+      "docs/research/m5-m6-client-evidence.json": {
+        "sha256": "277698cb105042e6306a4ecd4edc6f6e13ed0033e051c77909a71c0306de0435",
+        "mtime_ns": 1791788968094747065,
+        "size": 45995
+      }
+    }
+  },
+  "environment": {
+    "node": "v24.21.0",
+    "node_executable": "/Users/jiangbowang/.npm-global/bin/node",
+    "python": "3.13.3 (main, Apr  8 2025, 13:54:08) [Clang 17.0.0 (clang-1700.0.13.3)]",
+    "platform": "macOS-26.0.1-arm64-arm-64bit-Mach-O"
+  },
+  "projects": {
+    "ecos-studio": {
+      "repo": "openecos-projects/ecos-studio",
+      "sha": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "committed_at": "2026-10-11T06:48:50Z",
+      "downloads": [
+        {
+          "url": "https://api.github.com/repos/openecos-projects/ecos-studio/commits/HEAD",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/commit.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/openecos-projects/ecos-studio/commits/HEAD",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/commit.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:32.518982+08:00",
+          "size": 9352,
+          "sha256": "4e7c05c6ac439d559a996eabe8136668f0a8cd61f6e6675bfeb340d553884601"
+        },
+        {
+          "url": "https://api.github.com/repos/openecos-projects/ecos-studio/git/trees/01ba484714431ca3819801692e0b91a9c6599bc4?recursive=1",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/tree.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/openecos-projects/ecos-studio/git/trees/01ba484714431ca3819801692e0b91a9c6599bc4?recursive=1",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/tree.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:33.574980+08:00",
+          "size": 506950,
+          "sha256": "fcc9bfe29cc370ff96580164c0044c694e4b91760b05de2ab29000552d11076e"
+        }
+      ]
+    },
+    "ecc": {
+      "repo": "openecos-projects/ecc",
+      "sha": "27084f4779d7e8ddb69ea9c25f9c116aaaab29c7",
+      "committed_at": "2026-10-11T04:31:51Z",
+      "downloads": [
+        {
+          "url": "https://api.github.com/repos/openecos-projects/ecc/commits/HEAD",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecc/commit.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/openecos-projects/ecc/commits/HEAD",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/ecc/commit.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:32.585868+08:00",
+          "size": 5679,
+          "sha256": "26d090cbc3333b2904bac6123cedabad3f72b9844e653678f543459c22abe7b5"
+        },
+        {
+          "url": "https://api.github.com/repos/openecos-projects/ecc/git/trees/27084f4779d7e8ddb69ea9c25f9c116aaaab29c7?recursive=1",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecc/tree.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/openecos-projects/ecc/git/trees/27084f4779d7e8ddb69ea9c25f9c116aaaab29c7?recursive=1",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/ecc/tree.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:33.522055+08:00",
+          "size": 227162,
+          "sha256": "2d1aaa4fe185de8621adea01d5bc9dc024ffd57b65c86fd589a36e12184d78df"
+        }
+      ]
+    },
+    "ecc-tools": {
+      "repo": "openecos-projects/ecc-tools",
+      "sha": "275abf38dfd4c62ee6443637904595528fff7c86",
+      "committed_at": "2026-10-12T07:14:24Z",
+      "downloads": [
+        {
+          "url": "https://api.github.com/repos/openecos-projects/ecc-tools/commits/HEAD",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecc-tools/commit.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/openecos-projects/ecc-tools/commits/HEAD",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/ecc-tools/commit.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:32.548793+08:00",
+          "size": 45152,
+          "sha256": "34f8399b13ac9f5899f61851838c154cbc112b331b6787f82a4ee4048dbd72cf"
+        },
+        {
+          "url": "https://api.github.com/repos/openecos-projects/ecc-tools/git/trees/275abf38dfd4c62ee6443637904595528fff7c86?recursive=1",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecc-tools/tree.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/openecos-projects/ecc-tools/git/trees/275abf38dfd4c62ee6443637904595528fff7c86?recursive=1",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/ecc-tools/tree.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:33.730997+08:00",
+          "size": 1667347,
+          "sha256": "f7cf7e8ecbad133943ba30654fe572b5596e1efa60f0f504791970038a27ddbf"
+        }
+      ]
+    },
+    "ieda": {
+      "repo": "OSCC-Project/iEDA",
+      "sha": "65c39fd28aa0dc0cdd56325df07f6e440069061b",
+      "committed_at": "2026-03-11T08:36:09Z",
+      "downloads": [
+        {
+          "url": "https://api.github.com/repos/OSCC-Project/iEDA/commits/HEAD",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ieda/commit.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/OSCC-Project/iEDA/commits/HEAD",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/ieda/commit.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:32.526398+08:00",
+          "size": 21887,
+          "sha256": "787cbeb421ade2cf1c799c3d7b9c17184372aac6ddd3d66c15ed4433abbc468d"
+        },
+        {
+          "url": "https://api.github.com/repos/OSCC-Project/iEDA/git/trees/65c39fd28aa0dc0cdd56325df07f6e440069061b?recursive=1",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ieda/tree.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/OSCC-Project/iEDA/git/trees/65c39fd28aa0dc0cdd56325df07f6e440069061b?recursive=1",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/ieda/tree.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:33.795202+08:00",
+          "size": 2103579,
+          "sha256": "9ea7ec01170bbbe6b93412cb7d4e29bc310b5f81dd0aa1455944598263e4df44"
+        }
+      ]
+    },
+    "openroad": {
+      "repo": "The-OpenROAD-Project/OpenROAD",
+      "sha": "a3bf6124782f205ba5fa9e2e402dae8b665fc4fc",
+      "committed_at": "2026-10-12T06:05:48Z",
+      "downloads": [
+        {
+          "url": "https://api.github.com/repos/The-OpenROAD-Project/OpenROAD/commits/HEAD",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/openroad/commit.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/The-OpenROAD-Project/OpenROAD/commits/HEAD",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/openroad/commit.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:32.506392+08:00",
+          "size": 94721,
+          "sha256": "8ee26af55d4fe85a3fa3ab75d04df1fab141822d9d06b48e9fd69dd6ab2d3c59"
+        },
+        {
+          "url": "https://api.github.com/repos/The-OpenROAD-Project/OpenROAD/git/trees/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc?recursive=1",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/openroad/tree.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/The-OpenROAD-Project/OpenROAD/git/trees/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc?recursive=1",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/openroad/tree.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:33.901857+08:00",
+          "size": 3709718,
+          "sha256": "2bfe144658e061088740368a2ace97edb546a107069e7f13d0540976968d14f1"
+        }
+      ]
+    },
+    "orfs": {
+      "repo": "The-OpenROAD-Project/OpenROAD-flow-scripts",
+      "sha": "3451ca1f56902a49baf50bb8eba345eb709cf9c8",
+      "committed_at": "2026-10-11T03:39:08Z",
+      "downloads": [
+        {
+          "url": "https://api.github.com/repos/The-OpenROAD-Project/OpenROAD-flow-scripts/commits/HEAD",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/orfs/commit.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/The-OpenROAD-Project/OpenROAD-flow-scripts/commits/HEAD",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/orfs/commit.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:32.585941+08:00",
+          "size": 12542,
+          "sha256": "f0f119fc7062c2bef0253efd395a7b833ab7256bb6b1a3ffd44ff8e7acb17703"
+        },
+        {
+          "url": "https://api.github.com/repos/The-OpenROAD-Project/OpenROAD-flow-scripts/git/trees/3451ca1f56902a49baf50bb8eba345eb709cf9c8?recursive=1",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/orfs/tree.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/The-OpenROAD-Project/OpenROAD-flow-scripts/git/trees/3451ca1f56902a49baf50bb8eba345eb709cf9c8?recursive=1",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/orfs/tree.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:33.599748+08:00",
+          "size": 988153,
+          "sha256": "67569558e53937b087504f0eff678ea47ea61d32225f998473f416e6221a326c"
+        }
+      ]
+    },
+    "librelane": {
+      "repo": "librelane/librelane",
+      "sha": "01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0",
+      "committed_at": "2026-10-06T08:52:42Z",
+      "downloads": [
+        {
+          "url": "https://api.github.com/repos/librelane/librelane/commits/HEAD",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/librelane/commit.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/librelane/librelane/commits/HEAD",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/librelane/commit.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:34.430787+08:00",
+          "size": 8490,
+          "sha256": "391acf99c3b1e258efad1b11e8ef6c868446681f5886366a7b8b3e98e9d06012"
+        },
+        {
+          "url": "https://api.github.com/repos/librelane/librelane/git/trees/01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0?recursive=1",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/librelane/tree.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/librelane/librelane/git/trees/01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0?recursive=1",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/librelane/tree.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:35.360539+08:00",
+          "size": 143313,
+          "sha256": "af3fee7dcdcf0b1d6c53de244ef3dd7019f2aba46827e463aee28c494e9456b0"
+        }
+      ]
+    },
+    "siliconcompiler": {
+      "repo": "siliconcompiler/siliconcompiler",
+      "sha": "8ac5d59dd8e146d7cf166c4db18a747db9f4c884",
+      "committed_at": "2026-10-11T18:35:59Z",
+      "downloads": [
+        {
+          "url": "https://api.github.com/repos/siliconcompiler/siliconcompiler/commits/HEAD",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/siliconcompiler/commit.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/siliconcompiler/siliconcompiler/commits/HEAD",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/siliconcompiler/commit.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:34.490371+08:00",
+          "size": 6601,
+          "sha256": "edb05efd4e9fbe514797f819968c0fa934fcc8b51abc534534fdd9b4e0ccf65e"
+        },
+        {
+          "url": "https://api.github.com/repos/siliconcompiler/siliconcompiler/git/trees/8ac5d59dd8e146d7cf166c4db18a747db9f4c884?recursive=1",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/siliconcompiler/tree.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/siliconcompiler/siliconcompiler/git/trees/8ac5d59dd8e146d7cf166c4db18a747db9f4c884?recursive=1",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/siliconcompiler/tree.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:35.444193+08:00",
+          "size": 436759,
+          "sha256": "b665c75c6b43f8909222fa0b95b55a6c8bebd20ad061ed7be2b2225bf63175fc"
+        }
+      ]
+    },
+    "hammer": {
+      "repo": "ucb-bar/hammer",
+      "sha": "516aedb55385e9e3d9237738db5c8c2978e6475c",
+      "committed_at": "2026-07-13T17:49:47Z",
+      "downloads": [
+        {
+          "url": "https://api.github.com/repos/ucb-bar/hammer/commits/HEAD",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/hammer/commit.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/ucb-bar/hammer/commits/HEAD",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/hammer/commit.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:34.528465+08:00",
+          "size": 7119,
+          "sha256": "f5e4c5017985a8adb609de1c83a6f49246a39342824737d93400bda6cdcd7cba"
+        },
+        {
+          "url": "https://api.github.com/repos/ucb-bar/hammer/git/trees/516aedb55385e9e3d9237738db5c8c2978e6475c?recursive=1",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/hammer/tree.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/ucb-bar/hammer/git/trees/516aedb55385e9e3d9237738db5c8c2978e6475c?recursive=1",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/hammer/tree.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:35.451424+08:00",
+          "size": 221264,
+          "sha256": "ae43035ee94ae8ee81955c9ca1698214fd4ca749e3d275946d1e90aca44f855c"
+        }
+      ]
+    },
+    "qflow": {
+      "repo": "RTimothyEdwards/qflow",
+      "sha": "52ecda1053bcbd2f6ec88b8379c8179e2a849f7a",
+      "committed_at": "2024-10-25T14:45:38Z",
+      "downloads": [
+        {
+          "url": "https://api.github.com/repos/RTimothyEdwards/qflow/commits/HEAD",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/qflow/commit.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/RTimothyEdwards/qflow/commits/HEAD",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/qflow/commit.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:34.669481+08:00",
+          "size": 7013,
+          "sha256": "7bd3471389b0b923a1b73caf13a758d334bebbd446a822da461c12edc8a87cc8"
+        },
+        {
+          "url": "https://api.github.com/repos/RTimothyEdwards/qflow/git/trees/52ecda1053bcbd2f6ec88b8379c8179e2a849f7a?recursive=1",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/qflow/tree.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/RTimothyEdwards/qflow/git/trees/52ecda1053bcbd2f6ec88b8379c8179e2a849f7a?recursive=1",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/qflow/tree.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:35.529167+08:00",
+          "size": 45474,
+          "sha256": "5b024c1a0c917688f48db8c89feaaf2f55f93bb90ce1491c9223a84eb51f2b23"
+        }
+      ]
+    },
+    "coriolis": {
+      "repo": "lip6/coriolis",
+      "sha": "9454aaff97a4640e3f131ee80504cbacdccfaa81",
+      "committed_at": "2026-10-07T22:14:55Z",
+      "downloads": [
+        {
+          "url": "https://api.github.com/repos/lip6/coriolis/commits/HEAD",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/coriolis/commit.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/lip6/coriolis/commits/HEAD",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/coriolis/commit.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:34.760624+08:00",
+          "size": 10623,
+          "sha256": "187fc940ef4c30eb6c13b2db91c505bde6750ef0082656bf5a08c07e3032c9ca"
+        },
+        {
+          "url": "https://api.github.com/repos/lip6/coriolis/git/trees/9454aaff97a4640e3f131ee80504cbacdccfaa81?recursive=1",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/coriolis/tree.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/lip6/coriolis/git/trees/9454aaff97a4640e3f131ee80504cbacdccfaa81?recursive=1",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/coriolis/tree.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:36.068621+08:00",
+          "size": 1506653,
+          "sha256": "5f650a0ca73801f624edf570b02ec22a3c7054e5303d9464c512c2317db1067a"
+        }
+      ]
+    },
+    "xiangshan": {
+      "repo": "OpenXiangShan/XiangShan",
+      "sha": "6714a69d001dbb9e213ff077a518fb78e598c48a",
+      "committed_at": "2026-10-11T13:36:35Z",
+      "downloads": [
+        {
+          "url": "https://api.github.com/repos/OpenXiangShan/XiangShan/commits/HEAD",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/xiangshan/commit.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/OpenXiangShan/XiangShan/commits/HEAD",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/xiangshan/commit.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:34.799200+08:00",
+          "size": 9443,
+          "sha256": "c773a93e0220f976698fb7733a51d16da974da981606e0ce1258c5b77d0d0019"
+        },
+        {
+          "url": "https://api.github.com/repos/OpenXiangShan/XiangShan/git/trees/6714a69d001dbb9e213ff077a518fb78e598c48a?recursive=1",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/xiangshan/tree.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/OpenXiangShan/XiangShan/git/trees/6714a69d001dbb9e213ff077a518fb78e598c48a?recursive=1",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/xiangshan/tree.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:35.844581+08:00",
+          "size": 305271,
+          "sha256": "2c487223981abd962b498a2f69fc6325ddf360c7c424cb6492a866032efc5087"
+        }
+      ]
+    },
+    "retrosoc": {
+      "repo": "retroSoC/retroSoC",
+      "sha": "1eda7cba81d2e708e79fb687fd49ecb9c5f2910e",
+      "committed_at": "2026-10-09T12:21:15Z",
+      "downloads": [
+        {
+          "url": "https://api.github.com/repos/retroSoC/retroSoC/commits/HEAD",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/retrosoc/commit.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/retroSoC/retroSoC/commits/HEAD",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/retrosoc/commit.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:36.696534+08:00",
+          "size": 1176934,
+          "sha256": "8650dbd5596aa0a92184a10db276c4864a1d8f82e882dae80cb5d24c92670d8a"
+        },
+        {
+          "url": "https://api.github.com/repos/retroSoC/retroSoC/git/trees/1eda7cba81d2e708e79fb687fd49ecb9c5f2910e?recursive=1",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/retrosoc/tree.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/retroSoC/retroSoC/git/trees/1eda7cba81d2e708e79fb687fd49ecb9c5f2910e?recursive=1",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/retrosoc/tree.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:37.695736+08:00",
+          "size": 574713,
+          "sha256": "605011dd12ecd88e496b422dbe612c614d381d7d9c706ba95a59ddcd4e83e14a"
+        }
+      ]
+    },
+    "icsprout55-pdk": {
+      "repo": "openecos-projects/icsprout55-pdk",
+      "sha": "8ec6ebbd187d3553e0c570b7ba6e29848d367e29",
+      "committed_at": "2026-10-11T07:43:50Z",
+      "downloads": [
+        {
+          "url": "https://api.github.com/repos/openecos-projects/icsprout55-pdk/commits/HEAD",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/icsprout55-pdk/commit.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/openecos-projects/icsprout55-pdk/commits/HEAD",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/icsprout55-pdk/commit.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:36.405570+08:00",
+          "size": 6606,
+          "sha256": "d8d0e566118e1f2b97d50f3843cc7049acf450712fb3b2dcdfd08d9b46c1ca39"
+        },
+        {
+          "url": "https://api.github.com/repos/openecos-projects/icsprout55-pdk/git/trees/8ec6ebbd187d3553e0c570b7ba6e29848d367e29?recursive=1",
+          "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/icsprout55-pdk/tree.json",
+          "command": [
+            "curl",
+            "-L",
+            "--fail",
+            "--silent",
+            "--show-error",
+            "--connect-timeout",
+            "20",
+            "--max-time",
+            "90",
+            "https://api.github.com/repos/openecos-projects/icsprout55-pdk/git/trees/8ec6ebbd187d3553e0c570b7ba6e29848d367e29?recursive=1",
+            "-o",
+            "/private/tmp/hier-d-studio-research-48xcbnv6/icsprout55-pdk/tree.json"
+          ],
+          "exit_code": 0,
+          "stderr": "",
+          "retrieved_at": "2026-10-12T15:40:37.248424+08:00",
+          "size": 27670,
+          "sha256": "58d10af95d9ea9df633136bc176ebcf435d6425a47bec51b1c80e0fda06a87f5"
+        }
+      ]
+    },
+    "ecc-in-studio": {
+      "repo": "openecos-projects/ecc",
+      "sha": "4264418faad0c5f53f3f66329094492adb53fcb1",
+      "origin": "ecos-studio gitlink ecc at 01ba484714431ca3819801692e0b91a9c6599bc4",
+      "downloads": []
+    }
+  },
+  "submodules": {
+    "ecos-studio": [
+      {
+        "path": "ecc",
+        "commit": "4264418faad0c5f53f3f66329094492adb53fcb1"
+      },
+      {
+        "path": "ecc-fe",
+        "commit": "5da54e61aa4c3c49bb86bc3c5d2bb2337db644df"
+      },
+      {
+        "path": "ip/retroSoC",
+        "commit": "5ca194698fad544d2dec40d88d5c4708bbda4dec"
+      },
+      {
+        "path": "pdk/icsprout55-pdk",
+        "commit": "e64f336ebb51bfecbbf0eb4d75b29e1ad65ac37e"
+      }
+    ],
+    "ecc": [
+      {
+        "path": "chipcompiler/thirdparty/ecc-dreamplace",
+        "commit": "b8a0d7d4bee2726963eed2099d0d02393aa18a03"
+      },
+      {
+        "path": "chipcompiler/thirdparty/ecc-tools",
+        "commit": "9ae0472230998ceaf8f6e0c0f2f504478ddab398"
+      }
+    ]
+  },
+  "tree_integrity": {
+    "ecos-studio": {
+      "truncated": false,
+      "entries": 1520
+    },
+    "ecc": {
+      "truncated": false,
+      "entries": 754
+    },
+    "ecc-tools": {
+      "truncated": false,
+      "entries": 5091
+    },
+    "ieda": {
+      "truncated": false,
+      "entries": 6609
+    },
+    "openroad": {
+      "truncated": false,
+      "entries": 11803
+    },
+    "orfs": {
+      "truncated": false,
+      "entries": 2915
+    },
+    "librelane": {
+      "truncated": false,
+      "entries": 478
+    },
+    "siliconcompiler": {
+      "truncated": false,
+      "entries": 1386
+    },
+    "hammer": {
+      "truncated": false,
+      "entries": 714
+    },
+    "qflow": {
+      "truncated": false,
+      "entries": 155
+    },
+    "coriolis": {
+      "truncated": false,
+      "entries": 4975
+    },
+    "xiangshan": {
+      "truncated": false,
+      "entries": 954
+    },
+    "retrosoc": {
+      "truncated": false,
+      "entries": 1946
+    },
+    "icsprout55-pdk": {
+      "truncated": false,
+      "entries": 84
+    }
+  },
+  "source_files": [
+    {
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/LICENSE",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/LICENSE",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/LICENSE",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/LICENSE"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:28.158861+08:00",
+      "size": 11339,
+      "sha256": "e348af54046ccf4a5698b922b15012d96b751c014762b8ac0e1a2a5ea0ef8164",
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "LICENSE"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/README.md",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/README.md",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/README.md",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/README.md"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:28.146730+08:00",
+      "size": 5457,
+      "sha256": "a5f16c5294d27c97b06bdb29231ceac6c30ab476f73c03144eb0e5fc56b22cfc",
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "README.md"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecc/27084f4779d7e8ddb69ea9c25f9c116aaaab29c7/LICENSE",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecc/files/LICENSE",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/openecos-projects/ecc/27084f4779d7e8ddb69ea9c25f9c116aaaab29c7/LICENSE",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/ecc/files/LICENSE"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:28.210299+08:00",
+      "size": 11339,
+      "sha256": "e348af54046ccf4a5698b922b15012d96b751c014762b8ac0e1a2a5ea0ef8164",
+      "project": "ecc",
+      "repo": "openecos-projects/ecc",
+      "commit": "27084f4779d7e8ddb69ea9c25f9c116aaaab29c7",
+      "source_path": "LICENSE"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecc/27084f4779d7e8ddb69ea9c25f9c116aaaab29c7/README.cn.md",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecc/files/README.cn.md",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/openecos-projects/ecc/27084f4779d7e8ddb69ea9c25f9c116aaaab29c7/README.cn.md",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/ecc/files/README.cn.md"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:28.152762+08:00",
+      "size": 8480,
+      "sha256": "ccd1b347e55db474965c66dc24defe0bacb763f4d31e229b39cb9d4ef03bebf9",
+      "project": "ecc",
+      "repo": "openecos-projects/ecc",
+      "commit": "27084f4779d7e8ddb69ea9c25f9c116aaaab29c7",
+      "source_path": "README.cn.md"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecc/27084f4779d7e8ddb69ea9c25f9c116aaaab29c7/README.md",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecc/files/README.md",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/openecos-projects/ecc/27084f4779d7e8ddb69ea9c25f9c116aaaab29c7/README.md",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/ecc/files/README.md"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:28.152874+08:00",
+      "size": 8816,
+      "sha256": "40d793cbdcff82c08586dd9dba5f9382fbba556ac71f2fc8ae14b0384e4604dd",
+      "project": "ecc",
+      "repo": "openecos-projects/ecc",
+      "commit": "27084f4779d7e8ddb69ea9c25f9c116aaaab29c7",
+      "source_path": "README.md"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecc-tools/275abf38dfd4c62ee6443637904595528fff7c86/LICENSE",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecc-tools/files/LICENSE",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/openecos-projects/ecc-tools/275abf38dfd4c62ee6443637904595528fff7c86/LICENSE",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/ecc-tools/files/LICENSE"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:28.129239+08:00",
+      "size": 10695,
+      "sha256": "dc41ca88715fa9dda4bdfbf4c19b6f98229630d56c9c7195f527bab6855211f6",
+      "project": "ecc-tools",
+      "repo": "openecos-projects/ecc-tools",
+      "commit": "275abf38dfd4c62ee6443637904595528fff7c86",
+      "source_path": "LICENSE"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecc-tools/275abf38dfd4c62ee6443637904595528fff7c86/README-CN.md",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecc-tools/files/README-CN.md",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/openecos-projects/ecc-tools/275abf38dfd4c62ee6443637904595528fff7c86/README-CN.md",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/ecc-tools/files/README-CN.md"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:28.140137+08:00",
+      "size": 10481,
+      "sha256": "63c79786ce2a634f4e7df73e69c80446ad271c673e34c3eea9d0c5fad7864fea",
+      "project": "ecc-tools",
+      "repo": "openecos-projects/ecc-tools",
+      "commit": "275abf38dfd4c62ee6443637904595528fff7c86",
+      "source_path": "README-CN.md"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecc-tools/275abf38dfd4c62ee6443637904595528fff7c86/README.md",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecc-tools/files/README.md",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/openecos-projects/ecc-tools/275abf38dfd4c62ee6443637904595528fff7c86/README.md",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/ecc-tools/files/README.md"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:28.127281+08:00",
+      "size": 12582,
+      "sha256": "fa5ccfa73bb9d7be3ea0c4a569c0ba9036b6abd5d3f1104f7ba6221dd99cc4c0",
+      "project": "ecc-tools",
+      "repo": "openecos-projects/ecc-tools",
+      "commit": "275abf38dfd4c62ee6443637904595528fff7c86",
+      "source_path": "README.md"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/OSCC-Project/iEDA/65c39fd28aa0dc0cdd56325df07f6e440069061b/LICENSE",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ieda/files/LICENSE",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/OSCC-Project/iEDA/65c39fd28aa0dc0cdd56325df07f6e440069061b/LICENSE",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/ieda/files/LICENSE"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:29.003486+08:00",
+      "size": 10695,
+      "sha256": "dc41ca88715fa9dda4bdfbf4c19b6f98229630d56c9c7195f527bab6855211f6",
+      "project": "ieda",
+      "repo": "OSCC-Project/iEDA",
+      "commit": "65c39fd28aa0dc0cdd56325df07f6e440069061b",
+      "source_path": "LICENSE"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/OSCC-Project/iEDA/65c39fd28aa0dc0cdd56325df07f6e440069061b/README-CN.md",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ieda/files/README-CN.md",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/OSCC-Project/iEDA/65c39fd28aa0dc0cdd56325df07f6e440069061b/README-CN.md",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/ieda/files/README-CN.md"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:29.005228+08:00",
+      "size": 11408,
+      "sha256": "39761785561814c448abdeafd1c6dbba082844d4b83b93a039542ee2a8b74c66",
+      "project": "ieda",
+      "repo": "OSCC-Project/iEDA",
+      "commit": "65c39fd28aa0dc0cdd56325df07f6e440069061b",
+      "source_path": "README-CN.md"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/OSCC-Project/iEDA/65c39fd28aa0dc0cdd56325df07f6e440069061b/README.md",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ieda/files/README.md",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/OSCC-Project/iEDA/65c39fd28aa0dc0cdd56325df07f6e440069061b/README.md",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/ieda/files/README.md"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:29.001629+08:00",
+      "size": 13721,
+      "sha256": "04e8e35a2b198161bf63670edce8c69fca81b4c9f1c33f6fe96c0a6a185b5c3b",
+      "project": "ieda",
+      "repo": "OSCC-Project/iEDA",
+      "commit": "65c39fd28aa0dc0cdd56325df07f6e440069061b",
+      "source_path": "README.md"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/The-OpenROAD-Project/OpenROAD/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc/LICENSE",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/openroad/files/LICENSE",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/The-OpenROAD-Project/OpenROAD/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc/LICENSE",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/openroad/files/LICENSE"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:29.018504+08:00",
+      "size": 1542,
+      "sha256": "28cfc93cb2b552192bc316259d2c2a1aa5a980018cda1c5cd9b1143c9151aebb",
+      "project": "openroad",
+      "repo": "The-OpenROAD-Project/OpenROAD",
+      "commit": "a3bf6124782f205ba5fa9e2e402dae8b665fc4fc",
+      "source_path": "LICENSE"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/The-OpenROAD-Project/OpenROAD/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc/README.md",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/openroad/files/README.md",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/The-OpenROAD-Project/OpenROAD/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc/README.md",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/openroad/files/README.md"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:29.001504+08:00",
+      "size": 14697,
+      "sha256": "d50a23627ad3f6dce2f250a874ec25b8cb48fd0f57004e7b5afebc43a33dfa96",
+      "project": "openroad",
+      "repo": "The-OpenROAD-Project/OpenROAD",
+      "commit": "a3bf6124782f205ba5fa9e2e402dae8b665fc4fc",
+      "source_path": "README.md"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/The-OpenROAD-Project/OpenROAD-flow-scripts/3451ca1f56902a49baf50bb8eba345eb709cf9c8/LICENSE_BUILD_RUN_SCRIPTS",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/orfs/files/LICENSE_BUILD_RUN_SCRIPTS",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/The-OpenROAD-Project/OpenROAD-flow-scripts/3451ca1f56902a49baf50bb8eba345eb709cf9c8/LICENSE_BUILD_RUN_SCRIPTS",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/orfs/files/LICENSE_BUILD_RUN_SCRIPTS"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:28.992388+08:00",
+      "size": 2030,
+      "sha256": "fae0db7a4c00c3125f037e5818e8cd0c8aa5c67fff2e8c558312068e9f2d1592",
+      "project": "orfs",
+      "repo": "The-OpenROAD-Project/OpenROAD-flow-scripts",
+      "commit": "3451ca1f56902a49baf50bb8eba345eb709cf9c8",
+      "source_path": "LICENSE_BUILD_RUN_SCRIPTS"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/The-OpenROAD-Project/OpenROAD-flow-scripts/3451ca1f56902a49baf50bb8eba345eb709cf9c8/README.md",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/orfs/files/README.md",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/The-OpenROAD-Project/OpenROAD-flow-scripts/3451ca1f56902a49baf50bb8eba345eb709cf9c8/README.md",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/orfs/files/README.md"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:28.987353+08:00",
+      "size": 7164,
+      "sha256": "e68ffe87730f003896467aebcec9acd65983c682f987e6b00df12eaac7ea77eb",
+      "project": "orfs",
+      "repo": "The-OpenROAD-Project/OpenROAD-flow-scripts",
+      "commit": "3451ca1f56902a49baf50bb8eba345eb709cf9c8",
+      "source_path": "README.md"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/librelane/librelane/01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0/License",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/librelane/files/License",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/librelane/librelane/01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0/License",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/librelane/files/License"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:29.070563+08:00",
+      "size": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "project": "librelane",
+      "repo": "librelane/librelane",
+      "commit": "01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0",
+      "source_path": "License"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/librelane/librelane/01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0/Readme.md",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/librelane/files/Readme.md",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/librelane/librelane/01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0/Readme.md",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/librelane/files/Readme.md"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:29.816199+08:00",
+      "size": 7437,
+      "sha256": "0d5d4634bac35ddaa8daf2eebe3405e91a9b6fd030fa2918362ac853a6cfc6d4",
+      "project": "librelane",
+      "repo": "librelane/librelane",
+      "commit": "01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0",
+      "source_path": "Readme.md"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/siliconcompiler/siliconcompiler/8ac5d59dd8e146d7cf166c4db18a747db9f4c884/LICENSE",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/siliconcompiler/files/LICENSE",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/siliconcompiler/siliconcompiler/8ac5d59dd8e146d7cf166c4db18a747db9f4c884/LICENSE",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/siliconcompiler/files/LICENSE"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:29.879179+08:00",
+      "size": 10766,
+      "sha256": "95b2d1eac468fc260939fed25601e2f94e8265d0fc7ac1121191394d96b33901",
+      "project": "siliconcompiler",
+      "repo": "siliconcompiler/siliconcompiler",
+      "commit": "8ac5d59dd8e146d7cf166c4db18a747db9f4c884",
+      "source_path": "LICENSE"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/siliconcompiler/siliconcompiler/8ac5d59dd8e146d7cf166c4db18a747db9f4c884/README.md",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/siliconcompiler/files/README.md",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/siliconcompiler/siliconcompiler/8ac5d59dd8e146d7cf166c4db18a747db9f4c884/README.md",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/siliconcompiler/files/README.md"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:29.917091+08:00",
+      "size": 11324,
+      "sha256": "b8961388132f51dd0ec9c01a61aedf4c938b74e488465b9b6f0ea81538c8c280",
+      "project": "siliconcompiler",
+      "repo": "siliconcompiler/siliconcompiler",
+      "commit": "8ac5d59dd8e146d7cf166c4db18a747db9f4c884",
+      "source_path": "README.md"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/ucb-bar/hammer/516aedb55385e9e3d9237738db5c8c2978e6475c/LICENSE",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/hammer/files/LICENSE",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/ucb-bar/hammer/516aedb55385e9e3d9237738db5c8c2978e6475c/LICENSE",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/hammer/files/LICENSE"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:29.879944+08:00",
+      "size": 1568,
+      "sha256": "37424fd5d22db1e4ebfde42374b2197d74edc7d5382592ef99755d48d9d110f5",
+      "project": "hammer",
+      "repo": "ucb-bar/hammer",
+      "commit": "516aedb55385e9e3d9237738db5c8c2978e6475c",
+      "source_path": "LICENSE"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/ucb-bar/hammer/516aedb55385e9e3d9237738db5c8c2978e6475c/README.md",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/hammer/files/README.md",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/ucb-bar/hammer/516aedb55385e9e3d9237738db5c8c2978e6475c/README.md",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/hammer/files/README.md"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:29.879322+08:00",
+      "size": 2297,
+      "sha256": "d8d13ccabc3f767738d85f65f1ea6d40045b47d0c96de3ad98bddfaa33d2ca8f",
+      "project": "hammer",
+      "repo": "ucb-bar/hammer",
+      "commit": "516aedb55385e9e3d9237738db5c8c2978e6475c",
+      "source_path": "README.md"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/RTimothyEdwards/qflow/52ecda1053bcbd2f6ec88b8379c8179e2a849f7a/README",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/qflow/files/README",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/RTimothyEdwards/qflow/52ecda1053bcbd2f6ec88b8379c8179e2a849f7a/README",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/qflow/files/README"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:29.872803+08:00",
+      "size": 2307,
+      "sha256": "cb55a0eb38f6ee4a423fcc344b22796dea595af7bd8c107b8f9825f5dd88d220",
+      "project": "qflow",
+      "repo": "RTimothyEdwards/qflow",
+      "commit": "52ecda1053bcbd2f6ec88b8379c8179e2a849f7a",
+      "source_path": "README"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/lip6/coriolis/9454aaff97a4640e3f131ee80504cbacdccfaa81/LICENSE.rst",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/coriolis/files/LICENSE.rst",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/lip6/coriolis/9454aaff97a4640e3f131ee80504cbacdccfaa81/LICENSE.rst",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/coriolis/files/LICENSE.rst"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:29.923973+08:00",
+      "size": 19518,
+      "sha256": "9e7513543cfb358061eb4372205eb1a20af909fe40be0e0f13b094caa7491d05",
+      "project": "coriolis",
+      "repo": "lip6/coriolis",
+      "commit": "9454aaff97a4640e3f131ee80504cbacdccfaa81",
+      "source_path": "LICENSE.rst"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/lip6/coriolis/9454aaff97a4640e3f131ee80504cbacdccfaa81/README.rst",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/coriolis/files/README.rst",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/lip6/coriolis/9454aaff97a4640e3f131ee80504cbacdccfaa81/README.rst",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/coriolis/files/README.rst"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:29.925567+08:00",
+      "size": 6433,
+      "sha256": "32a16cabac2a3eaca5f40a461b6add5e10b1e9157dcea79790a7a269d027d74e",
+      "project": "coriolis",
+      "repo": "lip6/coriolis",
+      "commit": "9454aaff97a4640e3f131ee80504cbacdccfaa81",
+      "source_path": "README.rst"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/OpenXiangShan/XiangShan/6714a69d001dbb9e213ff077a518fb78e598c48a/LICENSE",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/xiangshan/files/LICENSE",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/OpenXiangShan/XiangShan/6714a69d001dbb9e213ff077a518fb78e598c48a/LICENSE",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/xiangshan/files/LICENSE"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:30.678643+08:00",
+      "size": 9617,
+      "sha256": "dde9c094144dabf139105d8af29cd0a8581506fdbd3777c6f8e232d35fac673c",
+      "project": "xiangshan",
+      "repo": "OpenXiangShan/XiangShan",
+      "commit": "6714a69d001dbb9e213ff077a518fb78e598c48a",
+      "source_path": "LICENSE"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/OpenXiangShan/XiangShan/6714a69d001dbb9e213ff077a518fb78e598c48a/README.md",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/xiangshan/files/README.md",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/OpenXiangShan/XiangShan/6714a69d001dbb9e213ff077a518fb78e598c48a/README.md",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/xiangshan/files/README.md"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:30.736277+08:00",
+      "size": 9934,
+      "sha256": "8f99885e3dc147483ec56264419daa58f43e3da2c09a8e46b75a2d607762088d",
+      "project": "xiangshan",
+      "repo": "OpenXiangShan/XiangShan",
+      "commit": "6714a69d001dbb9e213ff077a518fb78e598c48a",
+      "source_path": "README.md"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/OpenXiangShan/XiangShan/6714a69d001dbb9e213ff077a518fb78e598c48a/README.zh-cn.md",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/xiangshan/files/README.zh-cn.md",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/OpenXiangShan/XiangShan/6714a69d001dbb9e213ff077a518fb78e598c48a/README.zh-cn.md",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/xiangshan/files/README.zh-cn.md"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:30.765757+08:00",
+      "size": 8891,
+      "sha256": "4b6b3cf447404efa167d401aa7764217731a4b846ea534764c59c8a13fab8c13",
+      "project": "xiangshan",
+      "repo": "OpenXiangShan/XiangShan",
+      "commit": "6714a69d001dbb9e213ff077a518fb78e598c48a",
+      "source_path": "README.zh-cn.md"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/retroSoC/retroSoC/1eda7cba81d2e708e79fb687fd49ecb9c5f2910e/LICENSE",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/retrosoc/files/LICENSE",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/retroSoC/retroSoC/1eda7cba81d2e708e79fb687fd49ecb9c5f2910e/LICENSE",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/retrosoc/files/LICENSE"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:30.783141+08:00",
+      "size": 9548,
+      "sha256": "b3482a312a4c455914019e3ef65e4ede998545acba4bfd3b3c5f883e046a3f88",
+      "project": "retrosoc",
+      "repo": "retroSoC/retroSoC",
+      "commit": "1eda7cba81d2e708e79fb687fd49ecb9c5f2910e",
+      "source_path": "LICENSE"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/retroSoC/retroSoC/1eda7cba81d2e708e79fb687fd49ecb9c5f2910e/README.md",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/retrosoc/files/README.md",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/retroSoC/retroSoC/1eda7cba81d2e708e79fb687fd49ecb9c5f2910e/README.md",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/retrosoc/files/README.md"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:30.764504+08:00",
+      "size": 16828,
+      "sha256": "3f0ea9315ea89f38221f8e77fc08ff120c0e5562b238b4d0d1a8dc71e5ab1449",
+      "project": "retrosoc",
+      "repo": "retroSoC/retroSoC",
+      "commit": "1eda7cba81d2e708e79fb687fd49ecb9c5f2910e",
+      "source_path": "README.md"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/openecos-projects/icsprout55-pdk/8ec6ebbd187d3553e0c570b7ba6e29848d367e29/LICENSE",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/icsprout55-pdk/files/LICENSE",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/openecos-projects/icsprout55-pdk/8ec6ebbd187d3553e0c570b7ba6e29848d367e29/LICENSE",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/icsprout55-pdk/files/LICENSE"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:30.861704+08:00",
+      "size": 11367,
+      "sha256": "58889a0f774b72326e301ab389ee64f55f00829b01839f917efc3cd5ce2b50c7",
+      "project": "icsprout55-pdk",
+      "repo": "openecos-projects/icsprout55-pdk",
+      "commit": "8ec6ebbd187d3553e0c570b7ba6e29848d367e29",
+      "source_path": "LICENSE"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/openecos-projects/icsprout55-pdk/8ec6ebbd187d3553e0c570b7ba6e29848d367e29/README.md",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/icsprout55-pdk/files/README.md",
+      "command": [
+        "curl",
+        "-L",
+        "--fail",
+        "--silent",
+        "--show-error",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "90",
+        "https://raw.githubusercontent.com/openecos-projects/icsprout55-pdk/8ec6ebbd187d3553e0c570b7ba6e29848d367e29/README.md",
+        "-o",
+        "/private/tmp/hier-d-studio-research-48xcbnv6/icsprout55-pdk/files/README.md"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "retrieved_at": "2026-10-12T19:29:30.971914+08:00",
+      "size": 11833,
+      "sha256": "236f5aa5795b14addfaba6fe1876b1f4bbdabe4c1877c4ce932c9161291e3bfa",
+      "project": "icsprout55-pdk",
+      "repo": "openecos-projects/icsprout55-pdk",
+      "commit": "8ec6ebbd187d3553e0c570b7ba6e29848d367e29",
+      "source_path": "README.md"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": ".gitmodules",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/.gitmodules",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/.gitmodules",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/000.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 390,
+      "sha256": "bc8cab5a54cd1b48e7475d1d231d4f9520baf620ebad01c1d4a96076f85d2549"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/README.md",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/README.md",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/README.md",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/001.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 3782,
+      "sha256": "f2e49f84850b0295f66210ffd4f142f0aedd89f7780800e6b1005ab4b8bd0340"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/README.md",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/README.md",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/README.md",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/002.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 6240,
+      "sha256": "8d88e7074d0b0361cbfeb12ff96b2550fe725db7dc821f5000445d3dcaeff8cf"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/docs/user-guide.md",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/docs/user-guide.md",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/docs/user-guide.md",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/003.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 46688,
+      "sha256": "021f5169902d4f2bfd1108c21591eaf1d3b410e81314a31e8202d38a3846cee5"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/package.json",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/package.json",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/package.json",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/004.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 2300,
+      "sha256": "b55916e03b369817cecdbdd415d517ee5890d89f25dcec3b5061e8893a1a4415"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/apps/renderer/package.json",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/renderer/package.json",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/apps/renderer/package.json",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/005.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 1232,
+      "sha256": "330300afc62f560e60fef4a0a58f8e0455b8d7b5f205e62cc376218decba053a"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/apps/desktop-electron/package.json",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/desktop-electron/package.json",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/apps/desktop-electron/package.json",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/006.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 1303,
+      "sha256": "dce19167713d65d23bb2650c79ee80c22b8e594b6f1a08c9d005cc9f51e87dc4"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/apps/renderer/src/components/workbench/WorkspaceWorkbench.vue",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/renderer/src/components/workbench/WorkspaceWorkbench.vue",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/apps/renderer/src/components/workbench/WorkspaceWorkbench.vue",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/007.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 9152,
+      "sha256": "ec973a3930e433660d32663c535721e11dd1bed75ea85a0416a29d7376a5b40c"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/apps/renderer/src/composables/useFlowRunner.ts",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/renderer/src/composables/useFlowRunner.ts",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/apps/renderer/src/composables/useFlowRunner.ts",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/008.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 14217,
+      "sha256": "978bc756d1529f8580d1c2dc5f9156330e3463d49afc8ec997e6c1efe3bb480e"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/apps/renderer/src/stores/backgroundOperationStore.ts",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/renderer/src/stores/backgroundOperationStore.ts",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/apps/renderer/src/stores/backgroundOperationStore.ts",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/009.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 10670,
+      "sha256": "6b15e4fa48a321cbe2b7692e412c537b2d4dc0a4d8f6b3ee88297dd0b995539e"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/apps/renderer/src/stores/backendWorkspaceSession.ts",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/renderer/src/stores/backendWorkspaceSession.ts",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/apps/renderer/src/stores/backendWorkspaceSession.ts",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/010.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 5300,
+      "sha256": "0846b30da333dc4d0e57fffb3939b8eea3809bbf59ad8b3e222a33cae3f44b42"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/apps/renderer/src/api/flow.ts",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/renderer/src/api/flow.ts",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/apps/renderer/src/api/flow.ts",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/011.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 7621,
+      "sha256": "2012df9cfc974072058612ad6c9bd24b6fe0382a0a48050d0235f4ebf8251805"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/apps/renderer/src/api/backendRuntimeEvents.ts",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/renderer/src/api/backendRuntimeEvents.ts",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/apps/renderer/src/api/backendRuntimeEvents.ts",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/012.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 10522,
+      "sha256": "d149489c2bb3a3d29f44e3b68fada89996dc14609e75341f9f9631823c453c4e"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/apps/desktop-electron/electron/preload/index.ts",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/desktop-electron/electron/preload/index.ts",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/apps/desktop-electron/electron/preload/index.ts",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/013.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 25159,
+      "sha256": "df73f03bbc4d0838d517d70fbda46f45214e60a2b26c232a4a1d9a8d882ead84"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/apps/desktop-electron/electron/main/registerIpc.ts",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/desktop-electron/electron/main/registerIpc.ts",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/apps/desktop-electron/electron/main/registerIpc.ts",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/014.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 147820,
+      "sha256": "c720dac57a749c327c02caa1c72643bea1d1814b2c28d99d50173c663c2b074f"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/apps/desktop-electron/electron/main/shutdownCoordinator.ts",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/desktop-electron/electron/main/shutdownCoordinator.ts",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/apps/desktop-electron/electron/main/shutdownCoordinator.ts",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/015.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 16445,
+      "sha256": "39614d793efb645f716f3d4263d2e139738fb511bbcc62cf134937df9ad4adf9"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/apps/desktop-electron/electron/services/eccRpc/runtimeClient.ts",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/desktop-electron/electron/services/eccRpc/runtimeClient.ts",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/apps/desktop-electron/electron/services/eccRpc/runtimeClient.ts",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/016.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 810,
+      "sha256": "def8779504e9fb7b9bd92d461c3884eda66af27b780202905e4c8319ef6f8960"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/apps/desktop-electron/electron/services/eccRpc/runtimeService.ts",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/desktop-electron/electron/services/eccRpc/runtimeService.ts",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/apps/desktop-electron/electron/services/eccRpc/runtimeService.ts",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/017.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 28211,
+      "sha256": "58cfd05801198c1f8ca173af97cb469dc0a8f9fb191146ed3ebee47288fad448"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/apps/desktop-electron/electron/services/eccRpc/runtimeOperationTracker.ts",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/desktop-electron/electron/services/eccRpc/runtimeOperationTracker.ts",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/apps/desktop-electron/electron/services/eccRpc/runtimeOperationTracker.ts",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/018.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 10217,
+      "sha256": "7b24d51a2bad84f16e025ecb6fdda8989fe5317d76793611667600aec5689ad6"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/apps/desktop-electron/electron/services/eccRpc/workspaceRuntimeCommands.ts",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/desktop-electron/electron/services/eccRpc/workspaceRuntimeCommands.ts",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/apps/desktop-electron/electron/services/eccRpc/workspaceRuntimeCommands.ts",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/019.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 16823,
+      "sha256": "1356241a6f5b9ee222d2ffbdfb014316fed8c23daefde8190496594b38aeb429"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/apps/desktop-electron/electron/services/eccRpc/sidecarProcess.ts",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/desktop-electron/electron/services/eccRpc/sidecarProcess.ts",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/apps/desktop-electron/electron/services/eccRpc/sidecarProcess.ts",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/020.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 14715,
+      "sha256": "15a8f52e72ae8b65690c7b824d828bdae4d21af9170c5f6d6e098e4bbd50a8b6"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/apps/desktop-electron/electron/services/backendWorkspaceService.ts",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/desktop-electron/electron/services/backendWorkspaceService.ts",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/apps/desktop-electron/electron/services/backendWorkspaceService.ts",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/021.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 32064,
+      "sha256": "04e0c0fea70a11af475b7b34001368a0a4668a256206d5f6189853487403866a"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/packages/shared/src/contracts/eccRuntime.ts",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/packages/shared/src/contracts/eccRuntime.ts",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/packages/shared/src/contracts/eccRuntime.ts",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/022.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 22200,
+      "sha256": "2c3bab808b3102158688137fef5447acd342e2c6e24d22cacc4e4dc944bfaeaa"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/packages/shared/src/contracts/desktopApi.ts",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/packages/shared/src/contracts/desktopApi.ts",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/packages/shared/src/contracts/desktopApi.ts",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/023.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 18292,
+      "sha256": "7dcd0e2ef4ca65796ba05336db709d070ac930b5b053437a52211ffa4c653d32"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/packages/shared/src/contracts/shutdown.ts",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/packages/shared/src/contracts/shutdown.ts",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/packages/shared/src/contracts/shutdown.ts",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/024.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 1099,
+      "sha256": "6122733e3acc19d241539989a5a70eb1e3c4a4a088a6ded121090d7f5dbad867"
+    },
+    {
+      "project": "ecc",
+      "repo": "openecos-projects/ecc",
+      "commit": "27084f4779d7e8ddb69ea9c25f9c116aaaab29c7",
+      "source_path": ".gitmodules",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecc/27084f4779d7e8ddb69ea9c25f9c116aaaab29c7/.gitmodules",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecc/files/.gitmodules",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/025.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 312,
+      "sha256": "5a2fed77d3ed67755d742b6d2f6cad92c170adf7319a04bdfaff036ab41f1bbc"
+    },
+    {
+      "project": "ecc",
+      "repo": "openecos-projects/ecc",
+      "commit": "27084f4779d7e8ddb69ea9c25f9c116aaaab29c7",
+      "source_path": "pyproject.toml",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecc/27084f4779d7e8ddb69ea9c25f9c116aaaab29c7/pyproject.toml",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecc/files/pyproject.toml",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/026.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 3020,
+      "sha256": "74a9628eab81b88859c5b37060f3a75b68341dc17f0d740a2afd842ba4de0c23"
+    },
+    {
+      "project": "ecc",
+      "repo": "openecos-projects/ecc",
+      "commit": "27084f4779d7e8ddb69ea9c25f9c116aaaab29c7",
+      "source_path": "chipcompiler/engine/step_execution.py",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecc/27084f4779d7e8ddb69ea9c25f9c116aaaab29c7/chipcompiler/engine/step_execution.py",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecc/files/chipcompiler/engine/step_execution.py",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/027.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 5699,
+      "sha256": "a61c4d456e8b68c372665118a698cfd1623bf9a04f713caf672a545a0bfd90b4"
+    },
+    {
+      "project": "ecc",
+      "repo": "openecos-projects/ecc",
+      "commit": "27084f4779d7e8ddb69ea9c25f9c116aaaab29c7",
+      "source_path": "chipcompiler/engine/rerun.py",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecc/27084f4779d7e8ddb69ea9c25f9c116aaaab29c7/chipcompiler/engine/rerun.py",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecc/files/chipcompiler/engine/rerun.py",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/028.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 12214,
+      "sha256": "e31b3bc8e06e6cdcab1403d33c5c69ef87ad29a51b0d2f62a15b304499988e8a"
+    },
+    {
+      "project": "ecc",
+      "repo": "openecos-projects/ecc",
+      "commit": "27084f4779d7e8ddb69ea9c25f9c116aaaab29c7",
+      "source_path": "chipcompiler/engine/snapshot.py",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecc/27084f4779d7e8ddb69ea9c25f9c116aaaab29c7/chipcompiler/engine/snapshot.py",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecc/files/chipcompiler/engine/snapshot.py",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/029.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 17133,
+      "sha256": "d94ea0182971c161815cdbaebbafea1b89535fc2676ebf24b7c29ec6095630b9"
+    },
+    {
+      "project": "ecc-in-studio",
+      "repo": "openecos-projects/ecc",
+      "commit": "4264418faad0c5f53f3f66329094492adb53fcb1",
+      "source_path": "chipcompiler/runtime/operations.py",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecc/4264418faad0c5f53f3f66329094492adb53fcb1/chipcompiler/runtime/operations.py",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecc-in-studio/files/chipcompiler/runtime/operations.py",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/030.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 42710,
+      "sha256": "efd3d7b092462620a8eac88a8dac99d85997741b71964f1ace7ee5e575431a30"
+    },
+    {
+      "project": "ecc-in-studio",
+      "repo": "openecos-projects/ecc",
+      "commit": "4264418faad0c5f53f3f66329094492adb53fcb1",
+      "source_path": "chipcompiler/runtime/sessions.py",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecc/4264418faad0c5f53f3f66329094492adb53fcb1/chipcompiler/runtime/sessions.py",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecc-in-studio/files/chipcompiler/runtime/sessions.py",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/031.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 7450,
+      "sha256": "6c684c42af806e215dc137a7f8e542dc3ad0da27db3e4b3e20ecf6040ae5246e"
+    },
+    {
+      "project": "ecc-in-studio",
+      "repo": "openecos-projects/ecc",
+      "commit": "4264418faad0c5f53f3f66329094492adb53fcb1",
+      "source_path": "chipcompiler/runtime/rpc_dispatch.py",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecc/4264418faad0c5f53f3f66329094492adb53fcb1/chipcompiler/runtime/rpc_dispatch.py",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecc-in-studio/files/chipcompiler/runtime/rpc_dispatch.py",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/032.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 1331,
+      "sha256": "11a742e0a1c68daede764504b5fd7931bb50db307675c44d59641333dcc62243"
+    },
+    {
+      "project": "ecc-in-studio",
+      "repo": "openecos-projects/ecc",
+      "commit": "4264418faad0c5f53f3f66329094492adb53fcb1",
+      "source_path": "chipcompiler/runtime/stdio_server.py",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecc/4264418faad0c5f53f3f66329094492adb53fcb1/chipcompiler/runtime/stdio_server.py",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecc-in-studio/files/chipcompiler/runtime/stdio_server.py",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/033.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 4162,
+      "sha256": "0bf65989413964bf7580fb65dbeec0e2255a6eac734d86f611b0e7bad6a440d0"
+    },
+    {
+      "project": "ecc-in-studio",
+      "repo": "openecos-projects/ecc",
+      "commit": "4264418faad0c5f53f3f66329094492adb53fcb1",
+      "source_path": "chipcompiler/runtime/workspace_api.py",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecc/4264418faad0c5f53f3f66329094492adb53fcb1/chipcompiler/runtime/workspace_api.py",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecc-in-studio/files/chipcompiler/runtime/workspace_api.py",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/034.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 109976,
+      "sha256": "4230bf9b60326330ed0a0d64ed0b53067589fe41a03667cddc6c65609bbb53cf"
+    },
+    {
+      "project": "siliconcompiler",
+      "repo": "siliconcompiler/siliconcompiler",
+      "commit": "8ac5d59dd8e146d7cf166c4db18a747db9f4c884",
+      "source_path": "siliconcompiler/report/dashboard/web/__init__.py",
+      "url": "https://raw.githubusercontent.com/siliconcompiler/siliconcompiler/8ac5d59dd8e146d7cf166c4db18a747db9f4c884/siliconcompiler/report/dashboard/web/__init__.py",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/siliconcompiler/files/siliconcompiler/report/dashboard/web/__init__.py",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/035.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 10523,
+      "sha256": "1318c8b86e3bde4ac01b0ae5a4d67e1dd431451a8abd74ed8faa6a4404a6bee7"
+    },
+    {
+      "project": "siliconcompiler",
+      "repo": "siliconcompiler/siliconcompiler",
+      "commit": "8ac5d59dd8e146d7cf166c4db18a747db9f4c884",
+      "source_path": "siliconcompiler/report/dashboard/web/state.py",
+      "url": "https://raw.githubusercontent.com/siliconcompiler/siliconcompiler/8ac5d59dd8e146d7cf166c4db18a747db9f4c884/siliconcompiler/report/dashboard/web/state.py",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/siliconcompiler/files/siliconcompiler/report/dashboard/web/state.py",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/036.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 10329,
+      "sha256": "7f80213549c53acebb0f7991d4c693ee8ed38734aa9fd5e87f8b216e1c032063"
+    },
+    {
+      "project": "siliconcompiler",
+      "repo": "siliconcompiler/siliconcompiler",
+      "commit": "8ac5d59dd8e146d7cf166c4db18a747db9f4c884",
+      "source_path": "siliconcompiler/report/dashboard/web/layouts/vertical_flowgraph_node_tab.py",
+      "url": "https://raw.githubusercontent.com/siliconcompiler/siliconcompiler/8ac5d59dd8e146d7cf166c4db18a747db9f4c884/siliconcompiler/report/dashboard/web/layouts/vertical_flowgraph_node_tab.py",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/siliconcompiler/files/siliconcompiler/report/dashboard/web/layouts/vertical_flowgraph_node_tab.py",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/037.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 5125,
+      "sha256": "375c43e29ed36d80a3079e7a3a3527440dbba22825d6d4aa2e8f05dff59ab756"
+    },
+    {
+      "project": "siliconcompiler",
+      "repo": "siliconcompiler/siliconcompiler",
+      "commit": "8ac5d59dd8e146d7cf166c4db18a747db9f4c884",
+      "source_path": "siliconcompiler/report/dashboard/web/components/flowgraph.py",
+      "url": "https://raw.githubusercontent.com/siliconcompiler/siliconcompiler/8ac5d59dd8e146d7cf166c4db18a747db9f4c884/siliconcompiler/report/dashboard/web/components/flowgraph.py",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/siliconcompiler/files/siliconcompiler/report/dashboard/web/components/flowgraph.py",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/038.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 4808,
+      "sha256": "81bdb25bc3fd967b72869e40ed6adaf9499ec4c31fc5e8859daab4417454f4b1"
+    },
+    {
+      "project": "siliconcompiler",
+      "repo": "siliconcompiler/siliconcompiler",
+      "commit": "8ac5d59dd8e146d7cf166c4db18a747db9f4c884",
+      "source_path": "siliconcompiler/scheduler/scheduler.py",
+      "url": "https://raw.githubusercontent.com/siliconcompiler/siliconcompiler/8ac5d59dd8e146d7cf166c4db18a747db9f4c884/siliconcompiler/scheduler/scheduler.py",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/siliconcompiler/files/siliconcompiler/scheduler/scheduler.py",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/039.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 63652,
+      "sha256": "a0448dbbe58e4752713e22eb849fbab12bc33c39c8ef0efd654d78728c05320d"
+    },
+    {
+      "project": "siliconcompiler",
+      "repo": "siliconcompiler/siliconcompiler",
+      "commit": "8ac5d59dd8e146d7cf166c4db18a747db9f4c884",
+      "source_path": "siliconcompiler/scheduler/schedulernode.py",
+      "url": "https://raw.githubusercontent.com/siliconcompiler/siliconcompiler/8ac5d59dd8e146d7cf166c4db18a747db9f4c884/siliconcompiler/scheduler/schedulernode.py",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/siliconcompiler/files/siliconcompiler/scheduler/schedulernode.py",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/040.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 70010,
+      "sha256": "c8b8df1af8e8d5a58f9bfca412b8e85d3bbaa86eda7a2b38a6aa8c7dde590733"
+    },
+    {
+      "project": "siliconcompiler",
+      "repo": "siliconcompiler/siliconcompiler",
+      "commit": "8ac5d59dd8e146d7cf166c4db18a747db9f4c884",
+      "source_path": "docs/reference_manual/appendix/dashboard_how_to_guide.rst",
+      "url": "https://raw.githubusercontent.com/siliconcompiler/siliconcompiler/8ac5d59dd8e146d7cf166c4db18a747db9f4c884/docs/reference_manual/appendix/dashboard_how_to_guide.rst",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/siliconcompiler/files/docs/reference_manual/appendix/dashboard_how_to_guide.rst",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/041.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 7848,
+      "sha256": "55e7ea6fffd585e007bb0e01cd01945c68450d126f67d8ab1b4460830b3acc19"
+    },
+    {
+      "project": "siliconcompiler",
+      "repo": "siliconcompiler/siliconcompiler",
+      "commit": "8ac5d59dd8e146d7cf166c4db18a747db9f4c884",
+      "source_path": "docs/user_guide/tutorials/dashboard_tutorial.rst",
+      "url": "https://raw.githubusercontent.com/siliconcompiler/siliconcompiler/8ac5d59dd8e146d7cf166c4db18a747db9f4c884/docs/user_guide/tutorials/dashboard_tutorial.rst",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/siliconcompiler/files/docs/user_guide/tutorials/dashboard_tutorial.rst",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/042.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 5569,
+      "sha256": "625ac2087ae86395fa68191407700f190aecf75a5686939cd9bf04dfe3ea1bb8"
+    },
+    {
+      "project": "librelane",
+      "repo": "librelane/librelane",
+      "commit": "01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0",
+      "source_path": "librelane/state/state.py",
+      "url": "https://raw.githubusercontent.com/librelane/librelane/01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0/librelane/state/state.py",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/librelane/files/librelane/state/state.py",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/043.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 12447,
+      "sha256": "e7274e98ffde61327c5fb4eab6613b2d0c7e397b879eb3e6a076627f025af868"
+    },
+    {
+      "project": "librelane",
+      "repo": "librelane/librelane",
+      "commit": "01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0",
+      "source_path": "librelane/steps/step.py",
+      "url": "https://raw.githubusercontent.com/librelane/librelane/01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0/librelane/steps/step.py",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/librelane/files/librelane/steps/step.py",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/044.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 55539,
+      "sha256": "82dafcc6536fe09e26e266aa3ba57547460f2bf2295fa83fe97e8c93efce9257"
+    },
+    {
+      "project": "librelane",
+      "repo": "librelane/librelane",
+      "commit": "01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0",
+      "source_path": "librelane/flows/sequential.py",
+      "url": "https://raw.githubusercontent.com/librelane/librelane/01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0/librelane/flows/sequential.py",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/librelane/files/librelane/flows/sequential.py",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/045.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 15361,
+      "sha256": "0b94c8956c65261d2867eea209b03b52aefe8aa264bcdcbaf8b04f41bd138a06"
+    },
+    {
+      "project": "librelane",
+      "repo": "librelane/librelane",
+      "commit": "01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0",
+      "source_path": "librelane/flows/classic.py",
+      "url": "https://raw.githubusercontent.com/librelane/librelane/01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0/librelane/flows/classic.py",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/librelane/files/librelane/flows/classic.py",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/046.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 10995,
+      "sha256": "db887038493b0b33def8f6317548c7a47ef292ca6fcdcfb43f5f4598a9a2caed"
+    },
+    {
+      "project": "librelane",
+      "repo": "librelane/librelane",
+      "commit": "01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0",
+      "source_path": "librelane/flows/chip.py",
+      "url": "https://raw.githubusercontent.com/librelane/librelane/01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0/librelane/flows/chip.py",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/librelane/files/librelane/flows/chip.py",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/047.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 1795,
+      "sha256": "7f19927278b812b2514a5851cb85b2afe1da39dca311f3a7d81c415509a48669"
+    },
+    {
+      "project": "openroad",
+      "repo": "The-OpenROAD-Project/OpenROAD",
+      "commit": "a3bf6124782f205ba5fa9e2e402dae8b665fc4fc",
+      "source_path": "src/gui/README.md",
+      "url": "https://raw.githubusercontent.com/The-OpenROAD-Project/OpenROAD/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc/src/gui/README.md",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/openroad/files/src/gui/README.md",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/048.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 20857,
+      "sha256": "c6dc8740cfbbb1a68889befb2915f8b3aa6ffafc1f0510930e014991a266f594"
+    },
+    {
+      "project": "openroad",
+      "repo": "The-OpenROAD-Project/OpenROAD",
+      "commit": "a3bf6124782f205ba5fa9e2e402dae8b665fc4fc",
+      "source_path": "src/gui/include/gui/gui.h",
+      "url": "https://raw.githubusercontent.com/The-OpenROAD-Project/OpenROAD/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc/src/gui/include/gui/gui.h",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/openroad/files/src/gui/include/gui/gui.h",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/049.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 791,
+      "sha256": "f9a8d3196fb6081bc87edfcbb42e493aadd738d430117d1bacc16cb2bc4397d7"
+    },
+    {
+      "project": "openroad",
+      "repo": "The-OpenROAD-Project/OpenROAD",
+      "commit": "a3bf6124782f205ba5fa9e2e402dae8b665fc4fc",
+      "source_path": "src/gui/src/inspector.cpp",
+      "url": "https://raw.githubusercontent.com/The-OpenROAD-Project/OpenROAD/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc/src/gui/src/inspector.cpp",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/openroad/files/src/gui/src/inspector.cpp",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/050.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 34907,
+      "sha256": "4d77adca62bb1ddb14b1510db6e78226cd70955647d8cb2c74e13bfd8de56e1b"
+    },
+    {
+      "project": "openroad",
+      "repo": "The-OpenROAD-Project/OpenROAD",
+      "commit": "a3bf6124782f205ba5fa9e2e402dae8b665fc4fc",
+      "source_path": "src/gui/src/timingWidget.cpp",
+      "url": "https://raw.githubusercontent.com/The-OpenROAD-Project/OpenROAD/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc/src/gui/src/timingWidget.cpp",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/openroad/files/src/gui/src/timingWidget.cpp",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/051.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 27822,
+      "sha256": "1fd589ed2f9ae7d5c249018dfe18a2d217c8b36cdc63448c1687790d64785020"
+    },
+    {
+      "project": "openroad",
+      "repo": "The-OpenROAD-Project/OpenROAD",
+      "commit": "a3bf6124782f205ba5fa9e2e402dae8b665fc4fc",
+      "source_path": "src/gui/src/drcWidget.cpp",
+      "url": "https://raw.githubusercontent.com/The-OpenROAD-Project/OpenROAD/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc/src/gui/src/drcWidget.cpp",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/openroad/files/src/gui/src/drcWidget.cpp",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/052.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 13843,
+      "sha256": "2274bb10da06a9a9dd4f8b1dbcda49380d8464a7d17ba5903da1e3fe600de6ca"
+    },
+    {
+      "project": "hammer",
+      "repo": "ucb-bar/hammer",
+      "commit": "516aedb55385e9e3d9237738db5c8c2978e6475c",
+      "source_path": "hammer/vlsi/driver.py",
+      "url": "https://raw.githubusercontent.com/ucb-bar/hammer/516aedb55385e9e3d9237738db5c8c2978e6475c/hammer/vlsi/driver.py",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/hammer/files/hammer/vlsi/driver.py",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/053.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 87043,
+      "sha256": "413c1b4e9789fcfb9a5c064af89a251bb5cb7f6152a7e199ea50c900835f2935"
+    },
+    {
+      "project": "hammer",
+      "repo": "ucb-bar/hammer",
+      "commit": "516aedb55385e9e3d9237738db5c8c2978e6475c",
+      "source_path": "hammer/vlsi/hooks.py",
+      "url": "https://raw.githubusercontent.com/ucb-bar/hammer/516aedb55385e9e3d9237738db5c8c2978e6475c/hammer/vlsi/hooks.py",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/hammer/files/hammer/vlsi/hooks.py",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/054.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 1655,
+      "sha256": "e3ca392b87988dd6c1fb5e15e0c85c96963897f166be90605b10bb33467a973b"
+    },
+    {
+      "project": "hammer",
+      "repo": "ucb-bar/hammer",
+      "commit": "516aedb55385e9e3d9237738db5c8c2978e6475c",
+      "source_path": "hammer/config/config_src.py",
+      "url": "https://raw.githubusercontent.com/ucb-bar/hammer/516aedb55385e9e3d9237738db5c8c2978e6475c/hammer/config/config_src.py",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/hammer/files/hammer/config/config_src.py",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/055.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 56447,
+      "sha256": "6c95b0c27c1c19c67fb8cf508466ad1c8824ca9a7f3abb2d33dda9f56b84fde0"
+    },
+    {
+      "project": "hammer",
+      "repo": "ucb-bar/hammer",
+      "commit": "516aedb55385e9e3d9237738db5c8c2978e6475c",
+      "source_path": "hammer/vlsi/hammer_tool.py",
+      "url": "https://raw.githubusercontent.com/ucb-bar/hammer/516aedb55385e9e3d9237738db5c8c2978e6475c/hammer/vlsi/hammer_tool.py",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/hammer/files/hammer/vlsi/hammer_tool.py",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/056.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 77012,
+      "sha256": "7d8c0cbc0e9217fb250265551b4db164b4d55d938b552bb3c932fe9600cfc052"
+    },
+    {
+      "project": "orfs",
+      "repo": "The-OpenROAD-Project/OpenROAD-flow-scripts",
+      "commit": "3451ca1f56902a49baf50bb8eba345eb709cf9c8",
+      "source_path": "flow/Makefile",
+      "url": "https://raw.githubusercontent.com/The-OpenROAD-Project/OpenROAD-flow-scripts/3451ca1f56902a49baf50bb8eba345eb709cf9c8/flow/Makefile",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/orfs/files/flow/Makefile",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/057.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 36065,
+      "sha256": "910877da96dd7bf40b99f5a23f0f5b158aa5bf8bbd9b45d0eda4815a29bff854"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/apps/desktop-electron/electron/services/productCommandService.ts",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/desktop-electron/electron/services/productCommandService.ts",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/apps/desktop-electron/electron/services/productCommandService.ts",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/extra-000.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 18407,
+      "sha256": "394c0f3e0cf91ffd5db9a0fb17c5038f36b556e7f2e78fcf48dbea8ec79e0a48"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/packages/shared/src/contracts/productCommands.ts",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/packages/shared/src/contracts/productCommands.ts",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/packages/shared/src/contracts/productCommands.ts",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/extra-001.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 3987,
+      "sha256": "5904af447b536f98d3fe2f250b9f47079a506bc892aef153767a619ba15dee8b"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/apps/renderer/src/composables/useWorkspaceLifecycle.ts",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/renderer/src/composables/useWorkspaceLifecycle.ts",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/apps/renderer/src/composables/useWorkspaceLifecycle.ts",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/extra-002.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 7390,
+      "sha256": "6f9e4cfd5e1d7b9eccd284aa7d743f1659684754cd7c42469fae843de709792d"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/apps/desktop-electron/electron/main/createMainWindow.ts",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/desktop-electron/electron/main/createMainWindow.ts",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/apps/desktop-electron/electron/main/createMainWindow.ts",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/extra-003.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 3534,
+      "sha256": "f59230441fc0c73a5d4faf1058f8a276350c85df1c252a7d5709024e0339ec64"
+    },
+    {
+      "project": "openroad",
+      "repo": "The-OpenROAD-Project/OpenROAD",
+      "commit": "a3bf6124782f205ba5fa9e2e402dae8b665fc4fc",
+      "source_path": "src/web/README.md",
+      "url": "https://raw.githubusercontent.com/The-OpenROAD-Project/OpenROAD/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc/src/web/README.md",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/openroad/files/src/web/README.md",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/extra-004.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 21851,
+      "sha256": "9b0392c0a2686a66a42f6f4749518814814bbeba0f8bf3a0d619c08561bd8dab"
+    },
+    {
+      "project": "openroad",
+      "repo": "The-OpenROAD-Project/OpenROAD",
+      "commit": "a3bf6124782f205ba5fa9e2e402dae8b665fc4fc",
+      "source_path": "src/web/include/web/core.h",
+      "url": "https://raw.githubusercontent.com/The-OpenROAD-Project/OpenROAD/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc/src/web/include/web/core.h",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/openroad/files/src/web/include/web/core.h",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/extra-005.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 55669,
+      "sha256": "f240c83ce691fbc4b4959b96d6feb2d525fb0d1fd999dfe1f243bc918c9894b3"
+    },
+    {
+      "project": "openroad",
+      "repo": "The-OpenROAD-Project/OpenROAD",
+      "commit": "a3bf6124782f205ba5fa9e2e402dae8b665fc4fc",
+      "source_path": "src/web/include/web/descriptor_registry.h",
+      "url": "https://raw.githubusercontent.com/The-OpenROAD-Project/OpenROAD/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc/src/web/include/web/descriptor_registry.h",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/openroad/files/src/web/include/web/descriptor_registry.h",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/extra-006.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 2233,
+      "sha256": "a10e901be91eaaa0568502ea0faed244324d9bf12fc894845a603b788dac6eac"
+    },
+    {
+      "project": "librelane",
+      "repo": "librelane/librelane",
+      "commit": "01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0",
+      "source_path": "librelane/flows/flow.py",
+      "url": "https://raw.githubusercontent.com/librelane/librelane/01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0/librelane/flows/flow.py",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/librelane/files/librelane/flows/flow.py",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/extra-007.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 36911,
+      "sha256": "ff365f4b72ef606d067730497ed598fbbf843c81f17a1fd49c468d01a0b7b9c4"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/apps/desktop-electron/electron/services/eccRpc/workspaceRuntime.ts",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/desktop-electron/electron/services/eccRpc/workspaceRuntime.ts",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/apps/desktop-electron/electron/services/eccRpc/workspaceRuntime.ts",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/chain-000.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 49321,
+      "sha256": "b929cd7a0ffd0d984fa49b9564af37cd02e4fb8ce69040f285b15ada3ba30a1b"
+    },
+    {
+      "project": "ecos-studio",
+      "repo": "openecos-projects/ecos-studio",
+      "commit": "01ba484714431ca3819801692e0b91a9c6599bc4",
+      "source_path": "ecos/gui/apps/desktop-electron/electron/services/eccRpc/jsonRpcClient.ts",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecos-studio/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/desktop-electron/electron/services/eccRpc/jsonRpcClient.ts",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/apps/desktop-electron/electron/services/eccRpc/jsonRpcClient.ts",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/chain-001.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 6509,
+      "sha256": "761ebe98c054a6dd8ca72e80420b97813dd08a15ab2e54b23b9f750a32fbccd0"
+    },
+    {
+      "project": "ecc-in-studio",
+      "repo": "openecos-projects/ecc",
+      "commit": "4264418faad0c5f53f3f66329094492adb53fcb1",
+      "source_path": "chipcompiler/runtime/server.py",
+      "url": "https://raw.githubusercontent.com/openecos-projects/ecc/4264418faad0c5f53f3f66329094492adb53fcb1/chipcompiler/runtime/server.py",
+      "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecc-in-studio/files/chipcompiler/runtime/server.py",
+      "status_path": "/private/tmp/hier-d-studio-research-48xcbnv6/transfer-status/chain-002.json",
+      "exit_code": 0,
+      "http_code": 200,
+      "size": 7148,
+      "sha256": "4c363959f1f07a77b9470a89401bb0e8bf4873eb178dc0c20c3a58cf9f939eed"
+    }
+  ],
+  "source_citations": {
+    "current": [
+      {
+        "label": "ECOS-README",
+        "project": "ecos-studio",
+        "source_path": "README.md",
+        "line": 1,
+        "url": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/README.md#L1"
+      },
+      {
+        "label": "ECOS-GUI",
+        "project": "ecos-studio",
+        "source_path": "ecos/gui/README.md",
+        "line": 1,
+        "url": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/README.md#L1"
+      },
+      {
+        "label": "ECOS-GUIDE",
+        "project": "ecos-studio",
+        "source_path": "ecos/docs/user-guide.md",
+        "line": 109,
+        "url": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/docs/user-guide.md#L109"
+      },
+      {
+        "label": "ECOS-WIZARD",
+        "project": "ecos-studio",
+        "source_path": "ecos/docs/user-guide.md",
+        "line": 281,
+        "url": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/docs/user-guide.md#L281"
+      },
+      {
+        "label": "ECC-MODULES",
+        "project": "ecc",
+        "source_path": ".gitmodules",
+        "line": 1,
+        "url": "https://github.com/openecos-projects/ecc/blob/27084f4779d7e8ddb69ea9c25f9c116aaaab29c7/.gitmodules#L1"
+      },
+      {
+        "label": "TOOLS-README",
+        "project": "ecc-tools",
+        "source_path": "README.md",
+        "line": 1,
+        "url": "https://github.com/openecos-projects/ecc-tools/blob/275abf38dfd4c62ee6443637904595528fff7c86/README.md#L1"
+      },
+      {
+        "label": "OR-WEB",
+        "project": "openroad",
+        "source_path": "src/web/README.md",
+        "line": 1,
+        "url": "https://github.com/The-OpenROAD-Project/OpenROAD/blob/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc/src/web/README.md#L1"
+      },
+      {
+        "label": "LL-README",
+        "project": "librelane",
+        "source_path": "Readme.md",
+        "line": 16,
+        "url": "https://github.com/librelane/librelane/blob/01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0/Readme.md#L16"
+      },
+      {
+        "label": "SC-WEB",
+        "project": "siliconcompiler",
+        "source_path": "siliconcompiler/report/dashboard/web/__init__.py",
+        "line": 16,
+        "url": "https://github.com/siliconcompiler/siliconcompiler/blob/8ac5d59dd8e146d7cf166c4db18a747db9f4c884/siliconcompiler/report/dashboard/web/__init__.py#L16"
+      },
+      {
+        "label": "SC-TABS",
+        "project": "siliconcompiler",
+        "source_path": "siliconcompiler/report/dashboard/web/layouts/vertical_flowgraph_node_tab.py",
+        "line": 21,
+        "url": "https://github.com/siliconcompiler/siliconcompiler/blob/8ac5d59dd8e146d7cf166c4db18a747db9f4c884/siliconcompiler/report/dashboard/web/layouts/vertical_flowgraph_node_tab.py#L21"
+      },
+      {
+        "label": "PDK-README",
+        "project": "icsprout55-pdk",
+        "source_path": "README.md",
+        "line": 53,
+        "url": "https://github.com/openecos-projects/icsprout55-pdk/blob/8ec6ebbd187d3553e0c570b7ba6e29848d367e29/README.md#L53"
+      },
+      {
+        "label": "IEDA-README",
+        "project": "ieda",
+        "source_path": "README.md",
+        "line": 1,
+        "url": "https://github.com/OSCC-Project/iEDA/blob/65c39fd28aa0dc0cdd56325df07f6e440069061b/README.md#L1"
+      },
+      {
+        "label": "QFLOW-README",
+        "project": "qflow",
+        "source_path": "README",
+        "line": 1,
+        "url": "https://github.com/RTimothyEdwards/qflow/blob/52ecda1053bcbd2f6ec88b8379c8179e2a849f7a/README#L1"
+      },
+      {
+        "label": "CORIOLIS-README",
+        "project": "coriolis",
+        "source_path": "README.rst",
+        "line": 24,
+        "url": "https://github.com/lip6/coriolis/blob/9454aaff97a4640e3f131ee80504cbacdccfaa81/README.rst#L24"
+      },
+      {
+        "label": "XS-README",
+        "project": "xiangshan",
+        "source_path": "README.md",
+        "line": 1,
+        "url": "https://github.com/OpenXiangShan/XiangShan/blob/6714a69d001dbb9e213ff077a518fb78e598c48a/README.md#L1"
+      },
+      {
+        "label": "RETRO-README",
+        "project": "retrosoc",
+        "source_path": "README.md",
+        "line": 1,
+        "url": "https://github.com/retroSoC/retroSoC/blob/1eda7cba81d2e708e79fb687fd49ecb9c5f2910e/README.md#L1"
+      },
+      {
+        "label": "ECOS-PACKAGE",
+        "project": "ecos-studio",
+        "source_path": "ecos/gui/apps/renderer/package.json",
+        "line": 14,
+        "url": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/renderer/package.json#L14"
+      },
+      {
+        "label": "ECOS-FLOW",
+        "project": "ecos-studio",
+        "source_path": "ecos/gui/apps/renderer/src/api/flow.ts",
+        "line": 184,
+        "url": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/renderer/src/api/flow.ts#L184"
+      },
+      {
+        "label": "ECOS-COMMAND",
+        "project": "ecos-studio",
+        "source_path": "ecos/gui/apps/desktop-electron/electron/services/productCommandService.ts",
+        "line": 169,
+        "url": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/desktop-electron/electron/services/productCommandService.ts#L169"
+      },
+      {
+        "label": "ECOS-SIDECAR",
+        "project": "ecos-studio",
+        "source_path": "ecos/gui/apps/desktop-electron/electron/services/eccRpc/sidecarProcess.ts",
+        "line": 150,
+        "url": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/desktop-electron/electron/services/eccRpc/sidecarProcess.ts#L150"
+      },
+      {
+        "label": "ECC-STDIO",
+        "project": "ecc-in-studio",
+        "source_path": "chipcompiler/runtime/stdio_server.py",
+        "line": 1,
+        "url": "https://github.com/openecos-projects/ecc/blob/4264418faad0c5f53f3f66329094492adb53fcb1/chipcompiler/runtime/stdio_server.py#L1"
+      },
+      {
+        "label": "ECOS-BACKGROUND",
+        "project": "ecos-studio",
+        "source_path": "ecos/gui/apps/renderer/src/stores/backgroundOperationStore.ts",
+        "line": 48,
+        "url": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/renderer/src/stores/backgroundOperationStore.ts#L48"
+      },
+      {
+        "label": "ECOS-OP-TYPE",
+        "project": "ecos-studio",
+        "source_path": "ecos/gui/packages/shared/src/contracts/eccRuntime.ts",
+        "line": 326,
+        "url": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/packages/shared/src/contracts/eccRuntime.ts#L326"
+      },
+      {
+        "label": "ECOS-TRACKER",
+        "project": "ecos-studio",
+        "source_path": "ecos/gui/apps/desktop-electron/electron/services/eccRpc/runtimeOperationTracker.ts",
+        "line": 15,
+        "url": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/desktop-electron/electron/services/eccRpc/runtimeOperationTracker.ts#L15"
+      },
+      {
+        "label": "ECOS-RUNNER",
+        "project": "ecos-studio",
+        "source_path": "ecos/gui/apps/renderer/src/composables/useFlowRunner.ts",
+        "line": 174,
+        "url": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/renderer/src/composables/useFlowRunner.ts#L174"
+      },
+      {
+        "label": "ECOS-SHUTDOWN",
+        "project": "ecos-studio",
+        "source_path": "ecos/gui/apps/desktop-electron/electron/main/shutdownCoordinator.ts",
+        "line": 62,
+        "url": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/desktop-electron/electron/main/shutdownCoordinator.ts#L62"
+      },
+      {
+        "label": "ECOS-WORKBENCH",
+        "project": "ecos-studio",
+        "source_path": "ecos/gui/apps/renderer/src/components/workbench/WorkspaceWorkbench.vue",
+        "line": 1,
+        "url": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/renderer/src/components/workbench/WorkspaceWorkbench.vue#L1"
+      },
+      {
+        "label": "OR-CORE",
+        "project": "openroad",
+        "source_path": "src/web/include/web/core.h",
+        "line": 409,
+        "url": "https://github.com/The-OpenROAD-Project/OpenROAD/blob/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc/src/web/include/web/core.h#L409"
+      },
+      {
+        "label": "OR-INSPECTOR",
+        "project": "openroad",
+        "source_path": "src/gui/src/inspector.cpp",
+        "line": 890,
+        "url": "https://github.com/The-OpenROAD-Project/OpenROAD/blob/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc/src/gui/src/inspector.cpp#L890"
+      },
+      {
+        "label": "OR-DRC",
+        "project": "openroad",
+        "source_path": "src/gui/src/drcWidget.cpp",
+        "line": 192,
+        "url": "https://github.com/The-OpenROAD-Project/OpenROAD/blob/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc/src/gui/src/drcWidget.cpp#L192"
+      },
+      {
+        "label": "OR-TIMING",
+        "project": "openroad",
+        "source_path": "src/gui/src/timingWidget.cpp",
+        "line": 578,
+        "url": "https://github.com/The-OpenROAD-Project/OpenROAD/blob/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc/src/gui/src/timingWidget.cpp#L578"
+      },
+      {
+        "label": "SC-STATE",
+        "project": "siliconcompiler",
+        "source_path": "siliconcompiler/report/dashboard/web/state.py",
+        "line": 75,
+        "url": "https://github.com/siliconcompiler/siliconcompiler/blob/8ac5d59dd8e146d7cf166c4db18a747db9f4c884/siliconcompiler/report/dashboard/web/state.py#L75"
+      },
+      {
+        "label": "LL-STATE",
+        "project": "librelane",
+        "source_path": "librelane/state/state.py",
+        "line": 45,
+        "url": "https://github.com/librelane/librelane/blob/01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0/librelane/state/state.py#L45"
+      },
+      {
+        "label": "LL-STEP",
+        "project": "librelane",
+        "source_path": "librelane/steps/step.py",
+        "line": 1073,
+        "url": "https://github.com/librelane/librelane/blob/01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0/librelane/steps/step.py#L1073"
+      },
+      {
+        "label": "LL-FLOW",
+        "project": "librelane",
+        "source_path": "librelane/flows/sequential.py",
+        "line": 275,
+        "url": "https://github.com/librelane/librelane/blob/01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0/librelane/flows/sequential.py#L275"
+      },
+      {
+        "label": "LL-REPRO",
+        "project": "librelane",
+        "source_path": "librelane/steps/step.py",
+        "line": 894,
+        "url": "https://github.com/librelane/librelane/blob/01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0/librelane/steps/step.py#L894"
+      },
+      {
+        "label": "ECC-OPERATIONS",
+        "project": "ecc-in-studio",
+        "source_path": "chipcompiler/runtime/operations.py",
+        "line": 114,
+        "url": "https://github.com/openecos-projects/ecc/blob/4264418faad0c5f53f3f66329094492adb53fcb1/chipcompiler/runtime/operations.py#L114"
+      },
+      {
+        "label": "ECC-SESSIONS",
+        "project": "ecc-in-studio",
+        "source_path": "chipcompiler/runtime/sessions.py",
+        "line": 9,
+        "url": "https://github.com/openecos-projects/ecc/blob/4264418faad0c5f53f3f66329094492adb53fcb1/chipcompiler/runtime/sessions.py#L9"
+      },
+      {
+        "label": "HAMMER-CONFIG",
+        "project": "hammer",
+        "source_path": "hammer/config/config_src.py",
+        "line": 749,
+        "url": "https://github.com/ucb-bar/hammer/blob/516aedb55385e9e3d9237738db5c8c2978e6475c/hammer/config/config_src.py#L749"
+      },
+      {
+        "label": "HAMMER-HOOKS",
+        "project": "hammer",
+        "source_path": "hammer/vlsi/hooks.py",
+        "line": 33,
+        "url": "https://github.com/ucb-bar/hammer/blob/516aedb55385e9e3d9237738db5c8c2978e6475c/hammer/vlsi/hooks.py#L33"
+      },
+      {
+        "label": "ORFS-MAKE",
+        "project": "orfs",
+        "source_path": "flow/Makefile",
+        "line": 239,
+        "url": "https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts/blob/3451ca1f56902a49baf50bb8eba345eb709cf9c8/flow/Makefile#L239"
+      },
+      {
+        "label": "ECOS-LICENSE",
+        "project": "ecos-studio",
+        "source_path": "LICENSE",
+        "line": 1,
+        "url": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/LICENSE#L1"
+      },
+      {
+        "label": "OR-LICENSE",
+        "project": "openroad",
+        "source_path": "LICENSE",
+        "line": 1,
+        "url": "https://github.com/The-OpenROAD-Project/OpenROAD/blob/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc/LICENSE#L1"
+      },
+      {
+        "label": "ORFS-LICENSE",
+        "project": "orfs",
+        "source_path": "LICENSE_BUILD_RUN_SCRIPTS",
+        "line": 1,
+        "url": "https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts/blob/3451ca1f56902a49baf50bb8eba345eb709cf9c8/LICENSE_BUILD_RUN_SCRIPTS#L1"
+      },
+      {
+        "label": "TOOLS-LICENSE",
+        "project": "ecc-tools",
+        "source_path": "LICENSE",
+        "line": 1,
+        "url": "https://github.com/openecos-projects/ecc-tools/blob/275abf38dfd4c62ee6443637904595528fff7c86/LICENSE#L1"
+      },
+      {
+        "label": "ECOS-WORKSPACE-RUNTIME",
+        "project": "ecos-studio",
+        "source_path": "ecos/gui/apps/desktop-electron/electron/services/eccRpc/workspaceRuntime.ts",
+        "line": 585,
+        "url": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/desktop-electron/electron/services/eccRpc/workspaceRuntime.ts#L585"
+      },
+      {
+        "label": "ECC-WORKSPACE-API",
+        "project": "ecc-in-studio",
+        "source_path": "chipcompiler/runtime/workspace_api.py",
+        "line": 666,
+        "url": "https://github.com/openecos-projects/ecc/blob/4264418faad0c5f53f3f66329094492adb53fcb1/chipcompiler/runtime/workspace_api.py#L666"
+      },
+      {
+        "label": "ECC-LICENSE",
+        "project": "ecc",
+        "source_path": "LICENSE",
+        "line": 1,
+        "url": "https://github.com/openecos-projects/ecc/blob/27084f4779d7e8ddb69ea9c25f9c116aaaab29c7/LICENSE#L1"
+      },
+      {
+        "label": "SC-LICENSE",
+        "project": "siliconcompiler",
+        "source_path": "LICENSE",
+        "line": 1,
+        "url": "https://github.com/siliconcompiler/siliconcompiler/blob/8ac5d59dd8e146d7cf166c4db18a747db9f4c884/LICENSE#L1"
+      },
+      {
+        "label": "LL-LICENSE",
+        "project": "librelane",
+        "source_path": "License",
+        "line": 1,
+        "url": "https://github.com/librelane/librelane/blob/01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0/License#L1"
+      }
+    ],
+    "previous": {
+      "THEIA-WIDGET": [
+        "eclipse-theia/theia",
+        "29045502ffe2bd1ecd5c655b40f37f0d0bc0c4ad",
+        "packages/core/src/browser/widget-manager.ts",
+        237
+      ],
+      "THEIA-VIEW": [
+        "eclipse-theia/theia",
+        "29045502ffe2bd1ecd5c655b40f37f0d0bc0c4ad",
+        "packages/core/src/browser/shell/view-contribution.ts",
+        103
+      ],
+      "HAL-CONTEXT": [
+        "emsec/hal",
+        "acc899e297ed3866ad7da432ab0403c3d8d62d1c",
+        "plugins/gui/src/graph_widget/contexts/graph_context.cpp",
+        75
+      ],
+      "HAL-NAV": [
+        "emsec/hal",
+        "acc899e297ed3866ad7da432ab0403c3d8d62d1c",
+        "plugins/gui/src/graph_widget/graph_widget.cpp",
+        422
+      ],
+      "KACTUS-COMMAND": [
+        "kactus2/kactus2dev",
+        "342bc30c2947afe0e2a479f75fed9449102f71a4",
+        "editors/HWDesign/undoCommands/AdHocConnectionAddCommand.cpp",
+        49
+      ]
+    },
+    "all": {
+      "ECOS-README": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/README.md#L1",
+      "ECOS-GUI": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/README.md#L1",
+      "ECOS-GUIDE": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/docs/user-guide.md#L109",
+      "ECOS-WIZARD": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/docs/user-guide.md#L281",
+      "ECC-MODULES": "https://github.com/openecos-projects/ecc/blob/27084f4779d7e8ddb69ea9c25f9c116aaaab29c7/.gitmodules#L1",
+      "TOOLS-README": "https://github.com/openecos-projects/ecc-tools/blob/275abf38dfd4c62ee6443637904595528fff7c86/README.md#L1",
+      "OR-WEB": "https://github.com/The-OpenROAD-Project/OpenROAD/blob/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc/src/web/README.md#L1",
+      "LL-README": "https://github.com/librelane/librelane/blob/01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0/Readme.md#L16",
+      "SC-WEB": "https://github.com/siliconcompiler/siliconcompiler/blob/8ac5d59dd8e146d7cf166c4db18a747db9f4c884/siliconcompiler/report/dashboard/web/__init__.py#L16",
+      "SC-TABS": "https://github.com/siliconcompiler/siliconcompiler/blob/8ac5d59dd8e146d7cf166c4db18a747db9f4c884/siliconcompiler/report/dashboard/web/layouts/vertical_flowgraph_node_tab.py#L21",
+      "PDK-README": "https://github.com/openecos-projects/icsprout55-pdk/blob/8ec6ebbd187d3553e0c570b7ba6e29848d367e29/README.md#L53",
+      "IEDA-README": "https://github.com/OSCC-Project/iEDA/blob/65c39fd28aa0dc0cdd56325df07f6e440069061b/README.md#L1",
+      "QFLOW-README": "https://github.com/RTimothyEdwards/qflow/blob/52ecda1053bcbd2f6ec88b8379c8179e2a849f7a/README#L1",
+      "CORIOLIS-README": "https://github.com/lip6/coriolis/blob/9454aaff97a4640e3f131ee80504cbacdccfaa81/README.rst#L24",
+      "XS-README": "https://github.com/OpenXiangShan/XiangShan/blob/6714a69d001dbb9e213ff077a518fb78e598c48a/README.md#L1",
+      "RETRO-README": "https://github.com/retroSoC/retroSoC/blob/1eda7cba81d2e708e79fb687fd49ecb9c5f2910e/README.md#L1",
+      "ECOS-PACKAGE": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/renderer/package.json#L14",
+      "ECOS-FLOW": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/renderer/src/api/flow.ts#L184",
+      "ECOS-COMMAND": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/desktop-electron/electron/services/productCommandService.ts#L169",
+      "ECOS-SIDECAR": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/desktop-electron/electron/services/eccRpc/sidecarProcess.ts#L150",
+      "ECC-STDIO": "https://github.com/openecos-projects/ecc/blob/4264418faad0c5f53f3f66329094492adb53fcb1/chipcompiler/runtime/stdio_server.py#L1",
+      "ECOS-BACKGROUND": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/renderer/src/stores/backgroundOperationStore.ts#L48",
+      "ECOS-OP-TYPE": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/packages/shared/src/contracts/eccRuntime.ts#L326",
+      "ECOS-TRACKER": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/desktop-electron/electron/services/eccRpc/runtimeOperationTracker.ts#L15",
+      "ECOS-RUNNER": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/renderer/src/composables/useFlowRunner.ts#L174",
+      "ECOS-SHUTDOWN": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/desktop-electron/electron/main/shutdownCoordinator.ts#L62",
+      "ECOS-WORKBENCH": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/renderer/src/components/workbench/WorkspaceWorkbench.vue#L1",
+      "OR-CORE": "https://github.com/The-OpenROAD-Project/OpenROAD/blob/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc/src/web/include/web/core.h#L409",
+      "OR-INSPECTOR": "https://github.com/The-OpenROAD-Project/OpenROAD/blob/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc/src/gui/src/inspector.cpp#L890",
+      "OR-DRC": "https://github.com/The-OpenROAD-Project/OpenROAD/blob/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc/src/gui/src/drcWidget.cpp#L192",
+      "OR-TIMING": "https://github.com/The-OpenROAD-Project/OpenROAD/blob/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc/src/gui/src/timingWidget.cpp#L578",
+      "SC-STATE": "https://github.com/siliconcompiler/siliconcompiler/blob/8ac5d59dd8e146d7cf166c4db18a747db9f4c884/siliconcompiler/report/dashboard/web/state.py#L75",
+      "LL-STATE": "https://github.com/librelane/librelane/blob/01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0/librelane/state/state.py#L45",
+      "LL-STEP": "https://github.com/librelane/librelane/blob/01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0/librelane/steps/step.py#L1073",
+      "LL-FLOW": "https://github.com/librelane/librelane/blob/01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0/librelane/flows/sequential.py#L275",
+      "LL-REPRO": "https://github.com/librelane/librelane/blob/01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0/librelane/steps/step.py#L894",
+      "ECC-OPERATIONS": "https://github.com/openecos-projects/ecc/blob/4264418faad0c5f53f3f66329094492adb53fcb1/chipcompiler/runtime/operations.py#L114",
+      "ECC-SESSIONS": "https://github.com/openecos-projects/ecc/blob/4264418faad0c5f53f3f66329094492adb53fcb1/chipcompiler/runtime/sessions.py#L9",
+      "HAMMER-CONFIG": "https://github.com/ucb-bar/hammer/blob/516aedb55385e9e3d9237738db5c8c2978e6475c/hammer/config/config_src.py#L749",
+      "HAMMER-HOOKS": "https://github.com/ucb-bar/hammer/blob/516aedb55385e9e3d9237738db5c8c2978e6475c/hammer/vlsi/hooks.py#L33",
+      "ORFS-MAKE": "https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts/blob/3451ca1f56902a49baf50bb8eba345eb709cf9c8/flow/Makefile#L239",
+      "ECOS-LICENSE": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/LICENSE#L1",
+      "OR-LICENSE": "https://github.com/The-OpenROAD-Project/OpenROAD/blob/a3bf6124782f205ba5fa9e2e402dae8b665fc4fc/LICENSE#L1",
+      "ORFS-LICENSE": "https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts/blob/3451ca1f56902a49baf50bb8eba345eb709cf9c8/LICENSE_BUILD_RUN_SCRIPTS#L1",
+      "TOOLS-LICENSE": "https://github.com/openecos-projects/ecc-tools/blob/275abf38dfd4c62ee6443637904595528fff7c86/LICENSE#L1",
+      "THEIA-WIDGET": "https://github.com/eclipse-theia/theia/blob/29045502ffe2bd1ecd5c655b40f37f0d0bc0c4ad/packages/core/src/browser/widget-manager.ts#L237",
+      "THEIA-VIEW": "https://github.com/eclipse-theia/theia/blob/29045502ffe2bd1ecd5c655b40f37f0d0bc0c4ad/packages/core/src/browser/shell/view-contribution.ts#L103",
+      "HAL-CONTEXT": "https://github.com/emsec/hal/blob/acc899e297ed3866ad7da432ab0403c3d8d62d1c/plugins/gui/src/graph_widget/contexts/graph_context.cpp#L75",
+      "HAL-NAV": "https://github.com/emsec/hal/blob/acc899e297ed3866ad7da432ab0403c3d8d62d1c/plugins/gui/src/graph_widget/graph_widget.cpp#L422",
+      "KACTUS-COMMAND": "https://github.com/kactus2/kactus2dev/blob/342bc30c2947afe0e2a479f75fed9449102f71a4/editors/HWDesign/undoCommands/AdHocConnectionAddCommand.cpp#L49",
+      "ECOS-WORKSPACE-RUNTIME": "https://github.com/openecos-projects/ecos-studio/blob/01ba484714431ca3819801692e0b91a9c6599bc4/ecos/gui/apps/desktop-electron/electron/services/eccRpc/workspaceRuntime.ts#L585",
+      "ECC-WORKSPACE-API": "https://github.com/openecos-projects/ecc/blob/4264418faad0c5f53f3f66329094492adb53fcb1/chipcompiler/runtime/workspace_api.py#L666",
+      "ECC-LICENSE": "https://github.com/openecos-projects/ecc/blob/27084f4779d7e8ddb69ea9c25f9c116aaaab29c7/LICENSE#L1",
+      "SC-LICENSE": "https://github.com/siliconcompiler/siliconcompiler/blob/8ac5d59dd8e146d7cf166c4db18a747db9f4c884/LICENSE#L1",
+      "LL-LICENSE": "https://github.com/librelane/librelane/blob/01ddb25e4424f6f5aaf6b951b14a2b6fdcf737c0/License#L1"
+    }
+  },
+  "official_web_sources": [
+    "https://github.com/openecos-projects/ecos-studio",
+    "https://github.com/openecos-projects/ecos-studio/blob/main/ecos/docs/user-guide.md",
+    "https://librelane.readthedocs.io/en/stable/",
+    "https://librelane.readthedocs.io/en/latest/faq.html",
+    "https://fossi-foundation.org/librelane/",
+    "https://docs.siliconcompiler.com/en/latest/",
+    "https://openroad.readthedocs.io/en/latest/main/README.html",
+    "https://openroad.readthedocs.io/en/latest/main/src/web/README.html",
+    "https://theia-ide.org/docs/composing_applications/"
+  ],
+  "reused_prior_research": {
+    "report_sha256": "e07b4419b7e2c1c8222de4f1579ea0089b223bf3e28195dc63a8d519c547366f",
+    "evidence_sha256": "277698cb105042e6306a4ecd4edc6f6e13ed0033e051c77909a71c0306de0435",
+    "references": [
+      {
+        "name": "hal",
+        "commit": "acc899e297ed3866ad7da432ab0403c3d8d62d1c"
+      },
+      {
+        "name": "sprotty",
+        "commit": "21b80fc2c852411261a692c834d2a4390ba7f2df"
+      },
+      {
+        "name": "elkjs",
+        "commit": "722f1a3f63016e64f534a8b445283d4d31a88d0e"
+      },
+      {
+        "name": "d3-hwschematic",
+        "commit": "0664665d87d7fe8575a812714b765a81de1affbf"
+      },
+      {
+        "name": "react-arborist",
+        "commit": "d74c4ec696ba98c1a4e981075f6d60cdff3e290b"
+      },
+      {
+        "name": "kactus2",
+        "commit": "342bc30c2947afe0e2a479f75fed9449102f71a4"
+      }
+    ],
+    "theia": {
+      "head": "29045502ffe2bd1ecd5c655b40f37f0d0bc0c4ad",
+      "committer_date": "2026-10-09T16:35:31Z",
+      "commit_api": "https://api.github.com/repos/eclipse-theia/theia/commits/master",
+      "sources": [
+        {
+          "upstream_path": "packages/core/src/browser/widget-manager.ts",
+          "sha256": "6e1e5f89de48eb4c1a9b651d2fb36818af868ac865f54b43ae783aefe9432b24",
+          "url": "https://raw.githubusercontent.com/eclipse-theia/theia/29045502ffe2bd1ecd5c655b40f37f0d0bc0c4ad/packages/core/src/browser/widget-manager.ts",
+          "local_evidence": "/private/tmp/hier-d-m56-research-ndevjg_y/theia-widget-manager.ts"
+        },
+        {
+          "upstream_path": "packages/core/src/browser/shell/application-shell.ts",
+          "sha256": "009e3ab9158046d27c206882f60720e06c17a11d964118ca73854ecd8969eddc",
+          "url": "https://raw.githubusercontent.com/eclipse-theia/theia/29045502ffe2bd1ecd5c655b40f37f0d0bc0c4ad/packages/core/src/browser/shell/application-shell.ts",
+          "local_evidence": "/private/tmp/hier-d-m56-research-ndevjg_y/theia-application-shell.ts"
+        },
+        {
+          "upstream_path": "packages/core/src/common/selection-service.ts",
+          "sha256": "cd2ae803dd3ae42d0bfcbeb86e0f157b7fe7b247ba83ba76d65074bb6e68166e",
+          "url": "https://raw.githubusercontent.com/eclipse-theia/theia/29045502ffe2bd1ecd5c655b40f37f0d0bc0c4ad/packages/core/src/common/selection-service.ts",
+          "local_evidence": "/private/tmp/hier-d-m56-research-ndevjg_y/theia-selection-service.ts"
+        },
+        {
+          "upstream_path": "packages/core/src/browser/shell/view-contribution.ts",
+          "sha256": "fa6f13a087fa912b811cba8d85091c533a69c4672bd4e631b218e45d5ee54e28",
+          "url": "https://raw.githubusercontent.com/eclipse-theia/theia/29045502ffe2bd1ecd5c655b40f37f0d0bc0c4ad/packages/core/src/browser/shell/view-contribution.ts",
+          "local_evidence": "/private/tmp/hier-d-m56-research-ndevjg_y/theia-view-contribution.ts"
+        },
+        {
+          "upstream_path": "packages/core/src/common/command.ts",
+          "sha256": "8564822a1d58c0242853e32617ae701ebf8b4f30d6daf4b2ae4cd706c4cba710",
+          "url": "https://raw.githubusercontent.com/eclipse-theia/theia/29045502ffe2bd1ecd5c655b40f37f0d0bc0c4ad/packages/core/src/common/command.ts",
+          "local_evidence": "/private/tmp/hier-d-m56-research-ndevjg_y/theia-command.ts"
+        }
+      ]
+    },
+    "readonly_recheck": {
+      "old_source_count": 35,
+      "old_sources": [
+        {
+          "path": "dft_planner/dft-suite/src/shell/TopBar.tsx",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/shell/App.tsx",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/store/design.ts",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/store/project.ts",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/store/projectFile.ts",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/core-bridge/client.ts",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/core-bridge/specgen.ts",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/core-bridge/genconn.ts",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/core-bridge/planRev.ts",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/electron/preload.cjs",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/electron/main.cjs",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/electron/daemon.cjs",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/electron/cli.cjs",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/hierarchy/Workspace.tsx",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/hierarchy/store.ts",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/hierarchy/HierarchyTree.tsx",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/hierarchy/HdlSourceTab.tsx",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/hierarchy/ClockResetTab.tsx",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/hierarchy/DrcTab.tsx",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/hierarchy/SdcTab.tsx",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/hierarchy/DfxIpTab.tsx",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/hierarchy/MbistTab.tsx",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/hierarchy/DftCfgTab.tsx",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/hierarchy/ScanPlannerTab.tsx",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/hierarchy/core/scanplan.ts",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/hierarchy/core/crCache.ts",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/hierarchy/schematic/elkLayout.ts",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/hierarchy/schematic/SchematicTab.tsx",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/genconn/store.ts",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/genconn/Workspace.tsx",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/genconn/GeneratePanel.tsx",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/specgen/Workspace.tsx",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/specgen/DftConfigDialog.tsx",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-suite/src/specgen/gen.ts",
+          "sha_match": true,
+          "mtime_match": true
+        },
+        {
+          "path": "dft_planner/dft-core/dft-core/hdl-core/protocol/NdjsonServer.cpp",
+          "sha_match": true,
+          "mtime_match": true
+        }
+      ],
+      "refs": [
+        {
+          "name": "hal",
+          "head": "acc899e297ed3866ad7da432ab0403c3d8d62d1c",
+          "head_matches": true,
+          "status": "",
+          "source_hashes_match": true
+        },
+        {
+          "name": "sprotty",
+          "head": "21b80fc2c852411261a692c834d2a4390ba7f2df",
+          "head_matches": true,
+          "status": "",
+          "source_hashes_match": true
+        },
+        {
+          "name": "elkjs",
+          "head": "722f1a3f63016e64f534a8b445283d4d31a88d0e",
+          "head_matches": true,
+          "status": "",
+          "source_hashes_match": true
+        },
+        {
+          "name": "d3-hwschematic",
+          "head": "0664665d87d7fe8575a812714b765a81de1affbf",
+          "head_matches": true,
+          "status": "",
+          "source_hashes_match": true
+        },
+        {
+          "name": "react-arborist",
+          "head": "d74c4ec696ba98c1a4e981075f6d60cdff3e290b",
+          "head_matches": true,
+          "status": "",
+          "source_hashes_match": true
+        },
+        {
+          "name": "kactus2",
+          "head": "342bc30c2947afe0e2a479f75fed9449102f71a4",
+          "head_matches": true,
+          "status": "",
+          "source_hashes_match": true
+        }
+      ]
+    },
+    "old_source_check_count": 35,
+    "not_recounted_as_new": "Prior 171-file check, four-package consumer experiment, four upstream JS observations and seven source comparisons retain original attribution."
+  },
+  "commands": [
+    {
+      "command": "python3 /private/tmp/hier-d-studio-research-48xcbnv6/fetch_sources.py pin (sandbox)",
+      "exit_code": 0,
+      "actual_result": "14 nested curl processes exited 7, no pins acquired; wrapper exit 0 is not success evidence"
+    },
+    {
+      "command": "python3 /private/tmp/hier-d-studio-research-48xcbnv6/fetch_sources.py pin (network authorized)",
+      "exit_code": 0,
+      "actual_result": "14 commits + 14 recursive trees fetched; every nested curl exit 0; no tree truncated"
+    },
+    {
+      "command": "python3 /private/tmp/hier-d-studio-research-48xcbnv6/fetch_sources.py fetch @/private/tmp/hier-d-studio-research-48xcbnv6/first-fetch.txt (network authorized)",
+      "exit_code": 0,
+      "actual_result": "31 fixed README/license files; all nested curl exit 0"
+    },
+    {
+      "command": "curl -L --fail --silent --show-error --parallel --parallel-max 8 --connect-timeout 20 --max-time 90 --config /private/tmp/hier-d-studio-research-48xcbnv6/source-batch.curl",
+      "exit_code": 0,
+      "actual_result": "58 transfers; each status exitcode 0/http_code 200"
+    },
+    {
+      "command": "curl -L --fail --silent --show-error --parallel --parallel-max 8 --connect-timeout 20 --max-time 90 --config /private/tmp/hier-d-studio-research-48xcbnv6/extra-batch.curl",
+      "exit_code": 0,
+      "actual_result": "8 transfers; each status exitcode 0/http_code 200"
+    },
+    {
+      "command": "curl -L --fail --silent --show-error --parallel --parallel-max 3 --connect-timeout 20 --max-time 90 --config /private/tmp/hier-d-studio-research-48xcbnv6/chain-batch.curl",
+      "exit_code": 0,
+      "actual_result": "3 transfers; each status exitcode 0/http_code 200"
+    },
+    {
+      "command": "/Users/jiangbowang/.npm-global/bin/node docs/research/studio-operation-probe.mjs /private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/apps/desktop-electron/electron/services/eccRpc/runtimeOperationTracker.ts /private/tmp/hier-d-studio-research-48xcbnv6/operation-probe.json",
+      "exit_code": 0,
+      "stdout": "{\"node\":\"v24.21.0\",\"sourceSha256\":\"7b24d51a2bad84f16e025ecb6fdda8989fe5317d76793611667600aec5689ad6\",\"observations\":4,\"assertionsPassed\":true}"
+    }
+  ],
+  "collection_failures": {
+    "initial_network": {
+      "ecos-studio": {
+        "repo": "openecos-projects/ecos-studio",
+        "downloads": [
+          {
+            "url": "https://api.github.com/repos/openecos-projects/ecos-studio/commits/HEAD",
+            "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/commit.json",
+            "command": [
+              "curl",
+              "-L",
+              "--fail",
+              "--silent",
+              "--show-error",
+              "--connect-timeout",
+              "20",
+              "--max-time",
+              "90",
+              "https://api.github.com/repos/openecos-projects/ecos-studio/commits/HEAD",
+              "-o",
+              "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/commit.json"
+            ],
+            "exit_code": 7,
+            "stderr": "curl: (7) Failed to connect to 127.0.0.1 port 7890 after 0 ms: Couldn't connect to server\n",
+            "retrieved_at": "2026-10-12T15:18:54.964029+08:00"
+          }
+        ]
+      },
+      "ecc": {
+        "repo": "openecos-projects/ecc",
+        "downloads": [
+          {
+            "url": "https://api.github.com/repos/openecos-projects/ecc/commits/HEAD",
+            "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecc/commit.json",
+            "command": [
+              "curl",
+              "-L",
+              "--fail",
+              "--silent",
+              "--show-error",
+              "--connect-timeout",
+              "20",
+              "--max-time",
+              "90",
+              "https://api.github.com/repos/openecos-projects/ecc/commits/HEAD",
+              "-o",
+              "/private/tmp/hier-d-studio-research-48xcbnv6/ecc/commit.json"
+            ],
+            "exit_code": 7,
+            "stderr": "curl: (7) Failed to connect to 127.0.0.1 port 7890 after 0 ms: Couldn't connect to server\n",
+            "retrieved_at": "2026-10-12T15:18:54.965408+08:00"
+          }
+        ]
+      },
+      "ecc-tools": {
+        "repo": "openecos-projects/ecc-tools",
+        "downloads": [
+          {
+            "url": "https://api.github.com/repos/openecos-projects/ecc-tools/commits/HEAD",
+            "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ecc-tools/commit.json",
+            "command": [
+              "curl",
+              "-L",
+              "--fail",
+              "--silent",
+              "--show-error",
+              "--connect-timeout",
+              "20",
+              "--max-time",
+              "90",
+              "https://api.github.com/repos/openecos-projects/ecc-tools/commits/HEAD",
+              "-o",
+              "/private/tmp/hier-d-studio-research-48xcbnv6/ecc-tools/commit.json"
+            ],
+            "exit_code": 7,
+            "stderr": "curl: (7) Failed to connect to 127.0.0.1 port 7890 after 0 ms: Couldn't connect to server\n",
+            "retrieved_at": "2026-10-12T15:18:54.964968+08:00"
+          }
+        ]
+      },
+      "ieda": {
+        "repo": "OSCC-Project/iEDA",
+        "downloads": [
+          {
+            "url": "https://api.github.com/repos/OSCC-Project/iEDA/commits/HEAD",
+            "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/ieda/commit.json",
+            "command": [
+              "curl",
+              "-L",
+              "--fail",
+              "--silent",
+              "--show-error",
+              "--connect-timeout",
+              "20",
+              "--max-time",
+              "90",
+              "https://api.github.com/repos/OSCC-Project/iEDA/commits/HEAD",
+              "-o",
+              "/private/tmp/hier-d-studio-research-48xcbnv6/ieda/commit.json"
+            ],
+            "exit_code": 7,
+            "stderr": "curl: (7) Failed to connect to 127.0.0.1 port 7890 after 0 ms: Couldn't connect to server\n",
+            "retrieved_at": "2026-10-12T15:18:54.967341+08:00"
+          }
+        ]
+      },
+      "openroad": {
+        "repo": "The-OpenROAD-Project/OpenROAD",
+        "downloads": [
+          {
+            "url": "https://api.github.com/repos/The-OpenROAD-Project/OpenROAD/commits/HEAD",
+            "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/openroad/commit.json",
+            "command": [
+              "curl",
+              "-L",
+              "--fail",
+              "--silent",
+              "--show-error",
+              "--connect-timeout",
+              "20",
+              "--max-time",
+              "90",
+              "https://api.github.com/repos/The-OpenROAD-Project/OpenROAD/commits/HEAD",
+              "-o",
+              "/private/tmp/hier-d-studio-research-48xcbnv6/openroad/commit.json"
+            ],
+            "exit_code": 7,
+            "stderr": "curl: (7) Failed to connect to 127.0.0.1 port 7890 after 0 ms: Couldn't connect to server\n",
+            "retrieved_at": "2026-10-12T15:18:54.964555+08:00"
+          }
+        ]
+      },
+      "orfs": {
+        "repo": "The-OpenROAD-Project/OpenROAD-flow-scripts",
+        "downloads": [
+          {
+            "url": "https://api.github.com/repos/The-OpenROAD-Project/OpenROAD-flow-scripts/commits/HEAD",
+            "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/orfs/commit.json",
+            "command": [
+              "curl",
+              "-L",
+              "--fail",
+              "--silent",
+              "--show-error",
+              "--connect-timeout",
+              "20",
+              "--max-time",
+              "90",
+              "https://api.github.com/repos/The-OpenROAD-Project/OpenROAD-flow-scripts/commits/HEAD",
+              "-o",
+              "/private/tmp/hier-d-studio-research-48xcbnv6/orfs/commit.json"
+            ],
+            "exit_code": 7,
+            "stderr": "curl: (7) Failed to connect to 127.0.0.1 port 7890 after 0 ms: Couldn't connect to server\n",
+            "retrieved_at": "2026-10-12T15:18:54.965780+08:00"
+          }
+        ]
+      },
+      "librelane": {
+        "repo": "librelane/librelane",
+        "downloads": [
+          {
+            "url": "https://api.github.com/repos/librelane/librelane/commits/HEAD",
+            "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/librelane/commit.json",
+            "command": [
+              "curl",
+              "-L",
+              "--fail",
+              "--silent",
+              "--show-error",
+              "--connect-timeout",
+              "20",
+              "--max-time",
+              "90",
+              "https://api.github.com/repos/librelane/librelane/commits/HEAD",
+              "-o",
+              "/private/tmp/hier-d-studio-research-48xcbnv6/librelane/commit.json"
+            ],
+            "exit_code": 7,
+            "stderr": "curl: (7) Failed to connect to 127.0.0.1 port 7890 after 0 ms: Couldn't connect to server\n",
+            "retrieved_at": "2026-10-12T15:18:54.976983+08:00"
+          }
+        ]
+      },
+      "siliconcompiler": {
+        "repo": "siliconcompiler/siliconcompiler",
+        "downloads": [
+          {
+            "url": "https://api.github.com/repos/siliconcompiler/siliconcompiler/commits/HEAD",
+            "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/siliconcompiler/commit.json",
+            "command": [
+              "curl",
+              "-L",
+              "--fail",
+              "--silent",
+              "--show-error",
+              "--connect-timeout",
+              "20",
+              "--max-time",
+              "90",
+              "https://api.github.com/repos/siliconcompiler/siliconcompiler/commits/HEAD",
+              "-o",
+              "/private/tmp/hier-d-studio-research-48xcbnv6/siliconcompiler/commit.json"
+            ],
+            "exit_code": 7,
+            "stderr": "curl: (7) Failed to connect to 127.0.0.1 port 7890 after 0 ms: Couldn't connect to server\n",
+            "retrieved_at": "2026-10-12T15:18:54.975444+08:00"
+          }
+        ]
+      },
+      "hammer": {
+        "repo": "ucb-bar/hammer",
+        "downloads": [
+          {
+            "url": "https://api.github.com/repos/ucb-bar/hammer/commits/HEAD",
+            "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/hammer/commit.json",
+            "command": [
+              "curl",
+              "-L",
+              "--fail",
+              "--silent",
+              "--show-error",
+              "--connect-timeout",
+              "20",
+              "--max-time",
+              "90",
+              "https://api.github.com/repos/ucb-bar/hammer/commits/HEAD",
+              "-o",
+              "/private/tmp/hier-d-studio-research-48xcbnv6/hammer/commit.json"
+            ],
+            "exit_code": 7,
+            "stderr": "curl: (7) Failed to connect to 127.0.0.1 port 7890 after 0 ms: Couldn't connect to server\n",
+            "retrieved_at": "2026-10-12T15:18:54.974861+08:00"
+          }
+        ]
+      },
+      "qflow": {
+        "repo": "RTimothyEdwards/qflow",
+        "downloads": [
+          {
+            "url": "https://api.github.com/repos/RTimothyEdwards/qflow/commits/HEAD",
+            "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/qflow/commit.json",
+            "command": [
+              "curl",
+              "-L",
+              "--fail",
+              "--silent",
+              "--show-error",
+              "--connect-timeout",
+              "20",
+              "--max-time",
+              "90",
+              "https://api.github.com/repos/RTimothyEdwards/qflow/commits/HEAD",
+              "-o",
+              "/private/tmp/hier-d-studio-research-48xcbnv6/qflow/commit.json"
+            ],
+            "exit_code": 7,
+            "stderr": "curl: (7) Failed to connect to 127.0.0.1 port 7890 after 0 ms: Couldn't connect to server\n",
+            "retrieved_at": "2026-10-12T15:18:54.979109+08:00"
+          }
+        ]
+      },
+      "coriolis": {
+        "repo": "lip6/coriolis",
+        "downloads": [
+          {
+            "url": "https://api.github.com/repos/lip6/coriolis/commits/HEAD",
+            "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/coriolis/commit.json",
+            "command": [
+              "curl",
+              "-L",
+              "--fail",
+              "--silent",
+              "--show-error",
+              "--connect-timeout",
+              "20",
+              "--max-time",
+              "90",
+              "https://api.github.com/repos/lip6/coriolis/commits/HEAD",
+              "-o",
+              "/private/tmp/hier-d-studio-research-48xcbnv6/coriolis/commit.json"
+            ],
+            "exit_code": 7,
+            "stderr": "curl: (7) Failed to connect to 127.0.0.1 port 7890 after 0 ms: Couldn't connect to server\n",
+            "retrieved_at": "2026-10-12T15:18:54.979573+08:00"
+          }
+        ]
+      },
+      "xiangshan": {
+        "repo": "OpenXiangShan/XiangShan",
+        "downloads": [
+          {
+            "url": "https://api.github.com/repos/OpenXiangShan/XiangShan/commits/HEAD",
+            "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/xiangshan/commit.json",
+            "command": [
+              "curl",
+              "-L",
+              "--fail",
+              "--silent",
+              "--show-error",
+              "--connect-timeout",
+              "20",
+              "--max-time",
+              "90",
+              "https://api.github.com/repos/OpenXiangShan/XiangShan/commits/HEAD",
+              "-o",
+              "/private/tmp/hier-d-studio-research-48xcbnv6/xiangshan/commit.json"
+            ],
+            "exit_code": 7,
+            "stderr": "curl: (7) Failed to connect to 127.0.0.1 port 7890 after 0 ms: Couldn't connect to server\n",
+            "retrieved_at": "2026-10-12T15:18:54.978590+08:00"
+          }
+        ]
+      },
+      "retrosoc": {
+        "repo": "retroSoC/retroSoC",
+        "downloads": [
+          {
+            "url": "https://api.github.com/repos/retroSoC/retroSoC/commits/HEAD",
+            "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/retrosoc/commit.json",
+            "command": [
+              "curl",
+              "-L",
+              "--fail",
+              "--silent",
+              "--show-error",
+              "--connect-timeout",
+              "20",
+              "--max-time",
+              "90",
+              "https://api.github.com/repos/retroSoC/retroSoC/commits/HEAD",
+              "-o",
+              "/private/tmp/hier-d-studio-research-48xcbnv6/retrosoc/commit.json"
+            ],
+            "exit_code": 7,
+            "stderr": "curl: (7) Failed to connect to 127.0.0.1 port 7890 after 0 ms: Couldn't connect to server\n",
+            "retrieved_at": "2026-10-12T15:18:54.983751+08:00"
+          }
+        ]
+      },
+      "icsprout55-pdk": {
+        "repo": "openecos-projects/icsprout55-pdk",
+        "downloads": [
+          {
+            "url": "https://api.github.com/repos/openecos-projects/icsprout55-pdk/commits/HEAD",
+            "local_path": "/private/tmp/hier-d-studio-research-48xcbnv6/icsprout55-pdk/commit.json",
+            "command": [
+              "curl",
+              "-L",
+              "--fail",
+              "--silent",
+              "--show-error",
+              "--connect-timeout",
+              "20",
+              "--max-time",
+              "90",
+              "https://api.github.com/repos/openecos-projects/icsprout55-pdk/commits/HEAD",
+              "-o",
+              "/private/tmp/hier-d-studio-research-48xcbnv6/icsprout55-pdk/commit.json"
+            ],
+            "exit_code": 7,
+            "stderr": "curl: (7) Failed to connect to 127.0.0.1 port 7890 after 0 ms: Couldn't connect to server\n",
+            "retrieved_at": "2026-10-12T15:18:54.983337+08:00"
+          }
+        ]
+      }
+    },
+    "shell_glob": {
+      "exit_code": 1,
+      "diagnostic": "zsh:1: no matches found: /private/tmp/hier-d-studio-research-48xcbnv6/ecc-tools/files/Readme*",
+      "resolution": "Used rg with explicit directories and quoted file globs; no source mutation"
+    },
+    "nonexistent_optional_path": {
+      "project": "librelane",
+      "path": "docs/reference/flows.md",
+      "resolution": "Not downloaded or cited; inspected actual flow Python files instead"
+    },
+    "rg_no_local_agents": {
+      "exit_code": 1,
+      "meaning": "rg --files -g AGENTS.md docs found no deeper instructions; not a product failure"
+    }
+  },
+  "operation_probe": {
+    "node": "v24.21.0",
+    "sourcePath": "/private/tmp/hier-d-studio-research-48xcbnv6/ecos-studio/files/ecos/gui/apps/desktop-electron/electron/services/eccRpc/runtimeOperationTracker.ts",
+    "sourceSha256": "7b24d51a2bad84f16e025ecb6fdda8989fe5317d76793611667600aec5689ad6",
+    "sourceUnmodified": true,
+    "observations": [
+      {
+        "name": "older-event-does-not-regress-state",
+        "input": [
+          "running@2",
+          "queued@1"
+        ],
+        "observed": "running"
+      },
+      {
+        "name": "terminal-replay-and-late-waiter",
+        "input": [
+          "succeeded@3",
+          "failed@4",
+          "wait-after-terminal"
+        ],
+        "observed": {
+          "outcome": "succeeded",
+          "count": 1,
+          "active": false
+        }
+      },
+      {
+        "name": "explicit-exit-handler-settles-waiter",
+        "input": "interruptActiveOperations called by probe",
+        "observed": {
+          "outcome": "interrupted",
+          "active": false
+        }
+      },
+      {
+        "name": "bounded-terminal-memory",
+        "input": "513 different completed operations",
+        "observed": {
+          "retained": 512,
+          "firstEvicted": true,
+          "lastRetained": true
+        }
+      }
+    ],
+    "assertionsPassed": true,
+    "limits": [
+      "direct tracker calls only",
+      "no Electron or real process exit",
+      "no ECC RPC/GUI/EDA execution",
+      "not DFT Studio acceptance"
+    ]
+  },
+  "not_executed": [
+    "competitor GUI hands-on",
+    "competitor full builds/tests",
+    "RTL-to-GDS flow",
+    "actual Electron or ECC RPC chain",
+    "real process exit in controlled probe",
+    "DFT Studio implementation",
+    "new DFT product tests/Core/UI E2E",
+    "performance/memory",
+    "cross-platform packaging",
+    "remote CI"
+  ],
+  "owned_files": [
+    "docs/research/DFT-Studio-reference-report.md",
+    "docs/research/studio-reference-evidence.json",
+    "docs/research/studio-operation-probe.mjs",
+    "docs/REVIEW_LOG.md (append only)"
+  ],
+  "report_sha256": "4575db66df423a121e1dd89979a2c3351aad0d63a38683c7d206a8466263cb27",
+  "probe_script_sha256": "aec57b436e224dafaa1c70c19d15c248afdb81c3474d8b7a39366fad537f5e5d",
+  "concurrent_work": {
+    "head_observed_at_close": "b5094147341c5cd894757bea4a32c897b7cc8db7",
+    "design_sha256": "e458f01177b20c0eb60693c90196b7374aa264be5aefe4e178fa94fc927550fd",
+    "current_status": " M core/CMakeLists.txt\n M core/db/include/hier/db/DesignDb.h\n M core/db/src/DesignDb.cpp\n M core/frontend/include/hier/frontend/Frontend.h\n M core/frontend/src/Frontend.cpp\n M core/model/include/hier/model/Model.h\n M core/model/include/hier/model/Schema.h\n M core/protocol/include/hier/protocol/Json.h\n M core/protocol/src/Json.cpp\n M core/query/include/hier/Design.h\n M core/query/src/Design.cpp\n M core/tests/CMakeLists.txt\n M docs/REVIEW_LOG.md\n M docs/plans/M4.md\n?? core/db/src/SnapshotMetadata.cpp\n?? core/model/include/hier/model/CompilationInputs.h\n?? core/protocol/src/DecodeFrame.cpp\n?? core/protocol/src/Dispatch.cpp\n?? core/protocol/src/Dispatch.h\n?? core/protocol/src/FrameReader.cpp\n?? core/protocol/src/SchemaPrimitives.cpp\n?? core/protocol/src/SchemaPrimitives.h\n?? core/protocol/src/SessionState.cpp\n?? core/protocol/src/SessionWorker.cpp\n?? core/protocol/src/WireSchema.generated.cpp\n?? core/protocol/src/WireSchema.h\n?? core/tests/a_m4/\n?? core/tests/m4/CMakeLists.txt\n?? docs/plans/M3-coordination.md\n?? docs/research/\n?? protocol/schema/scripts/\n",
+    "handoff_read": "C independently acknowledges D-03, B closes B-15 input gap and reports SDK 6875 subset, A starts frozen Core session unit. None is new D execution/acceptance."
+  },
+  "document_validation": {
+    "source_reference_definitions": 55,
+    "source_reference_uses_resolve": true,
+    "current_source_line_anchors": 50,
+    "local_link_occurrences": 7,
+    "fence_pairs": 3,
+    "file_hashes_checked": 100,
+    "tree_count": 14,
+    "observation_count": 4,
+    "json_and_hash_consistency": true,
+    "owned_whitespace_eof": true,
+    "commands": [
+      {
+        "command": "Python report/source/hash/link/whitespace validation",
+        "exit_code": 0
+      },
+      {
+        "command": "/Users/jiangbowang/.npm-global/bin/node --check docs/research/studio-operation-probe.mjs\ngit diff --check -- docs/REVIEW_LOG.md",
+        "exit_code": 0,
+        "output": ""
+      }
+    ]
+  }
+}

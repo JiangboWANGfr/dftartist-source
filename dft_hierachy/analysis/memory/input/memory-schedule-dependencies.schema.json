@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:memory-schedule-dependencies-input:1",
+  "type": "object",
+  "properties": {
+    "formatVersion": {
+      "const": 1
+    },
+    "kind": {
+      "const": "memory-schedule-dependencies"
+    },
+    "dependencies": {
+      "$ref": "urn:dft-studio:analysis:memory-test-schedule:1#/$defs/dependencies"
+    }
+  },
+  "required": [
+    "formatVersion",
+    "kind",
+    "dependencies"
+  ],
+  "additionalProperties": false
+}

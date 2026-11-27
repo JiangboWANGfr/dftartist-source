@@ -1,0 +1,5 @@
+{"pads": {
+  "mini_chip.u_gpio0":      {"reuse": "in",  "bscan_en": "yes"},
+  "mini_chip.u_macro.u_p0": {"reuse": "out", "bscan_en": "yes"},
+  "mini_chip.u_macro.u_p1": {"reuse": "in",  "func": "ssn"}
+}}

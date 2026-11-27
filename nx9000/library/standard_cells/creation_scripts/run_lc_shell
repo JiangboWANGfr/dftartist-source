@@ -1,0 +1,35 @@
+#!/bin/csh
+
+setenv LM_LICENSE_FILE 1717@wv-lic-01.wv.mentorg.com:1717@wv-lic-02.wv.mentorg.com:1717@wv-lic-03.wv.mentorg.com:1717@wv-lic-04.wv.mentorg.com:1717@wv-lic-05.wv.mentorg.com:1717@wv-lic-cdslmd.wv.mentorg.com:1718@wv-lic-snpslmd.wv.mentorg.com:1701@orw-stslic01-vm:1718@wv-lic-snpslmd.wv.mentorg.com
+
+## ./adk.lib must be Liberty library (adk.typ) for dc_dofile to work.
+## ./adk.lib => adk.db and command.log
+## command.log is fairly useless -- look at screen for Error and Warning messages.
+
+## Here is what was used before version 4.6
+## Changed to what follows this due to fact it did not catch Error mentioned in TPD-91091
+##setenv DCCACHE_DISABLE 1
+##/home/stscache/dc_shell/I-2013.12-SP2/bin/dc_shell -f ./dc_dofile
+
+## Following would not run for me. Said could not run in location where being run.
+## I am not on list to run lc_shell, and am running in /wv/donr/.. so that is probably the issue.
+/wv/dft_csd/lc_shell_trees/2019.12-SP1/bin/lc_shell -f ./dc_dofile
+
+## Before exit
+## man LIBG-205
+## to find out what Warning LIBG-205 means.
+
+## Check screen output against lc_output.txt
+## Note that Warnings about : 
+##  .. The function cannot be recognized during functional optimization .. 
+## are expected for cells using statetables.
+##
+## For cgand, an Information output line should occur, which means they are OK (recognized as ICGs), as below :
+## Information: Line 19832, Cell 'cgand', Derived ICG type for cell 'cgand' is 'latch_posedge_precontrol'. (LIBG-265)
+##
+## For cgor, an Information output line should occur, which means they are OK (recognized as ICGs), as below :
+## Information: Line 19832, Cell 'cgand', Derived ICG type for cell 'cgand' is 'latch_negedge_precontrol'. (LIBG-265)
+
+
+## If change adk.lib, consider replacing that in /wv/dft/csd/tessent_trees/2021.1/share/UsageExamples/
+##    tessent_example_hierarchical_flow_v2021.1.tgz

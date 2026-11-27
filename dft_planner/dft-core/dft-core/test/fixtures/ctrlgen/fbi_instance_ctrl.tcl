@@ -1,0 +1,12 @@
+create_instance  u_fbi_instance_ctrl -of_module fbi_instance_ctrl
+create_connection  u_dfx_static_hyper_ctl_tdr/dfx_mode u_fbi_instance_ctrl/dfx_mode
+
+
+delete_connection u_dfx_fbi_instance_read_buffer_persistent_buf/A
+
+
+
+create_connection "u_dfx_fbi_instance_donFB_persistent_buf/Y" "u_fbi_instance_ctrl/donFB"
+create_connection u_fbi_instance_ctrl/read_buffer  u_dfx_fbi_instance_read_buffer_persistent_buf/A
+
+

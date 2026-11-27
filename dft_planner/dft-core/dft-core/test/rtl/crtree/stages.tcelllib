@@ -1,0 +1,27 @@
+// Synthetic cell library written for this test (NOT derived from any vendor library).
+library_format_version = 9;
+model my_icg
+  (GCK, FE, TE, CK)
+(
+  cell_type = clock_gating_and;
+  input (FE) ( func_enable; )
+  input (TE) ( test_enable; )
+  input (CK) ( clock_in; )
+  output (GCK) ( clock_out; )
+) // end model my_icg
+model my_cinv
+  (GCK, CK)
+(
+  cell_type = clock_inverter;
+  input (CK) ( clock_in; )
+  output (GCK) ( clock_out; )
+) // end model my_cinv
+model my_cmux
+  (Y, A0, A1, S0)
+(
+  cell_type = clock_mux;
+  input (A0) ( mux_in0; )
+  input (A1) ( mux_in1; )
+  input (S0) ( mux_select; )
+  output (Y) ( mux_out; )
+) // end model my_cmux

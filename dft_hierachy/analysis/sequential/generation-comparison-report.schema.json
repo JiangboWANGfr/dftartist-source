@@ -1,0 +1,344 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:generation-comparison:1",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/Report"
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:sequential:2#/$defs/Error"
+    }
+  ],
+  "$defs": {
+    "Report": {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-generation-comparison-v1"
+        },
+        "snapshotId": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "limits": {
+          "type": "object",
+          "properties": {
+            "maxCones": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 80000
+            },
+            "maxMembers": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "maxRows": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100000
+            },
+            "maxWork": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000000
+            },
+            "maxMillis": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 60000
+            }
+          },
+          "required": [
+            "maxCones",
+            "maxMembers",
+            "maxRows",
+            "maxWork",
+            "maxMillis"
+          ],
+          "additionalProperties": false
+        },
+        "quality": {
+          "type": "object",
+          "properties": {
+            "completeness": {
+              "enum": [
+                "complete",
+                "partial"
+              ]
+            },
+            "reasons": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "completeness",
+            "reasons"
+          ],
+          "additionalProperties": false
+        },
+        "inputCones": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 80000
+        },
+        "processedCones": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 80000
+        },
+        "memberEntries": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "work": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000000
+        },
+        "analysis": {
+          "$ref": "urn:dft-studio:analysis:control-generation:1#/$defs/Report"
+        },
+        "contexts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "scenario": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 7
+              },
+              "cones": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "check": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9999
+                    },
+                    "node": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ],
+                      "minimum": 0,
+                      "maximum": 9999
+                    },
+                    "quality": {
+                      "type": "object",
+                      "properties": {
+                        "completeness": {
+                          "enum": [
+                            "complete",
+                            "partial"
+                          ]
+                        },
+                        "reasons": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "uniqueItems": true
+                        }
+                      },
+                      "required": [
+                        "completeness",
+                        "reasons"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "nodes": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 9999
+                      },
+                      "maxItems": 10000,
+                      "uniqueItems": true
+                    }
+                  },
+                  "required": [
+                    "check",
+                    "node",
+                    "quality",
+                    "nodes"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 10000
+              }
+            },
+            "required": [
+              "scenario",
+              "cones"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 8
+        },
+        "comparisons": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "baseline": {
+                "const": 0
+              },
+              "scenario": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 7
+              },
+              "reasons": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "uniqueItems": true
+              },
+              "controls": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "point": {
+                      "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/TracePoint"
+                    },
+                    "baselineCone": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ],
+                      "minimum": 0,
+                      "maximum": 9999
+                    },
+                    "scenarioCone": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ],
+                      "minimum": 0,
+                      "maximum": 9999
+                    },
+                    "status": {
+                      "enum": [
+                        "changed",
+                        "unchanged",
+                        "unresolved"
+                      ]
+                    },
+                    "reasons": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "uniqueItems": true
+                    }
+                  },
+                  "required": [
+                    "point",
+                    "baselineCone",
+                    "scenarioCone",
+                    "status",
+                    "reasons"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 20000
+              }
+            },
+            "required": [
+              "baseline",
+              "scenario",
+              "reasons",
+              "controls"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 7
+        },
+        "summary": {
+          "type": "object",
+          "properties": {
+            "contexts": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 8
+            },
+            "cones": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 80000
+            },
+            "members": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "rows": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000
+            },
+            "changed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000
+            },
+            "unchanged": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000
+            },
+            "unresolved": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000
+            }
+          },
+          "required": [
+            "contexts",
+            "cones",
+            "members",
+            "rows",
+            "changed",
+            "unchanged",
+            "unresolved"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "snapshotId",
+        "scope",
+        "limits",
+        "quality",
+        "inputCones",
+        "processedCones",
+        "memberEntries",
+        "work",
+        "analysis",
+        "contexts",
+        "comparisons",
+        "summary"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,517 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:scenarios:1",
+  "title": "Same-snapshot RTL scenario source comparisons",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/Report"
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:sequential:2#/$defs/Error"
+    }
+  ],
+  "$defs": {
+    "Source": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "enum": [
+                "primary_input",
+                "generated"
+              ]
+            },
+            "point": {
+              "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/TracePoint"
+            },
+            "sourceRef": {
+              "type": "string"
+            },
+            "inverted": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "kind",
+            "point",
+            "sourceRef",
+            "inverted"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "constant"
+            },
+            "value": {
+              "enum": [
+                "0",
+                "1",
+                "x",
+                "z"
+              ]
+            },
+            "inverted": {
+              "const": false
+            }
+          },
+          "required": [
+            "kind",
+            "value",
+            "inverted"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "undriven"
+            },
+            "point": {
+              "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/TracePoint"
+            },
+            "sourceRef": {
+              "type": "string"
+            },
+            "inverted": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "kind",
+            "point",
+            "inverted"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "Control": {
+      "type": "object",
+      "properties": {
+        "point": {
+          "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/TracePoint"
+        },
+        "baselineCheck": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "scenarioCheck": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "status": {
+          "enum": [
+            "changed",
+            "unchanged",
+            "unresolved"
+          ]
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "baselineSource": {
+          "$ref": "#/$defs/Source"
+        },
+        "scenarioSource": {
+          "$ref": "#/$defs/Source"
+        }
+      },
+      "required": [
+        "point",
+        "baselineCheck",
+        "scenarioCheck",
+        "status",
+        "reasons"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "changed",
+                  "unchanged"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "baselineSource",
+              "scenarioSource"
+            ],
+            "properties": {
+              "baselineCheck": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "scenarioCheck": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "reasons": {
+                "maxItems": 0
+              }
+            }
+          },
+          "else": {
+            "anyOf": [
+              {
+                "not": {
+                  "required": [
+                    "baselineSource"
+                  ]
+                }
+              },
+              {
+                "not": {
+                  "required": [
+                    "scenarioSource"
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "Scenario": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "description": "Implementation also enforces at most 128 UTF-8 bytes."
+            },
+            "inputValuesRequested": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string"
+                  },
+                  "bit": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "value": {
+                    "enum": [
+                      "0",
+                      "1"
+                    ]
+                  }
+                },
+                "required": [
+                  "path",
+                  "bit",
+                  "value"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 64
+            },
+            "status": {
+              "const": "reported"
+            },
+            "report": {
+              "oneOf": [
+                {
+                  "$ref": "urn:dft-studio:analysis:sequential:2#/$defs/Report"
+                },
+                {
+                  "$ref": "urn:dft-studio:analysis:sequential:3#/$defs/Report"
+                },
+                {
+                  "$ref": "urn:dft-studio:analysis:sequential:4#/$defs/Report"
+                },
+                {
+                  "$ref": "urn:dft-studio:analysis:sequential:5#/$defs/Report"
+                }
+              ]
+            }
+          },
+          "required": [
+            "name",
+            "inputValuesRequested",
+            "status",
+            "report"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "description": "Implementation also enforces at most 128 UTF-8 bytes."
+            },
+            "inputValuesRequested": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string"
+                  },
+                  "bit": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "value": {
+                    "enum": [
+                      "0",
+                      "1"
+                    ]
+                  }
+                },
+                "required": [
+                  "path",
+                  "bit",
+                  "value"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 64
+            },
+            "status": {
+              "const": "not_run"
+            },
+            "reason": {
+              "const": "budget_time"
+            }
+          },
+          "required": [
+            "name",
+            "inputValuesRequested",
+            "status",
+            "reason"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "Report": {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-scenario-sources-v1"
+        },
+        "snapshot": {
+          "$ref": "urn:dft-studio:analysis:sequential:2#/$defs/Report/properties/snapshot"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "limits": {
+          "type": "object",
+          "properties": {
+            "maxScenarios": {
+              "const": 8
+            },
+            "maxMillis": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 60000
+            },
+            "maxComparisons": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100000
+            }
+          },
+          "required": [
+            "maxScenarios",
+            "maxMillis",
+            "maxComparisons"
+          ],
+          "additionalProperties": false
+        },
+        "quality": {
+          "type": "object",
+          "properties": {
+            "completeness": {
+              "enum": [
+                "complete",
+                "partial"
+              ]
+            },
+            "reasons": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "completeness",
+            "reasons"
+          ],
+          "additionalProperties": false
+        },
+        "scenarios": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Scenario"
+          },
+          "minItems": 2,
+          "maxItems": 8
+        },
+        "comparisons": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "baseline": {
+                "const": 0
+              },
+              "scenario": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 7
+              },
+              "controls": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/Control"
+                },
+                "maxItems": 100000
+              }
+            },
+            "required": [
+              "baseline",
+              "scenario",
+              "controls"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1,
+          "maxItems": 7
+        },
+        "summary": {
+          "type": "object",
+          "properties": {
+            "reportedScenarios": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 8
+            },
+            "notRunScenarios": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 8
+            },
+            "changed": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000
+            },
+            "unchanged": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000
+            },
+            "unresolved": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000
+            }
+          },
+          "required": [
+            "reportedScenarios",
+            "notRunScenarios",
+            "changed",
+            "unchanged",
+            "unresolved"
+          ],
+          "additionalProperties": false
+        },
+        "common": {
+          "type": "object",
+          "properties": {
+            "scopeRequested": {
+              "type": "string",
+              "minLength": 1
+            },
+            "recursive": {
+              "type": "boolean"
+            },
+            "analyzeClockUsage": {
+              "type": "boolean"
+            },
+            "limits": {
+              "$ref": "urn:dft-studio:analysis:sequential:4#/$defs/Report/properties/limits"
+            },
+            "clockRootsRequested": {
+              "type": "array",
+              "maxItems": 64,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string"
+                  },
+                  "bit": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                },
+                "required": [
+                  "path",
+                  "bit"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "scopeRequested",
+            "recursive",
+            "analyzeClockUsage",
+            "limits",
+            "clockRootsRequested"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "snapshot",
+        "scope",
+        "limits",
+        "quality",
+        "scenarios",
+        "comparisons",
+        "summary",
+        "common"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

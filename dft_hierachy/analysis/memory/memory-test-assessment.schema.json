@@ -1,0 +1,262 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:memory-test-assessment:1",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-memory-test-assessment-v1"
+        },
+        "source": {
+          "$ref": "urn:dft-studio:analysis:memory-test-coverage:1#/oneOf/0"
+        },
+        "clockLimits": {
+          "$ref": "urn:dft-studio:analysis:memory-test-domains:1#/oneOf/0/properties/limits"
+        },
+        "clocks": {
+          "$ref": "urn:dft-studio:analysis:memory-test-domains:1#/oneOf/0/properties/clocks"
+        },
+        "domains": {
+          "$ref": "urn:dft-studio:analysis:memory-test-domains:1#/oneOf/0/properties/domains"
+        },
+        "check": {
+          "$ref": "urn:dft-studio:analysis:memory-clock-check:1#/oneOf/0/properties/check"
+        },
+        "assessment": {
+          "type": "object",
+          "properties": {
+            "complete": {
+              "type": "boolean"
+            },
+            "verdict": {
+              "enum": [
+                "pass",
+                "fail",
+                "unknown"
+              ]
+            },
+            "reasons": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "coverage_partial",
+                  "clock_check_partial"
+                ]
+              },
+              "uniqueItems": true
+            },
+            "satisfiedInstances": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "blockedInstances": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "pendingInstances": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "rows": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "macro": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "clockCheck": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "status": {
+                    "enum": [
+                      "satisfied",
+                      "blocked",
+                      "pending"
+                    ]
+                  },
+                  "issues": {
+                    "type": "array",
+                    "items": {
+                      "enum": [
+                        "test_blocked",
+                        "test_pending",
+                        "clock_check_not_reached",
+                        "clock_mismatch",
+                        "clock_unresolved",
+                        "clock_unconstrained",
+                        "domain_missing"
+                      ]
+                    },
+                    "uniqueItems": true
+                  }
+                },
+                "required": [
+                  "macro",
+                  "status",
+                  "issues"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "satisfied"
+                        }
+                      }
+                    },
+                    "then": {
+                      "required": [
+                        "clockCheck"
+                      ],
+                      "properties": {
+                        "issues": {
+                          "maxItems": 0
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "issues": {
+                          "minItems": 1
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "required": [
+            "complete",
+            "verdict",
+            "reasons",
+            "satisfiedInstances",
+            "blockedInstances",
+            "pendingInstances",
+            "rows"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "complete": {
+                    "const": true
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "reasons": {
+                    "maxItems": 0
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "reasons": {
+                    "minItems": 1
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "verdict": {
+                    "const": "pass"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "complete": {
+                    "const": true
+                  },
+                  "blockedInstances": {
+                    "const": 0
+                  },
+                  "pendingInstances": {
+                    "const": 0
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "verdict": {
+                    "const": "fail"
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "blockedInstances": {
+                    "minimum": 1
+                  }
+                }
+              },
+              "else": {
+                "properties": {
+                  "blockedInstances": {
+                    "const": 0
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "verdict": {
+                    "const": "unknown"
+                  }
+                }
+              },
+              "then": {
+                "anyOf": [
+                  {
+                    "properties": {
+                      "complete": {
+                        "const": false
+                      }
+                    }
+                  },
+                  {
+                    "properties": {
+                      "pendingInstances": {
+                        "minimum": 1
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "source",
+        "clockLimits",
+        "clocks",
+        "domains",
+        "check",
+        "assessment"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:memory-map:1#/oneOf/1"
+    }
+  ]
+}

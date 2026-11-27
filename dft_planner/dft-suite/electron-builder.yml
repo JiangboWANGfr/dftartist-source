@@ -1,0 +1,17 @@
+appId: top.jiangbowang.dftsuite
+productName: dft_stark-planner
+directories:
+  output: release
+  buildResources: build
+files:
+  - "dist/**/*"
+  - "electron/**/*"
+  - "package.json"
+extraResources:
+  - from: "resources/bin"
+    to: "bin"
+linux:
+  target:
+    - AppImage
+  category: Development
+  artifactName: "${productName}-${version}-${arch}.${ext}"

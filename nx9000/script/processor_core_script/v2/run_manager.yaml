@@ -1,0 +1,52 @@
+---
+meta:
+  design_name: processor_core
+  generated_at: 2026-07-19 09:02:46
+  generator: /mnt/c/Users/wongw/Desktop/DFT_STUDIO/gen_dft_infer_ultra_new.pl
+  prj_path: /home/wongw/nx9000
+  version: v2
+steps:
+- depends_on: []
+  flow: mbist
+  id: stage1.insert
+  kind: insert
+  order: 10
+  script: /home/wongw/nx9000/dft_path/processor_core/v2/1.mbist_insertion/1.run_mbist_insertion
+  stage: stage1
+  type: mbist_insertion
+- depends_on:
+  - stage1.insert
+  flow: mbist
+  id: stage1.pattern
+  kind: pattern
+  order: 20
+  script: /home/wongw/nx9000/dft_path/processor_core/v2/1.mbist_insertion/2.run_pattern_gen
+  stage: stage1
+  type: mbist_insertion
+- depends_on:
+  - stage1.insert
+  flow: logic_test
+  id: stage2.insert
+  kind: insert
+  order: 30
+  script: /home/wongw/nx9000/dft_path/processor_core/v2/2.logic_test_insertion/1.run_logic_test_insertion
+  stage: stage2
+  type: logic_test_insertion
+- depends_on:
+  - stage2.insert
+  flow: logic_test
+  id: stage2.pattern
+  kind: pattern
+  order: 40
+  script: /home/wongw/nx9000/dft_path/processor_core/v2/2.logic_test_insertion/2.run_pattern_gen
+  stage: stage2
+  type: logic_test_insertion
+- depends_on:
+  - stage2.insert
+  flow: scan
+  id: stage4.insert
+  kind: insert
+  order: 50
+  script: /home/wongw/nx9000/dft_path/processor_core/v2/4.scan_insertion/1.run_scan_insertion
+  stage: stage4
+  type: scan_insertion

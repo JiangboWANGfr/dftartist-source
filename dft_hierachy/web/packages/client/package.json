@@ -1,0 +1,41 @@
+{
+  "name": "@hier/client",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./node": {
+      "types": "./dist/node/index.d.ts",
+      "import": "./dist/node/index.js"
+    },
+    "./electron/renderer": {
+      "types": "./dist/electron/renderer.d.ts",
+      "import": "./dist/electron/renderer.js"
+    },
+    "./electron/main": {
+      "types": "./dist/electron/main.d.ts",
+      "import": "./dist/electron/main.js"
+    },
+    "./electron/preload": {
+      "types": "./dist/electron/preload.d.ts",
+      "import": "./dist/electron/preload.js"
+    }
+  },
+  "dependencies": {
+    "@hier/protocol-types": "*"
+  },
+  "peerDependencies": {
+    "electron": "42.3.3"
+  },
+  "peerDependenciesMeta": {
+    "electron": {
+      "optional": true
+    }
+  }
+}

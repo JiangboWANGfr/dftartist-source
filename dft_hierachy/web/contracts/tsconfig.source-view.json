@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "types": [],
+    "lib": ["ES2022", "DOM"],
+    "paths": {
+      "react": [
+        "../experiments/m5-tree-ui/node_modules/@types/react/index.d.ts"
+      ]
+    }
+  },
+  "files": ["m5-source-view.d.ts", "m5-source-view.consumer.ts"],
+  "include": []
+}

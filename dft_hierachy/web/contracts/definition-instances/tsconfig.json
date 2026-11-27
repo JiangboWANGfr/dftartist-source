@@ -1,0 +1,5 @@
+{
+  "extends": "../tsconfig.json",
+  "files": ["definition-instances.d.ts", "consumer.ts"],
+  "include": []
+}

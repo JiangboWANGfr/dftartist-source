@@ -1,0 +1,296 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:sequential:1",
+  "title": "Structural RTL sequential check consumer v1",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/Report"
+    },
+    {
+      "$ref": "#/$defs/Error"
+    },
+    {
+      "$ref": "#/$defs/Version"
+    }
+  ],
+  "$defs": {
+    "Report": {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-structural-control-v1"
+        },
+        "snapshot": {
+          "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/SnapshotInfo"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "recursive": {
+          "type": "boolean"
+        },
+        "limits": {
+          "type": "object",
+          "properties": {
+            "maxFacts": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100000
+            },
+            "maxInstances": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100000
+            },
+            "maxChecks": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000
+            },
+            "maxTraceNodes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "maxTraceEdges": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 4000000
+            },
+            "maxDepth": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000
+            },
+            "maxMillis": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 60000
+            }
+          },
+          "required": [
+            "maxFacts",
+            "maxInstances",
+            "maxChecks",
+            "maxTraceNodes",
+            "maxTraceEdges",
+            "maxDepth",
+            "maxMillis"
+          ],
+          "additionalProperties": false
+        },
+        "quality": {
+          "type": "object",
+          "properties": {
+            "completeness": {
+              "enum": [
+                "complete",
+                "partial"
+              ]
+            },
+            "reasons": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "completeness",
+            "reasons"
+          ],
+          "additionalProperties": false
+        },
+        "visitedInstances": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "registers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "fact": {
+                "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/RegisterInfo"
+              },
+              "instancePath": {
+                "type": "string"
+              },
+              "signalPath": {
+                "type": "string"
+              },
+              "source": {
+                "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/SourceSpan"
+              },
+              "sourceUnavailable": {
+                "type": "string"
+              },
+              "clockCheck": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "asyncChecks": {
+                "type": "array",
+                "items": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "minimum": 0
+                }
+              }
+            },
+            "required": [
+              "fact",
+              "instancePath",
+              "signalPath",
+              "clockCheck",
+              "asyncChecks"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "point": {
+                "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/TracePoint"
+              },
+              "path": {
+                "type": "string"
+              },
+              "verdict": {
+                "enum": [
+                  "unknown",
+                  "primary_input",
+                  "logic_boundary",
+                  "undriven",
+                  "constant"
+                ]
+              },
+              "reasons": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "trace": {
+                "type": "object",
+                "properties": {
+                  "result": {
+                    "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/TraceResult"
+                  },
+                  "completeness": {
+                    "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/Completeness"
+                  }
+                },
+                "required": [
+                  "result",
+                  "completeness"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "point",
+              "path",
+              "verdict",
+              "reasons"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "findings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "rule": {
+                "enum": [
+                  "CLK-UNCTRL",
+                  "RST-UNCTRL"
+                ]
+              },
+              "severity": {
+                "const": "error"
+              },
+              "check": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "required": [
+              "rule",
+              "severity",
+              "check"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "snapshot",
+        "scope",
+        "recursive",
+        "limits",
+        "quality",
+        "visitedInstances",
+        "registers",
+        "checks",
+        "findings"
+      ],
+      "additionalProperties": false
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "code",
+            "message"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "error"
+      ],
+      "additionalProperties": false
+    },
+    "Version": {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-structural-control-v1"
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

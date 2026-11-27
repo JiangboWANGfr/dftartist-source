@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.diagnostic-read-production.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@hier/viewmodel": ["../../contracts/m5-tree.d.ts"]
+    }
+  }
+}

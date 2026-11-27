@@ -1,0 +1,29 @@
+.hier-source-candidates-view {
+  border: 1px solid currentColor;
+  font: inherit;
+}
+.hier-source-candidates-view__status {
+  padding: 0.25em 0.5em;
+  box-sizing: border-box;
+}
+.hier-source-candidates-view__row {
+  border: 0;
+  border-bottom: 1px solid #8884;
+  padding: 0.4em 0.5em;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+.hier-source-candidates-view__row[aria-disabled="true"] {
+  cursor: default;
+}
+.hier-source-candidates-view__row:focus-visible,
+.hier-source-candidates-view__list:focus-visible {
+  outline: 2px solid Highlight;
+  outline-offset: -2px;
+}
+.hier-source-candidates-view__operations {
+  display: flex;
+  gap: 0.5em;
+  padding: 0.25em 0.5em;
+}

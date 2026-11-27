@@ -1,0 +1,60 @@
+{
+  "formatVersion": 1,
+  "kind": "memory-library",
+  "models": [
+    {
+      "definitionName": "clock_ram",
+      "words": 8,
+      "dataBits": 8,
+      "roles": [
+        {
+          "role": "clock",
+          "pin": "CLK",
+          "sense": "posedge"
+        },
+        {
+          "role": "address",
+          "pin": "A",
+          "sense": "none"
+        },
+        {
+          "role": "data_in",
+          "pin": "D",
+          "sense": "none"
+        },
+        {
+          "role": "data_out",
+          "pin": "Q",
+          "sense": "none"
+        }
+      ]
+    },
+    {
+      "definitionName": "clock_ram_neg",
+      "words": 8,
+      "dataBits": 8,
+      "roles": [
+        {
+          "role": "clock",
+          "pin": "CLK",
+          "sense": "negedge"
+        },
+        {
+          "role": "address",
+          "pin": "A",
+          "sense": "none"
+        },
+        {
+          "role": "data_in",
+          "pin": "D",
+          "sense": "none"
+        },
+        {
+          "role": "data_out",
+          "pin": "Q",
+          "sense": "none"
+        }
+      ]
+    }
+  ]
+}

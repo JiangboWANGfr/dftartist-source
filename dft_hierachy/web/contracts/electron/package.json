@@ -1,0 +1,8 @@
+{
+  "name": "hier-electron-contract-types",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "electron": "42.3.3"
+  }
+}

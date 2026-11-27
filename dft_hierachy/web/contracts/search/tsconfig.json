@@ -1,0 +1,5 @@
+{
+  "extends": "../tsconfig.json",
+  "files": ["search.d.ts", "consumer.ts"],
+  "include": []
+}

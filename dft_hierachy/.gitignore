@@ -1,0 +1,5 @@
+# Reference repositories are separate upstream clones, pinned in ref/projects.lock.json.
+# Only the index, the lock file and the audit of the old implementation are tracked.
+/ref/*/
+!/ref/audit/
+.DS_Store

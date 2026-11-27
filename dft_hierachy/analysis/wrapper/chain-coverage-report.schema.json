@@ -1,0 +1,632 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:wrapper-chain-coverage:1",
+  "title": "Wrapper chain coverage",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-wrapper-chain-coverage-v1"
+        },
+        "source": {
+          "$ref": "urn:dft-studio:analysis:wrapper-chain-plan:1#/oneOf/0"
+        },
+        "coverage": {
+          "type": "object",
+          "properties": {
+            "limits": {
+              "type": "object",
+              "properties": {
+                "maxRows": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100000
+                },
+                "maxPositions": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100000
+                },
+                "maxWork": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 10000000
+                },
+                "maxMillis": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 60000
+                }
+              },
+              "required": [
+                "maxRows",
+                "maxPositions",
+                "maxWork",
+                "maxMillis"
+              ],
+              "additionalProperties": false
+            },
+            "complete": {
+              "type": "boolean"
+            },
+            "work": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            },
+            "reasons": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "source_partial",
+                  "budget_rows",
+                  "budget_positions",
+                  "budget_work",
+                  "budget_time"
+                ]
+              },
+              "uniqueItems": true
+            },
+            "rows": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "sourceRow": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "cellRow": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "chainRow": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "stage": {
+                    "enum": [
+                      "planning",
+                      "chaining"
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "placed",
+                      "excluded",
+                      "blocked",
+                      "pending"
+                    ]
+                  },
+                  "reason": {
+                    "type": "string"
+                  },
+                  "positions": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "use": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "chain": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 1023
+                        },
+                        "segment": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "kind": {
+                          "enum": [
+                            "shared",
+                            "dedicated"
+                          ]
+                        },
+                        "chainOffset": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "width": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 9007199254740991
+                        },
+                        "signal": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "bits": {
+                          "type": "object",
+                          "properties": {
+                            "lsb": {
+                              "type": "integer",
+                              "minimum": 0,
+                              "maximum": 9007199254740991
+                            },
+                            "width": {
+                              "type": "integer",
+                              "minimum": 1,
+                              "maximum": 9007199254740991
+                            }
+                          },
+                          "required": [
+                            "lsb",
+                            "width"
+                          ],
+                          "additionalProperties": false
+                        }
+                      },
+                      "required": [
+                        "use",
+                        "chain",
+                        "segment",
+                        "kind",
+                        "chainOffset",
+                        "width"
+                      ],
+                      "additionalProperties": false,
+                      "allOf": [
+                        {
+                          "then": {
+                            "required": [
+                              "signal",
+                              "bits"
+                            ]
+                          },
+                          "if": {
+                            "properties": {
+                              "kind": {
+                                "const": "shared"
+                              }
+                            },
+                            "required": [
+                              "kind"
+                            ]
+                          },
+                          "else": {
+                            "properties": {
+                              "signal": false,
+                              "bits": false
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "maxItems": 100000
+                  }
+                },
+                "required": [
+                  "sourceRow",
+                  "stage",
+                  "status",
+                  "reason",
+                  "positions"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "then": {
+                      "required": [
+                        "cellRow",
+                        "chainRow"
+                      ],
+                      "properties": {
+                        "stage": {
+                          "const": "chaining"
+                        },
+                        "reason": {
+                          "const": "allocated"
+                        },
+                        "positions": {
+                          "minItems": 1
+                        }
+                      }
+                    },
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "placed"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "else": {
+                      "properties": {
+                        "positions": {
+                          "maxItems": 0
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "then": {
+                      "required": [
+                        "cellRow"
+                      ],
+                      "properties": {
+                        "stage": {
+                          "const": "planning"
+                        },
+                        "reason": {
+                          "const": "declared_exclude"
+                        }
+                      }
+                    },
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "excluded"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    }
+                  },
+                  {
+                    "then": {
+                      "required": [
+                        "cellRow"
+                      ],
+                      "allOf": [
+                        {
+                          "then": {
+                            "properties": {
+                              "reason": {
+                                "enum": [
+                                  "evidence_partial",
+                                  "control_usage",
+                                  "non_data_path",
+                                  "no_register_candidate",
+                                  "candidate_limit"
+                                ]
+                              }
+                            }
+                          },
+                          "if": {
+                            "properties": {
+                              "stage": {
+                                "const": "planning"
+                              }
+                            },
+                            "required": [
+                              "stage"
+                            ]
+                          },
+                          "else": {
+                            "required": [
+                              "chainRow"
+                            ],
+                            "properties": {
+                              "reason": {
+                                "enum": [
+                                  "unassigned",
+                                  "capacity",
+                                  "chain_conflict"
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "blocked"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    }
+                  },
+                  {
+                    "then": {
+                      "properties": {
+                        "chainRow": false
+                      },
+                      "allOf": [
+                        {
+                          "then": {
+                            "properties": {
+                              "cellRow": false,
+                              "reason": {
+                                "const": "planning_not_reached"
+                              }
+                            }
+                          },
+                          "if": {
+                            "properties": {
+                              "stage": {
+                                "const": "planning"
+                              }
+                            },
+                            "required": [
+                              "stage"
+                            ]
+                          },
+                          "else": {
+                            "required": [
+                              "cellRow"
+                            ],
+                            "properties": {
+                              "reason": {
+                                "const": "chain_not_reached"
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "pending"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    }
+                  },
+                  {
+                    "if": {
+                      "required": [
+                        "chainRow"
+                      ]
+                    },
+                    "then": {
+                      "required": [
+                        "cellRow"
+                      ]
+                    }
+                  }
+                ]
+              },
+              "maxItems": 100000
+            },
+            "counts": {
+              "type": "object",
+              "properties": {
+                "rows": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 100000
+                },
+                "placed": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 100000
+                },
+                "excluded": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 100000
+                },
+                "blocked": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 100000
+                },
+                "pending": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 100000
+                },
+                "positions": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 100000
+                }
+              },
+              "required": [
+                "rows",
+                "placed",
+                "excluded",
+                "blocked",
+                "pending",
+                "positions"
+              ],
+              "additionalProperties": false
+            },
+            "ports": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "port": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "upstream": {
+                    "type": "boolean"
+                  },
+                  "counts": {
+                    "type": "object",
+                    "properties": {
+                      "rows": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000
+                      },
+                      "placed": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000
+                      },
+                      "excluded": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000
+                      },
+                      "blocked": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000
+                      },
+                      "pending": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000
+                      },
+                      "positions": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 100000
+                      }
+                    },
+                    "required": [
+                      "rows",
+                      "placed",
+                      "excluded",
+                      "blocked",
+                      "pending",
+                      "positions"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "port",
+                  "upstream",
+                  "counts"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 100000
+            },
+            "stop": {
+              "type": "object",
+              "properties": {
+                "reason": {
+                  "enum": [
+                    "budget_rows",
+                    "budget_positions",
+                    "budget_work",
+                    "budget_time"
+                  ]
+                },
+                "sourceRow": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "reason",
+                "sourceRow"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "limits",
+            "complete",
+            "work",
+            "reasons",
+            "rows",
+            "counts",
+            "ports"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "then": {
+                "properties": {
+                  "stop": false,
+                  "reasons": {
+                    "maxItems": 0
+                  },
+                  "counts": {
+                    "properties": {
+                      "blocked": {
+                        "const": 0
+                      },
+                      "pending": {
+                        "const": 0
+                      }
+                    }
+                  }
+                }
+              },
+              "if": {
+                "properties": {
+                  "complete": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "complete"
+                ]
+              },
+              "else": {
+                "properties": {
+                  "reasons": {
+                    "minItems": 1
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "source",
+        "coverage"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "coverage": {
+                "properties": {
+                  "complete": {
+                    "const": true
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "layout": {
+                    "properties": {
+                      "complete": {
+                        "const": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:wrapper-boundary:1#/oneOf/1"
+    }
+  ]
+}

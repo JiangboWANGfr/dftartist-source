@@ -1,0 +1,10 @@
+boundary_scan: false
+ist: false
+tap: false
+mbisr_controller: false
+mbisr_chain: true
+edt: true
+occ: true
+ssn: true
+lbist: false
+mbist: true

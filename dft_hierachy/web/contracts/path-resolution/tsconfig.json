@@ -1,0 +1,6 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": { "types": ["react"] },
+  "files": ["path-resolution.d.ts", "consumer.ts"],
+  "include": []
+}

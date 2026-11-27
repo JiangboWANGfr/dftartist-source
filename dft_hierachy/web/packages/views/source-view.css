@@ -1,0 +1,45 @@
+.hier-source-view {
+  color: #202936;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px #cbd2db;
+  border-radius: 4px;
+  font:
+    14px/1.5 system-ui,
+    sans-serif;
+}
+
+.hier-source-view__status {
+  padding: 6px 8px;
+  background: #f4f6f8;
+  overflow-wrap: anywhere;
+}
+
+.hier-source-view__body {
+  font:
+    13px/1.5 ui-monospace,
+    SFMono-Regular,
+    Consolas,
+    monospace;
+  tab-size: 4;
+}
+
+.hier-source-view__body:focus-visible {
+  outline: 2px solid #245fba;
+  outline-offset: -2px;
+}
+
+.hier-source-view__body mark {
+  color: inherit;
+  background: #ffdf88;
+  text-decoration: underline;
+  text-decoration-color: #916400;
+}
+
+.hier-source-view__error {
+  display: block;
+  color: #a21d25;
+}
+
+.hier-source-view__warning {
+  color: #795400;
+}

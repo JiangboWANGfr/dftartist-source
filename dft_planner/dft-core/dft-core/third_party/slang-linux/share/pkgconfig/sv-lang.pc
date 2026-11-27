@@ -1,0 +1,10 @@
+prefix=/mnt/c/Users/wongw/Desktop/DFT_STUDIO/dft_studio_qt/dft_planner/dft-core/dft-core/third_party/slang-linux
+includedir="${prefix}/include"
+libdir="${prefix}/lib"
+
+Name: slang
+Description: SystemVerilog compiler and language services
+URL: https://sv-lang.com/
+Version: 10.0.101
+Cflags: -I"${includedir}"
+Libs: -L"${libdir}" -lsvlang

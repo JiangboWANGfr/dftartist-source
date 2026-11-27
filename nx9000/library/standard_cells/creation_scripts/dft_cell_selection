@@ -1,0 +1,29 @@
+dft_cell_selection ( adk ) (
+  clock_buffer = clock_buf02;
+  clock_inverter = clock_inv01;
+  clock_mux =  clock_mux21;
+  clock_and =  clock_and02;
+  clock_or =  clock_or02;
+  clock_gating_and = cgand;
+  clock_gating_or = cgor;
+  clock_shaper = clock_shaper;
+  buffer = buf02;
+  inverter = inv01;
+  and =  and02 , and03 , and04;
+  nand =  nand02 , nand03_2x , nand04_2x;
+  or =  or02 , or03 , or04;
+  nor =  nor02 , nor03_2x , nor04_2x;
+  xor =  xor02;
+  mux =  mux21;
+  posedge_dff = dff , dffr /*reset*/  , dffs /*set*/  , dffsr /*set & reset*/ ;
+  negedge_dff = nck_dff , nck_dffr /*reset*/  , nck_dffs /*set*/  , nck_dffsr /*set & reset*/ ;
+  posedge_clock_dff = clk_dff , clk_dffr /*reset*/  , clk_dffs /*set*/  , clk_dffsr /*set & reset*/ ;
+  negedge_clock_dff = nck_clk_dff , nck_clk_dffr /*reset*/  , nck_clk_dffs /*set*/  , nck_clk_dffsr /*set & reset*/ ;
+  active_high_latch = latch , latchr /*reset*/  , latchs /*set*/  , latchsr /*set & reset*/ ;
+  active_low_latch = nlatch , nlatchr /*reset*/  , nlatchs /*set*/  , nlatchsr /*set & reset*/ ;
+  posedge_synchronizer_cell = sync_cell , sync_cell_rst /*reset*/  , sync_cell_set /*set*/  , sync_cell_set_rst /*set & reset*/ ;
+  negedge_synchronizer_cell = nck_sync_cell , nck_sync_cell_rst /*reset*/  , nck_sync_cell_set /*set*/  , nck_sync_cell_set_rst /*set & reset*/ ;
+  posedge_scan_cell = sff , sffr /*reset*/  , sffs /*set*/  , sffsr /*set & reset*/ ;
+  negedge_scan_cell = nck_sff , nck_sffr /*reset*/  , nck_sffs /*set*/  , nck_sffsr /*set & reset*/ ;
+
+) // end dft_cell_selection

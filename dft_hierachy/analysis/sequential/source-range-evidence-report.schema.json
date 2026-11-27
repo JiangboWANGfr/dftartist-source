@@ -1,0 +1,257 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:source-range-evidence:1",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/Report"
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:sequential:2#/$defs/Error"
+    }
+  ],
+  "$defs": {
+    "Report": {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-register-source-range-evidence-v1"
+        },
+        "analysis": {
+          "$ref": "urn:dft-studio:analysis:register-source-range-selection:1#/$defs/Report"
+        },
+        "snapshotId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "query": {
+          "$ref": "urn:dft-studio:analysis:register-source-range-selection:1#/$defs/Report/properties/query"
+        },
+        "limits": {
+          "type": "object",
+          "properties": {
+            "maxRows": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100000
+            },
+            "maxProofs": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "maxFacts": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000000
+            },
+            "maxWork": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000000
+            },
+            "maxMillis": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 60000
+            }
+          },
+          "required": [
+            "maxRows",
+            "maxProofs",
+            "maxFacts",
+            "maxWork",
+            "maxMillis"
+          ],
+          "additionalProperties": false
+        },
+        "quality": {
+          "$ref": "urn:dft-studio:analysis:register-control-sources:1#/$defs/Report/properties/quality"
+        },
+        "inputComplete": {
+          "type": "boolean"
+        },
+        "sourcesComplete": {
+          "type": "boolean"
+        },
+        "inputRows": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "work": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "proofs": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "contexts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "factEntries": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "facts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "fact": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "info": {
+                "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/RegisterInfo"
+              }
+            },
+            "required": [
+              "fact",
+              "info"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "selectionRow": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "source": {
+                "$ref": "urn:dft-studio:analysis:register-control-sources:1#/$defs/Report/properties/groups/items/properties/source"
+              },
+              "node": {
+                "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/InstInfo"
+              },
+              "owner": {
+                "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/InstInfo"
+              },
+              "signal": {
+                "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/ObjectInfo"
+              },
+              "proofs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "member": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "role": {
+                      "enum": [
+                        "added",
+                        "removed",
+                        "retained"
+                      ]
+                    },
+                    "bits": {
+                      "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/BitRange"
+                    },
+                    "contexts": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "scenario": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 7
+                          },
+                          "group": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "facts": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "fact": {
+                                  "type": "integer",
+                                  "minimum": 0
+                                },
+                                "bits": {
+                                  "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/BitRange"
+                                }
+                              },
+                              "required": [
+                                "fact",
+                                "bits"
+                              ],
+                              "additionalProperties": false
+                            },
+                            "minItems": 1
+                          }
+                        },
+                        "required": [
+                          "scenario",
+                          "group",
+                          "facts"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "minItems": 1,
+                      "maxItems": 2
+                    }
+                  },
+                  "required": [
+                    "member",
+                    "role",
+                    "bits",
+                    "contexts"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 1
+              }
+            },
+            "required": [
+              "selectionRow",
+              "source",
+              "node",
+              "owner",
+              "signal",
+              "proofs"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "analysis",
+        "snapshotId",
+        "scope",
+        "query",
+        "limits",
+        "quality",
+        "inputComplete",
+        "sourcesComplete",
+        "inputRows",
+        "work",
+        "proofs",
+        "contexts",
+        "factEntries",
+        "facts",
+        "rows"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

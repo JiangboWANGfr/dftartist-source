@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:memory-resource-usage:1",
+  "title": "Declared shared test resource occupancy",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-memory-resource-usage-v1"
+        },
+        "source": {
+          "$ref": "urn:dft-studio:analysis:memory-test-timing:1#/oneOf/0"
+        },
+        "usage": {
+          "type": "object",
+          "properties": {
+            "limits": {
+              "type": "object",
+              "properties": {
+                "maxWork": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 10000000
+                },
+                "maxUses": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 1000000
+                },
+                "maxMillis": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 60000
+                }
+              },
+              "required": [
+                "maxWork",
+                "maxUses",
+                "maxMillis"
+              ],
+              "additionalProperties": false
+            },
+            "complete": {
+              "type": "boolean"
+            },
+            "reasons": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "timing_partial",
+                  "budget_work",
+                  "budget_uses",
+                  "budget_time"
+                ]
+              },
+              "minItems": 0,
+              "maxItems": 4,
+              "uniqueItems": true
+            },
+            "work": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            },
+            "processedWaves": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            },
+            "uses": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1000000
+            },
+            "rows": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "resource": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1023
+                  },
+                  "occupiedPicoseconds": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "peakControllers": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1024
+                  },
+                  "peakPowerMicrowatts": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1000000000000
+                  },
+                  "uses": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "wave": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9999
+                        },
+                        "entries": {
+                          "type": "array",
+                          "items": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 1023
+                          },
+                          "minItems": 1,
+                          "maxItems": 1024,
+                          "uniqueItems": true
+                        }
+                      },
+                      "required": [
+                        "wave",
+                        "entries"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "minItems": 0,
+                    "maxItems": 10000
+                  },
+                  "peakUnits": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1024000000000000
+                  }
+                },
+                "required": [
+                  "resource",
+                  "occupiedPicoseconds",
+                  "peakControllers",
+                  "peakPowerMicrowatts",
+                  "uses"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 1024
+            },
+            "stop": {
+              "type": "object",
+              "properties": {
+                "wave": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 10000
+                },
+                "entry": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1023
+                },
+                "reason": {
+                  "enum": [
+                    "budget_work",
+                    "budget_uses",
+                    "budget_time"
+                  ]
+                }
+              },
+              "required": [
+                "wave",
+                "reason"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "limits",
+            "complete",
+            "reasons",
+            "work",
+            "processedWaves",
+            "uses",
+            "rows"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "source",
+        "usage"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:memory-map:1#/oneOf/1"
+    }
+  ]
+}

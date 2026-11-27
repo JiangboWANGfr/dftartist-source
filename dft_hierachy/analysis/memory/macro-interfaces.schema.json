@@ -1,0 +1,268 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:macro-interfaces:1",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-macro-interfaces-v1"
+        },
+        "catalog": {
+          "$ref": "urn:dft-studio:analysis:object-catalog:1#/oneOf/0"
+        },
+        "request": {
+          "type": "object",
+          "properties": {
+            "definitionNames": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1,
+              "maxItems": 256,
+              "uniqueItems": true
+            },
+            "clockPins": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "maxItems": 32,
+              "uniqueItems": true
+            },
+            "limits": {
+              "type": "object",
+              "properties": {
+                "maxMacros": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 10000
+                },
+                "maxPins": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100000
+                },
+                "maxBindings": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 1000000
+                },
+                "maxQueries": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 1000000
+                },
+                "maxWork": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 10000000
+                },
+                "maxMillis": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 60000
+                },
+                "maxTraceNodes": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 1000000
+                },
+                "maxTraceEdges": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 4000000
+                },
+                "maxDepth": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 1024
+                }
+              },
+              "required": [
+                "maxMacros",
+                "maxPins",
+                "maxBindings",
+                "maxQueries",
+                "maxWork",
+                "maxMillis",
+                "maxTraceNodes",
+                "maxTraceEdges",
+                "maxDepth"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "definitionNames",
+            "clockPins",
+            "limits"
+          ],
+          "additionalProperties": false
+        },
+        "complete": {
+          "type": "boolean"
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "queries": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "work": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "traceNodes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "traceEdges": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "macros": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "instance": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "parent": {
+                "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/InstInfo"
+              },
+              "parentStatus": {
+                "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/Completeness"
+              },
+              "pins": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "port": {
+                      "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/PortInfo"
+                    },
+                    "object": {
+                      "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/ObjectInfo"
+                    },
+                    "bindings": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/PinBinding"
+                      }
+                    },
+                    "clock": {
+                      "type": "object",
+                      "properties": {
+                        "result": {
+                          "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/TraceResult"
+                        },
+                        "completeness": {
+                          "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/Completeness"
+                        }
+                      },
+                      "required": [
+                        "result",
+                        "completeness"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "port",
+                    "object",
+                    "bindings"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "missingClockPins": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "instance",
+              "pins",
+              "missingClockPins"
+            ],
+            "additionalProperties": false,
+            "dependentRequired": {
+              "parent": [
+                "parentStatus"
+              ],
+              "parentStatus": [
+                "parent"
+              ]
+            }
+          }
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "catalog",
+        "request",
+        "complete",
+        "reasons",
+        "queries",
+        "work",
+        "traceNodes",
+        "traceEdges",
+        "macros"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "error": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "enum": [
+                "invalid_arguments",
+                "not_found",
+                "cancelled",
+                "analysis_failed",
+                "design_invalid",
+                "output_failed"
+              ]
+            },
+            "message": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "code",
+            "message"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "formatVersion",
+        "error"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

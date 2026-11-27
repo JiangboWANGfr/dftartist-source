@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "library": {
+    "defs": [
+      {
+        "id": "p",
+        "designName": "p",
+        "designLevel": "chip",
+        "designType": "hierarchical",
+        "interfaces": [
+          {
+            "id": "ext",
+            "busType": "SSN",
+            "role": "client",
+            "busWidth": 8
+          }
+        ],
+        "childInstances": [],
+        "connections": [],
+        "dftIps": [
+          {
+            "id": "dft_cc27bef6",
+            "ipType": "ScanHost",
+            "instanceName": "ssh_1",
+            "position": {
+              "x": 140,
+              "y": 60
+            },
+            "config": {
+              "use_clock_shaper_cell": "on"
+            }
+          }
+        ],
+        "dftWires": [
+          {
+            "id": "dw_ba545d6a",
+            "from": {
+              "kind": "iface",
+              "instanceId": "p",
+              "interfaceId": "ext",
+              "pin": "out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_cc27bef6",
+              "port": "bus_data_in"
+            }
+          },
+          {
+            "id": "dw_39841f92",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_cc27bef6",
+              "port": "bus_data_out"
+            },
+            "to": {
+              "kind": "iface",
+              "instanceId": "p",
+              "interfaceId": "ext",
+              "pin": "in"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ui": {
+    "openDefId": "p",
+    "rootDefId": "p"
+  }
+}

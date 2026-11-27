@@ -1,0 +1,70 @@
+SIM_PRE:
+     COMMON_SCRIPT: /proj/TC10d/wa/hex/tc10/DE2.6_from_jack/script/common_script
+     SIM_DIR: 8.atpg_simulation
+     DESIGN_NAME: apb_noc_main_0_comb_h_763_242_824 
+     PATTERN_DIR: /proj/TC10d/wa/hex/tc10/DE2.6_from_jack/dft_path/apb_noc_main_0_comb_h_763_242_824/v5/5.atpg/atpg_map/patterns
+     SIM_TOOL:
+         NAME: questa
+         COMPILE_OPTIONS:
+             LIST0: "+error+1000 -full64 -sverilog -timescale=1ns/1fs +libext+.v_.sv -debug_acc"
+             LIST1: "+define+TSMC_NO_TESTPINS_DEFAULT_VALUE_CHECK +define+SNOPSYS_SV +define+TSMC_DISABLE_WARNING_MESSAGE +define+TSMC_DISABLE_INFO_MESSAGE +define+TSMC_NO_XADDR_WARNING +define+MEM_CHECK_OFF"
+             LIST2: "-lca +notimingcheck +nospecify -full64 -work dut_work +librescan +v2k -kdb -error=noMPD"
+         SIM_OPTIONS:
+             LIST0: "-full64 -licqueue -R -debug_all -ucli -do ./vcs.ucli +nowarnTFMPC -debug_region=cell+lib +notimingcheck +nospecify"
+     TEST_LIST:
+         apb_noc_main_0_comb_h_763_242_824_int_stuck_mode_internal_parallel_memory_bypass_enable:
+             TYPE: SCAN
+             STATUS: new
+             DUT: apb_noc_main_0_comb_h_763_242_824
+             SIM_NAME: apb_noc_main_0_comb_h_763_242_824_int_stuck_mode_internal_parallel_memory_bypass_enable
+             SIM_TOP: TB
+             TEST_BENCH: apb_noc_main_0_comb_h_763_242_824_int_stuck_mode_internal_parallel_memory_bypass_enable
+             EXTRA_COMPILE_OPTIONS: ""
+             EXTRA_SIM_OPTIONS: ""
+             EXTRA_TOP: ""
+             FILELIST:
+                 LIST0: "-f  /proj/TC10d/wa/hex/tc10/DE2.6_from_jack/dft_path/apb_noc_main_0_comb_h_763_242_824/v5/7.deliver/netlist/apb_noc_main_0_comb_h_763_242_824.after_scan.f"
+             TESTBENCH: "apb_noc_main_0_comb_h_763_242_824_int_stuck_mode_internal_parallel_memory_bypass_enable.v.gz"                 
+         apb_noc_main_0_comb_h_763_242_824_int_stuck_mode_internal_serial_memory_bypass_enable:
+             TYPE: SCAN
+             STATUS: new
+             DUT: apb_noc_main_0_comb_h_763_242_824
+             SIM_NAME: apb_noc_main_0_comb_h_763_242_824_int_stuck_mode_internal_serial_memory_bypass_enable
+             SIM_TOP: TB
+             TEST_BENCH: apb_noc_main_0_comb_h_763_242_824_int_stuck_mode_internal_serial_memory_bypass_enable
+             EXTRA_COMPILE_OPTIONS: ""
+             EXTRA_SIM_OPTIONS: ""
+             EXTRA_TOP: ""
+             FILELIST:
+                 LIST0: "-f  /proj/TC10d/wa/hex/tc10/DE2.6_from_jack/dft_path/apb_noc_main_0_comb_h_763_242_824/v5/7.deliver/netlist/apb_noc_main_0_comb_h_763_242_824.after_scan.f"
+             TESTBENCH: "apb_noc_main_0_comb_h_763_242_824_int_stuck_mode_internal_serial_memory_bypass_enable.v.gz"
+         apb_noc_main_0_comb_h_763_242_824_int_transition_mode_internal_parallel_memory_bypass_enable:
+             TYPE: SCAN
+             STATUS: new
+             DUT: apb_noc_main_0_comb_h_763_242_824
+             SIM_NAME: apb_noc_main_0_comb_h_763_242_824_int_transition_mode_internal_parallel_memory_bypass_enable
+             SIM_TOP: TB
+             TEST_BENCH: apb_noc_main_0_comb_h_763_242_824_int_transition_mode_internal_parallel_memory_bypass_enable
+             EXTRA_COMPILE_OPTIONS: ""
+             EXTRA_SIM_OPTIONS: ""
+             EXTRA_TOP: ""
+             FILELIST:
+                 LIST0: "-f  /proj/TC10d/wa/hex/tc10/DE2.6_from_jack/dft_path/apb_noc_main_0_comb_h_763_242_824/v5/7.deliver/netlist/apb_noc_main_0_comb_h_763_242_824.after_scan.f"
+             TESTBENCH: "apb_noc_main_0_comb_h_763_242_824_int_transition_mode_internal_parallel_memory_bypass_enable.v.gz"
+             FAST_CLOCK:
+         apb_noc_main_0_comb_h_763_242_824_int_transition_mode_internal_serial_memory_bypass_enable:
+             TYPE: SCAN
+             STATUS: new
+             DUT: apb_noc_main_0_comb_h_763_242_824
+             SIM_NAME: apb_noc_main_0_comb_h_763_242_824_int_transition_mode_internal_serial_memory_bypass_enable
+             SIM_TOP: TB
+             TEST_BENCH: apb_noc_main_0_comb_h_763_242_824_int_transition_mode_internal_serial_memory_bypass_enable
+             EXTRA_COMPILE_OPTIONS: ""
+             EXTRA_SIM_OPTIONS: ""
+             EXTRA_TOP: ""
+             FILELIST:
+                 LIST0: "-f  /proj/TC10d/wa/hex/tc10/DE2.6_from_jack/dft_path/apb_noc_main_0_comb_h_763_242_824/v5/7.deliver/netlist/apb_noc_main_0_comb_h_763_242_824.after_scan.f"
+             TESTBENCH: "apb_noc_main_0_comb_h_763_242_824_int_transition_mode_internal_serial_memory_bypass_enable.v.gz"
+             FAST_CLOCK:
+
+

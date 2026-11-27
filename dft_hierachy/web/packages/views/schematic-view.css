@@ -1,0 +1,127 @@
+.hier-schematic-view {
+  color: #1f2937;
+  font:
+    14px/1.5 system-ui,
+    sans-serif;
+}
+.hier-schematic-view__toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.hier-schematic-view__toolbar h2 {
+  margin-right: auto;
+}
+.hier-schematic-view button {
+  font: inherit;
+  padding: 0.3rem 0.7rem;
+}
+.hier-schematic-view__canvas {
+  overflow: auto;
+  border: 1px solid #9ca3af;
+  background: #fafafa;
+}
+.hier-schematic-view svg {
+  display: block;
+  min-width: 1px;
+  min-height: 1px;
+}
+.hier-schematic-view svg:focus-visible {
+  outline: 2px solid #1d4ed8;
+  outline-offset: -2px;
+}
+.hier-schematic-view svg[data-readonly="true"] [role="button"] {
+  opacity: 0.55;
+}
+.hier-schematic-view [role="button"] {
+  cursor: pointer;
+}
+.hier-schematic-view [role="button"][aria-disabled="true"] {
+  cursor: default;
+}
+.hier-schematic-view__node rect {
+  fill: #fff;
+  stroke: #64748b;
+  stroke-width: 1.5;
+}
+.hier-schematic-view__node text {
+  fill: currentColor;
+  pointer-events: none;
+}
+.hier-schematic-view__node .hier-schematic-view__port {
+  fill: #64748b;
+}
+.hier-schematic-view__edge path {
+  fill: none;
+  stroke: #64748b;
+  stroke-width: 2;
+  pointer-events: stroke;
+}
+.hier-schematic-view marker path {
+  fill: #64748b;
+}
+.hier-schematic-view [aria-pressed="true"] .hier-schematic-view__node > rect {
+  fill: #dbeafe;
+  stroke: #1d4ed8;
+}
+.hier-schematic-view [aria-pressed="true"] .hier-schematic-view__edge path {
+  stroke: #1d4ed8;
+  stroke-width: 3;
+}
+.hier-schematic-view [role="button"]:focus-visible {
+  outline: 2px solid #b45309;
+  outline-offset: 3px;
+}
+.hier-schematic-view__information {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+.hier-schematic-view__information article {
+  padding: 0.5rem;
+  border-bottom: 1px solid #d1d5db;
+}
+.hier-schematic-view__information dl {
+  margin: 0.25rem 0;
+}
+.hier-schematic-view__information dt {
+  font-weight: 600;
+}
+.hier-schematic-view__information dd {
+  margin-left: 1rem;
+  overflow-wrap: anywhere;
+}
+.hier-schematic-view__information h3,
+.hier-schematic-view__information h4 {
+  margin: 0.5rem 0;
+}
+.hier-schematic-view .hier-schematic-view__annotations {
+  overflow: hidden;
+  pointer-events: none;
+  font-size: 11px;
+}
+.hier-schematic-view__annotations text {
+  fill: currentColor;
+}
+.hier-schematic-view__annotation-details {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.hier-schematic-view__folds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+.hier-schematic-view__folds > div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-wrap: anywhere;
+}
+.hier-schematic-view__member + .hier-schematic-view__member {
+  border-top: 1px solid currentColor;
+  padding-top: 0.5rem;
+  margin-top: 0.5rem;
+}

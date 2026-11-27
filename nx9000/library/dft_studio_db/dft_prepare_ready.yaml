@@ -1,0 +1,106 @@
+design_manager:
+   design_name: asic_top
+   design_filelist: /prj/PnR910/workareas/nanocad/liuqi/LSW_DFT_1221/design/asic_top/asic_top_flat.vc
+   design_level: physical_block
+   design_type: hierarchical
+   rtl_or_gate: no_rtl
+   sub_harden:
+     - pc_cpu_top
+     - cpu0_sys
+     - cpu_sys
+     - pc_top
+     - ddr_sub
+lib_manager:
+   pad:
+     path: 
+       - "$prj_dir/user_material/pad_lib"
+     post_fix: 
+       - "*.mdt"
+       - "*.v"
+   standard_cell:
+       interface_only: yes
+       path: 
+         - "$prj_dir/user_material/mentor_dft"
+       postfix:
+         - "*.mdt"
+         - "*.v"
+   memory:
+       interface_only: yes
+       mem_prefix: 
+          - "SYNC*"
+       path: 
+         - "$prj_dir/user_material/mentor_dft"
+       postfix: 
+         - "*.lvlib"
+         - "*.tcd_core_description"
+         - "*.v"
+   algo: 
+       path: 
+         - "$prj_dir/user_material/mentor_dft"
+       postfix:
+         - "*.mdt"
+         - "*.v"
+   tcd_bscan:
+       path: 
+         - "$prj_dir/user_material/mentor_dft"
+       postfix:
+         - "*.mdt"
+   tcd_scan:
+       path: 
+         - "$prj_dir/user_material/mentor_dft"
+       postfix:
+         - "*.mdt"
+impl_manager:
+        stage1: 
+           design_id: mbist
+           feature: [list mbist bscan ist]
+           dft_req: [list memory_test boundary_scan]
+           exclude_syntehsis: "[list DW_*]"
+        stage2: 
+           design_id: logic_test
+           feature: [list edt occ ssn lbist]
+           dft_req: [list logic_test]
+`
+bscan_setting:
+   max_segment_length_for_logictest: 80
+   test_receiver_init_clock_value: falling_edge
+   dft_signal:
+       - bscan_clamp_enable
+       - bscan_input_isolation_enable
+       - output_pad_disable 
+   no_bsd_pad: [list reset_n ptest_dfx_mode ptest si0 si1] 
+   int_aux:
+     input: [list dat1 dat2 dat3]
+     output: [list dato datp]
+
+mbist_setting:   
+   
+logic_test_setting:
+   add_core_instance:
+       default_setting:
+           list0: add_core_instances -instances [get_instances *_tessent_sib_sti_inst]            
+   dft_signals:
+       register:
+          int_stuck_mode:
+              usage: scan_mode
+              scan_mode_type: internal
+          lbist_sa_mode:
+              usage: scan_mode
+              scan_mode_type: internal
+          int_transition_mode:
+              usage: scan_mode
+              scan_mode_type: internal            
+       type2:  //from arch design by user
+          list: [list scan_en edt_update test_clock] 
+          //if below setting not specified by user, i hope you can auto set the source_node same as it name, example: scan_en source_node is scan_en;
+          scan_en: 
+               source_node: "[get_pins u_dfx_scan_enable_persistent_buf_inst/Y]"
+               associated_ports: dati
+          edt_update: 
+               source_node: "[get_pins u_dfx_scan_enable_persistent_buf_inst/Y]"
+               associated_ports: dati
+          test_clock: 
+               source_node: "[get_pins u_dfx_scan_enable_persistent_buf_inst/Y]"
+               associated_ports: dati
+   
+

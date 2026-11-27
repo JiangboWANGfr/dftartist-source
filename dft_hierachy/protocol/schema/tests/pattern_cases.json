@@ -1,0 +1,66 @@
+{
+  "Hash": {
+    "valid": [
+      "0000000000000000000000000000000000000000000000000000000000000000",
+      "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+    ],
+    "invalid": [
+      "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\n",
+      "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\r",
+      "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\r\n",
+      "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\u2028",
+      "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\u2029",
+      "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\u0000",
+      "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef ",
+      "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\t",
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg"
+    ]
+  },
+  "FourStateValue": {
+    "valid": [
+      "1'b0",
+      "1'b1",
+      "1'bx",
+      "1'bz",
+      "4'b01xz",
+      "8'b0011xxzz"
+    ],
+    "invalid": [
+      "4'b01xz\n",
+      "4'b01xz\r",
+      "4'b01xz\r\n",
+      "4'b01xz\u2028",
+      "4'b01xz\u2029",
+      "4'b01xz\u0000",
+      "4'b01xz ",
+      "4'b01xz\t",
+      "0'b0",
+      "1'bX",
+      "1'b2",
+      "1'b",
+      "01'b0"
+    ]
+  },
+  "UtcTimestamp": {
+    "valid": [
+      "2028-02-29T23:59:59.123Z",
+      "2026-01-01T00:00:00.000Z"
+    ],
+    "invalid": [
+      "2028-02-29T23:59:59.123Z\n",
+      "2028-02-29T23:59:59.123Z\r",
+      "2028-02-29T23:59:59.123Z\r\n",
+      "2028-02-29T23:59:59.123Z\u2028",
+      "2028-02-29T23:59:59.123Z\u2029",
+      "2028-02-29T23:59:59.123Z\u0000",
+      "2028-02-29T23:59:59.123Z ",
+      "2028-02-29T23:59:59.123Z\t",
+      "2026-01-01T00:00:00Z",
+      "2026-01-01T00:00:00.000+00:00"
+    ]
+  }
+}

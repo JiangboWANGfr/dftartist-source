@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:memory-resource-usage-comparison:1",
+  "title": "Conditional resource occupancy comparison",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-memory-resource-usage-comparison-v1"
+        },
+        "reference": {
+          "const": 0
+        },
+        "complete": {
+          "type": "boolean"
+        },
+        "source": {
+          "$ref": "urn:dft-studio:analysis:memory-test-comparison:1#/oneOf/0"
+        },
+        "configurations": {
+          "type": "array",
+          "items": {
+            "$ref": "urn:dft-studio:analysis:memory-resource-usage:1#/oneOf/0/properties/usage"
+          },
+          "minItems": 2,
+          "maxItems": 8
+        },
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4096
+              },
+              "cells": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "resource": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 1023
+                    },
+                    "status": {
+                      "enum": [
+                        "missing_resource",
+                        "reference_missing",
+                        "domain_mismatch",
+                        "partition_mismatch",
+                        "partial",
+                        "compared"
+                      ]
+                    },
+                    "delta": {
+                      "type": "object",
+                      "properties": {
+                        "occupiedPicoseconds": {
+                          "type": "integer",
+                          "minimum": -9007199254740991,
+                          "maximum": 9007199254740991
+                        },
+                        "peakControllers": {
+                          "type": "integer",
+                          "minimum": -1024,
+                          "maximum": 1024
+                        },
+                        "peakPowerMicrowatts": {
+                          "type": "integer",
+                          "minimum": -1000000000000,
+                          "maximum": 1000000000000
+                        },
+                        "peakUnits": {
+                          "type": "integer",
+                          "minimum": -1024000000000000,
+                          "maximum": 1024000000000000
+                        }
+                      },
+                      "required": [
+                        "occupiedPicoseconds",
+                        "peakControllers",
+                        "peakPowerMicrowatts"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ],
+                  "additionalProperties": false,
+                  "oneOf": [
+                    {
+                      "properties": {
+                        "status": {
+                          "const": "missing_resource"
+                        }
+                      },
+                      "not": {
+                        "anyOf": [
+                          {
+                            "required": [
+                              "resource"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "delta"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "properties": {
+                        "status": {
+                          "enum": [
+                            "reference_missing",
+                            "domain_mismatch",
+                            "partition_mismatch",
+                            "partial"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "resource"
+                      ],
+                      "not": {
+                        "required": [
+                          "delta"
+                        ]
+                      }
+                    },
+                    {
+                      "properties": {
+                        "status": {
+                          "const": "compared"
+                        }
+                      },
+                      "required": [
+                        "resource",
+                        "delta"
+                      ]
+                    }
+                  ]
+                },
+                "minItems": 2,
+                "maxItems": 8
+              }
+            },
+            "required": [
+              "name",
+              "cells"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "maxItems": 8192
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "reference",
+        "complete",
+        "source",
+        "configurations",
+        "rows"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:memory-map:1#/oneOf/1"
+    }
+  ]
+}

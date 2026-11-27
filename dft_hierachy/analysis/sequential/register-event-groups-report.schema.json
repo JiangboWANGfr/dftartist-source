@@ -1,0 +1,468 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:register-event-groups:1",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/Report"
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:sequential:2#/$defs/Error"
+    }
+  ],
+  "$defs": {
+    "Report": {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-register-event-groups-v1"
+        },
+        "snapshotId": {
+          "type": "string"
+        },
+        "scope": {
+          "type": "string"
+        },
+        "limits": {
+          "type": "object",
+          "properties": {
+            "maxGroups": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100000
+            },
+            "maxMembers": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "maxSegments": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000000
+            },
+            "maxOverlapMembers": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "maxWork": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000000
+            },
+            "maxMillis": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 60000
+            }
+          },
+          "required": [
+            "maxGroups",
+            "maxMembers",
+            "maxSegments",
+            "maxOverlapMembers",
+            "maxWork",
+            "maxMillis"
+          ],
+          "additionalProperties": false
+        },
+        "quality": {
+          "type": "object",
+          "properties": {
+            "completeness": {
+              "enum": [
+                "complete",
+                "partial"
+              ]
+            },
+            "reasons": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "completeness",
+            "reasons"
+          ],
+          "additionalProperties": false
+        },
+        "inputFacts": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "inputSignals": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "processedFacts": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "work": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000000
+        },
+        "segmentCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 2000000
+        },
+        "overlapMembers": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000
+        },
+        "checkedSignals": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100000
+        },
+        "crossGroupBits": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 18446744073709551615
+        },
+        "analysis": {
+          "$ref": "urn:dft-studio:analysis:register-statistics:1#/$defs/Report"
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "clock": {
+                "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/ClockEvent"
+              },
+              "async": {
+                "type": "array",
+                "items": {
+                  "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/AsyncEvent"
+                },
+                "maxItems": 4000000
+              },
+              "identityComplete": {
+                "type": "boolean"
+              },
+              "signals": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 999999
+                },
+                "maxItems": 1000000
+              },
+              "totals": {
+                "type": "object",
+                "properties": {
+                  "facts": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 18446744073709551615
+                  },
+                  "signals": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 18446744073709551615
+                  },
+                  "factBits": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 18446744073709551615
+                  },
+                  "summarizedFacts": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 18446744073709551615
+                  },
+                  "summarizedSignals": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 18446744073709551615
+                  },
+                  "coveredBits": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 18446744073709551615
+                  },
+                  "overlapBits": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 18446744073709551615
+                  },
+                  "maxMultiplicity": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 18446744073709551615
+                  }
+                },
+                "required": [
+                  "facts",
+                  "signals",
+                  "factBits",
+                  "summarizedFacts",
+                  "summarizedSignals",
+                  "coveredBits",
+                  "overlapBits",
+                  "maxMultiplicity"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "clock",
+              "async",
+              "identityComplete",
+              "signals",
+              "totals"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 100000
+        },
+        "signals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "signal": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 99999
+              },
+              "group": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 99999
+              },
+              "facts": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 999999
+                },
+                "maxItems": 1000000
+              },
+              "coverage": {
+                "type": "object",
+                "properties": {
+                  "coveredBits": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 18446744073709551615
+                  },
+                  "overlapBits": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 18446744073709551615
+                  },
+                  "maxMultiplicity": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1000000
+                  },
+                  "segments": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "bits": {
+                          "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/BitRange"
+                        },
+                        "factCount": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 1000000
+                        }
+                      },
+                      "required": [
+                        "bits",
+                        "factCount"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "maxItems": 2000000
+                  }
+                },
+                "required": [
+                  "coveredBits",
+                  "overlapBits",
+                  "maxMultiplicity",
+                  "segments"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "signal",
+              "group",
+              "facts"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 1000000
+        },
+        "attributions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "signal": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 99999
+              },
+              "groups": {
+                "type": "array",
+                "items": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 99999
+                },
+                "minItems": 2,
+                "maxItems": 100000,
+                "uniqueItems": true
+              },
+              "crossGroupBits": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 18446744073709551615
+              },
+              "segments": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "bits": {
+                      "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/BitRange"
+                    },
+                    "groups": {
+                      "type": "array",
+                      "items": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 99999
+                      },
+                      "minItems": 2,
+                      "maxItems": 100000,
+                      "uniqueItems": true
+                    }
+                  },
+                  "required": [
+                    "bits",
+                    "groups"
+                  ],
+                  "additionalProperties": false
+                },
+                "maxItems": 2000000
+              }
+            },
+            "required": [
+              "signal",
+              "groups",
+              "crossGroupBits",
+              "segments"
+            ],
+            "additionalProperties": false
+          },
+          "maxItems": 100000
+        },
+        "summary": {
+          "type": "object",
+          "properties": {
+            "groups": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "unresolvedGroups": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "members": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "groupSignals": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "summarizedGroupSignals": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "groupCoveredBits": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "crossGroupBits": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "checkedSignals": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            },
+            "attributions": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 18446744073709551615
+            }
+          },
+          "required": [
+            "groups",
+            "unresolvedGroups",
+            "members",
+            "groupSignals",
+            "summarizedGroupSignals",
+            "groupCoveredBits",
+            "crossGroupBits",
+            "checkedSignals",
+            "attributions"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "snapshotId",
+        "scope",
+        "limits",
+        "quality",
+        "inputFacts",
+        "inputSignals",
+        "processedFacts",
+        "work",
+        "segmentCount",
+        "overlapMembers",
+        "checkedSignals",
+        "crossGroupBits",
+        "analysis",
+        "groups",
+        "signals",
+        "attributions",
+        "summary"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

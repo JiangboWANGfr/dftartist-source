@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "library": {
+    "defs": [
+      {
+        "id": "p",
+        "designName": "p",
+        "designLevel": "chip",
+        "designType": "hierarchical",
+        "interfaces": [
+          {
+            "id": "ext",
+            "busType": "SSN",
+            "role": "client",
+            "busWidth": 4
+          }
+        ],
+        "childInstances": [],
+        "connections": [],
+        "dftIps": [
+          {
+            "id": "dft_10d98f05",
+            "ipType": "Receiver1xPipeline",
+            "instanceName": "rpp_1",
+            "position": {
+              "x": 140,
+              "y": 60
+            }
+          },
+          {
+            "id": "dft_4bd0e0c6",
+            "ipType": "ScanHost",
+            "instanceName": "ssh_1",
+            "position": {
+              "x": 340,
+              "y": 60
+            }
+          },
+          {
+            "id": "dft_7daca086",
+            "ipType": "Pipeline",
+            "instanceName": "pp_1",
+            "position": {
+              "x": 540,
+              "y": 60
+            }
+          }
+        ],
+        "dftWires": [
+          {
+            "id": "dw_7db6367a",
+            "from": {
+              "kind": "iface",
+              "instanceId": "p",
+              "interfaceId": "ext",
+              "pin": "out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_10d98f05",
+              "port": "bus_data_in"
+            }
+          },
+          {
+            "id": "dw_fb495c62",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_10d98f05",
+              "port": "bus_data_out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_4bd0e0c6",
+              "port": "bus_data_in"
+            }
+          },
+          {
+            "id": "dw_5608e216",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_4bd0e0c6",
+              "port": "bus_data_out"
+            },
+            "to": {
+              "kind": "iface",
+              "instanceId": "p",
+              "interfaceId": "ext",
+              "pin": "in"
+            }
+          },
+          {
+            "id": "dw_a557384d",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_10d98f05",
+              "port": "bus_data_out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_7daca086",
+              "port": "bus_data_in"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ui": {
+    "openDefId": "p",
+    "rootDefId": "p"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "name": "@hier/views",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./source-view.css": "./source-view.css",
+    "./source-candidates-view.css": "./source-candidates-view.css",
+    "./hierarchy-tree.css": "./hierarchy-tree.css",
+    "./properties-panel.css": "./properties-panel.css",
+    "./object-connections-view.css": "./object-connections-view.css",
+    "./search-results-view.css": "./search-results-view.css",
+    "./definition-instances-view.css": "./definition-instances-view.css",
+    "./path-resolution-view.css": "./path-resolution-view.css",
+    "./schematic-view.css": "./schematic-view.css"
+  },
+  "files": [
+    "dist",
+    "source-view.css",
+    "source-candidates-view.css",
+    "hierarchy-tree.css",
+    "properties-panel.css",
+    "object-connections-view.css",
+    "search-results-view.css",
+    "definition-instances-view.css",
+    "path-resolution-view.css",
+    "schematic-view.css"
+  ],
+  "peerDependencies": {
+    "react": ">=18.3.1 <19"
+  },
+  "dependencies": {
+    "@hier/viewmodel": "*",
+    "@hier/protocol-types": "*",
+    "@tanstack/virtual-core": "3.19.4"
+  }
+}

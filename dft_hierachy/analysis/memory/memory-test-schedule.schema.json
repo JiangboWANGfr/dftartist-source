@@ -1,0 +1,509 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:memory-test-schedule:1",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-memory-test-schedule-v1"
+        },
+        "source": {
+          "oneOf": [
+            {
+              "$ref": "urn:dft-studio:analysis:memory-test-plan:1#/oneOf/0"
+            },
+            {
+              "$ref": "urn:dft-studio:analysis:memory-test-rules:1#/oneOf/0"
+            }
+          ]
+        },
+        "schedule": {
+          "type": "object",
+          "properties": {
+            "request": {
+              "type": "object",
+              "properties": {
+                "policy": {
+                  "type": "object",
+                  "properties": {
+                    "maxParallelControllers": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 1024
+                    },
+                    "maxPowerMicrowatts": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 1000000000000
+                    }
+                  },
+                  "required": [
+                    "maxParallelControllers",
+                    "maxPowerMicrowatts"
+                  ],
+                  "additionalProperties": false
+                },
+                "limits": {
+                  "type": "object",
+                  "properties": {
+                    "maxWaves": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 10000
+                    },
+                    "maxWork": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 10000000
+                    },
+                    "maxMillis": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 60000
+                    }
+                  },
+                  "required": [
+                    "maxWaves",
+                    "maxWork",
+                    "maxMillis"
+                  ],
+                  "additionalProperties": false
+                },
+                "resources": {
+                  "$ref": "#/$defs/resources",
+                  "minItems": 1
+                },
+                "dependencies": {
+                  "$ref": "#/$defs/dependencies",
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "policy",
+                "limits"
+              ],
+              "additionalProperties": false
+            },
+            "complete": {
+              "type": "boolean"
+            },
+            "reasons": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "plan_partial",
+                  "step_power_exceeded",
+                  "budget_work",
+                  "budget_waves",
+                  "budget_time",
+                  "dependency_unavailable",
+                  "dependency_blocked",
+                  "resource_power_exceeded",
+                  "resource_units_exceeded"
+                ]
+              },
+              "uniqueItems": true
+            },
+            "work": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            },
+            "scheduledSteps": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            },
+            "scheduledInstances": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000
+            },
+            "scheduledCapacityBits": {
+              "oneOf": [
+                {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                {
+                  "type": "string",
+                  "pattern": "^(0|[1-9][0-9]*)$"
+                }
+              ]
+            },
+            "controllers": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "nextStep": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "status": {
+                        "enum": [
+                          "pending",
+                          "complete"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "nextStep",
+                      "status"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "nextStep": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "status": {
+                        "const": "blocked"
+                      },
+                      "reason": {
+                        "const": "step_power_exceeded"
+                      }
+                    },
+                    "required": [
+                      "nextStep",
+                      "status",
+                      "reason"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "nextStep": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "status": {
+                        "const": "blocked"
+                      },
+                      "reason": {
+                        "enum": [
+                          "dependency_unavailable",
+                          "dependency_blocked"
+                        ]
+                      },
+                      "dependency": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 4095
+                      }
+                    },
+                    "required": [
+                      "nextStep",
+                      "status",
+                      "reason",
+                      "dependency"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "nextStep": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "status": {
+                        "const": "blocked"
+                      },
+                      "reason": {
+                        "enum": [
+                          "resource_power_exceeded",
+                          "resource_units_exceeded"
+                        ]
+                      },
+                      "resource": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 1023
+                      }
+                    },
+                    "required": [
+                      "nextStep",
+                      "status",
+                      "reason",
+                      "resource"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              },
+              "maxItems": 10000
+            },
+            "waves": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "entries": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "controller": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "step": {
+                          "type": "integer",
+                          "minimum": 0
+                        }
+                      },
+                      "required": [
+                        "controller",
+                        "step"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "minItems": 1,
+                    "maxItems": 1024
+                  },
+                  "powerMicrowatts": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 1000000000000
+                  }
+                },
+                "required": [
+                  "entries",
+                  "powerMicrowatts"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 10000
+            }
+          },
+          "required": [
+            "request",
+            "complete",
+            "reasons",
+            "work",
+            "scheduledSteps",
+            "scheduledInstances",
+            "scheduledCapacityBits",
+            "controllers",
+            "waves"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "complete": {
+                    "const": true
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "reasons": {
+                    "maxItems": 0
+                  },
+                  "controllers": {
+                    "items": {
+                      "properties": {
+                        "status": {
+                          "const": "complete"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "source",
+        "schedule"
+      ],
+      "additionalProperties": false
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:memory-map:1#/oneOf/1"
+    }
+  ],
+  "$defs": {
+    "resources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096,
+            "pattern": "^[^\\u0000]*$"
+          },
+          "maxParallelControllers": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1024
+          },
+          "clockDomains": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 4096,
+              "pattern": "^[^\\u0000]*$"
+            },
+            "minItems": 1,
+            "maxItems": 1024,
+            "uniqueItems": true
+          },
+          "recoveryPicoseconds": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000000000
+          },
+          "maxPowerMicrowatts": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000000000
+          },
+          "maxUnits": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000000000
+          },
+          "domainUnits": {
+            "type": "array",
+            "maxItems": 1024,
+            "items": {
+              "type": "object",
+              "properties": {
+                "clockDomain": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4096,
+                  "pattern": "^[^\\u0000]*$"
+                },
+                "units": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 1000000000000
+                }
+              },
+              "required": [
+                "clockDomain",
+                "units"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "unavailableIntervals": {
+            "type": "array",
+            "maxItems": 1024,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "startPicoseconds",
+                "endPicoseconds"
+              ],
+              "properties": {
+                "startPicoseconds": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                },
+                "endPicoseconds": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 9007199254740991
+                }
+              }
+            }
+          },
+          "partitions": {
+            "type": "array",
+            "maxItems": 1024,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "maxLength": 4096
+            }
+          }
+        },
+        "required": [
+          "name",
+          "maxParallelControllers",
+          "clockDomains"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 1024
+    },
+    "dependencies": {
+      "type": "array",
+      "maxItems": 4096,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "before": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096,
+            "pattern": "^[^\\u0000]*$"
+          },
+          "after": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096,
+            "pattern": "^[^\\u0000]*$"
+          },
+          "minimumGapPicoseconds": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000000000
+          },
+          "beforePartitions": {
+            "type": "array",
+            "maxItems": 1024,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "maxLength": 4096,
+              "pattern": "^[^\\u0000]*$"
+            }
+          },
+          "afterPartitions": {
+            "type": "array",
+            "maxItems": 1024,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "maxLength": 4096,
+              "pattern": "^[^\\u0000]*$"
+            }
+          }
+        },
+        "required": [
+          "before",
+          "after"
+        ],
+        "additionalProperties": false
+      }
+    }
+  }
+}

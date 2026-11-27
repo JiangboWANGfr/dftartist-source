@@ -1,0 +1,61 @@
+.hier-search-results-view {
+  box-sizing: border-box;
+  min-width: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  color: var(--hier-foreground, #222);
+  background: var(--hier-background, #fff);
+  font:
+    13px/1.4 system-ui,
+    sans-serif;
+  white-space: pre;
+}
+.hier-search-results-view__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.25em;
+}
+.hier-search-results-view h2,
+.hier-search-results-view h3 {
+  margin: 0;
+  font-size: 1em;
+}
+.hier-search-results-view__query {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  gap: 0.25em 0.75em;
+  margin: 0.5em;
+}
+.hier-search-results-view dd {
+  margin: 0;
+}
+.hier-search-results-view__page {
+  margin: 0.5em;
+}
+.hier-search-results-view table {
+  border-collapse: collapse;
+  text-align: left;
+}
+.hier-search-results-view th,
+.hier-search-results-view td {
+  padding: 0.2em 0.5em;
+  border-bottom: 1px solid var(--hier-border, #ddd);
+  vertical-align: top;
+}
+.hier-search-results-view ul {
+  margin: 0;
+  padding-left: 1.5em;
+}
+.hier-search-results-view button {
+  font: inherit;
+  cursor: pointer;
+}
+.hier-search-results-view button:disabled {
+  cursor: default;
+}
+.hier-search-results-view button:focus-visible,
+.hier-search-results-view:focus-visible {
+  outline: 2px solid var(--hier-focus, #076bc8);
+  outline-offset: -2px;
+}

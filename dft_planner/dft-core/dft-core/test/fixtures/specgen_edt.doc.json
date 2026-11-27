@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "library": {
+    "defs": [
+      {
+        "id": "p",
+        "designName": "p",
+        "designLevel": "chip",
+        "designType": "hierarchical",
+        "interfaces": [
+          {
+            "id": "ext",
+            "busType": "SSN",
+            "role": "client",
+            "busWidth": 8
+          }
+        ],
+        "childInstances": [],
+        "connections": [],
+        "dftIps": [
+          {
+            "id": "dft_dcc4380e",
+            "ipType": "ScanHost",
+            "instanceName": "ssh_1",
+            "position": {
+              "x": 140,
+              "y": 60
+            },
+            "config": {
+              "use_clock_shaper_cell": "on"
+            }
+          },
+          {
+            "id": "dft_e94c9a36",
+            "ipType": "Edt",
+            "instanceName": "edt_1",
+            "position": {
+              "x": 340,
+              "y": 60
+            }
+          },
+          {
+            "id": "dft_9e04208b",
+            "ipType": "Edt",
+            "instanceName": "edt_2",
+            "position": {
+              "x": 540,
+              "y": 60
+            }
+          },
+          {
+            "id": "dft_60918d88",
+            "ipType": "Edt",
+            "instanceName": "edt_3",
+            "position": {
+              "x": 740,
+              "y": 60
+            }
+          }
+        ],
+        "dftWires": [
+          {
+            "id": "dw_f49c11db",
+            "from": {
+              "kind": "iface",
+              "instanceId": "p",
+              "interfaceId": "ext",
+              "pin": "out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_dcc4380e",
+              "port": "bus_data_in"
+            }
+          },
+          {
+            "id": "dw_3973add2",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_dcc4380e",
+              "port": "bus_data_out"
+            },
+            "to": {
+              "kind": "iface",
+              "instanceId": "p",
+              "interfaceId": "ext",
+              "pin": "in"
+            }
+          },
+          {
+            "id": "dw_63e69672",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_dcc4380e",
+              "port": "chain_group_out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_e94c9a36",
+              "port": "ssh_chain_group_in"
+            }
+          },
+          {
+            "id": "dw_ab5f294d",
+            "from": {
+              "kind": "ip",
+              "ipId": "dft_dcc4380e",
+              "port": "chain_group_out"
+            },
+            "to": {
+              "kind": "ip",
+              "ipId": "dft_9e04208b",
+              "port": "ssh_chain_group_in"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "ui": {
+    "openDefId": "p",
+    "rootDefId": "p"
+  }
+}

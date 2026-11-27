@@ -1,0 +1,14 @@
+set design_name processor_core
+set prj_dir $env(prj_dir)
+set prj_path $env(prj_dir)
+set netlist_for_scan "/home/wongw/nx9000/dft_path/processor_core/v1/2.logic_test_insertion/processor_core_synthesized.vg"
+set design_level "physical_block"
+set design_id "scan"
+set blackbox ""
+set release_dir_scan_netlist /home/wongw/dft_release/processor_core/scan_netlist
+set release_dir /home/wongw/dft_release/processor_core
+set syn_dir /home/wongw/nx9000/dft_path/processor_core/v1/3.syn_lec
+set script_leaf_dir "4.scan_insertion"
+set deliver "/home/wongw/nx9000/dft_path/processor_core/v1/7.deliver/netlist"
+set version "v1"
+set rel_prefix "../../../../"

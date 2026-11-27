@@ -1,0 +1,43 @@
+# DFT Studio — 节点任务文档
+# 由 MilestonePanel 自动生成，请根据实际情况编辑
+# ─────────────────────────────────────────────────
+milestone_id: "dft_714d87c902714d9c9afa2ed60b9a0cc3"
+milestone_name: "DFT RTL INSERTION"
+start_date: 2026-08-09
+end_date: 2026-09-06
+tag: "P2-RTL"
+status: planned       # planned / in_progress / completed / failed
+progress: 0           # 0-100
+
+description: |
+  在RTL中插入Scan FF替换、BIST逻辑及测试控制器。
+  Deliverable: RTL RELEASE
+
+# 负责人列表
+assignees:
+  - name: ""
+    role: ""
+
+# 交付物
+deliverables:
+  - name: "填写交付物名称"
+    done: false
+
+# 子任务清单
+subtasks:
+  - id: "st_001"
+    name: "定义任务目标与范围"
+    done: false
+  - id: "st_002"
+    name: "分配资源与排期"
+    done: false
+  - id: "st_003"
+    name: "执行、验证并提交交付物"
+    done: false
+
+# 依赖的其他节点 milestone_id 列表
+depends_on: []
+
+# 备注与风险
+notes: |
+  在此记录会议纪要、决策记录或风险说明。

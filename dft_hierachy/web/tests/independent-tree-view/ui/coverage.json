@@ -1,0 +1,1029 @@
+{
+  "contract": "b753daa6222ba942d900d38368dde67730dbde26 DESIGN 6.7",
+  "acceptanceConditions": 95,
+  "executableCases": 140,
+  "c76": 24,
+  "general": 114,
+  "core": 2,
+  "productionSemanticsExecuted": 0,
+  "groups": [
+    {
+      "title": "输入、绑定与静态边界",
+      "level": "React单元 / 类型",
+      "anchor": "6.7.1",
+      "rows": [
+        {
+          "id": "U01",
+          "input": "同快照的有效tree/selection，ariaLabel=Hierarchy，height=280，其余省略",
+          "expected": "渲染；rowHeight默认28、overscan默认每侧2；不更改或dispose借用模型",
+          "automatedCases": [
+            "UI-PROP-default-none",
+            "UI-PROP-default-rowHeight",
+            "UI-PROP-default-overscan",
+            "UI-PROP-default-both"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "U02",
+          "input": "height/rowHeight=0.5；overscan=0及-0；空className",
+          "expected": "正数和非负整数按原值接受，不强转；水平宽度随容器",
+          "automatedCases": [
+            "UI-PROP-fraction-52",
+            "UI-PROP-fraction-53",
+            "UI-WINDOW-width"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "U03",
+          "input": "height逐项0/-1/NaN/±Infinity/文本/null/对象",
+          "expected": "render同步TypeError；无新订阅、无模型命令，交宿主error boundary",
+          "automatedCases": [
+            "UI-PROP-height-zero",
+            "UI-PROP-height-negative",
+            "UI-PROP-height-nan",
+            "UI-PROP-height-infinity",
+            "UI-PROP-height-minusInfinity",
+            "UI-PROP-height-text",
+            "UI-PROP-height-nil",
+            "UI-PROP-height-object",
+            "UI-PROP-height-yes",
+            "UI-PROP-height-bigint",
+            "UI-PROP-height-array"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "U04",
+          "input": "rowHeight逐项0/-1/NaN/±Infinity/文本/null/对象",
+          "expected": "同U03；不从错误尺寸产生窗口查询或模型状态变化",
+          "automatedCases": [
+            "UI-PROP-rowHeight-zero",
+            "UI-PROP-rowHeight-negative",
+            "UI-PROP-rowHeight-nan",
+            "UI-PROP-rowHeight-infinity",
+            "UI-PROP-rowHeight-minusInfinity",
+            "UI-PROP-rowHeight-text",
+            "UI-PROP-rowHeight-nil",
+            "UI-PROP-rowHeight-object",
+            "UI-PROP-rowHeight-yes",
+            "UI-PROP-rowHeight-bigint",
+            "UI-PROP-rowHeight-array"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "U05",
+          "input": "overscan逐项-1/0.5/NaN/±Infinity/文本/null/对象",
+          "expected": "同U03；不把非整数四舍五入或把负数截零",
+          "automatedCases": [
+            "UI-PROP-overscan-negative",
+            "UI-PROP-overscan-fraction",
+            "UI-PROP-overscan-nan",
+            "UI-PROP-overscan-infinity",
+            "UI-PROP-overscan-minusInfinity",
+            "UI-PROP-overscan-text",
+            "UI-PROP-overscan-nil",
+            "UI-PROP-overscan-object",
+            "UI-PROP-overscan-yes",
+            "UI-PROP-overscan-bigint",
+            "UI-PROP-overscan-array"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "U06",
+          "input": "ariaLabel逐项空串/空格加制表换行/number/null",
+          "expected": "同步TypeError；合法非空白标签原样用于可访问名称",
+          "automatedCases": [
+            "UI-PROP-ariaLabel-empty",
+            "UI-PROP-ariaLabel-blank",
+            "UI-PROP-ariaLabel-number",
+            "UI-PROP-ariaLabel-nil",
+            "UI-PROP-ariaLabel-object"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "U07",
+          "input": "rowHeight/overscan显式undefined，分别及一起传入JS运行时",
+          "expected": "同省略，使用28/2；TS的exactOptionalPropertyTypes另拒绝这类静态输入",
+          "automatedCases": [
+            "UI-PROP-default-none",
+            "UI-PROP-default-rowHeight",
+            "UI-PROP-default-overscan",
+            "UI-PROP-default-both"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "U08",
+          "input": "tree已dispose，其他props有效",
+          "expected": "render同步TypeError；不订阅或执行任何命令",
+          "automatedCases": ["UI-BIND-tree"],
+          "limitations": []
+        },
+        {
+          "id": "U09",
+          "input": "selection已dispose，其他props有效",
+          "expected": "同U08，不让视图复活借用模型",
+          "automatedCases": ["UI-BIND-selection"],
+          "limitations": []
+        },
+        {
+          "id": "U10",
+          "input": "无snapshotId的SelectionModel配有效tree",
+          "expected": "同步TypeError；不自动绑定或复制选择状态",
+          "automatedCases": ["UI-BIND-unbound"],
+          "limitations": []
+        },
+        {
+          "id": "U11",
+          "input": "tree与selection属于不同snapshotId",
+          "expected": "同步TypeError；不选择相似ref、不重建模型",
+          "automatedCases": ["UI-BIND-mismatch"],
+          "limitations": []
+        },
+        {
+          "id": "U12",
+          "input": "多项非法props同时出现",
+          "expected": "只要求TypeError且没有订阅/命令；不冻结未规范的验证顺序或错误文案",
+          "automatedCases": ["UI-PROP-multiple"],
+          "limitations": []
+        },
+        {
+          "id": "U13",
+          "input": "只读props；冻结的props容器；可用的原模型",
+          "expected": "不修改props或冻结/释放模型；模型仍可被宿主正常操作",
+          "automatedCases": ["UI-PROP-borrowed"],
+          "limitations": []
+        },
+        {
+          "id": "U14",
+          "input": "className/回调传错JS类型；回调省略",
+          "expected": "非法props按同步TypeError处理；合法可选值不改模型所有权",
+          "automatedCases": [
+            "UI-PROP-className-number",
+            "UI-PROP-className-nil",
+            "UI-PROP-className-object",
+            "UI-PROP-onCommandError-number",
+            "UI-PROP-onCommandError-nil",
+            "UI-PROP-onCommandError-object"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "T01",
+          "input": "独立view-types.ts合法消费者及逐项V01–V46",
+          "expected": "strict/exactOptionalPropertyTypes下正例0诊断，移除每个指令时真实负诊断；当前已实际执行",
+          "automatedCases": [],
+          "automated": [
+            "c76/verify-revised-types.mjs",
+            "view-types.ts V01–V46"
+          ],
+          "note": "类型正例及46真实负诊断；不计浏览器用例。",
+          "limitations": []
+        },
+        {
+          "id": "T02",
+          "input": "同一消费者绑定实际@hier/views生产出口",
+          "expected": "不得回退提案/fake导出；缺出口单列能力缺失，不能声称生产消费者通过",
+          "automatedCases": [],
+          "automated": [
+            "verify-tree-view-types.mjs production",
+            "production-capability.mjs"
+          ],
+          "note": "真实生产出口缺失，当前退出1。",
+          "limitations": []
+        }
+      ]
+    },
+    {
+      "title": "行、查询和状态",
+      "level": "React集成：真实SDK/L6 + 公开可控Transport",
+      "anchor": "6.7.1–3 / 6.6",
+      "rows": [
+        {
+          "id": "I01",
+          "input": "SDK已ready、树尚未装载，挂载/普通重渲染",
+          "expected": "不发roots/children/object/ancestors；挂载不是隐式loadRoots",
+          "automatedCases": [
+            "C76-01-click",
+            "C76-01-enter",
+            "C76-01-space",
+            "C76-02",
+            "UI-PROP-borrowed",
+            "UI-LIFE-subscriptions-false",
+            "UI-LIFE-subscriptions-true"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "I02",
+          "input": "初始rootState=idle且rows含roots status；click/Enter/Space逐项激活",
+          "expected": "保留真实行并显示加载层次；每次仅loadRoots一次；挂载/StrictMode零查询，不用独立无行按钮",
+          "automatedCases": [
+            "C76-01-click",
+            "C76-01-enter",
+            "C76-01-space",
+            "C76-02"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "I03",
+          "input": "宿主loadRoots取得complete空结果",
+          "expected": "显示无顶层实例；不伪造行、不自动重试、选择不变",
+          "automatedCases": ["C76-01-click", "C76-01-enter", "C76-01-space"],
+          "limitations": []
+        },
+        {
+          "id": "I04",
+          "input": "根查询失败后激活同一status重试",
+          "expected": "稳定code/message可见，调用loadRoots一次；反馈保留原错误，rowId为启动roots status.id而非null",
+          "automatedCases": ["C76-03-failure", "C76-03-cancel"],
+          "limitations": []
+        },
+        {
+          "id": "I05",
+          "input": "根任务取消后激活重试动作",
+          "expected": "明确取消及重试标签，调用loadRoots；不称成功空列表",
+          "automatedCases": ["C76-03-failure", "C76-03-cancel"],
+          "limitations": []
+        },
+        {
+          "id": "I06",
+          "input": "同一实例连续普通选择，含已相同origin=tree的选择",
+          "expected": "每次输入按单项origin=tree规范；完全重复不另建历史，保留§6.5规则",
+          "automatedCases": [
+            "UI-SELECT-click",
+            "UI-SELECT-Enter",
+            "UI-SELECT-Space"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "I07",
+          "input": "点击实例行；实例ref及snapshotId均有相似邻居",
+          "expected": "只以该instance.ref替换为一个选择项，不根据name/pathText猜ref",
+          "automatedCases": [
+            "C76-08",
+            "UI-SELECT-click",
+            "UI-SELECT-Enter",
+            "UI-SELECT-Space"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "I08",
+          "input": "对聚焦实例按Enter及Space",
+          "expected": "各产生规范单项选择；不是展开、下翻页或全局键盘选择",
+          "automatedCases": [
+            "UI-SELECT-click",
+            "UI-SELECT-Enter",
+            "UI-SELECT-Space"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "I09",
+          "input": "点击实例展开控件",
+          "expected": "只转发setExpanded目标状态，不顺带写Selection/history",
+          "automatedCases": [
+            "C76-06-instance",
+            "C76-06-scope",
+            "UI-EXPAND-control"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "I10",
+          "input": "点击scope/按Enter/Space",
+          "expected": "只开合scope；不伪造ObjectRef，不向Core请求scope路径",
+          "automatedCases": [
+            "C76-06-instance",
+            "C76-06-scope",
+            "UI-SCOPE-click",
+            "UI-SCOPE-Enter",
+            "UI-SCOPE-Space"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "I11",
+          "input": "pending页状态行激活，另有同SDK独立消费者",
+          "expected": "调用cancel(owner)；不关SDK或取消其他消费者；原L6共享取消边界保持",
+          "automatedCases": [
+            "C76-07-root",
+            "C76-07-instance",
+            "UI-PAGE-independent-consumer",
+            "UI-PAGE-success",
+            "UI-PAGE-failed",
+            "UI-PAGE-cancelled",
+            "UI-PAGE-partial",
+            "UI-PAGE-duplicate"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "I12",
+          "input": "实例success有next，激活后续页",
+          "expected": "loadMore(owner)使用原opaque cursor；成功前缀保留，无UI自己的游标/偏移",
+          "automatedCases": [
+            "C76-05",
+            "UI-PAGE-success",
+            "UI-PAGE-failed",
+            "UI-PAGE-cancelled",
+            "UI-PAGE-partial",
+            "UI-PAGE-duplicate"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "I13",
+          "input": "后续页失败，激活重试",
+          "expected": "稳定错误与已成功前缀均保留；重试上一未提交cursor，不重取第一页",
+          "automatedCases": [
+            "UI-PAGE-success",
+            "UI-PAGE-failed",
+            "UI-PAGE-cancelled",
+            "UI-PAGE-partial",
+            "UI-PAGE-duplicate"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "I14",
+          "input": "后续页取消，激活重试",
+          "expected": "保留成功前缀和待取cursor；loadMore(owner)，不清空旧行",
+          "automatedCases": [
+            "UI-PAGE-success",
+            "UI-PAGE-failed",
+            "UI-PAGE-cancelled",
+            "UI-PAGE-partial",
+            "UI-PAGE-duplicate"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "I15",
+          "input": "roots/children/status/scope混合，实例同名、数组和escaped名字",
+          "expected": "严格按TreeModel.rows顺序/depth；标签取name或scope.label，不split路径文本",
+          "automatedCases": ["UI-ROWS-projection", "UI-CORE-navigation-reveal"],
+          "limitations": []
+        },
+        {
+          "id": "I16",
+          "input": "跨页出现同scope前缀及同标签不同scope",
+          "expected": "使用发布的RowId/parentId，合并/分组只由L6决定，无第二棵展开图",
+          "automatedCases": ["UI-ROWS-projection"],
+          "limitations": []
+        },
+        {
+          "id": "I17",
+          "input": "宿主setShowGenerateScopes(false→true)，包含已展开子树",
+          "expected": "重投影和稳定身份以L6为准；UI无额外查询、无选择历史写入",
+          "automatedCases": ["UI-ROWS-projection"],
+          "limitations": []
+        },
+        {
+          "id": "I18",
+          "input": "协议错误/非法partial经真实SDK拒绝",
+          "expected": "页面显示L6稳定错误、旧前缀不丢；不在L7伪装partial成功或吞Core错误",
+          "automatedCases": [
+            "UI-PAGE-success",
+            "UI-PAGE-failed",
+            "UI-PAGE-cancelled",
+            "UI-PAGE-partial",
+            "UI-PAGE-duplicate"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "I19",
+          "input": "标签含点、反斜杠、数组括号、Unicode及HTML样文本",
+          "expected": "原字符串显示并关联正确ref；无路径重解析或HTML执行",
+          "automatedCases": ["UI-ROWS-projection", "UI-WINDOW-width"],
+          "limitations": []
+        }
+      ]
+    },
+    {
+      "title": "语义选择、reveal与焦点",
+      "level": "真实React/浏览器集成",
+      "anchor": "6.7.2 / 6.5",
+      "rows": [
+        {
+          "id": "S01",
+          "input": "外部同时选中两个已加载实例，另有不可见项",
+          "expected": "只直接匹配的实例高亮；不截成第一项、不修改原选择",
+          "automatedCases": ["UI-SELECT-external"],
+          "limitations": []
+        },
+        {
+          "id": "S02",
+          "input": "端口/信号含bits/side，当前成功reveal指向其owner",
+          "expected": "额外高亮reveal.rowId；原ref/bits/side和历史不变",
+          "automatedCases": [
+            "UI-REVEAL-owner-port",
+            "UI-REVEAL-owner-signal",
+            "UI-CORE-navigation-reveal"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "S03",
+          "input": "外部DefinitionSelection有多个occurrence候选",
+          "expected": "不猜实例、不发object/ancestors/roots/children；保留定义选择",
+          "automatedCases": ["UI-SELECT-external"],
+          "limitations": []
+        },
+        {
+          "id": "S04",
+          "input": "外部选择变化，组件外按钮持有DOM焦点",
+          "expected": "只展示新状态，不自动reveal、不抢焦点、不改历史",
+          "automatedCases": ["UI-SELECT-external"],
+          "limitations": []
+        },
+        {
+          "id": "S05",
+          "input": "两视图共用模型，宿主唯一协调者在通知栈后reveal",
+          "expected": "只有宿主导航策略启动定位；视图订阅只安排渲染、不重入L6",
+          "automatedCases": ["UI-REVEAL-coordinator"],
+          "limitations": []
+        },
+        {
+          "id": "S06",
+          "input": "成功reveal目标在已加载首屏外，目标ref是端口",
+          "expected": "滚动至owner行最近边缘；不替换Selection、不移动已有活动行或DOM焦点",
+          "automatedCases": ["UI-REVEAL-scroll"],
+          "limitations": []
+        },
+        {
+          "id": "S07",
+          "input": "挂载时已有success且rowId可见，随后无关重渲染",
+          "expected": "允许初次滚动一次；不因重复渲染反复拉回目标",
+          "automatedCases": ["UI-REVEAL-scroll", "UI-REVEAL-mount-success"],
+          "limitations": []
+        },
+        {
+          "id": "S08",
+          "input": "先success再失败/取消的reveal，旧目标在别处",
+          "expected": "不按旧success滚动，不自动重试，不写选择",
+          "automatedCases": ["UI-REVEAL-scroll"],
+          "limitations": []
+        },
+        {
+          "id": "S09",
+          "input": "首次Tab进入，有且仅有一个可见已选实例",
+          "expected": "优先该行；没有可见已选实例时取第一可见行",
+          "automatedCases": ["UI-FOCUS-enter-false", "UI-FOCUS-enter-true"],
+          "limitations": []
+        },
+        {
+          "id": "S10",
+          "input": "多个可见已选实例后首次进入",
+          "expected": "活动项属于这些匹配可见实例之一；契约未指定其间优先次序，不擅冻数组第一项",
+          "automatedCases": ["UI-FOCUS-enter-false", "UI-FOCUS-enter-true"],
+          "limitations": []
+        },
+        {
+          "id": "S11",
+          "input": "离开树再进入，原本地活动RowId仍可见",
+          "expected": "恢复原活动项；不是把外部选择强制变成焦点",
+          "automatedCases": ["UI-FOCUS-enter-false", "UI-FOCUS-enter-true"],
+          "limitations": []
+        },
+        {
+          "id": "S12",
+          "input": "聚焦子孙后折叠祖先；旧parentId链有中间scope",
+          "expected": "找最近仍可见祖先；否则第一行；回退不写Selection",
+          "automatedCases": ["UI-FOCUS-fallback"],
+          "limitations": []
+        },
+        {
+          "id": "S13",
+          "input": "分组模式切换导致活动scope消失",
+          "expected": "沿旧parentId链回退owner或其它最近可见祖先，不靠数组索引跳邻行",
+          "automatedCases": ["UI-FOCUS-fallback"],
+          "limitations": []
+        },
+        {
+          "id": "S14",
+          "input": "reload移除活动行，前缀/祖先变化",
+          "expected": "使用旧父链和新可见集回退；没有行时焦点留树容器，不保留已删除的无行加载按钮分支",
+          "automatedCases": ["UI-FOCUS-fallback", "UI-LIFE-reset-local-state"],
+          "limitations": []
+        },
+        {
+          "id": "S15",
+          "input": "Ctrl/Shift点击或激活实例",
+          "expected": "仍为普通单项替换；不发明范围、多选编辑或第二套选择历史",
+          "automatedCases": [
+            "UI-SELECT-click",
+            "UI-SELECT-Enter",
+            "UI-SELECT-Space",
+            "UI-SELECT-Control",
+            "UI-SELECT-Shift"
+          ],
+          "limitations": []
+        }
+      ]
+    },
+    {
+      "title": "键盘与页动作",
+      "level": "真实浏览器键盘",
+      "anchor": "6.7.2–3",
+      "rows": [
+        {
+          "id": "K01",
+          "input": "Down/Up经过实例、scope、status及两端",
+          "expected": "按全部可见rows前后移动，端点保持；不展开、分页或写Selection",
+          "automatedCases": ["UI-KEY-linear"],
+          "limitations": []
+        },
+        {
+          "id": "K02",
+          "input": "长树Home/End，仍有未加载next",
+          "expected": "移到当前可见首/末行，不请求未知页，也不按当前DOM窗口截断",
+          "automatedCases": ["UI-KEY-home-end-prefix", "UI-KEY-home-end"],
+          "limitations": []
+        },
+        {
+          "id": "K03",
+          "input": "Right用于关闭且可展开的实例/scope",
+          "expected": "展开；不改变语义选择，等待状态遵循L6",
+          "automatedCases": ["UI-KEY-horizontal"],
+          "limitations": []
+        },
+        {
+          "id": "K04",
+          "input": "Right用于已打开且有可见子行的行",
+          "expected": "移到第一可见子行，包括合法status；不重复请求",
+          "automatedCases": ["UI-KEY-horizontal"],
+          "limitations": []
+        },
+        {
+          "id": "K05",
+          "input": "Right用于leaf或无可见子行",
+          "expected": "活动项保持，不生成虚构子节点",
+          "automatedCases": ["UI-KEY-linear"],
+          "limitations": []
+        },
+        {
+          "id": "K06",
+          "input": "Left用于已展开实例/scope",
+          "expected": "折叠；原数据保留由L6保证，不改Selection",
+          "automatedCases": ["UI-KEY-horizontal"],
+          "limitations": []
+        },
+        {
+          "id": "K07",
+          "input": "Left用于已关闭行、根行",
+          "expected": "有可见父时移到父；根保持，不越界",
+          "automatedCases": ["UI-KEY-linear", "UI-KEY-horizontal"],
+          "limitations": []
+        },
+        {
+          "id": "K08",
+          "input": "Enter/Space用于pending status",
+          "expected": "转发cancel(owner)一次，不产生Selection；如有命令失败反馈，rowId为启动status.id，根也不是null",
+          "automatedCases": [
+            "C76-07-root",
+            "C76-07-instance",
+            "UI-KEY-page-Enter-more",
+            "UI-KEY-page-Enter-failed",
+            "UI-KEY-page-Enter-cancelled",
+            "UI-KEY-page-Enter-pending",
+            "UI-KEY-page-Space-more",
+            "UI-KEY-page-Space-failed",
+            "UI-KEY-page-Space-cancelled",
+            "UI-KEY-page-Space-pending"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "K09",
+          "input": "Enter/Space用于后续页status",
+          "expected": "转发loadMore(owner)，焦点/页命令分离",
+          "automatedCases": [
+            "UI-KEY-page-Enter-more",
+            "UI-KEY-page-Enter-failed",
+            "UI-KEY-page-Enter-cancelled",
+            "UI-KEY-page-Enter-pending",
+            "UI-KEY-page-Space-more",
+            "UI-KEY-page-Space-failed",
+            "UI-KEY-page-Space-cancelled",
+            "UI-KEY-page-Space-pending"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "K10",
+          "input": "Enter/Space用于failed/cancelled status",
+          "expected": "roots用loadRoots，实例页用loadMore(owner)，不吞拒绝",
+          "automatedCases": [
+            "UI-KEY-page-Enter-more",
+            "UI-KEY-page-Enter-failed",
+            "UI-KEY-page-Enter-cancelled",
+            "UI-KEY-page-Enter-pending",
+            "UI-KEY-page-Space-more",
+            "UI-KEY-page-Space-failed",
+            "UI-KEY-page-Space-cancelled",
+            "UI-KEY-page-Space-pending"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "K11",
+          "input": "树前后有可聚焦按钮，执行Tab/Shift+Tab",
+          "expected": "遵循浏览器Tab顺序进出；虚拟行不是额外Tab位，不困住焦点",
+          "automatedCases": ["UI-KEY-tab"],
+          "limitations": []
+        },
+        {
+          "id": "K12",
+          "input": "pointer点击scope/status行；外部已有Selection",
+          "expected": "活动行可变化，语义选择不随scope/status动作变化",
+          "automatedCases": [
+            "UI-SCOPE-click",
+            "UI-SCOPE-Enter",
+            "UI-SCOPE-Space",
+            "UI-KEY-page-Enter-more",
+            "UI-KEY-page-Enter-failed",
+            "UI-KEY-page-Enter-cancelled",
+            "UI-KEY-page-Enter-pending",
+            "UI-KEY-page-Space-more",
+            "UI-KEY-page-Space-failed",
+            "UI-KEY-page-Space-cancelled",
+            "UI-KEY-page-Space-pending"
+          ],
+          "limitations": []
+        }
+      ]
+    },
+    {
+      "title": "命令异常、晚结算和资源",
+      "level": "React集成 + plain Node拒绝监控",
+      "anchor": "6.7.1 / 6.7.3 / 6.6.5",
+      "rows": [
+        {
+          "id": "L01",
+          "input": "页已success，但观察者同步抛值导致命令Promise拒绝",
+          "expected": "页面仍success；UI登记拒绝并回调原值，不从页成功推断命令成功",
+          "automatedCases": ["C76-04", "C76-05"],
+          "limitations": []
+        },
+        {
+          "id": "L02",
+          "input": "命令独有拒绝为undefined/null/primitive/有害getter或Proxy",
+          "expected": "固定操作失败；不读.message/.code/getter、不stringify/toString；回调error身份原样",
+          "automatedCases": [
+            "UI-ERROR-observer-undefined",
+            "UI-ERROR-observer-null",
+            "UI-ERROR-observer-zero",
+            "UI-ERROR-observer-false",
+            "UI-ERROR-observer-empty",
+            "UI-ERROR-observer-poison"
+          ],
+          "limitations": [
+            "真实观察者抛值由L6包装为AggregateError；未验证命令直接以primitive/Proxy拒绝，需单独受审的公开方法故障适配；不伪造覆盖。"
+          ]
+        },
+        {
+          "id": "L03",
+          "input": "没有onCommandError，命令失败",
+          "expected": "可见且辅助技术可发现的错误区域；不是仅console或后台拒绝",
+          "automatedCases": [
+            "C76-10",
+            "UI-ERROR-observer-undefined",
+            "UI-ERROR-observer-null",
+            "UI-ERROR-observer-zero",
+            "UI-ERROR-observer-false",
+            "UI-ERROR-observer-empty",
+            "UI-ERROR-observer-poison"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "L04",
+          "input": "一次命令多次重渲染及同一结算",
+          "expected": "回调至多一次、结算后调用，不在L6通知栈执行",
+          "automatedCases": [
+            "C76-04",
+            "C76-09",
+            "C76-09-undefined",
+            "UI-ERROR-once-owned-async"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "L05",
+          "input": "回调同步抛sentinel，命令原拒绝为original",
+          "expected": "下一render抛AggregateError，errors顺序为[original,sentinel]；不回滚模型",
+          "automatedCases": ["C76-11-sync", "C76-11-async"],
+          "limitations": []
+        },
+        {
+          "id": "L06",
+          "input": "回调返回Promise且自行处理其拒绝",
+          "expected": "不await其异步工作或归入UI聚合；这不是允许未处理拒绝的测试",
+          "automatedCases": ["UI-ERROR-once-owned-async"],
+          "limitations": []
+        },
+        {
+          "id": "L07",
+          "input": "合法select的同步观察者抛值，含undefined",
+          "expected": "已提交选择/历史保留；原AggregateError在方法栈退出后微任务统一反馈一次，无回调可见操作失败；回调再抛聚合原值",
+          "automatedCases": [
+            "C76-08",
+            "C76-09",
+            "C76-09-undefined",
+            "C76-10",
+            "UI-ERROR-observer-undefined",
+            "UI-ERROR-observer-null",
+            "UI-ERROR-observer-zero",
+            "UI-ERROR-observer-false",
+            "UI-ERROR-observer-empty",
+            "UI-ERROR-observer-poison"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "L08",
+          "input": "预期cancelled/disposed结算，视图仍有效",
+          "expected": "可仅呈相应模型状态、不重复全局提示；若调用回调必须保留原值",
+          "automatedCases": ["C76-07-root", "C76-07-instance"],
+          "limitations": []
+        },
+        {
+          "id": "L09",
+          "input": "未结算命令后卸载，随后旧Promise失败",
+          "expected": "仍消费拒绝，不发本地错误、滚动、焦点或旧回调；不dispose/cancel借用模型",
+          "automatedCases": [
+            "C76-12-unmount",
+            "C76-12-replace",
+            "C76-12-remount",
+            "C76-13-unmount",
+            "C76-13-replace",
+            "C76-13-remount"
+          ],
+          "limitations": [
+            "C-77：只能检查晚反馈/所有权；视图独立登记并消费旧Promise拒绝仍未验证，零unhandled不构成证明。"
+          ]
+        },
+        {
+          "id": "L10",
+          "input": "模型对替换，旧任务晚失败或旧同步反馈已排队",
+          "expected": "解绑旧订阅、重置局部会话；消费旧拒绝并丢弃排队反馈，不调用旧/新回调，不污染新焦点/滚动/诊断",
+          "automatedCases": [
+            "C76-12-unmount",
+            "C76-12-replace",
+            "C76-12-remount",
+            "C76-13-unmount",
+            "C76-13-replace",
+            "C76-13-remount",
+            "UI-LIFE-new-session",
+            "UI-LIFE-reset-local-state"
+          ],
+          "limitations": [
+            "C-77：只能检查晚反馈/所有权；视图独立登记并消费旧Promise拒绝仍未验证，零unhandled不构成证明。"
+          ]
+        },
+        {
+          "id": "L11",
+          "input": "同模型卸载重挂，旧同步反馈/Promise在新挂载后失败",
+          "expected": "旧挂载token失效；新挂载读当前模型，不承接旧反馈或重复触发模型命令",
+          "automatedCases": [
+            "C76-12-unmount",
+            "C76-12-replace",
+            "C76-12-remount",
+            "C76-13-unmount",
+            "C76-13-replace",
+            "C76-13-remount"
+          ],
+          "limitations": [
+            "C-77：只能检查晚反馈/所有权；视图独立登记并消费旧Promise拒绝仍未验证，零unhandled不构成证明。"
+          ]
+        },
+        {
+          "id": "L12",
+          "input": "两视图共用模型，卸载其中一个时有pending请求",
+          "expected": "任务和另一个视图继续；仅本组件订阅解绑，不发cancel或关闭SDK",
+          "automatedCases": [
+            "UI-LIFE-subscriptions-false",
+            "UI-LIFE-subscriptions-true"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "L13",
+          "input": "StrictMode挂载/清理重放及重新渲染",
+          "expected": "无额外查询、模型状态/历史不变，无残留重复订阅；清理不dispose借用模型",
+          "automatedCases": [
+            "C76-02",
+            "UI-LIFE-subscriptions-false",
+            "UI-LIFE-subscriptions-true"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "L14",
+          "input": "挂载后宿主先卸载全部视图，再dispose模型及client",
+          "expected": "晚回复不能复活UI；监听/模型/进程按各自所有者释放；不称通用堆内存上界证明",
+          "automatedCases": [
+            "UI-LIFE-subscriptions-false",
+            "UI-LIFE-subscriptions-true",
+            "UI-CORE-reopen"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "L15",
+          "input": "宿主dispose模型后强制触发一次render",
+          "expected": "同步TypeError给宿主边界；不要求没有模型通知时组件能凭空检测dispose",
+          "automatedCases": [
+            "UI-LIFE-disposed-render-tree",
+            "UI-LIFE-disposed-render-selection"
+          ],
+          "limitations": []
+        }
+      ]
+    },
+    {
+      "title": "窗口化与辅助技术",
+      "level": "真实浏览器DOM/AX + 手工辅助技术",
+      "anchor": "6.7.4",
+      "rows": [
+        {
+          "id": "A01",
+          "input": "ariaLabel=Hierarchy，混合三类行",
+          "expected": "tree的可访问名称正确，aria-multiselectable=true；tree为单一DOM焦点",
+          "automatedCases": ["UI-KEY-tab", "UI-ARIA-projection"],
+          "limitations": []
+        },
+        {
+          "id": "A02",
+          "input": "不同depth、leaf、可展开实例和scope",
+          "expected": "行role=treeitem，aria-level=depth+1，仅可展开行有aria-expanded",
+          "automatedCases": ["UI-ARIA-projection"],
+          "limitations": []
+        },
+        {
+          "id": "A03",
+          "input": "多实例选择加scope/status同行",
+          "expected": "只有实例有aria-selected；多项均能显示，不仅靠颜色表达",
+          "automatedCases": ["UI-SELECT-external", "UI-ARIA-projection"],
+          "limitations": []
+        },
+        {
+          "id": "A04",
+          "input": "owner有next/pending/failed或尚未完整成功，含跨页scope",
+          "expected": "aria-posinset按当前投影，所有可能补充的对应兄弟组aria-setsize=-1",
+          "automatedCases": [
+            "UI-PAGE-success",
+            "UI-PAGE-failed",
+            "UI-PAGE-cancelled",
+            "UI-PAGE-partial",
+            "UI-PAGE-duplicate",
+            "UI-ARIA-projection"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "A05",
+          "input": "owner完整终页；当前组含合法可导航status如有",
+          "expected": "aria-setsize为当前投影兄弟数，不用Core子数或加载前缀冒充分组总数",
+          "automatedCases": ["UI-ARIA-projection"],
+          "limitations": []
+        },
+        {
+          "id": "A06",
+          "input": "pending/失败/取消状态与操作错误",
+          "expected": "可读文本和明确操作名；错误能在可访问性树发现，不限定未规范的具体CSS/DOM包装",
+          "automatedCases": [
+            "UI-AX-error",
+            "UI-PAGE-success",
+            "UI-PAGE-failed",
+            "UI-PAGE-cancelled",
+            "UI-PAGE-partial",
+            "UI-PAGE-duplicate",
+            "UI-AX-tree"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "A07",
+          "input": "两个挂载实例共享同样RowId和模型",
+          "expected": "DOM ID全局隔离；各自aria-activedescendant引用自己存在的treeitem",
+          "automatedCases": ["UI-ARIA-two-ids"],
+          "limitations": []
+        },
+        {
+          "id": "A08",
+          "input": "固定height/rowHeight/overscan，5001实例，分数滚动偏移",
+          "expected": "窗口覆盖视口；treeitem数≤min(rows,ceil(height/rowHeight)+2*overscan+2)，含最多一额外活动行；不是照抄原型14",
+          "automatedCases": ["UI-WINDOW-wide"],
+          "limitations": []
+        },
+        {
+          "id": "A09",
+          "input": "120层已加载121实例及status，滚动前中后",
+          "expected": "按同一窗口上界；显示depth与L6一致；不是任意深度或M7保证",
+          "automatedCases": ["UI-WINDOW-deep"],
+          "limitations": []
+        },
+        {
+          "id": "A10",
+          "input": "活动行滚出窗口，滚动由鼠标/外部动作造成",
+          "expected": "活动行DOM仍存在，aria-activedescendant不悬空，不抢外部DOM焦点",
+          "automatedCases": ["UI-WINDOW-wide", "UI-WINDOW-deep"],
+          "limitations": []
+        },
+        {
+          "id": "A11",
+          "input": "真实浏览器可访问性树观测，与纯DOM属性对照",
+          "expected": "核层次、活动项、展开和多项选择语义；DOM属性检查本身不写成AX通过",
+          "automatedCases": ["UI-AX-error", "UI-AX-tree"],
+          "limitations": []
+        },
+        {
+          "id": "A12",
+          "input": "实际辅助技术逐键浏览/展开/错误重试",
+          "expected": "手工验证层次/活动项公告；未运行时明确未执行，不以截图或AX快照代读屏合规",
+          "automatedCases": [],
+          "manual": ["AT-01–AT-08"],
+          "note": "操作步骤已冻结；实际辅助技术未执行，不以DOM/AX替代。",
+          "limitations": []
+        }
+      ]
+    },
+    {
+      "title": "纵向链与回归",
+      "level": "浏览器E2E / Core集成 / 原B回归",
+      "anchor": "6.7.4 / 7 / 9",
+      "rows": [
+        {
+          "id": "E01",
+          "input": "浏览器→生产HierarchyTree→真实Tree/Selection→真实SDK→公开可控Transport",
+          "expected": "浏览/分页/选择/页外reveal/重试走完整UI链；可控Transport不是实际Core/Electron",
+          "automatedCases": [
+            "UI-REVEAL-owner-port",
+            "UI-REVEAL-owner-signal",
+            "UI-CORE-navigation-reveal"
+          ],
+          "limitations": []
+        },
+        {
+          "id": "E02",
+          "input": "自有HIER_BIN、独立测试协议桥及手写SV fixture",
+          "expected": "后续生产可用时覆盖浏览器→SDK→实际NDJSON Core；明确桥属测试，不称Electron IPC",
+          "automatedCases": ["UI-CORE-navigation-reveal", "UI-CORE-reopen"],
+          "limitations": []
+        },
+        {
+          "id": "E03",
+          "input": "关闭/重开同一设计，两snapshot会话与晚回复",
+          "expected": "旧视图/模型/任务不能改新UI；资源自然释放；首版不测试不存在的持久化格式",
+          "automatedCases": ["UI-LIFE-new-session", "UI-CORE-reopen"],
+          "limitations": []
+        },
+        {
+          "id": "R01",
+          "input": "原选择241/33、树287/35+14/合法输入及Core链",
+          "expected": "保留原B所有字节和oracle；新UI测试不替代前序单元",
+          "automatedCases": [],
+          "automated": [
+            "npm --prefix web run test:independent",
+            "npm --prefix web run test:independent:m5",
+            "npm --prefix web run test:independent:m5:tree"
+          ],
+          "note": "原800集合及33/35+14类型；无新增生产行为，不重跑三配置充数。",
+          "limitations": []
+        },
+        {
+          "id": "R02",
+          "input": "生产L7依赖/类型出口与原协议、Schema、C++模型",
+          "expected": "只经L6消费；不复制SDK/Schema规则，不改变原M0–M4兼容行为",
+          "automatedCases": [],
+          "automated": [
+            "npm --prefix web run check",
+            "279生产输入/原B字节保护审计"
+          ],
+          "note": "分层/生成及兼容元数据；缺生产UI出口仍单列红，不称Core本轮重验。",
+          "limitations": []
+        },
+        {
+          "id": "R03",
+          "input": "Electron main/preload/renderer绑定与宿主关闭",
+          "expected": "§6.7明确留后续单元；本单元不建假Electron E2E或把NDJSON称Electron",
+          "automatedCases": [],
+          "deferred": ["DESIGN 6.8 单独受审冻结"],
+          "note": "§6.8本轮中途已通过C；后续独立Electron冻结未交付，HTTP测试桥不是Electron。",
+          "limitations": []
+        }
+      ]
+    }
+  ]
+}

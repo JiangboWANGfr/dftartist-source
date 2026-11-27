@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>原理图显示重设计 · 方案对比</title>
+<style>
+  :root {
+    --paper: #f1f3f5;
+    --ink: #1d242d;
+    --muted: #5c6874;
+    --faint: #8b95a3;
+    --accent: #c9931f;
+    --teal: #2e8a70;
+    --note: #b0512a;
+    --canvas: #e9edf0;
+    --canvas-edge: #d5dbe1;
+    --card: #ffffff;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --sans: -apple-system, "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", sans-serif;
+  }
+  body { background: var(--paper); color: var(--ink); font-family: var(--sans); line-height: 1.65; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 48px 28px 80px; }
+  .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  h1 { font-size: 30px; font-weight: 700; letter-spacing: -.01em; margin: 0 0 6px; text-wrap: balance; }
+  .lede { color: var(--muted); font-size: 14.5px; max-width: 66ch; margin-bottom: 40px; }
+  h2 { font-size: 19px; font-weight: 700; margin: 52px 0 6px; letter-spacing: -.005em; }
+  h2 .no { font-family: var(--mono); font-size: 13px; color: var(--accent); margin-right: 10px; }
+  .sub { color: var(--muted); font-size: 13.5px; margin: 0 0 18px; max-width: 72ch; }
+  code { font-family: var(--mono); font-size: .88em; background: #e5e9ed; padding: 1px 5px; border-radius: 3px; }
+
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .card { background: var(--card); border: 1px solid var(--canvas-edge); border-radius: 6px; padding: 16px 18px; }
+  .card h3 { font-size: 14px; margin: 0 0 8px; font-weight: 700; }
+  .card h3 .tag { font-family: var(--mono); color: var(--note); font-size: 12px; margin-right: 6px; }
+  .card p { font-size: 12.5px; color: var(--muted); margin: 0 0 8px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card .fix { color: var(--teal); }
+
+  .panel { background: var(--canvas); border: 1px solid var(--canvas-edge); border-radius: 8px; overflow-x: auto; margin: 14px 0 6px; }
+  .panel svg { display: block; width: 100%; height: auto; min-width: 720px; }
+  .figlabel { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: .08em; margin-top: 22px; }
+  .figlabel b { color: var(--ink); }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 18px 26px; padding: 12px 4px 0; }
+  .legend .it { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+  .legend svg { flex: none; }
+
+  table { border-collapse: collapse; width: 100%; font-size: 13px; margin-top: 14px; font-variant-numeric: tabular-nums; }
+  th { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); text-align: left; font-weight: 600; }
+  th, td { border-bottom: 1px solid var(--canvas-edge); padding: 10px 14px 10px 0; vertical-align: top; }
+  td:first-child { white-space: nowrap; font-weight: 700; }
+  tr.rec td { background: linear-gradient(to right, #faf5e6, transparent); }
+  tr.rec td:first-child { color: var(--accent); }
+
+  .qs { counter-reset: q; max-width: 76ch; }
+  .q { counter-increment: q; padding: 12px 0; border-bottom: 1px solid var(--canvas-edge); font-size: 13.5px; }
+  .q::before { content: "Q" counter(q); font-family: var(--mono); color: var(--accent); font-weight: 600; margin-right: 10px; font-size: 12px; }
+  .q .d { color: var(--muted); font-size: 12.5px; margin: 4px 0 0 30px; }
+  .q .d b { color: var(--teal); font-weight: 600; }
+
+  .foot { margin-top: 48px; font-size: 12.5px; color: var(--muted); border-top: 1px solid var(--canvas-edge); padding-top: 16px; max-width: 76ch; }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">dft-suite · hierarchical schematic</div>
+  <h1>原理图显示重设计:方案对比</h1>
+  <p class="lede">针对三个问题:pin 名字缺失、连线"接错" pin、always/assign 大框语义不明。下面是根因、现状与重设计方案的视觉对比,以及需要你确认的几个决定。<b>尚未改任何代码。</b></p>
+
+  <h2><span class="no">01</span>三个问题的根因</h2>
+  <div class="cards">
+    <div class="card">
+      <h3><span class="tag">①</span>pin 名字没画</h3>
+      <p>数据一直都在:<code>get-ports</code> 返回 <code>busLabel</code>,盒子宽度也按标签宽度预留了(<code>nodeDims</code>),但 <code>SchematicTab</code> 只画了菱形,从未画名字。</p>
+      <p class="fix">修法:在盒子边缘内侧渲染 busLabel,输入贴左、输出贴右。</p>
+    </div>
+    <div class="card">
+      <h3><span class="tag">②</span>pin 被 ELK 重排</h3>
+      <p>连线终点其实是<b>对的</b> pin —— 但 <code>FIXED_SIDE</code> 只固定左右侧,ELK 每次重布局都会自由重排同侧 pin 顺序,把有连线的 pin 挪到顶部。你点的 pin 变灰后"跳走了",又没有名字,看起来就像依次连到前几个 pin。</p>
+      <p class="fix">修法:<code>FIXED_ORDER</code> + 按 RTL 声明序固定 pin 位置,永不重排。</p>
+    </div>
+    <div class="card">
+      <h3><span class="tag">③</span>always 框 = 行为级驱动源</h3>
+      <p>fanin 找不到同层实例时,daemon 用 slang 分析找到真正驱动:父模块里的 <code>always</code>/<code>assign</code>/输入端口。现在画成和模块一样大的棕框,标题副标题重复,也不显示驱动的是哪根 net。Tessent 这里显示的是 quick-synth 的门,slang 给不了(门级=独立 yosys 项目)。</p>
+      <p class="fix">修法:改成紧凑符号 + net 名 + file:line,视觉上让位于模块盒子。</p>
+    </div>
+  </div>
+
+  <h2><span class="no">02</span>现状 vs 重设计</h2>
+  <p class="sub">同一个场景:tc4 (tracking_channel) 为种子,先后追了 clk、pre_tic_enable、tic_enable、carr_nco_fc 四个输入 pin 的 fanin。上图 = 现在的渲染,下图 = 方案 B(Tessent 风格)。</p>
+
+  <div class="figlabel"><b>现状</b> — 复现你截图里的三个问题</div>
+  <div class="panel"><svg id="cur" viewBox="0 0 1000 430" role="img" aria-label="现状渲染示意"></svg></div>
+
+  <div class="figlabel"><b>方案 B</b> — pin 名常显 · 声明序固定 · 行为级源头改紧凑符号 · 连线带 net 名</div>
+  <div class="panel"><svg id="prop" viewBox="0 0 1000 560" role="img" aria-label="重设计渲染示意"></svg></div>
+
+  <div class="legend" id="legend"></div>
+
+  <h2><span class="no">03</span>三个方案</h2>
+  <table>
+    <thead><tr><th>方案</th><th>内容</th><th>解决</th><th>代价 / 风险</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>A · 最小修补</td>
+        <td>画 pin 名 + FIXED_ORDER 固定 pin 顺序</td>
+        <td>问题 ①②</td>
+        <td>最小;但 always/assign 仍是误导性大框</td>
+      </tr>
+      <tr class="rec">
+        <td>B · Tessent 风格 ★推荐</td>
+        <td>A + 行为级源头改紧凑符号(端口→箭头符号、logic→小标签块,带 net 名与 file:line)+ 连线显示 net 名 + 视觉层级(实例盒子为主体)</td>
+        <td>问题 ①②③</td>
+        <td>中等;纯渲染层改动,数据已齐(netName / busLabel / loc 都在图模型里)</td>
+      </tr>
+      <tr>
+        <td>C · B + 布局稳定</td>
+        <td>B + ELK interactive 模式钉住已有盒子坐标,追线时老盒子不动</td>
+        <td>①②③ + 盒子跳动</td>
+        <td>ELK interactive 调参有不确定性;设计文档本来就把它列为后期打磨</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2><span class="no">04</span>待你确认</h2>
+  <div class="qs">
+    <div class="q">pin 名字常显(Tessent 式,盒子内侧),还是 hover 才显示?
+      <div class="d">默认:<b>常显</b>。盒子尺寸公式本来就按标签预留了空间。</div>
+    </div>
+    <div class="q">连线上要不要显示 net 名?
+      <div class="d">默认:<b>显示</b>(driver 侧线段上方,9px 灰字)。嫌乱可后续加开关。</div>
+    </div>
+    <div class="q">行为级源头:紧凑符号(带 net 名 + file:line,可双击开 HDL),还是干脆折叠成 pin 上的一个小标记(最干净但丢信息)?
+      <div class="d">默认:<b>紧凑符号</b>。输入端口 → 扁箭头符号;always/assign → 小标签块。双击开 HDL 保留。</div>
+    </div>
+    <div class="q">方案 C 的布局稳定(追线时老盒子不动)这期做吗?
+      <div class="d">默认:<b>这期不做</b>,pin 顺序固定后最大的困惑已消除;C 列为下一期。</div>
+    </div>
+    <div class="q">范围确认:bus 折叠、inout 归右、菱形交互(绿=fanin/橙=fanout/灰=已展开/空心=无驱动)均保持现状?
+      <div class="d">默认:<b>保持</b>。本期只动"怎么画",不动 trace 语义。</div>
+    </div>
+  </div>
+
+  <div class="foot">
+    确认方向后:spec 写入 <code>docs/specs/2026-07-06-schematic-display-redesign-design.md</code> → 出实现计划 → 实现。
+    Tessent 对照说明:Tessent 图四中盒子内的 RTLC 门是 quick-synth 产物;slang 只能给源码忠实的 RTL,门级视图已在 <code>2026-06-25-yosys-gate-level.md</code> 单独立项,不在本次范围。
+  </div>
+</div>
+
+<script>
+(function () {
+  var NS = "http://www.w3.org/2000/svg";
+  function el(svg, tag, attrs) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    svg.appendChild(e);
+    return e;
+  }
+  function txt(svg, x, y, s, opts) {
+    opts = opts || {};
+    var e = el(svg, "text", {
+      x: x, y: y,
+      fill: opts.fill || "#dfe4ea",
+      "font-size": opts.size || 10,
+      "font-family": opts.sans ? '-apple-system,"Helvetica Neue","PingFang SC",sans-serif' : 'ui-monospace,"SF Mono",Menlo,monospace',
+      "font-weight": opts.bold ? 700 : 400,
+      "text-anchor": opts.anchor || "start"
+    });
+    e.textContent = s;
+    return e;
+  }
+  var GREEN = "#3aa98a", ORANGE = "#d98a2b", GREY = "#5a6470", WIRE = "#6b7785";
+
+  function diamond(svg, cx, cy, color, hollow) {
+    var r = hollow ? 4 : 5;
+    var pts = [[cx, cy - r], [cx + r, cy], [cx, cy + r], [cx - r, cy]].map(function (p) { return p.join(","); }).join(" ");
+    el(svg, "polygon", hollow
+      ? { points: pts, fill: "none", stroke: WIRE, "stroke-width": 1.3 }
+      : { points: pts, fill: color });
+  }
+
+  // instance box: title + optional sub, pins with optional labels, declaration order
+  function box(svg, o) {
+    el(svg, "rect", { x: o.x, y: o.y, width: o.w, height: o.h, rx: 4,
+      fill: o.fill || "#23262d", stroke: o.stroke || "#48505c", "stroke-width": o.seed ? 2 : 1 });
+    txt(svg, o.x + o.w / 2, o.y + 16, o.title, { anchor: "middle", bold: true, size: 12, sans: true });
+    if (o.sub) txt(svg, o.x + o.w / 2, o.y + 30, o.sub, { anchor: "middle", size: 9.5, fill: "#8b95a3", sans: true });
+    var anchors = {};
+    (o.ins || []).forEach(function (p, i) {
+      var py = o.y + 46 + i * 22;
+      el(svg, "line", { x1: o.x - 10, y1: py, x2: o.x, y2: py, stroke: WIRE, "stroke-width": 1 });
+      diamond(svg, o.x - 10, py, p.done ? GREY : GREEN, p.dead);
+      if (p.name && o.labels) txt(svg, o.x + 7, py + 3, p.name, { size: 9.5, fill: "#cdd4dc" });
+      anchors["in:" + (p.name || i)] = { x: o.x - 15, y: py };
+    });
+    (o.outs || []).forEach(function (p, i) {
+      var py = o.y + 46 + i * 22;
+      el(svg, "line", { x1: o.x + o.w, y1: py, x2: o.x + o.w + 10, y2: py, stroke: WIRE, "stroke-width": 1 });
+      diamond(svg, o.x + o.w + 10, py, p.done ? GREY : ORANGE, p.dead);
+      if (p.name && o.labels) txt(svg, o.x + o.w - 7, py + 3, p.name, { size: 9.5, fill: "#cdd4dc", anchor: "end" });
+      anchors["out:" + (p.name || i)] = { x: o.x + o.w + 15, y: py };
+    });
+    return anchors;
+  }
+
+  // orthogonal wire from a to b with vertical run at midX; optional net label
+  function wire(svg, a, b, midX, label) {
+    var pts = a.x + "," + a.y + " " + midX + "," + a.y + " " + midX + "," + b.y + " " + b.x + "," + b.y;
+    el(svg, "polyline", { points: pts, fill: "none", stroke: WIRE, "stroke-width": 1.4 });
+    if (label) txt(svg, a.x + 8, a.y - 5, label, { size: 9, fill: "#7a8490" });
+  }
+
+  // ============ current rendering (the bugs) ============
+  var cur = document.getElementById("cur");
+  el(cur, "rect", { x: 0, y: 0, width: 1000, height: 430, fill: "#e9edf0" });
+
+  // seed box, NO labels; traced pins clustered on top by ELK
+  var curIns = [{ done: true }, { done: true }, { done: true }, { done: true },
+    {}, {}, {}, {}, {}, {}, {}, {}, {}];
+  var curOuts = [{}, {}, {}, {}, {}, {}, {}, {}, {}];
+  var tcA = box(cur, { x: 640, y: 30, w: 270, h: 340, title: "tracking_channel", sub: "tc4",
+    seed: true, stroke: "#e0a93b", ins: curIns, outs: curOuts, labels: false });
+
+  // assign / always misleading big brown boxes
+  el(cur, "rect", { x: 250, y: 34, width: 140, height: 52, rx: 5, fill: "#3a2f1c", stroke: "#a8823a" });
+  txt(cur, 320, 56, "assign", { anchor: "middle", bold: true, size: 12, sans: true });
+  txt(cur, 320, 72, "assign", { anchor: "middle", size: 9.5, fill: "#8b95a3", sans: true });
+  el(cur, "rect", { x: 250, y: 320, width: 140, height: 52, rx: 5, fill: "#3a2f1c", stroke: "#a8823a" });
+  txt(cur, 320, 342, "always", { anchor: "middle", bold: true, size: 12, sans: true });
+  txt(cur, 320, 358, "always", { anchor: "middle", size: 9.5, fill: "#8b95a3", sans: true });
+
+  var tbA = box(cur, { x: 210, y: 130, w: 210, h: 160, title: "time_base", sub: "tb",
+    ins: [{}, {}], outs: [{}, { done: true }, { done: true }, {}, {}], labels: false });
+
+  wire(cur, { x: 390, y: 60 }, tcA["in:0"], 500);
+  wire(cur, { x: tbA["out:1"].x, y: tbA["out:1"].y }, tcA["in:1"], 520);
+  wire(cur, { x: tbA["out:2"].x, y: tbA["out:2"].y }, tcA["in:2"], 540);
+  wire(cur, { x: 390, y: 346 }, tcA["in:3"], 560);
+
+  // problem callouts
+  function note(svg, x, y, tx, ty, s) {
+    el(svg, "line", { x1: x, y1: y, x2: tx, y2: ty, stroke: "#b0512a", "stroke-width": 1, "stroke-dasharray": "3,3" });
+    txt(svg, tx + 4, ty + 4, s, { fill: "#b0512a", size: 11.5, bold: true, sans: true });
+  }
+  note(cur, 625, 200, 470, 220, "① pin 没有名字,分不清谁是谁");
+  note(cur, 625, 75, 452, 108, "② 点的明明是下面的 pin,重排后全挤到顶部");
+  note(cur, 392, 385, 430, 405, "③ 这个大框是什么?驱动哪根 net?");
+
+  // ============ proposed rendering (Tessent-style) ============
+  var pr = document.getElementById("prop");
+  el(pr, "rect", { x: 0, y: 0, width: 1000, height: 560, fill: "#e9edf0" });
+
+  var tcIns = [
+    { name: "clk", done: true }, { name: "rstn" }, { name: "accum_sample_enable" },
+    { name: "if_sign" }, { name: "if_mag" }, { name: "pre_tic_enable", done: true },
+    { name: "tic_enable", done: true }, { name: "carr_nco_fc[28:0]", done: true },
+    { name: "code_nco_fc[27:0]" }, { name: "prn_key[9:0]" }, { name: "code_slew[10:0]" },
+    { name: "slew_enable" }, { name: "dump" }];
+  var tcOuts = [
+    { name: "i_early[15:0]" }, { name: "q_early[15:0]" }, { name: "i_prompt[15:0]" },
+    { name: "q_prompt[15:0]" }, { name: "i_late[15:0]" }, { name: "q_late[15:0]" },
+    { name: "carrier_val[31:0]" }, { name: "code_val[20:0]" }, { name: "epoch[10:0]" }];
+  var tcB = box(pr, { x: 600, y: 60, w: 310, h: 46 + 13 * 22 + 12, title: "tracking_channel", sub: "tc4",
+    seed: true, stroke: "#e0a93b", ins: tcIns, outs: tcOuts, labels: true });
+
+  var tbB = box(pr, { x: 130, y: 200, w: 230, h: 46 + 6 * 22 + 12, title: "time_base", sub: "tb",
+    ins: [{ name: "clk" }, { name: "rstn" }],
+    outs: [{ name: "tic_enable", done: true }, { name: "accum_enable" }, { name: "pre_tic_enable", done: true },
+           { name: "accum_sample_enable" }, { name: "tic_count[23:0]" }, { name: "accum_count[23:0]" }],
+    labels: true });
+
+  // input-port source: flat arrow symbol (Tessent-style port)
+  function portSym(pr, x, y, name) {
+    var w = 74, h = 20;
+    var pts = [[x, y - h / 2], [x + w - 12, y - h / 2], [x + w, y], [x + w - 12, y + h / 2], [x, y + h / 2]]
+      .map(function (p) { return p.join(","); }).join(" ");
+    el(pr, "polygon", { points: pts, fill: "#1c3a33", stroke: "#2f8f6b", "stroke-width": 1.2 });
+    txt(pr, x + (w - 12) / 2 + 2, y + 3.5, name, { anchor: "middle", size: 10, fill: "#bfe8da" });
+    return { x: x + w, y: y };
+  }
+  // behavioral logic source: compact tag with net + location, double-click opens HDL
+  function logicTag(pr, x, y, kind, loc) {
+    var w = 150, h = 38;
+    el(pr, "rect", { x: x, y: y - h / 2, width: w, height: h, rx: 4, fill: "#2f2716", stroke: "#a8823a", "stroke-width": 1.2 });
+    txt(pr, x + 10, y - 3, kind, { size: 10, bold: true, fill: "#e3b45c" });
+    txt(pr, x + 10, y + 11, loc, { size: 8.5, fill: "#9aa2ad" });
+    el(pr, "line", { x1: x + w, y1: y, x2: x + w + 8, y2: y, stroke: WIRE, "stroke-width": 1 });
+    return { x: x + w + 8, y: y };
+  }
+
+  var clkY = tcB["in:clk"].y;
+  var pClk = portSym(pr, 430, clkY, "clk");
+  wire(pr, pClk, tcB["in:clk"], 545, "clk");
+
+  wire(pr, tbB["out:tic_enable"], tcB["in:tic_enable"], 480, "tic_enable");
+  wire(pr, tbB["out:pre_tic_enable"], tcB["in:pre_tic_enable"], 510, "pre_tic_enable");
+
+  var pAlw = logicTag(pr, 380, tcB["in:carr_nco_fc[28:0]"].y + 90, "always_ff", "gps_baseband.v:214");
+  wire(pr, pAlw, tcB["in:carr_nco_fc[28:0]"], 565, "carr_nco_fc");
+
+  // ============ legend ============
+  var lg = document.getElementById("legend");
+  function legendItem(draw, label) {
+    var it = document.createElement("div");
+    it.className = "it";
+    var s = document.createElementNS(NS, "svg");
+    s.setAttribute("width", 26); s.setAttribute("height", 18); s.setAttribute("viewBox", "0 0 26 18");
+    draw(s);
+    it.appendChild(s);
+    it.appendChild(document.createTextNode(label));
+    lg.appendChild(it);
+  }
+  legendItem(function (s) { diamond(s, 13, 9, GREEN); }, "输入 pin,点击追 fanin(向后找驱动)");
+  legendItem(function (s) { diamond(s, 13, 9, ORANGE); }, "输出 pin,点击追 fanout(向前找负载)");
+  legendItem(function (s) { diamond(s, 13, 9, GREY); }, "已展开");
+  legendItem(function (s) { diamond(s, 13, 9, null, true); }, "追过但无驱动(死角)");
+  legendItem(function (s) {
+    el(s, "polygon", { points: "1,3 17,3 23,9 17,15 1,15", fill: "#1c3a33", stroke: "#2f8f6b" });
+  }, "父模块输入端口(行为级源头)");
+  legendItem(function (s) {
+    el(s, "rect", { x: 1, y: 3, width: 22, height: 12, rx: 2, fill: "#2f2716", stroke: "#a8823a" });
+  }, "always / assign(行为级源头,双击开 HDL)");
+})();
+</script>
+
+</body>
+</html>

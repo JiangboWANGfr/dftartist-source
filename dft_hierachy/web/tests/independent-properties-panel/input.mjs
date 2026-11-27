@@ -1,0 +1,122 @@
+// B-only legal wire inputs; no component or model substitute.
+export const target = "B54:opaque-instance<&>";
+export const other = "B54:second-target";
+export const snapshotId = "B54/snapshot";
+export const complete = Object.freeze({ status: "complete", reasons: [] });
+export const instance = (ref = target) => ({
+  ref,
+  name: ref === target ? "实例<&>尾" : "另一个实例",
+  path: ["top", "尾.含点"],
+  pathText: "\\top .\\尾.含点 ",
+  kind: "module",
+  def: "B54:def<&>",
+  defName: "B54_definition",
+  childCount: 3,
+  hasParamOverrides: false,
+});
+export const ports = () => [
+  {
+    ref: "B54:p1",
+    name: "same<&>",
+    direction: "in",
+    kind: "port",
+    internal: { kind: "unresolved", reason: "unknown_pin_width" },
+    type: "logic [7:0]",
+    width: 8,
+    signed: false,
+    members: [],
+    dims: [
+      { left: 0, right: 7, packed: true },
+      { left: 5, right: 2, packed: false },
+    ],
+  },
+  {
+    ref: "B54:p2",
+    name: "same<&>",
+    direction: "out",
+    kind: "port",
+    internal: {
+      kind: "direct",
+      signal: "B54:signal-not-port",
+      bits: { lsb: 0, width: 0 },
+    },
+    width: 0,
+    type: "logic [0:-1]",
+    signed: true,
+    dims: [],
+    members: [],
+  },
+  {
+    ref: "B54:interface",
+    name: "bus",
+    direction: "unknown",
+    kind: "interface",
+    internal: { kind: "unresolved", reason: "interface_port" },
+    interfaceDef: "B54_bus",
+    modport: "slave",
+  },
+  {
+    ref: "B54:multi",
+    name: "bundle",
+    direction: "inout",
+    kind: "multi",
+    internal: { kind: "unresolved", reason: "complex_port" },
+    type: "logic [3:0]",
+    width: 4,
+    signed: false,
+    dims: [],
+    members: [],
+  },
+];
+export const params = () => [
+  {
+    name: "W",
+    value: "128'hffff_ffff_ffff_ffff_ffff_ffff_ffff_ffff",
+    type: "logic[127:0]",
+    isType: false,
+    isLocal: false,
+    isPort: true,
+    isOverridden: true,
+  },
+  {
+    name: "W",
+    value: "8'b10xz_0011",
+    type: "logic [7:0]",
+    isType: false,
+    isLocal: true,
+    isPort: false,
+    isOverridden: false,
+  },
+  {
+    name: "T",
+    value: "logic [3:0]",
+    isType: true,
+    isLocal: false,
+    isPort: true,
+    isOverridden: false,
+  },
+  {
+    name: "<img src=x onerror=window.B54_XSS=1>",
+    value: "<script>window.B54_XSS=1</script>",
+    type: "string",
+    isType: false,
+    isLocal: false,
+    isPort: true,
+    isOverridden: false,
+  },
+];
+export const snapshot = () => ({
+  protocol: 2,
+  schemaVersion: 7,
+  snapshotId,
+  inputHash: "0123456789abcdef".repeat(4),
+  inputHashComplete: true,
+  frontend: { name: "slang", version: "B54 legal input" },
+  bodySharing: "fast",
+  tops: [instance()],
+  definitionCount: 1,
+  bodyCount: 1,
+  indexState: "ready",
+  openedAt: "2000-02-29T23:59:59.123Z",
+  topCandidates: [target],
+});

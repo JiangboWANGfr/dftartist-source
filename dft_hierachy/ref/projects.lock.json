@@ -1,0 +1,493 @@
+{
+  "retrieved_at_utc": "2026-10-02T15:59:16.988115+00:00",
+  "method": "git clone --depth 1 --single-branch; dependencies and submodules not installed",
+  "projects": [
+    {
+      "name": "d3-hwschematic",
+      "directory": "d3-hwschematic",
+      "remote": "https://github.com/Nic30/d3-hwschematic.git",
+      "commit": "0664665d87d7fe8575a812714b765a81de1affbf",
+      "branch": "master",
+      "commit_date": "2026-05-13T18:02:46+02:00",
+      "shallow": true,
+      "working_tree_clean": true,
+      "git_connectivity_ok": true,
+      "tracked_files": 165,
+      "submodules": [],
+      "priority": "核心交互参考",
+      "purpose": "模块/引脚图、网络分支选择、层级展开、可定制符号；用于网表浏览交互和绘图投影设计。",
+      "boundary": "图形库的输入不是全设计数据库；默认端口点击追踪与完整编辑仍需应用实现。",
+      "read_first": [
+        "README.md",
+        "src/d3-hwschematic.js",
+        "src/dataPrepare.js",
+        "src/node_renderers/generic.js",
+        "src/yosys.js",
+        "examples/example.html"
+      ],
+      "license_files": [
+        "LICENSE"
+      ]
+    },
+    {
+      "name": "elkjs",
+      "directory": "elkjs",
+      "remote": "https://github.com/kieler/elkjs.git",
+      "commit": "722f1a3f63016e64f534a8b445283d4d31a88d0e",
+      "branch": "master",
+      "commit_date": "2026-09-17T09:07:09+02:00",
+      "shallow": true,
+      "working_tree_clean": true,
+      "git_connectivity_ok": true,
+      "tracked_files": 55,
+      "submodules": [],
+      "priority": "核心布局候选",
+      "purpose": "固定端口顺序、层次布局、正交路由、Worker API。",
+      "boundary": "只计算几何布局；连接是否正确应由设计数据库决定。",
+      "read_first": [
+        "README.md",
+        "src/js/elk-api.js"
+      ],
+      "license_files": [
+        "LICENSE.md"
+      ]
+    },
+    {
+      "name": "hal",
+      "directory": "hal",
+      "remote": "https://github.com/emsec/hal.git",
+      "commit": "acc899e297ed3866ad7da432ab0403c3d8d62d1c",
+      "branch": "master",
+      "commit_date": "2026-09-29T18:21:16+02:00",
+      "shallow": true,
+      "working_tree_clean": true,
+      "git_connectivity_ok": true,
+      "tracked_files": 4522,
+      "submodules": [],
+      "priority": "核心架构参考",
+      "purpose": "Netlist/Module/Net/Endpoint 分层；局部图上下游导航；属性、选择联动、图上下文与分析插件。",
+      "boundary": "偏门级网表分析；其 Qt 界面和数据模型需要按本项目 RTL 需求适配。",
+      "read_first": [
+        "include/hal_core/netlist/netlist.h",
+        "include/hal_core/netlist/module.h",
+        "include/hal_core/netlist/net.h",
+        "include/hal_core/netlist/endpoint.h",
+        "include/hal_core/netlist/decorators/netlist_traversal_decorator.h",
+        "plugins/gui/src/graph_widget/contexts/graph_context.cpp",
+        "plugins/gui/src/graph_widget/graph_navigation_widget.cpp",
+        "plugins/clock_tree_extractor/src/clock_tree.cpp"
+      ],
+      "license_files": [
+        "LICENSE",
+        "LICENSE.header"
+      ]
+    },
+    {
+      "name": "slang",
+      "directory": "slang",
+      "remote": "https://github.com/MikePopoloski/slang.git",
+      "commit": "2f93a7a12fed6f4903cd342f44f2da4216b5ce79",
+      "branch": "master",
+      "commit_date": "2026-09-30T08:26:23-04:00",
+      "shallow": true,
+      "working_tree_clean": true,
+      "git_connectivity_ok": true,
+      "tracked_files": 728,
+      "submodules": [],
+      "priority": "核心语言前端候选",
+      "purpose": "参数化实例、generate/数组展开、类型、端口连接表达式、源位置和编译诊断。",
+      "boundary": "现项目已使用 Slang；重写应重新设计其输出适配层。下载的上游版本不代表立即升级现有二进制。",
+      "read_first": [
+        "README.md",
+        "include/slang/ast/symbols/InstanceSymbols.h",
+        "include/slang/ast/symbols/PortSymbols.h",
+        "source/ast/symbols/PortSymbols.cpp",
+        "source/ast/expressions/SelectExpressions.cpp",
+        "include/slang/text/SourceManager.h",
+        "tests/unittests/ast/HierarchyTests.cpp",
+        "tests/unittests/ast/PortTests.cpp"
+      ],
+      "license_files": [
+        "LICENSE"
+      ]
+    },
+    {
+      "name": "yosys",
+      "directory": "yosys",
+      "remote": "https://github.com/YosysHQ/yosys.git",
+      "commit": "fb1a2fdae7a84e327d239aec6e637fca4f037ae7",
+      "branch": "main",
+      "commit_date": "2026-10-02T07:46:40Z",
+      "shallow": true,
+      "working_tree_clean": true,
+      "git_connectivity_ok": true,
+      "tracked_files": 3255,
+      "submodules": [
+        "abc",
+        "frontends/slang/lib",
+        "libs/boost_regex",
+        "libs/cxxopts",
+        "libs/fmt",
+        "libs/slang",
+        "libs/symfpu",
+        "libs/tomlplusplus"
+      ],
+      "priority": "核心连接模型参考",
+      "purpose": "SigBit/SigSpec、信号别名归一化、常量与逐位连接、JSON 中的位向量表达。",
+      "boundary": "采用位级建模思路；综合变换会改变原始 RTL 结构。不要将综合图直接当作原始实例层级。",
+      "read_first": [
+        "kernel/rtlil.h",
+        "kernel/sigtools.h",
+        "backends/json/json.cc"
+      ],
+      "license_files": [
+        "COPYING"
+      ]
+    },
+    {
+      "name": "react-arborist",
+      "directory": "react-arborist",
+      "remote": "https://github.com/jameskerr/react-arborist.git",
+      "commit": "d74c4ec696ba98c1a4e981075f6d60cdff3e290b",
+      "branch": "main",
+      "commit_date": "2026-07-25T15:11:00-04:00",
+      "shallow": true,
+      "working_tree_clean": true,
+      "git_connectivity_ok": true,
+      "tracked_files": 176,
+      "submodules": [],
+      "priority": "核心树视图候选",
+      "purpose": "虚拟化行、键盘导航、选择/展开状态、过滤和滚动定位。",
+      "boundary": "懒加载与全设计搜索需要接入查询服务；HDL 实例层级不能随意拖动重命名。",
+      "read_first": [
+        "README.md",
+        "modules/react-arborist/src/components/tree.tsx",
+        "modules/react-arborist/src/components/default-container.tsx",
+        "modules/react-arborist/src/interfaces/tree-api.ts",
+        "modules/react-arborist/src/data/create-list.ts",
+        "modules/react-arborist/src/state/selection-slice.ts"
+      ],
+      "license_files": [
+        "LICENSE"
+      ]
+    },
+    {
+      "name": "netlistsvg",
+      "directory": "netlistsvg",
+      "remote": "https://github.com/nturley/netlistsvg.git",
+      "commit": "d3518f1b5c996a876b72a1a984bb39d3572c47dc",
+      "branch": "master",
+      "commit_date": "2024-01-25T08:56:05-07:00",
+      "shallow": true,
+      "working_tree_clean": true,
+      "git_connectivity_ok": true,
+      "tracked_files": 71,
+      "submodules": [],
+      "priority": "网表投影与导出参考",
+      "purpose": "网表转绘图结构、总线表示、器件皮肤、SVG 输出。",
+      "boundary": "适合图形导出与转换设计；交互追踪和会话管理由新模块实现。",
+      "read_first": [
+        "README.md",
+        "lib/YosysModel.ts",
+        "lib/FlatModule.ts",
+        "lib/elkGraph.ts",
+        "lib/drawModule.ts",
+        "lib/Port.ts"
+      ],
+      "license_files": [
+        "LICENSE"
+      ]
+    },
+    {
+      "name": "x6",
+      "directory": "x6",
+      "remote": "https://github.com/antvis/X6.git",
+      "commit": "b14ca27540693c610257e7687c663f122deb0006",
+      "branch": "master",
+      "commit_date": "2026-08-11T10:38:08+08:00",
+      "shallow": true,
+      "working_tree_clean": true,
+      "git_connectivity_ok": true,
+      "tracked_files": 1408,
+      "submodules": [],
+      "priority": "编辑画布候选",
+      "purpose": "节点/端口/边模型、选择、撤销重做、事件和导出扩展。",
+      "boundary": "规划编辑需要电气规则和事务层；多端点网络投影到多条边时须保留共同 NetId。",
+      "read_first": [
+        "README.zh-CN.md",
+        "src/model/node.ts",
+        "src/model/port.ts",
+        "src/model/edge.ts",
+        "src/plugin/history",
+        "src/plugin/selection",
+        "site/docs/tutorial/basic/port.zh.md"
+      ],
+      "license_files": [
+        "LICENSE"
+      ]
+    },
+    {
+      "name": "kactus2",
+      "directory": "kactus2",
+      "remote": "https://github.com/kactus2/kactus2dev.git",
+      "commit": "342bc30c2947afe0e2a479f75fed9449102f71a4",
+      "branch": "main",
+      "commit_date": "2026-09-29T16:13:15+03:00",
+      "shallow": true,
+      "working_tree_clean": true,
+      "git_connectivity_ok": true,
+      "tracked_files": 3992,
+      "submodules": [],
+      "priority": "接口规划参考",
+      "purpose": "IP-XACT、端口映射、总线接口、层级设计、连线校验与修改命令。",
+      "boundary": "适合参考 DFT/MBIST 接口规划；不承担 SystemVerilog 行为分析。",
+      "read_first": [
+        "README.md",
+        "IPXACTmodels/Component/PortMap.h",
+        "IPXACTmodels/Component/validators/PortMapValidator.cpp",
+        "editors/HWDesign/HWDesignDiagram.cpp",
+        "editors/HWDesign/undoCommands",
+        "library/HierarchyModel.cpp"
+      ],
+      "license_files": [
+        "LICENSE"
+      ]
+    },
+    {
+      "name": "digitaljs",
+      "directory": "digitaljs",
+      "remote": "https://github.com/tilk/digitaljs.git",
+      "commit": "a77a6b3a916996e215e6c33c75ffe05dc6f55e3d",
+      "branch": "master",
+      "commit_date": "2026-02-10T14:34:46+01:00",
+      "shallow": true,
+      "working_tree_clean": true,
+      "git_connectivity_ok": true,
+      "tracked_files": 59,
+      "submodules": [],
+      "priority": "信号显示补充参考",
+      "purpose": "子电路、端口位宽、仿真状态与图形显示关联。",
+      "boundary": "只有接入真实仿真/分析结果后才能显示对应信号值。",
+      "read_first": [
+        "README.md",
+        "src/circuit.mjs",
+        "src/cells/subcircuit.mjs"
+      ],
+      "license_files": [
+        "LICENSE"
+      ]
+    },
+    {
+      "name": "adaptagrams",
+      "directory": "adaptagrams",
+      "remote": "https://github.com/mjwybrow/adaptagrams.git",
+      "commit": "840ebcff20dbba36ad03a2160edf7cbaf9859984",
+      "branch": "master",
+      "commit_date": "2025-10-29T17:59:59+11:00",
+      "shallow": true,
+      "working_tree_clean": true,
+      "git_connectivity_ok": true,
+      "tracked_files": 1014,
+      "submodules": [],
+      "priority": "路由补充参考",
+      "purpose": "libavoid 的避障正交连线、多端点连接与交互式重新布线。",
+      "boundary": "C++ 路由库；在确定交互布线需求后再评估本地服务或其他适配方式。",
+      "read_first": [
+        "cola/libavoid/doc/description.doc",
+        "cola/libavoid/doc/example.doc",
+        "cola/libavoid/router.h",
+        "cola/libavoid/connector.h",
+        "cola/libavoid/hyperedge.h"
+      ],
+      "license_files": []
+    },
+    {
+      "name": "OpenSTA",
+      "directory": "opensta",
+      "remote": "https://github.com/parallaxsw/OpenSTA.git",
+      "commit": "7a034b56de14b485ddf8fd97b420a6f37a91c00d",
+      "branch": "master",
+      "commit_date": "2026-10-01T18:40:35-07:00",
+      "shallow": true,
+      "working_tree_clean": true,
+      "git_connectivity_ok": true,
+      "tracked_files": 663,
+      "submodules": [],
+      "priority": "核心查询接口参考",
+      "purpose": "抽象层次网表接口 Network（Instance/Pin/Net/Term + 迭代器），算法只依赖接口；层次引脚的驱动/负载遍历；通配符对象查找。",
+      "boundary": "门级网表与时序分析工具；不处理 RTL 行为语句，时序引擎本身不在参考范围。",
+      "read_first": [
+        "include/sta/Network.hh",
+        "include/sta/NetworkClass.hh",
+        "include/sta/ConcreteNetwork.hh",
+        "include/sta/HpinDrvrLoad.hh",
+        "include/sta/PatternMatch.hh"
+      ],
+      "license_files": [
+        "LICENSE"
+      ]
+    },
+    {
+      "name": "naja",
+      "directory": "naja",
+      "remote": "https://github.com/najaeda/naja.git",
+      "commit": "50306aa8662347000ee43bfce0ebcf6cf44720b9",
+      "branch": "main",
+      "commit_date": "2026-10-05T13:35:20+02:00",
+      "shallow": true,
+      "working_tree_clean": true,
+      "git_connectivity_ok": true,
+      "tracked_files": 1848,
+      "submodules": [
+        "thirdparty/cpptrace",
+        "thirdparty/googletest",
+        "thirdparty/naja-if",
+        "thirdparty/naja-verilog",
+        "thirdparty/slang"
+      ],
+      "priority": "核心身份模型参考",
+      "purpose": "SNLPath/SNLOccurrence 表示实例上下文中的对象，不展平即可区分多次实例化；BusNet/BusNetBit 位级网络；Equipotential 跨层等电位。",
+      "boundary": "门级/结构网表数据库；优化与编辑功能不在第一版范围。",
+      "read_first": [
+        "src/nl/netlist/snl/SNLPath.h",
+        "src/nl/netlist/snl/SNLOccurrence.h",
+        "src/nl/netlist/snl/SNLBusNetBit.h",
+        "src/nl/netlist/snl/SNLEquipotential.h",
+        "src/nl/netlist/snl/SNLUniquifier.h"
+      ],
+      "license_files": [
+        "LICENSE"
+      ]
+    },
+    {
+      "name": "slang-netlist",
+      "directory": "slang-netlist",
+      "remote": "https://github.com/jameshanlon/slang-netlist.git",
+      "commit": "39eae34cdf6e4fc5cd74cca9760b9be59d13b232",
+      "branch": "main",
+      "commit_date": "2026-10-01T11:36:32+01:00",
+      "shallow": true,
+      "working_tree_clean": true,
+      "git_connectivity_ok": true,
+      "tracked_files": 162,
+      "submodules": [],
+      "priority": "核心前端适配参考",
+      "purpose": "基于 Slang AST 构建位范围级的驱动/依赖图、路径查找、组合环检测、驱动与端口报告。",
+      "boundary": "独立工具，其图节点不是本项目的对象身份；作为 Slang 适配层写法参考。",
+      "read_first": [
+        "README.md",
+        "include/netlist/NetlistGraph.hpp",
+        "include/netlist/NetlistNode.hpp",
+        "include/netlist/DriverBitRange.hpp",
+        "include/netlist/PathFinder.hpp",
+        "include/netlist/CombLoops.hpp",
+        "include/report/ReportDrivers.hpp"
+      ],
+      "license_files": [
+        "LICENSE"
+      ]
+    },
+    {
+      "name": "yosys-slang",
+      "directory": "yosys-slang",
+      "remote": "https://github.com/povik/yosys-slang.git",
+      "commit": "1582cc2d5bd199949669a1440a4c8947d713f842",
+      "branch": "master",
+      "commit_date": "2026-10-02T11:37:31+02:00",
+      "shallow": true,
+      "working_tree_clean": true,
+      "git_connectivity_ok": true,
+      "tracked_files": 178,
+      "submodules": [
+        "third_party/fmt",
+        "third_party/slang"
+      ],
+      "priority": "位级降级参考",
+      "purpose": "Slang AST 到 Yosys SigSpec 的降级：左值切片、寻址、拼接、类型转换如何逐位落地。",
+      "boundary": "目的是综合，会改变 RTL 结构；只参考位映射的求值方式。",
+      "read_first": [
+        "README.md",
+        "src/slang_frontend.cc",
+        "src/lvalue.cc",
+        "src/addressing.cc",
+        "src/builder.cc",
+        "src/naming.cc"
+      ],
+      "license_files": [
+        "LICENSE"
+      ]
+    },
+    {
+      "name": "CIRCT",
+      "directory": "circt",
+      "remote": "https://github.com/llvm/circt.git",
+      "commit": "1b6dd691aee47963c2ea20facc24099480b0e20e",
+      "branch": "main",
+      "commit_date": "2026-10-06T00:33:34+02:00",
+      "shallow": true,
+      "working_tree_clean": true,
+      "git_connectivity_ok": true,
+      "tracked_files": 3526,
+      "submodules": [
+        "llvm"
+      ],
+      "priority": "身份与实例图参考",
+      "purpose": "InstanceGraph、层次路径 hierpath、内部符号 inner symbol：定义与实例分离，对象引用不依赖字符串路径。",
+      "boundary": "基于 MLIR 的编译器基础设施；只参考数据建模，不引入依赖。",
+      "read_first": [
+        "include/circt/Support/InstanceGraph.h",
+        "include/circt/Dialect/HW/HWInstanceGraph.h",
+        "include/circt/Dialect/HW/HierPathCache.h",
+        "include/circt/Dialect/HW/InnerSymbolTable.h",
+        "include/circt/Dialect/HW/InnerSymbolNamespace.h"
+      ],
+      "license_files": [
+        "LICENSE"
+      ]
+    },
+    {
+      "name": "Sprotty",
+      "directory": "sprotty",
+      "remote": "https://github.com/eclipse-sprotty/sprotty.git",
+      "commit": "21b80fc2c852411261a692c834d2a4390ba7f2df",
+      "branch": "main",
+      "commit_date": "2026-09-07T11:13:06+02:00",
+      "shallow": true,
+      "working_tree_clean": true,
+      "git_connectivity_ok": true,
+      "tracked_files": 419,
+      "submodules": [],
+      "priority": "图投影分层参考",
+      "purpose": "服务端持有图模型、客户端只渲染、通过 action 协议增量更新；内置 ELK 布局适配。",
+      "boundary": "通用图形框架；是否作为生产依赖在设计阶段决定。",
+      "read_first": [
+        "README.md",
+        "packages/sprotty-protocol/src/model.ts",
+        "packages/sprotty-protocol/src/actions.ts",
+        "packages/sprotty-protocol/src/diagram-server.ts",
+        "packages/sprotty-elk/src/elk-layout.ts"
+      ],
+      "license_files": [
+        "LICENSE"
+      ]
+    }
+  ],
+  "external_references": [
+    {
+      "name": "yFiles Logic Gates",
+      "url": "https://www.yfiles.com/demos/showcase/logicgates/",
+      "note": "商业 SDK 的公开交互示例，仅记录入口，未下载 SDK。"
+    },
+    {
+      "name": "UHDM",
+      "url": "https://github.com/chipsalliance/UHDM",
+      "note": "可作为后续多前端导入器参考，本轮未下载。"
+    },
+    {
+      "name": "OpenDB",
+      "url": "https://openroad.readthedocs.io/en/latest/main/src/odb/README.html",
+      "note": "持久对象身份与数据库机制的补充参考，本轮未下载。"
+    }
+  ],
+  "second_batch_retrieved_at_utc": "2026-10-06"
+}

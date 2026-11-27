@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.selection-proposal.json",
+  "files": ["selection-read-stage.ts"],
+  "include": []
+}

@@ -1,0 +1,738 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:wrapper-chain-clocks:1",
+  "title": "Wrapper shared state functional clocks",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-wrapper-chain-clocks-v1"
+        },
+        "source": {
+          "$ref": "urn:dft-studio:analysis:wrapper-chain-plan:1#/oneOf/0"
+        },
+        "clocks": {
+          "type": "object",
+          "properties": {
+            "limits": {
+              "type": "object",
+              "properties": {
+                "maxRows": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100000
+                },
+                "maxRegisters": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100000
+                },
+                "maxWork": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 10000000
+                },
+                "maxDepth": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 256
+                },
+                "maxMillis": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 60000
+                },
+                "pageSize": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 1000
+                }
+              },
+              "required": [
+                "maxRows",
+                "maxRegisters",
+                "maxWork",
+                "maxDepth",
+                "maxMillis",
+                "pageSize"
+              ],
+              "additionalProperties": false
+            },
+            "complete": {
+              "type": "boolean"
+            },
+            "work": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            },
+            "registers": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000
+            },
+            "reasons": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "source_partial",
+                  "clock_unresolved",
+                  "budget_rows",
+                  "budget_registers",
+                  "budget_work",
+                  "budget_time"
+                ]
+              },
+              "uniqueItems": true
+            },
+            "pages": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "inst": {
+                    "type": "string"
+                  },
+                  "response": {
+                    "type": "object",
+                    "properties": {
+                      "result": {
+                        "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/RegisterInfoPage"
+                      },
+                      "completeness": {
+                        "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/Completeness"
+                      }
+                    },
+                    "required": [
+                      "result",
+                      "completeness"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "inst",
+                  "response"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "checks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "event": {
+                    "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/ClockEvent"
+                  },
+                  "status": {
+                    "enum": [
+                      "resolved",
+                      "unresolved"
+                    ]
+                  },
+                  "reason": {
+                    "type": "string"
+                  },
+                  "proof": {
+                    "$ref": "urn:dft-studio:analysis:sequential:2#/$defs/Report/properties/checks/items/properties/logic"
+                  },
+                  "group": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  }
+                },
+                "required": [
+                  "event",
+                  "status",
+                  "reason"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "resolved"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "required": [
+                        "proof",
+                        "group"
+                      ],
+                      "properties": {
+                        "reason": {
+                          "const": "primary_input"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unresolved"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "group": false
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "groups": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "point": {
+                    "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/TracePoint"
+                  },
+                  "sourceRef": {
+                    "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/ObjectRef"
+                  },
+                  "edge": {
+                    "enum": [
+                      "posedge",
+                      "negedge"
+                    ]
+                  }
+                },
+                "required": [
+                  "point",
+                  "sourceRef",
+                  "edge"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "rows": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "chain": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1023
+                  },
+                  "segment": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "status": {
+                    "enum": [
+                      "resolved",
+                      "mixed",
+                      "unresolved",
+                      "dedicated"
+                    ]
+                  },
+                  "reason": {
+                    "enum": [
+                      "single_clock",
+                      "mixed_clocks",
+                      "clock_unresolved",
+                      "clock_not_in_rtl",
+                      "register_facts_partial",
+                      "register_gap",
+                      "register_overlap"
+                    ]
+                  },
+                  "matches": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "page": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "fact": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "bits": {
+                          "$ref": "urn:dft-studio:hier:protocol:2:schema:7#/$defs/BitRange"
+                        },
+                        "check": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "group": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "page",
+                        "fact",
+                        "bits"
+                      ],
+                      "additionalProperties": false,
+                      "allOf": [
+                        {
+                          "if": {
+                            "required": [
+                              "group"
+                            ]
+                          },
+                          "then": {
+                            "required": [
+                              "check"
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "groups": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "uniqueItems": true
+                  }
+                },
+                "required": [
+                  "chain",
+                  "segment",
+                  "status",
+                  "reason",
+                  "matches",
+                  "groups"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "dedicated"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "reason": {
+                          "const": "clock_not_in_rtl"
+                        },
+                        "matches": {
+                          "maxItems": 0
+                        },
+                        "groups": {
+                          "maxItems": 0
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "resolved"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "reason": {
+                          "const": "single_clock"
+                        },
+                        "matches": {
+                          "minItems": 1
+                        },
+                        "groups": {
+                          "minItems": 1,
+                          "maxItems": 1
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "mixed"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "reason": {
+                          "const": "mixed_clocks"
+                        },
+                        "matches": {
+                          "minItems": 2
+                        },
+                        "groups": {
+                          "minItems": 2
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unresolved"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "reason": {
+                          "enum": [
+                            "clock_unresolved",
+                            "register_facts_partial",
+                            "register_gap",
+                            "register_overlap"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "maxItems": 100000
+            },
+            "chains": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "chain": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1023
+                  },
+                  "processedSegments": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "resolvedBits": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "unresolvedBits": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "dedicatedBits": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "groups": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "uniqueItems": true
+                  },
+                  "status": {
+                    "enum": [
+                      "empty",
+                      "single_clock",
+                      "mixed_clock",
+                      "unresolved",
+                      "dedicated_only"
+                    ]
+                  }
+                },
+                "required": [
+                  "chain",
+                  "processedSegments",
+                  "resolvedBits",
+                  "unresolvedBits",
+                  "dedicatedBits",
+                  "groups",
+                  "status"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "single_clock"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "groups": {
+                          "minItems": 1,
+                          "maxItems": 1
+                        },
+                        "unresolvedBits": {
+                          "const": 0
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "mixed_clock"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "groups": {
+                          "minItems": 2
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "dedicated_only"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "groups": {
+                          "maxItems": 0
+                        },
+                        "dedicatedBits": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 9007199254740991
+                        },
+                        "resolvedBits": {
+                          "const": 0
+                        },
+                        "unresolvedBits": {
+                          "const": 0
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "empty"
+                        }
+                      },
+                      "required": [
+                        "status"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "groups": {
+                          "maxItems": 0
+                        },
+                        "processedSegments": {
+                          "const": 0
+                        },
+                        "resolvedBits": {
+                          "const": 0
+                        },
+                        "unresolvedBits": {
+                          "const": 0
+                        },
+                        "dedicatedBits": {
+                          "const": 0
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "maxItems": 1024
+            },
+            "stop": {
+              "type": "object",
+              "properties": {
+                "reason": {
+                  "enum": [
+                    "budget_rows",
+                    "budget_registers",
+                    "budget_work",
+                    "budget_time"
+                  ]
+                },
+                "chain": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1024
+                },
+                "segment": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "reason",
+                "chain",
+                "segment"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "limits",
+            "complete",
+            "work",
+            "registers",
+            "reasons",
+            "pages",
+            "checks",
+            "groups",
+            "rows",
+            "chains"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "complete": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "complete"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "stop": false,
+                  "reasons": {
+                    "maxItems": 0
+                  },
+                  "rows": {
+                    "items": {
+                      "properties": {
+                        "status": {
+                          "enum": [
+                            "resolved",
+                            "mixed",
+                            "dedicated"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "required": [
+                  "stop"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "complete": {
+                    "const": false
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "source",
+        "clocks"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "clocks": {
+                "properties": {
+                  "complete": {
+                    "const": true
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "layout": {
+                    "properties": {
+                      "complete": {
+                        "const": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:wrapper-boundary:1#/oneOf/1"
+    }
+  ]
+}

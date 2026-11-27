@@ -1,0 +1,218 @@
+design_manager:
+   design_name: processor_core
+   design_filelist: /home/wongw/nx9000/design/processor_core/processor_core.vc
+   design_level: physical_block
+   design_type: hierarchical
+   rtl_or_gate: rtl
+   sub_harden: ""
+   level: level1
+   dftfuse: off
+   release_dir: /home/wongw/dft_release
+syn_setting:
+   type: flatten_incr_syn
+
+flow:  #keep order
+  mbist: true
+  logic_test: true
+  scan: true
+  atpg: true
+  retarget: false
+  verification: true
+  deliver: true
+
+features:
+  memory_test: true
+  boundary_scan: false
+  ist: false
+  tap: false
+  mbisr_controller: false
+  mbisr_chain: true
+  edt: true
+  occ: true
+  ssn: true
+  lbist: false
+  add_test_clock_on_ssh: true
+
+sub_harden: ""
+
+mbist_setting:   
+   dft_spec_req: 
+       set_dft_specification_requirements -memory_test on -design_type tile  -memory_bisr_host_list {- {apb_noc_main_0_comb}}
+   create_dft_spec:
+       set dftspec [create_dft_specification -tile_ijtag_host_list {apb_noc_main_0_comb}]
+   dfx_ip: |
+       read_verilog $prj_path/user_material/dfx_ip/dfx_common_cell.v
+       read_verilog $prj_path/user_material/dfx_ip/dfx_static_hyper_ctl_tdr.v
+       read_verilog $prj_path/user_material/dfx_ip/dfx_dynamic_hyper_ctl.v
+       read_icl $prj_path/user_material/dfx_ip/dfx_static_hyper_ctl_tdr.icl
+       #read_icl /proj/TC10d/wa/yongw/tc10/DE2.6/user_material/design_modify/ap_wrapper/dfx_pad_ctrl_ovrd_tdr.icl
+       #read_verilog /proj/TC10d/wa/yongw/tc10/DE2.6/user_material/design_modify/ap_wrapper/dfx_pad_ctrl_ovrd_tdr.v
+       #read_icl /proj/TC10d/wa/jack/tc10/DE2.6/user_material/design_modify/processor_core/dfx_mem_ema_ctrl.icl
+       #read_verilog /proj/TC10d/wa/jack/tc10/DE2.6/user_material/design_modify/processor_core/dfx_mem_ema_ctrl.v
+
+   design_modify_pre_dft: |
+       source $prj_path/user_material/dfx_ip/dfx_static_dynamic_ctl.tcl
+       #source $prj_path/user_material/design_modify/processor_core/ref0_clk_pad_ctl.tcl
+       #source /proj/TC10d/wa/jack/tc10/DE2.6/user_material/design_modify/processor_core/dfx_mem_ema_ctrl.tcl
+       #source $prj_path/user_material/dfx_ip/testability_ctl.tcl
+       set scan_mode_port [get_name_list [get_port scan_mode -silent]]
+       set mbist_mode_port [get_name_list [get_port mbist_mode -silent]]
+       set TM_port [get_name_list [get_port TM -silent]]
+       if {$scan_mode_port ne ""} {
+          add_input_port_dft_mux_override $scan_mode_port u_dfx_static_hyper_ctl_tdr/dfx_scan_mode  u_dfx_static_hyper_ctl_tdr/dfx_mode
+       }
+       if {$TM_port ne ""} {
+          add_input_port_dft_mux_override $TM_port u_dfx_static_hyper_ctl_tdr/dfx_scan_mode  u_dfx_static_hyper_ctl_tdr/dfx_mode
+       }
+       if {$mbist_mode_port ne ""} {
+          add_input_port_dft_mux_override $mbist_mode_port u_dfx_static_hyper_ctl_tdr/dfx_mbist_mode  u_dfx_static_hyper_ctl_tdr/dfx_mode
+       }
+   sharebus: no
+
+   before_drc:
+      dft_signal: |
+        #add later
+      exclude_quick_synthesis: |
+        #dft_exclude_from_synthesis [list xxx xxx]
+      pin_constraint: | 
+        #add your pin constraint here
+        #add_primary_input c/d/e/ltest -C1
+        #add_input_constraints [get_pins c/d/e/ltest] -C1
+        add_primary_input u_dfx_static_hyper_ctl_tdr/dfx_mode
+        add_input_constraints u_dfx_static_hyper_ctl_tdr/dfx_mode -C1
+        add_primary_input u_dfx_static_hyper_ctl_tdr/dfx_mbist_mode
+        add_input_constraints u_dfx_static_hyper_ctl_tdr/dfx_mbist_mode -C1
+
+      clock: |
+        source  ../../../../dft_studio_db/${design_name}/compiled/dft_clock_define.tcl
+
+      blackbox: |
+         #add_black_box  -module [get_module  *ssss*]
+      def: |
+        #read_def /proj/TC10ds/release_a0/def/13_Jul08_2026_KN_mem_only_def/processor_core.mem_only.def 
+        set_memory_instance_options -physical_cluster_size_ratio 30
+      upf: |
+        #add later
+   before_create_dft_spec: |
+      #add yours setting if need
+   before_process_dft_spec: |
+      #add yours setting if need
+      set_config_value $dftspec/allow_port_creation_on_current_design  on
+      #insert_pipeline_by_type -sib_type th -position before -levels 3 -prefix from_apb_noc_main_0_comb -dftspec $dftspec
+      #insert_pipeline_by_type -sib_type th -position after -levels 3 -prefix to_apb_noc_main_0_comb -dftspec $dftspec
+   design_modify_post_dft: |
+      #add yours setting if need
+
+   before_extract_icl: |
+      #add yours setting if need
+
+   after_extract_icl: |
+      #add yours setting if need
+
+logic_test_setting:
+   dft_spec_req: 
+       set_dft_specification_requirements -logic_test on -add_test_clock_on_ssh on  
+   create_dft_spec:
+       set dftspec [create_dft_specification -sri_sib_list {edt occ ssn}]
+   dfx_ip: |
+     #read_verilog $prj_path/user_material/dfx_ip/dfx_common_cell.v
+   design_modify_pre_dft: |
+     #add later
+     
+   before_drc:
+       drc_handling: |
+          set_drc_handling DFT_C9 -auto_fix off
+       exclude_quick_synthesis: |
+         #dft_exclude_from_synthesis [list xxx xxx]  
+       blackbox: |
+         #add_black_box  -module [get_module  *ssss*]      
+       ssn: on
+       pin_constraint: | 
+         add_primary_input u_dfx_static_hyper_ctl_tdr/dfx_hyper_ctl_ff_init
+         add_input_constraints u_dfx_static_hyper_ctl_tdr/dfx_hyper_ctl_ff_init -c1
+         add_primary_input u_dfx_static_hyper_ctl_tdr/dfx_rst_tdr_n
+         add_input_constraints u_dfx_static_hyper_ctl_tdr/dfx_rst_tdr_n -c1
+         add_primary_input u_dfx_static_hyper_ctl_tdr/dfx_scan_mode
+         add_input_constraints u_dfx_static_hyper_ctl_tdr/dfx_scan_mode -c1
+         add_primary_input u_dfx_dynamic_hyper_ctl/dfx_rst_scan_n
+         add_input_constraints u_dfx_dynamic_hyper_ctl/dfx_rst_scan_n -c1     
+       clock: |
+         add_clock 0 u_dfx_clk_test_testpoint_persistent_buf/Z  -label clk_test_testpoint_100M -period 10ns
+       add_core_instance: |
+         #add_core_instances -instances [get_instances *_tessent_sib_sti_inst]
+       nonscan: |
+          #add_nonscan_instances [get_instance  *dfx_*_edt_channels_*_pipe*]
+       dft_signals:
+           source_signal: |
+              add_dft_signal int_mode ext_mode int_ltest_en ext_ltest_en 
+       static_dft_signal_value: |
+              #set_static_dft_signal_values tck_occ_en 1
+   before_create_dft_spec: |
+      #add yours setting if need
+
+   before_process_dft_spec: |
+      #add yours setting if need
+
+   design_modify_post_dft: |
+      #add tcl proc or script here
+      create_connection [get_pins tessent_persistent_cell_shift_capture_clock/GCK] [get_pins u_dfx_clk_test_testpoint_persistent_buf/A]
+
+   before_extract_icl: |
+      #add yours setting if need
+   
+   after_extract_icl: |
+      #add yours setting if need
+
+scan_test_setting:                
+     netlist_for_scan: /home/wongw/nx9000/dft_path/processor_core/v1/2.logic_test_insertion/processor_core_synthesized.vg
+     test_point: yes
+     scan_wrapper: yes
+     module_match: |
+         set_module_matching_options -prefix_pattern_list {processor_core_ processor_core_processor_core_} -suffix_pattern_list {_processor_core_[0_9]+ _[0_9]+} -regexp
+     clock_gating_en: |
+         set_clock_gating_enable [get_pins u_dfx_dynamic_hyper_ctl/dfx_apc_cp_hyper_ctl[0]]
+     scan_enable: |
+         set_scan_enable [get_pins *logic_test_tessent_ssn_scan_host*inst/scan_en]
+     pin_constraint: |
+          #add_primary_input c/d/e/ltest -C1
+          #add_input_constraints [get_pins c/d/e/ltest] -C1
+          #add_primary_input c/d/e/mtest -C1
+          #add_input_constraints [get_pins c/d/e/mtest] -C1
+          add_primary_input u_dfx_static_hyper_ctl_tdr/dfx_hyper_ctl_ff_init
+          add_input_constraints u_dfx_static_hyper_ctl_tdr/dfx_hyper_ctl_ff_init -c1
+          add_primary_input u_dfx_static_hyper_ctl_tdr/dfx_rst_tdr_n
+          add_input_constraints u_dfx_static_hyper_ctl_tdr/dfx_rst_tdr_n -c1
+          add_primary_input u_dfx_static_hyper_ctl_tdr/dfx_scan_mode
+          add_input_constraints u_dfx_static_hyper_ctl_tdr/dfx_scan_mode -c1
+          add_primary_input u_dfx_dynamic_hyper_ctl/dfx_rst_scan_n
+          add_input_constraints u_dfx_dynamic_hyper_ctl/dfx_rst_scan_n -c1 
+     nonscan: |
+          add_nonscan_instances [get_instance  *tessent_edt_*_EDT_chan_*_*_lockup_inst*]
+          add_nonscan_instances [get_instance  *dfx_*_edt_channels_*_pipe*]
+          add_nonscan_instances PROCESSOR_1/watchdog_0
+          add_nonscan_instances PROCESSOR_1/clock_module_0
+     blackbox: |
+          #add_black_box  -module [get_module  *ssss*]
+     wrapper_setting: |
+          #set_wrapper_analysis_options -exclude_ports xxxx
+          set_wrapper_analysis_options -register_undriven_output on
+          set_wrapper_analysis_options -capture_window_behavior shift
+     scan_chain_setting: |
+          register_attribute -name is_occ -obj_type scan_element -value_type boolean
+          set_attribute_value  [get_scan_element -below_instances [get_name_list [get_instance *tessent_occ* -h]]] -name is_occ
+
+          register_attribute -name is_hyper -obj_type scan_element -value_type boolean
+          set_attribute_value  [get_scan_element -below_instances [get_name_list [get_instance *u_dfx_dynamic_hyper_ctl -h]]] -name is_hyper
+
+          register_attribute -name is_int -obj_type scan_element -value_type boolean
+          set_attribute_value  [get_scan_element * -filter "!is_occ && !is_hyper"] -name is_int
+
+          create_scan_chain_family OCC_CHAIN -chain_length unlimited  -include_elements [get_scan_element * -filter "is_occ"]
+          create_scan_chain_family HYPER_CHAIN -chain_length unlimited  -include_elements [get_scan_element * -filter "is_hyper"]
+          create_scan_chain_family INT_CHAIN -chain_length unlimited  -include_elements [get_scan_element * -filter "!is_occ && !is_hyper"] 
+
+          add_scan_mode int_edt_mode  -single_clock_edge_chains on -include_chain_families [list INT_CHAIN OCC_CHAIN HYPER_CHAIN] -single_wrapper_type_chains on -single_clock_domain_chains off -edt_instances [get_name_list [get_instance -of_icl_instances [get_name_list [get_icl_instances -filter "name=~ *INT_EDT* && tessent_instrument_type==mentor::edt"]]]] -si_lockup_cell_type flop -single_class_chains on -type internal -enable_dft_signal int_edt_mode
+
+          add_scan_mode ext_edt_mode  -single_clock_edge_chains on -include_chain_families [list OCC_CHAIN HYPER_CHAIN] -single_wrapper_type_chains on -single_clock_domain_chains off -include_elements [get_scan_elements -filter "class == wrapper"] -edt_instances [get_name_list [get_instance -of_icl_instances [get_name_list [get_icl_instances -filter "name=~ *EXT_EDT* && tessent_instrument_type==mentor::edt"]]]] -si_lockup_cell_type flop -single_class_chains on -type external -enable_dft_signal ext_edt_mode 
+     design_modify_post_scan: |
+           #add later

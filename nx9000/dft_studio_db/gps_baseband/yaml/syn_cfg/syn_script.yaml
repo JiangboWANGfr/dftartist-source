@@ -1,0 +1,79 @@
+run_sub_syn: |
+     if (\$logictestins == "1" && \$mbistins == "0") then
+         qrsh -l mem_free=200G  xterm -bg black -fg white -fn "12x24" -title "${design_name}_logic_test_syn" -e "\$SHELL -c 'cd ./${design_name}_logic_test.synthesis_dc_shell ; bash -c ./synthesis.script;  \; exec \$SHELL'" &
+     else
+         qrsh -l mem_free=200G  xterm -bg black -fg white -fn "12x24" -title "${design_name}_mbist_syn" -e "\$SHELL -c 'cd ./${design_name}_mbist.synthesis_dc_shell ; bash -c ./synthesis.script;  \; exec \$SHELL'" &
+         qrsh -l mem_free=200G  xterm -bg black -fg white -fn "12x24" -title "${design_name}_logic_test_syn" -e "\$SHELL -c 'cd ./${design_name}_logic_test.synthesis_dc_shell ; bash -c ./synthesis.script;  \; exec \$SHELL'" &    
+     endif
+     wait
+     
+     #####################################################################################
+     set target_file = "$ldeliver/${design_name}.after_syn.to_scan.vg"
+     if ( -f \$target_file ) then
+         set ts = `date +%Y%m%d_%H%M%S`
+         mv \$target_file \${target_file}.\${ts}
+     else
+         echo "Not exist : \$target_file"
+     endif
+     
+     cp -rf -L "$prj_path/dft_path/$design_name/$version/${design_name}_tsdb_outdir/dft_inserted_designs/${design_name}_logic_test.dft_inserted_design/${design_name}.v_full" \$target_file
+     set dest_file = \$target_file
+     
+     
+     #####################################################################################
+     if (\$logictestins == "1" && \$mbistins == "0") then
+         set target_dir2 = "$ldeliver/design/logic_test"
+         if ( -d \$target_dir2 ) then
+             set time_suffix = `date +%Y%m%d_%H%M%S`
+             mv \$target_dir2 \${target_dir2}.bak.\${time_suffix}
+         endif
+         mkdir \$target_dir2
+         find ./${design_name}_logic_test.synthesis_dc_shell -name "*.vg" -exec cp {} \$target_dir2
+     
+         set dir = \$target_dir2
+         if ( -d \$dir ) then
+             echo "The \$dir exist, begin merge all .vg to \$dest_file..."
+             find \$dir -name "*.vg" -type f | xargs cat >> \$dest_file
+         else
+             echo "The \$dir not exist, skip, please check"
+         endif    
+     else 
+         set target_dir1 = "$ldeliver/design/mbist"
+         if ( -d \$target_dir1 ) then
+             set time_suffix = `date +%Y%m%d_%H%M%S`
+             mv \$target_dir1 \${target_dir1}.bak.\${time_suffix}
+         endif
+         mkdir \$target_dir1
+         find ./${design_name}_mbist.synthesis_dc_shell -name "*.vg" -exec cp {} \$target_dir1
+         
+         
+         set target_dir2 = "$ldeliver/design/logic_test"
+         if ( -d \$target_dir2 ) then
+             set time_suffix = `date +%Y%m%d_%H%M%S`
+             mv \$target_dir2 \${target_dir2}.bak.\${time_suffix}
+         endif
+         mkdir \$target_dir2
+         find ./${design_name}_logic_test.synthesis_dc_shell -name "*.vg" -exec cp {} \$target_dir2
+     
+         find $prj_path/user_material/dfx_ip/netlist_6p -name "dfx_dynamic_hyper_ctl.vg" -exec cp {} \$target_dir2
+         find $prj_path/user_material/dfx_ip/netlist_6p -name "dfx_static_hyper_ctl_tdr.vg" -exec cp {} \$target_dir2
+         find $prj_path/user_material/dfx_ip/netlist_6p -name "dfx_common_cell.vg" -exec cp {} \$target_dir2
+     
+         set dir = \$target_dir1
+         if ( -d \$dir ) then
+             echo "The \$dir exist, begin merge all .vg to \$dest_file..."
+             find \$dir -name "*.vg" -type f | xargs cat >> \$dest_file
+         else
+             echo "The \$dir not exist, skip, please check"
+         endif
+         
+         set dir = \$target_dir2
+         if ( -d \$dir ) then
+             echo "The \$dir exist, begin merge all .vg to \$dest_file..."
+             find \$dir -name "*.vg" -type f | xargs cat >> \$dest_file
+         else
+             echo "The \$dir not exist, skip, please check"
+         endif
+     endif
+     
+

@@ -1,0 +1,39 @@
+{
+  "name": "dft-suite",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "dev": "vite",
+    "dev:electron": "concurrently -k \"vite\" \"wait-on tcp:127.0.0.1:5173 && ELECTRON_DEV=1 electron electron/main.cjs\"",
+    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit",
+    "test:unit": "bash tests/run-unit.sh",
+    "test:e2e": "npm run build && playwright test",
+    "test": "npm run typecheck && npm run test:unit",
+    "build:desktop": "bash scripts/stage-bin.sh && npm run build && electron-builder --linux AppImage --x64"
+  },
+  "dependencies": {
+    "elkjs": "^0.11.1",
+    "konva": "^10.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-konva": "^18.2.16",
+    "zundo": "^2.3.0",
+    "zustand": "^5.0.14"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.50.0",
+    "@types/node": "^22.19.19",
+    "@types/react": "^18.3.30",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^6.0.2",
+    "concurrently": "^10.0.3",
+    "electron": "42.3.3",
+    "electron-builder": "^26.15.2",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.16",
+    "wait-on": "^9.0.10"
+  }
+}

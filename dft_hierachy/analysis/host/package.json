@@ -1,0 +1,18 @@
+{
+  "name": "@dft-studio/native-analysis",
+  "version": "0.4.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20.12.0" },
+  "exports": {
+    ".": { "types": "./index.d.ts", "import": "./index.mjs" },
+    "./reports": { "types": "./reports.d.ts", "import": "./reports.mjs" }
+  },
+  "files": ["index.mjs", "index.d.ts", "process.mjs", "boundary.mjs", "session.mjs", "reports.mjs", "reports.d.ts", "README.md", "THIRD_PARTY_NOTICES.txt", "npm-shrinkwrap.json", "examples/session-workflow.mjs", "examples/report-source-workflow.mjs"],
+  "dependencies": { "ajv": "8.17.1", "ajv-formats": "3.0.1" },
+  "bundleDependencies": ["ajv", "ajv-formats"],
+  "scripts": {
+    "test": "node --test test/host.test.mjs test/session.test.mjs test/reports.test.mjs",
+    "test:native": "node --test test/native.test.mjs test/session-native.test.mjs"
+  }
+}

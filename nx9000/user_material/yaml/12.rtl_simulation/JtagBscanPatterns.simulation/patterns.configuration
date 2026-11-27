@@ -1,0 +1,5 @@
+config JtagBscanPatterns_configuration;
+design TB;
+default liblist dut_work;
+instance TB.DUT_inst use     dut_work.asic_top;
+endconfig

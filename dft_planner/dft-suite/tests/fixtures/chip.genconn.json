@@ -1,0 +1,565 @@
+{
+  "schemaVersion": 1,
+  "library": {
+    "defs": [
+      {
+        "id": "chip",
+        "designName": "chip",
+        "designLevel": "chip",
+        "designType": "hierarchical",
+        "interfaces": [],
+        "childInstances": [
+          {
+            "id": "inst_4cf7a4b8",
+            "instanceName": "C1_i1",
+            "hardenId": "def_97b45f3e",
+            "position": {
+              "x": -100,
+              "y": -100
+            },
+            "ifacePd": {
+              "if_e6f654a0": "pdgA"
+            }
+          },
+          {
+            "id": "inst_8c4560c0",
+            "instanceName": "C1_i2",
+            "hardenId": "def_97b45f3e",
+            "position": {
+              "x": -100,
+              "y": 160
+            },
+            "ifacePd": {
+              "if_e6f654a0": "pdgB"
+            }
+          },
+          {
+            "id": "inst_60bd2238",
+            "instanceName": "C2_i1",
+            "hardenId": "def_f7ecd840",
+            "position": {
+              "x": 80,
+              "y": -100
+            }
+          },
+          {
+            "id": "inst_a687c4e9",
+            "instanceName": "C3_i1",
+            "hardenId": "def_1d0edb33",
+            "position": {
+              "x": 280,
+              "y": -100
+            }
+          },
+          {
+            "id": "inst_41e29479",
+            "instanceName": "C2_i2",
+            "hardenId": "def_f7ecd840",
+            "position": {
+              "x": 520,
+              "y": -100
+            },
+            "mirror": true
+          },
+          {
+            "id": "inst_693f3437",
+            "instanceName": "C1_i3",
+            "hardenId": "def_97b45f3e",
+            "position": {
+              "x": 720,
+              "y": -100
+            },
+            "mirror": true,
+            "ifacePd": {
+              "if_e6f654a0": "pdgA"
+            }
+          },
+          {
+            "id": "inst_7fa0498a",
+            "instanceName": "C1_i4",
+            "hardenId": "def_97b45f3e",
+            "position": {
+              "x": 720,
+              "y": 160
+            },
+            "mirror": true,
+            "ifacePd": {
+              "if_e6f654a0": "pdgB"
+            }
+          }
+        ],
+        "connections": [
+          {
+            "id": "k_0e612393",
+            "secondaryInstanceId": "inst_60bd2238",
+            "secondaryInterfaceId": "if_012b13ab",
+            "clientInstanceId": "inst_4cf7a4b8",
+            "clientInterfaceId": "if_e6f654a0"
+          },
+          {
+            "id": "k_9a2d3913",
+            "secondaryInstanceId": "inst_60bd2238",
+            "secondaryInterfaceId": "if_cd32ff1b",
+            "clientInstanceId": "inst_8c4560c0",
+            "clientInterfaceId": "if_e6f654a0"
+          },
+          {
+            "id": "k_bb38a923",
+            "secondaryInstanceId": "inst_60bd2238",
+            "secondaryInterfaceId": "if_f29fc9e1",
+            "clientInstanceId": "inst_4cf7a4b8",
+            "clientInterfaceId": "if_73f85d0e"
+          },
+          {
+            "id": "k_12606509",
+            "secondaryInstanceId": "inst_60bd2238",
+            "secondaryInterfaceId": "if_93d6a91a",
+            "clientInstanceId": "inst_8c4560c0",
+            "clientInterfaceId": "if_73f85d0e"
+          },
+          {
+            "id": "k_1062fbe3",
+            "secondaryInstanceId": "inst_60bd2238",
+            "secondaryInterfaceId": "if_9ed80df2",
+            "clientInstanceId": "inst_4cf7a4b8",
+            "clientInterfaceId": "if_84f90bcd"
+          },
+          {
+            "id": "k_548c20e2",
+            "secondaryInstanceId": "inst_60bd2238",
+            "secondaryInterfaceId": "if_6b5ed102",
+            "clientInstanceId": "inst_8c4560c0",
+            "clientInterfaceId": "if_84f90bcd"
+          },
+          {
+            "id": "k_8a224c0b",
+            "secondaryInstanceId": "inst_60bd2238",
+            "secondaryInterfaceId": "if_55e0febc",
+            "clientInstanceId": "inst_4cf7a4b8",
+            "clientInterfaceId": "if_8c1ed488"
+          },
+          {
+            "id": "k_4ab83aa0",
+            "secondaryInstanceId": "inst_60bd2238",
+            "secondaryInterfaceId": "if_0626a0ab",
+            "clientInstanceId": "inst_8c4560c0",
+            "clientInterfaceId": "if_8c1ed488"
+          },
+          {
+            "id": "k_1bacb3a2",
+            "secondaryInstanceId": "inst_a687c4e9",
+            "secondaryInterfaceId": "if_4394e501",
+            "clientInstanceId": "inst_60bd2238",
+            "clientInterfaceId": "if_c08f7664"
+          },
+          {
+            "id": "k_2021de8a",
+            "secondaryInstanceId": "inst_a687c4e9",
+            "secondaryInterfaceId": "if_c3a8ac55",
+            "clientInstanceId": "inst_60bd2238",
+            "clientInterfaceId": "if_5a263877"
+          },
+          {
+            "id": "k_5b1a3c2c",
+            "secondaryInstanceId": "inst_a687c4e9",
+            "secondaryInterfaceId": "if_6b6dfdfc",
+            "clientInstanceId": "inst_60bd2238",
+            "clientInterfaceId": "if_c2613e22"
+          },
+          {
+            "id": "k_3044312d",
+            "secondaryInstanceId": "inst_a687c4e9",
+            "secondaryInterfaceId": "if_389ce034",
+            "clientInstanceId": "inst_60bd2238",
+            "clientInterfaceId": "if_49c92d06"
+          },
+          {
+            "id": "k_3b528fae",
+            "secondaryInstanceId": "inst_a687c4e9",
+            "secondaryInterfaceId": "if_f2a5fc6c",
+            "clientInstanceId": "inst_41e29479",
+            "clientInterfaceId": "if_5a263877"
+          },
+          {
+            "id": "k_5f0effb0",
+            "secondaryInstanceId": "inst_a687c4e9",
+            "secondaryInterfaceId": "if_d5cd6b6e",
+            "clientInstanceId": "inst_41e29479",
+            "clientInterfaceId": "if_c2613e22"
+          },
+          {
+            "id": "k_f7d5bad7",
+            "secondaryInstanceId": "inst_a687c4e9",
+            "secondaryInterfaceId": "if_d9117f1e",
+            "clientInstanceId": "inst_41e29479",
+            "clientInterfaceId": "if_49c92d06"
+          },
+          {
+            "id": "k_b5d41729",
+            "secondaryInstanceId": "inst_41e29479",
+            "secondaryInterfaceId": "if_012b13ab",
+            "clientInstanceId": "inst_693f3437",
+            "clientInterfaceId": "if_e6f654a0"
+          },
+          {
+            "id": "k_c2b99c3a",
+            "secondaryInstanceId": "inst_41e29479",
+            "secondaryInterfaceId": "if_cd32ff1b",
+            "clientInstanceId": "inst_7fa0498a",
+            "clientInterfaceId": "if_e6f654a0"
+          },
+          {
+            "id": "k_9c4fbc0a",
+            "secondaryInstanceId": "inst_41e29479",
+            "secondaryInterfaceId": "if_f29fc9e1",
+            "clientInstanceId": "inst_693f3437",
+            "clientInterfaceId": "if_73f85d0e"
+          },
+          {
+            "id": "k_0a8afa9e",
+            "secondaryInstanceId": "inst_41e29479",
+            "secondaryInterfaceId": "if_93d6a91a",
+            "clientInstanceId": "inst_7fa0498a",
+            "clientInterfaceId": "if_73f85d0e"
+          },
+          {
+            "id": "k_75786bf6",
+            "secondaryInstanceId": "inst_41e29479",
+            "secondaryInterfaceId": "if_9ed80df2",
+            "clientInstanceId": "inst_693f3437",
+            "clientInterfaceId": "if_84f90bcd"
+          },
+          {
+            "id": "k_3eb8bc19",
+            "secondaryInstanceId": "inst_41e29479",
+            "secondaryInterfaceId": "if_6b5ed102",
+            "clientInstanceId": "inst_7fa0498a",
+            "clientInterfaceId": "if_84f90bcd"
+          },
+          {
+            "id": "k_e692eb51",
+            "secondaryInstanceId": "inst_41e29479",
+            "secondaryInterfaceId": "if_55e0febc",
+            "clientInstanceId": "inst_693f3437",
+            "clientInterfaceId": "if_8c1ed488"
+          },
+          {
+            "id": "k_0df783f3",
+            "secondaryInstanceId": "inst_41e29479",
+            "secondaryInterfaceId": "if_0626a0ab",
+            "clientInstanceId": "inst_7fa0498a",
+            "clientInterfaceId": "if_8c1ed488"
+          },
+          {
+            "id": "k_f7934b04",
+            "secondaryInstanceId": "inst_a687c4e9",
+            "secondaryInterfaceId": "if_c2c11a25",
+            "clientInstanceId": "inst_41e29479",
+            "clientInterfaceId": "if_c08f7664"
+          }
+        ]
+      },
+      {
+        "id": "def_97b45f3e",
+        "designName": "C1",
+        "designLevel": "physical_block",
+        "designType": "tiling",
+        "interfaces": [
+          {
+            "busType": "SSN",
+            "role": "client",
+            "busWidth": 4,
+            "id": "if_84f90bcd",
+            "edge": {
+              "side": "right",
+              "offset": 0.23853613548467714
+            }
+          },
+          {
+            "busType": "IJTAG",
+            "role": "client",
+            "id": "if_8c1ed488",
+            "edge": {
+              "side": "right",
+              "offset": 0.518036212632895
+            }
+          },
+          {
+            "busType": "BISR",
+            "role": "client",
+            "id": "if_e6f654a0",
+            "edge": {
+              "side": "right",
+              "offset": 0.7000112098703801
+            }
+          },
+          {
+            "busType": "BSCAN",
+            "role": "client",
+            "bscanVariant": "DC",
+            "id": "if_73f85d0e",
+            "edge": {
+              "side": "right",
+              "offset": 0.8473102761225763
+            }
+          }
+        ],
+        "childInstances": [],
+        "connections": [],
+        "inLibrary": false,
+        "size": {
+          "w": 180,
+          "h": 260
+        }
+      },
+      {
+        "id": "def_f7ecd840",
+        "designName": "C2",
+        "designLevel": "physical_block",
+        "designType": "tiling",
+        "interfaces": [
+          {
+            "busType": "BISR",
+            "role": "client",
+            "powerDomain": "pdgA",
+            "id": "if_c08f7664",
+            "edge": {
+              "side": "right",
+              "offset": 0.3334485841651031
+            }
+          },
+          {
+            "busType": "BISR",
+            "role": "client",
+            "powerDomain": "pdgB",
+            "id": "if_5a263877",
+            "edge": {
+              "side": "right",
+              "offset": 0.6609235143964977
+            }
+          },
+          {
+            "busType": "BISR",
+            "role": "secondary",
+            "interfaceName": "r1",
+            "powerDomain": "pdgA",
+            "id": "if_012b13ab",
+            "edge": {
+              "side": "left",
+              "offset": 0.35000560493519006
+            }
+          },
+          {
+            "busType": "BISR",
+            "role": "secondary",
+            "interfaceName": "r2",
+            "powerDomain": "pdgB",
+            "id": "if_cd32ff1b",
+            "edge": {
+              "side": "left",
+              "offset": 0.8500056049351901
+            }
+          },
+          {
+            "busType": "SSN",
+            "role": "client",
+            "busWidth": 4,
+            "id": "if_c2613e22",
+            "edge": {
+              "side": "right",
+              "offset": 0.47432869103189484
+            }
+          },
+          {
+            "busType": "BSCAN",
+            "role": "client",
+            "bscanVariant": "DC",
+            "id": "if_49c92d06",
+            "edge": {
+              "side": "right",
+              "offset": 0.8610342772232645
+            }
+          },
+          {
+            "busType": "BSCAN",
+            "role": "secondary",
+            "interfaceName": "r1",
+            "bscanVariant": "DC",
+            "id": "if_f29fc9e1",
+            "edge": {
+              "side": "left",
+              "offset": 0.42365513806128813
+            }
+          },
+          {
+            "busType": "BSCAN",
+            "role": "secondary",
+            "interfaceName": "r2",
+            "bscanVariant": "DC",
+            "id": "if_93d6a91a",
+            "edge": {
+              "side": "left",
+              "offset": 0.9236551380612882
+            }
+          },
+          {
+            "busType": "SSN",
+            "role": "secondary",
+            "interfaceName": "r1",
+            "busWidth": 4,
+            "id": "if_9ed80df2",
+            "edge": {
+              "side": "left",
+              "offset": 0.11926806774233857
+            }
+          },
+          {
+            "busType": "SSN",
+            "role": "secondary",
+            "interfaceName": "r2",
+            "busWidth": 4,
+            "id": "if_6b5ed102",
+            "edge": {
+              "side": "left",
+              "offset": 0.6192680677423386
+            }
+          },
+          {
+            "busType": "IJTAG",
+            "role": "secondary",
+            "interfaceName": "r1",
+            "id": "if_55e0febc",
+            "edge": {
+              "side": "left",
+              "offset": 0.2590181063164475
+            }
+          },
+          {
+            "busType": "IJTAG",
+            "role": "secondary",
+            "interfaceName": "r2",
+            "id": "if_0626a0ab",
+            "edge": {
+              "side": "left",
+              "offset": 0.7590181063164475
+            }
+          }
+        ],
+        "childInstances": [],
+        "connections": [],
+        "inLibrary": false,
+        "size": {
+          "w": 200,
+          "h": 520
+        }
+      },
+      {
+        "id": "def_1d0edb33",
+        "designName": "C3",
+        "designLevel": "sub_block",
+        "designType": "tiling",
+        "interfaces": [
+          {
+            "busType": "BISR",
+            "role": "secondary",
+            "interfaceName": "left",
+            "powerDomain": "pdgA",
+            "id": "if_4394e501",
+            "edge": {
+              "side": "left",
+              "offset": 0.3334485841651031
+            }
+          },
+          {
+            "busType": "BISR",
+            "role": "secondary",
+            "interfaceName": "right",
+            "powerDomain": "pdgA",
+            "id": "if_c2c11a25",
+            "edge": {
+              "side": "right",
+              "offset": 0.3331300306525179
+            }
+          },
+          {
+            "busType": "BISR",
+            "role": "secondary",
+            "interfaceName": "left",
+            "powerDomain": "pdgB",
+            "id": "if_c3a8ac55",
+            "edge": {
+              "side": "left",
+              "offset": 0.6609235143964977
+            }
+          },
+          {
+            "busType": "BISR",
+            "role": "secondary",
+            "interfaceName": "right",
+            "powerDomain": "pdgB",
+            "id": "if_f2a5fc6c",
+            "edge": {
+              "side": "right",
+              "offset": 0.6609235143964977
+            }
+          },
+          {
+            "busType": "SSN",
+            "role": "secondary",
+            "interfaceName": "left",
+            "busWidth": 4,
+            "id": "if_6b6dfdfc",
+            "edge": {
+              "side": "left",
+              "offset": 0.47432869103189484
+            }
+          },
+          {
+            "busType": "SSN",
+            "role": "secondary",
+            "interfaceName": "right",
+            "busWidth": 4,
+            "id": "if_d5cd6b6e",
+            "edge": {
+              "side": "right",
+              "offset": 0.47432869103189484
+            }
+          },
+          {
+            "busType": "BSCAN",
+            "role": "secondary",
+            "interfaceName": "left",
+            "bscanVariant": "DC",
+            "id": "if_389ce034",
+            "edge": {
+              "side": "left",
+              "offset": 0.8610342772232645
+            }
+          },
+          {
+            "busType": "BSCAN",
+            "role": "secondary",
+            "interfaceName": "right",
+            "bscanVariant": "DC",
+            "id": "if_d9117f1e",
+            "edge": {
+              "side": "right",
+              "offset": 0.8610342772232645
+            }
+          }
+        ],
+        "childInstances": [],
+        "connections": [],
+        "inLibrary": false,
+        "size": {
+          "w": 240,
+          "h": 520
+        }
+      }
+    ]
+  },
+  "ui": {
+    "openDefId": "chip",
+    "rootDefId": "chip"
+  }
+}

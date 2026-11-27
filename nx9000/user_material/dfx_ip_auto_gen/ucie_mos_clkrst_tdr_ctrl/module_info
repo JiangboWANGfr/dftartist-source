@@ -1,0 +1,13 @@
+module_name:
+- ucie_mos_clkrst_ctrl_tdr
+
+input_pin_name:
+
+
+output_pin_name:
+  - clkrst_tdr_ovrd_en
+  - clkrst_tdr_ovrd
+
+
+
+

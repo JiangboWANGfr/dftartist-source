@@ -1,0 +1,307 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:register-source-transitions:1",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/Report"
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:sequential:2#/$defs/Error"
+    }
+  ],
+  "$defs": {
+    "Report": {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-register-source-transitions-v1"
+        },
+        "limits": {
+          "type": "object",
+          "properties": {
+            "maxCohorts": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000
+            },
+            "maxMembers": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "maxSources": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "maxInputSegments": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2000000
+            },
+            "maxWork": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10000000
+            },
+            "maxMillis": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 60000
+            }
+          },
+          "required": [
+            "maxCohorts",
+            "maxMembers",
+            "maxSources",
+            "maxInputSegments",
+            "maxWork",
+            "maxMillis"
+          ],
+          "additionalProperties": false
+        },
+        "quality": {
+          "$ref": "urn:dft-studio:analysis:register-control-sources:1#/$defs/Report/properties/quality"
+        },
+        "analysis": {
+          "$ref": "urn:dft-studio:analysis:register-source-attribution:1#/$defs/Report"
+        },
+        "work": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "inputSegments": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "cohorts": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "members": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sources": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "comparisons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Comparison"
+          },
+          "minItems": 1,
+          "maxItems": 7
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "limits",
+        "quality",
+        "analysis",
+        "work",
+        "inputSegments",
+        "cohorts",
+        "members",
+        "sources",
+        "comparisons"
+      ],
+      "additionalProperties": false
+    },
+    "Cohort": {
+      "type": "object",
+      "properties": {
+        "baselineSources": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "uniqueItems": true
+        },
+        "scenarioSources": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "uniqueItems": true
+        },
+        "changed": {
+          "type": "boolean"
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Member"
+          },
+          "minItems": 1
+        },
+        "counts": {
+          "$ref": "urn:dft-studio:analysis:register-source-attribution:1#/$defs/Counts"
+        }
+      },
+      "required": [
+        "baselineSources",
+        "scenarioSources",
+        "changed",
+        "members",
+        "counts"
+      ],
+      "additionalProperties": false,
+      "anyOf": [
+        {
+          "properties": {
+            "baselineSources": {
+              "minItems": 1
+            }
+          }
+        },
+        {
+          "properties": {
+            "scenarioSources": {
+              "minItems": 1
+            }
+          }
+        }
+      ]
+    },
+    "Member": {
+      "type": "object",
+      "properties": {
+        "row": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "segment": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "row",
+        "segment"
+      ],
+      "additionalProperties": false
+    },
+    "Comparison": {
+      "type": "object",
+      "properties": {
+        "scenario": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 7
+        },
+        "state": {
+          "enum": [
+            "complete",
+            "partial",
+            "not_run"
+          ]
+        },
+        "inputCollected": {
+          "type": "boolean"
+        },
+        "inputComplete": {
+          "type": "boolean"
+        },
+        "sourcesComplete": {
+          "type": "boolean"
+        },
+        "inputRows": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "inputSegments": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "cohorts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Cohort"
+          }
+        },
+        "totals": {
+          "$ref": "urn:dft-studio:analysis:register-source-attribution:1#/$defs/Counts"
+        }
+      },
+      "required": [
+        "scenario",
+        "state",
+        "inputCollected",
+        "inputComplete",
+        "sourcesComplete",
+        "inputRows",
+        "inputSegments",
+        "cohorts",
+        "totals"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "complete"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "inputCollected": {
+                "const": true
+              },
+              "inputComplete": {
+                "const": true
+              },
+              "sourcesComplete": {
+                "const": true
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "inputCollected": {
+                "const": false
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "inputSegments": {
+                "const": 0
+              },
+              "cohorts": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "state": {
+                "const": "not_run"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "inputCollected": {
+                "const": false
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

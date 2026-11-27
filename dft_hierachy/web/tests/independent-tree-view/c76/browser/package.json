@@ -1,0 +1,19 @@
+{
+  "name": "hier-b-tree-view-c76",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node run.mjs",
+    "self-check": "node run.mjs --self-check",
+    "list": "node run.mjs --list"
+  },
+  "devDependencies": {
+    "@tanstack/react-virtual": "3.14.19",
+    "@types/react": "18.3.26",
+    "@types/react-dom": "18.3.7",
+    "esbuild": "0.25.11",
+    "playwright": "1.64.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  }
+}

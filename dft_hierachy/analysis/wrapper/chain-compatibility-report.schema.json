@@ -1,0 +1,560 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:dft-studio:analysis:wrapper-chain-compatibility:1",
+  "title": "Wrapper single functional clock and inactive control compatibility",
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "formatVersion": {
+          "const": 1
+        },
+        "algorithm": {
+          "const": "rtl-wrapper-chain-compatibility-v1"
+        },
+        "source": {
+          "$ref": "urn:dft-studio:analysis:wrapper-chain-resets:1#/oneOf/0"
+        },
+        "compatibility": {
+          "type": "object",
+          "properties": {
+            "policy": {
+              "const": "single_functional_clock"
+            },
+            "limits": {
+              "type": "object",
+              "properties": {
+                "maxGroups": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 1024
+                },
+                "maxWork": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 10000000
+                },
+                "maxMillis": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 60000
+                }
+              },
+              "required": [
+                "maxGroups",
+                "maxWork",
+                "maxMillis"
+              ],
+              "additionalProperties": false
+            },
+            "complete": {
+              "type": "boolean"
+            },
+            "work": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            },
+            "reasons": {
+              "type": "array",
+              "items": {
+                "enum": [
+                  "source_partial",
+                  "control_unresolved",
+                  "budget_groups",
+                  "budget_work",
+                  "budget_time"
+                ]
+              },
+              "uniqueItems": true
+            },
+            "groups": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4096
+                  },
+                  "chains": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 1023
+                    },
+                    "minItems": 1,
+                    "maxItems": 1024,
+                    "uniqueItems": true
+                  }
+                },
+                "required": [
+                  "name",
+                  "chains"
+                ],
+                "additionalProperties": false
+              },
+              "maxItems": 1024
+            },
+            "rows": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "group": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 1023
+                  },
+                  "complete": {
+                    "type": "boolean"
+                  },
+                  "status": {
+                    "enum": [
+                      "compatible",
+                      "conflict",
+                      "unresolved",
+                      "empty"
+                    ]
+                  },
+                  "allocatedSharedBits": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "allocatedDedicatedBits": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 9007199254740991
+                  },
+                  "clockGroups": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "minimum": 0,
+                      "maximum": 9007199254740991
+                    },
+                    "uniqueItems": true
+                  },
+                  "holds": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "input": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "low": {
+                          "type": "boolean"
+                        },
+                        "high": {
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "input",
+                        "low",
+                        "high"
+                      ],
+                      "additionalProperties": false,
+                      "anyOf": [
+                        {
+                          "properties": {
+                            "low": {
+                              "const": true
+                            }
+                          }
+                        },
+                        {
+                          "properties": {
+                            "high": {
+                              "const": true
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    "uniqueItems": true
+                  },
+                  "heldClocks": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "clockGroup": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        },
+                        "input": {
+                          "type": "integer",
+                          "minimum": 0,
+                          "maximum": 9007199254740991
+                        }
+                      },
+                      "required": [
+                        "clockGroup",
+                        "input"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "uniqueItems": true
+                  },
+                  "reasons": {
+                    "type": "array",
+                    "items": {
+                      "enum": [
+                        "constant_asserted",
+                        "conflicting_levels",
+                        "held_clock",
+                        "mixed_clocks",
+                        "clock_unresolved",
+                        "reset_unresolved",
+                        "dedicated_controls_undefined"
+                      ]
+                    },
+                    "uniqueItems": true
+                  }
+                },
+                "required": [
+                  "group",
+                  "complete",
+                  "status",
+                  "allocatedSharedBits",
+                  "allocatedDedicatedBits",
+                  "clockGroups",
+                  "holds",
+                  "heldClocks",
+                  "reasons"
+                ],
+                "additionalProperties": false,
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "compatible"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "complete": {
+                          "const": true
+                        },
+                        "allocatedSharedBits": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 9007199254740991
+                        },
+                        "allocatedDedicatedBits": {
+                          "const": 0
+                        },
+                        "clockGroups": {
+                          "minItems": 1,
+                          "maxItems": 1
+                        },
+                        "heldClocks": {
+                          "maxItems": 0
+                        },
+                        "reasons": {
+                          "maxItems": 0
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "conflict"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "reasons": {
+                          "contains": {
+                            "enum": [
+                              "constant_asserted",
+                              "conflicting_levels",
+                              "held_clock",
+                              "mixed_clocks"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "unresolved"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "complete": {
+                          "const": false
+                        },
+                        "reasons": {
+                          "contains": {
+                            "enum": [
+                              "clock_unresolved",
+                              "reset_unresolved",
+                              "dedicated_controls_undefined"
+                            ]
+                          },
+                          "not": {
+                            "contains": {
+                              "enum": [
+                                "constant_asserted",
+                                "conflicting_levels",
+                                "held_clock",
+                                "mixed_clocks"
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "status": {
+                          "const": "empty"
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "complete": {
+                          "const": true
+                        },
+                        "allocatedSharedBits": {
+                          "const": 0
+                        },
+                        "allocatedDedicatedBits": {
+                          "const": 0
+                        },
+                        "clockGroups": {
+                          "maxItems": 0
+                        },
+                        "holds": {
+                          "maxItems": 0
+                        },
+                        "heldClocks": {
+                          "maxItems": 0
+                        },
+                        "reasons": {
+                          "maxItems": 0
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "reasons": {
+                          "contains": {
+                            "enum": [
+                              "clock_unresolved",
+                              "reset_unresolved",
+                              "dedicated_controls_undefined"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "then": {
+                      "properties": {
+                        "complete": {
+                          "const": false
+                        }
+                      }
+                    },
+                    "else": {
+                      "properties": {
+                        "complete": {
+                          "const": true
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "maxItems": 1024
+            },
+            "counts": {
+              "type": "object",
+              "properties": {
+                "groups": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1024
+                },
+                "compatible": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1024
+                },
+                "conflict": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1024
+                },
+                "unresolved": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1024
+                },
+                "empty": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1024
+                }
+              },
+              "required": [
+                "groups",
+                "compatible",
+                "conflict",
+                "unresolved",
+                "empty"
+              ],
+              "additionalProperties": false
+            },
+            "stop": {
+              "type": "object",
+              "properties": {
+                "reason": {
+                  "enum": [
+                    "budget_groups",
+                    "budget_work",
+                    "budget_time"
+                  ]
+                },
+                "group": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1024
+                }
+              },
+              "required": [
+                "reason",
+                "group"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "policy",
+            "limits",
+            "complete",
+            "work",
+            "reasons",
+            "groups",
+            "rows",
+            "counts"
+          ],
+          "additionalProperties": false,
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "complete": {
+                    "const": true
+                  }
+                }
+              },
+              "then": {
+                "properties": {
+                  "reasons": {
+                    "maxItems": 0
+                  },
+                  "stop": false,
+                  "rows": {
+                    "items": {
+                      "properties": {
+                        "complete": {
+                          "const": true
+                        }
+                      }
+                    }
+                  },
+                  "counts": {
+                    "properties": {
+                      "unresolved": {
+                        "const": 0
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "if": {
+                "required": [
+                  "stop"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "complete": {
+                    "const": false
+                  }
+                }
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "formatVersion",
+        "algorithm",
+        "source",
+        "compatibility"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "compatibility": {
+                "properties": {
+                  "complete": {
+                    "const": true
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "properties": {
+                  "resets": {
+                    "properties": {
+                      "complete": {
+                        "const": true
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "$ref": "urn:dft-studio:analysis:wrapper-boundary:1#/oneOf/1"
+    }
+  ]
+}
